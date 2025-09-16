@@ -250,6 +250,13 @@ global_widget_defaults = {
         "icon": "ICON_PEOPLE_CARRY",
         "quickdock": "True",
     },
+    "Enemy Data Capture": {
+        "enabled": "True",
+        "category": "Gameplay",
+        "subcategory": "Utilities",
+        "icon": "ICON_INFO_CIRCLE",
+        "quickdock": "True",
+    },
     # TODO: Register your Widget here
 }
 
@@ -505,6 +512,13 @@ account_widget_defaults = {
         "category": "Gameplay",
         "subcategory": "Utilities",
         "icon": "ICON_PEOPLE_CARRY",
+        "quickdock": "True",
+    },
+    "Enemy Data Capture": {
+        "enabled": "True",
+        "category": "Gameplay",
+        "subcategory": "Utilities",
+        "icon": "ICON_INFO_CIRCLE",
         "quickdock": "True",
     },
     # TODO: Register your Widget here
