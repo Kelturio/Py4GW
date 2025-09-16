@@ -1,9 +1,11 @@
 from Py4GWCoreLib import *
+from Py4GWCoreLib.enums import outposts, explorables
 from Widgets.Blessed import Get_Blessed
 from aC_api import *
 from HeroAI.cache_data import *
 import time
 import math
+import os
 import importlib.util
 from aC_api.Blessing_Core import get_blessing_npc
 from aC_api.Titles import (
@@ -16,12 +18,11 @@ from aC_api.Titles import (
 module_name = "PyQuishAI "
 cache_data = CacheData()
 
-RECHECK_INTERVAL_MS = 500 # Used for followpathandaggro 
+RECHECK_INTERVAL_MS = 500 # Used for followpathandaggro
 ARRIVAL_TOLERANCE = 250  # Used for path point arrival
 
-#NEW: Auto-load selected map script
+# Auto-load selected map script
 MAPS_DIR = "PyQuishAI_maps"
-
 
 # Default placeholders (used if no dynamic script is selected)
 OUTPOST_ID = 389
@@ -40,7 +41,8 @@ class FSMVars:
         self.exact_movement_handler = Routines.Movement.FollowXY(tolerance=500)
         self.outpost_pathing = Routines.Movement.PathHandler(outpost_path)
         self.explorable_pathing = Routines.Movement.PathHandler(map_path)
-        self.path_and_aggro = FollowPathAndAggro(self.explorable_pathing, self.movement_handler, aggro_range=2500, log_actions=True)
+        self.path_and_aggro = None  # set after map load
+
         self.chest_found_pathing = None
         self.loot_chest = FSM("LootChestStateMachine")
         self.sell_to_vendor = FSM("VendorStateMachine")
@@ -61,14 +63,17 @@ class FSMVars:
         self.blessing_points = []
         self.blessing_triggered = set()
         self.blessing_timers = {}
+        # Waypoint cache for UI/controls
+        self.explorable_waypoints = []
 
 class BotVars:
     def __init__(self):
+        # Make the window resizable by removing AlwaysAutoResize
         self.window_module = ImGui.WindowModule(
             module_name,
             window_name="MQVQ Bot",
-            window_size=(300, 300),
-            window_flags=PyImGui.WindowFlags.AlwaysAutoResize
+            window_size=(420, 560),
+            window_flags=0  # resizable via corner drag
         )
         self.is_running = False
         self.is_paused = False
@@ -86,7 +91,19 @@ class BotVars:
         self.success_rate = 0.0
         self.selected_region = ""
         self.selected_map = ""
-        self.map_data = {}
+        self.map_data = {}  # stores map_path, outpost_path, ids, etc.
+
+        # UI collapse state
+        self.show_controls = True
+        self.show_map_select = True
+        self.show_state = True
+        self.show_stats = True
+        self.show_titles = True
+
+        # Segment detail toggles (per loaded map)
+        self.segment_open = {}           # {seg_index: bool}
+        self.show_outpost_list = False   # toggle listing outpost waypoints
+        self.show_merged_list = False    # toggle listing merged explorable WPs
 
 def trigger_blessing_at(point):
     if point in FSM_vars.blessing_triggered:
@@ -103,25 +120,128 @@ def trigger_blessing_at(point):
     Get_Blessed()
     FSM_vars.blessing_triggered.add(point)
 
+# -----------------------------------------------
+# Helpers to introspect / sync PathHandler indices
+# -----------------------------------------------
+
+def _get_waypoints_from_handler(ph):
+    """Try to pull the underlying waypoint list from a PathHandler-like object."""
+    for name in ('waypoints', 'path', 'points', '_waypoints', '_path', '_points'):
+        if hasattr(ph, name):
+            lst = getattr(ph, name)
+            if isinstance(lst, (list, tuple)):
+                return list(lst)
+    # Fallback: if the handler exposes a getter
+    for name in ('get_waypoints', 'get_path', 'get_points'):
+        if hasattr(ph, name):
+            try:
+                lst = getattr(ph, name)()
+                if isinstance(lst, (list, tuple)):
+                    return list(lst)
+            except Exception:
+                pass
+    return []
+
+def _get_index_from_handler(ph):
+    """Best-effort current index lookup from a PathHandler-like object."""
+    for name in ('index', 'idx', 'current_index', '_index', '_current_index'):
+        if hasattr(ph, name):
+            try:
+                val = int(getattr(ph, name))
+                return val
+            except Exception:
+                pass
+    return None
+
+def _set_index_on_handler(ph, idx):
+    """Try to set the internal index on PathHandler; if not possible, return False."""
+    # Prefer a setter if present
+    for name in ('set_index', 'SetIndex'):
+        if hasattr(ph, name):
+            try:
+                getattr(ph, name)(int(idx))
+                return True
+            except Exception:
+                pass
+    # Try known field names
+    for name in ('index', 'idx', 'current_index', '_index', '_current_index'):
+        if hasattr(ph, name):
+            try:
+                setattr(ph, name, int(idx))
+                return True
+            except Exception:
+                pass
+    return False
+
+def _clamp(n, low, high):
+    return max(low, min(high, n))
+
+# -----------------------------------------------
+# Map/segment helpers (for UI and controls)
+# -----------------------------------------------
+
+def _compute_map_stats():
+    """Return a dict with friendly counts for UI."""
+    md = bot_vars.map_data or {}
+    map_path = md.get("map_path", [])
+    outpost_path_local = md.get("outpost_path", [])
+    stats = {
+        "region": bot_vars.selected_region or "",
+        "map_name": bot_vars.selected_map or "",
+        "map_id": md.get("map_id", MAP_ID),
+        "outpost_id": md.get("outpost_id", OUTPOST_ID),
+        "segments": 0,
+        "segments_wp_counts": [],
+        "explorable_wp_total": len(FSM_vars.explorable_waypoints) if FSM_vars.explorable_waypoints else 0,
+        "outpost_wp_total": len(outpost_path_local) if isinstance(outpost_path_local, list) else 0,
+        "bless_count": len(FSM_vars.blessing_points) if FSM_vars.blessing_points else 0,
+        "bless_preview": [],
+    }
+
+    if isinstance(map_path, list) and all(isinstance(x, dict) for x in map_path):
+        stats["segments"] = len(map_path)
+        for seg in map_path:
+            pts = seg.get("path", []) or []
+            stats["segments_wp_counts"].append(len(pts))
+    elif isinstance(map_path, list):
+        # flat list of waypoints — treat as one segment
+        stats["segments"] = 1 if map_path else 0
+        stats["segments_wp_counts"] = [len(map_path)] if map_path else []
+
+    # bless preview (up to first 5)
+    if FSM_vars.blessing_points:
+        try:
+            preview = [tuple(map(int, (x, y))) for (x, y) in FSM_vars.blessing_points[:5]]
+        except Exception:
+            preview = FSM_vars.blessing_points[:5]
+        stats["bless_preview"] = preview
+
+    return stats
+
+def _segment_base_index(map_path, seg_idx):
+    """Return the global index offset for a given segment index."""
+    if not (isinstance(map_path, list) and all(isinstance(x, dict) for x in map_path)):
+        return 0
+    total = 0
+    for k in range(seg_idx):
+        pts = map_path[k].get("path", []) or []
+        total += len(pts)
+    return total
+
 class FollowPathAndAggro:
-    def __init__(self, path_handler, follow_handler, aggro_range=2500, log_actions=False):
+    def __init__(self, path_handler, follow_handler, aggro_range=2500, log_actions=False, waypoints=None):
         self.path_handler       = path_handler
         self.follow_handler     = follow_handler
         self.aggro_range        = aggro_range
         self.log_actions        = log_actions
         self._last_scanned_enemy = None
         # ── THROTTLING STATE ───────────────────────────────────────────
-        # only re-scan if we've moved this far (¾ of aggro_range)
         self._scan_move_thresh   = aggro_range * 0.75
-        # track the last position we scanned at
         self._last_scan_pos      = Player.GetXY()
-        # also still guard by time interval (ms)
         self._scan_interval_ms   = 500
         self._enemy_scan_timer   = Timer()
-        # for ChangeTarget/Move dedupe
         self._last_target_id     = None
         self._last_move_target   = None
-        # instrumentation counters & timer
         self._stats_start_time      = time.time()
         self.enemy_array_fetches    = 0
         self.change_target_calls    = 0
@@ -134,13 +254,168 @@ class FollowPathAndAggro:
         self._current_path_point    = None
         self.status_message         = "Waiting to begin..."
 
+        # Waypoint cache + debug controls
+        self._external_waypoints = list(waypoints) if waypoints else []
+        self._forced_index = None        # one-shot command target
+        self._debug_hold   = False       # if True, do not auto-advance
+
+        # ── New proximity rules for fluid motion ──────────────────────
+        # If close to WP and no enemies -> skip stopping & flow to next
+        self.early_advance_dist  = int(ARRIVAL_TOLERANCE * 1.5)
+        # While in combat, treat WP as reached if we got this close
+        self.combat_reach_dist   = int(ARRIVAL_TOLERANCE * 1.25)
+
+    # --- Debug control API ---
+    def enable_hold(self): self._debug_hold = True
+    def release_hold(self):
+        self._debug_hold = False
+        self._forced_index = None
+
+    def set_active_index(self, idx):
+        """Set the internal active waypoint index without forcing immediate movement."""
+        wps = self.get_waypoints()
+        if not wps:
+            self.status_message = "No waypoints available."
+            return False
+        idx = _clamp(idx, 0, len(wps) - 1)
+        _set_index_on_handler(self.path_handler, idx)
+        # Clear any pending forced move and HOLD; next tick will use advance() from this index.
+        self._forced_index = None
+        self.release_hold()
+        self._current_path_point = None
+        self.follow_handler._following = False
+        self.follow_handler.arrived = False
+        self.status_message = f"[DEBUG] Set active index to {idx+1}/{len(wps)}"
+        if self.log_actions:
+            ConsoleLog("FollowPathAndAggro", self.status_message, Console.MessageType.Info)
+        return True
+
+    # ------------- Waypoint Debug Utilities -----------------
+
+    def get_waypoints(self):
+        # Prefer explicit cache
+        if self._external_waypoints:
+            return self._external_waypoints
+        # Try handler
+        wps = _get_waypoints_from_handler(self.path_handler)
+        if wps:
+            return wps
+        # Last resort: FSM cache (set at map load)
+        if FSM_vars.explorable_waypoints:
+            return FSM_vars.explorable_waypoints
+        return []
+
+    def get_current_waypoint(self):
+        if self._current_path_point is not None:
+            return self._current_path_point
+        # Fallback: nearest to player for display if we haven't moved yet
+        wps = self.get_waypoints()
+        if wps:
+            try:
+                px, py = Player.GetXY()
+                idx = min(range(len(wps)), key=lambda i: Utils.Distance((px, py), wps[i]))
+                return wps[idx]
+            except Exception:
+                pass
+        return None
+
+    def get_current_index(self):
+        """Best-effort current index: forced index -> handler -> from current point -> nearest."""
+        if isinstance(self._forced_index, int):
+            return _clamp(self._forced_index, 0, max(0, len(self.get_waypoints()) - 1))
+        idx = _get_index_from_handler(self.path_handler)
+        if isinstance(idx, int):
+            return idx
+        wps = self.get_waypoints()
+        if self._current_path_point in wps:
+            return wps.index(self._current_path_point)
+        if wps:
+            try:
+                px, py = Player.GetXY()
+                return min(range(len(wps)), key=lambda i: Utils.Distance((px, py), wps[i]))
+            except Exception:
+                pass
+        return None
+
+    def force_move_to_index(self, idx, sticky=True):
+        """Jump to a waypoint index for debugging. If sticky=True, enter HOLD mode."""
+        wps = self.get_waypoints()
+        if not wps:
+            self.status_message = "No waypoints available."
+            return False
+        idx = _clamp(idx, 0, len(wps) - 1)
+        pt = wps[idx]
+        _set_index_on_handler(self.path_handler, idx)  # best-effort sync
+        self._forced_index = idx
+        if sticky:
+            self.enable_hold()
+        # Move now; do not auto-increment
+        self.follow_handler._following = False
+        self.follow_handler.arrived = False
+        self._current_path_point = pt
+        self.follow_handler.move_to_waypoint(*pt)
+        self.status_message = f"[DEBUG] Forced move -> wp {idx+1}/{len(wps)} {pt}" + (" [HOLD]" if self._debug_hold else "")
+        if self.log_actions:
+            ConsoleLog("FollowPathAndAggro", self.status_message, Console.MessageType.Warning)
+        return True
+
+    def seek_relative(self, delta, sticky=True):
+        """Move to next/prev waypoint relative to the current one (defaults to HOLD)."""
+        wps = self.get_waypoints()
+        if not wps:
+            self.status_message = "No waypoints to seek."
+            return False
+        cur_idx = self.get_current_index()
+        if cur_idx is None:
+            cur_idx = 0
+        new_idx = _clamp(cur_idx + delta, 0, len(wps) - 1)
+        return self.force_move_to_index(new_idx, sticky=sticky)
+
+    # ---------------- New helpers for fluid advancement ----------------
+
+    def _advance_index_only(self) -> bool:
+        """Advance internal path index without issuing a move (used during combat)."""
+        wps = self.get_waypoints()
+        if not wps:
+            return False
+        cur = self.get_current_index()
+        if cur is None:
+            return False
+        nxt = cur + 1
+        if nxt >= len(wps):
+            return False
+        _set_index_on_handler(self.path_handler, nxt)
+        self._current_path_point = wps[nxt]
+        return True
+
+    def _advance_index_and_move(self) -> bool:
+        """Advance to next waypoint and immediately move to it (fluid pathing)."""
+        wps = self.get_waypoints()
+        if not wps:
+            return False
+        cur = self.get_current_index()
+        if cur is None:
+            return False
+        nxt = cur + 1
+        if nxt >= len(wps):
+            return False
+        _set_index_on_handler(self.path_handler, nxt)
+        next_point = wps[nxt]
+        self._current_path_point = next_point
+        self.follow_handler.move_to_waypoint(*next_point)
+        self.status_message = f"Flowing to next wp {nxt+1}/{len(wps)} {next_point}"
+        if self.log_actions:
+            ConsoleLog("FollowPathAndAggro", self.status_message, Console.MessageType.Info)
+        return True
+
+    # --------------------------------------------------------
+
     def _throttled_scan(self):
         curr_pos   = Player.GetXY()
         dist_moved = Utils.Distance(curr_pos, self._last_scan_pos)
 
         if (dist_moved >= self._scan_move_thresh
                 or self._enemy_scan_timer.HasElapsed(self._scan_interval_ms)):
-            # re-do the heavy call
             self._last_scanned_enemy = self._find_nearest_enemy()
             self._last_scan_pos      = curr_pos
             self._enemy_scan_timer.Reset()
@@ -148,9 +423,7 @@ class FollowPathAndAggro:
         return self._last_scanned_enemy
 
     def _find_nearest_enemy(self):
-        # instrumentation
         self.enemy_array_fetches += 1
-
         my_pos = Player.GetXY()
         enemies = [
             e for e in AgentArray.GetEnemyArray()
@@ -160,91 +433,80 @@ class FollowPathAndAggro:
             return None
         return AgentArray.Sort.ByDistance(enemies, my_pos)[0]
 
-    def _approach_enemy(self):
-        if not self._current_target_enemy or not Agent.IsAlive(self._current_target_enemy):
-            self._current_target_enemy = self._find_nearest_enemy()
-            if not self._current_target_enemy:
-                self._mode = 'path'
-                self.status_message = "No enemies nearby."
-                return
-
-        if self._enemy_scan_timer.HasElapsed(self._scan_interval_ms):
-            new_enemy = self._find_nearest_enemy()
-            if new_enemy:
-                self._current_target_enemy = new_enemy
-            self._enemy_scan_timer.Reset()
-
-        if not self._current_target_enemy:
-            self._mode = 'path'
-            self.status_message = "Returning to path mode."
-            return
-
-        try:
-            tx, ty = Agent.GetXY(self._current_target_enemy)
-        except Exception:
-            self._mode = 'path'
-            self.status_message = "Error getting target position."
-            return
-
-        # ── target only if it’s a new one ───────────────────────────
-        if self._current_target_enemy != self._last_target_id:
-            Player.ChangeTarget(self._current_target_enemy)
-            self.change_target_calls += 1
-            self._last_target_id = self._current_target_enemy
-
-        # ── move only if the coords differ ──────────────────────────
-        new_move = (int(tx), int(ty))
-        if new_move != self._last_move_target:
-            Player.Move(*new_move)
-            self.move_calls += 1
-            self._last_move_target = new_move
-
-        self.status_message = f"Approaching target at ({int(tx)}, {int(ty)})"
-        my_pos = Player.GetXY()
-        if Utils.Distance(my_pos, (tx, ty)) <= Range.Area.value:
-            self.status_message = "In combat range."
-
     def _advance_to_next_point(self):
+        wps = self.get_waypoints()
+
+        # HOLD mode: do not advance automatically.
+        if self._debug_hold:
+            if self._forced_index is not None and wps:
+                idx = _clamp(self._forced_index, 0, len(wps) - 1)
+                next_point = wps[idx]
+                _set_index_on_handler(self.path_handler, idx)
+                self._current_path_point = next_point
+                self.follow_handler.move_to_waypoint(*next_point)
+                self.status_message = f"[DEBUG] Holding at wp {idx+1}/{len(wps)} {next_point} [HOLD]"
+                self._forced_index = None
+            return
+
+        # One-shot forced move when NOT holding
+        if self._forced_index is not None and wps:
+            idx = _clamp(self._forced_index, 0, len(wps) - 1)
+            next_point = wps[idx]
+            _set_index_on_handler(self.path_handler, idx)
+            self._current_path_point = next_point
+            self.follow_handler.move_to_waypoint(*next_point)
+            self.status_message = f"[DEBUG] Moving to wp {idx+1}/{len(wps)} {next_point}"
+            self._forced_index = None
+            return
+
         if not self.follow_handler.is_following():
             next_point = self.path_handler.advance()
             if not next_point:
-                # SAFETY: No next point found
                 self.status_message = "No valid next waypoint! Stopping pathing."
                 if self.log_actions:
                     ConsoleLog("FollowPathAndAggro", "PathHandler returned None – halting movement.", Console.MessageType.Warning)
-                
-                # Optional fallback: reset to start or nearest point
                 if hasattr(self.path_handler, "reset"):
-                    self.path_handler.reset()  # resets to first node
+                    self.path_handler.reset()
                     retry_point = self.path_handler.advance()
                     if retry_point:
                         self._current_path_point = retry_point
                         self.follow_handler.move_to_waypoint(*retry_point)
-                        self.status_message = f"Path reset → moving to {retry_point}"
+                        self.status_message = f"Path reset -> moving to {retry_point}"
                         ConsoleLog("FollowPathAndAggro", f"Path reset after failure, moving to {retry_point}", Console.MessageType.Warning)
-                return  # do nothing else this tick
-            
-            # If we got a valid next_point
+                return
+
             self._current_path_point = next_point
             self.follow_handler.move_to_waypoint(*next_point)
             self.status_message = f"Moving to {next_point}"
             if self.log_actions:
                 ConsoleLog("FollowPathAndAggro", f"Moving to {next_point}", Console.MessageType.Info)
         else:
-            # SAFETY: make sure _current_path_point is valid
             if not self._current_path_point:
                 self.status_message = "Lost current path point, hang on a second"
-                if self.log_actions:
-                    pass
                 self.follow_handler._following = False
                 return
-            
+
             px, py = Player.GetXY()
             tx, ty = self._current_path_point
-            if Utils.Distance((px, py), (tx, ty)) <= ARRIVAL_TOLERANCE:
-                self.follow_handler._following = False
-                self.follow_handler.arrived    = True
-                self.status_message            = "Arrived at waypoint."
+            dist_to_wp = Utils.Distance((px, py), (tx, ty))
+
+            # ── FLUID ADVANCE: if close and no enemies, don't stop; flow to next
+            no_enemies = (self._last_scanned_enemy is None)
+            if no_enemies and dist_to_wp <= self.early_advance_dist:
+                if not self._advance_index_and_move():
+                    # we're at the final wp – now we can stop
+                    self.follow_handler._following = False
+                    self.follow_handler.arrived    = True
+                    self.status_message            = "Arrived at final waypoint."
+                return
+
+            # Fallback: if we truly reached the point, move on immediately (no pause)
+            if dist_to_wp <= ARRIVAL_TOLERANCE:
+                if not self._advance_index_and_move():
+                    self.follow_handler._following = False
+                    self.follow_handler.arrived    = True
+                    self.status_message            = "Arrived at final waypoint."
+                return
 
     def _maybe_log_stats(self):
         elapsed = time.time() - self._stats_start_time
@@ -255,14 +517,12 @@ class FollowPathAndAggro:
                 f"changeTarget={self.change_target_calls}, move={self.move_calls}",
                 Console.MessageType.Info
             )
-            # reset
             self._stats_start_time     = time.time()
             self.enemy_array_fetches   = 0
             self.change_target_calls   = 0
             self.move_calls            = 0
 
     def update(self):
-        # periodically emit stats
         self._maybe_log_stats()
 
         if CacheData().in_looting_routine:
@@ -276,7 +536,7 @@ class FollowPathAndAggro:
             for point in FSM_vars.blessing_points:
                 if point in FSM_vars.blessing_triggered:
                     continue
-                if Utils.Distance((px, py), point) < 1000:
+                if Utils.Distance((px, py), point) < 2500:
                     self.status_message = f"Near blessing point {point}"
                     trigger_blessing_at(point)
                     break
@@ -294,13 +554,24 @@ class FollowPathAndAggro:
                 self._advance_to_next_point()
 
         elif self._mode == 'combat':
+            # If current waypoint is close enough during combat, count it as reached
+            wp = self.get_current_waypoint()
+            if wp is not None:
+                try:
+                    px, py = Player.GetXY()
+                    dist_wp = Utils.Distance((px, py), wp)
+                    if dist_wp <= self.combat_reach_dist:
+                        if self._advance_index_only():
+                            self.status_message = "Marked waypoint reached during combat."
+                except Exception:
+                    pass
+
             if not self._current_target_enemy or not Agent.IsAlive(self._current_target_enemy):
                 self._mode                  = 'path'
                 self._current_target_enemy  = None
                 self.status_message         = "Combat done. Switching to path mode."
                 return
 
-            # ── unified, throttled scan ──────────────────────────────
             self._current_target_enemy = self._throttled_scan()
             if not self._current_target_enemy:
                 self._mode = 'path'
@@ -315,13 +586,11 @@ class FollowPathAndAggro:
                 self.status_message        = "Enemy fetch failed. Returning to path."
                 return
 
-            # ── target only if it’s a new one ───────────────────────────
             if self._current_target_enemy != self._last_target_id:
                 Player.ChangeTarget(self._current_target_enemy)
                 self.change_target_calls += 1
                 self._last_target_id = self._current_target_enemy
 
-            # ── move only if the coords differ ──────────────────────────
             new_move = (int(tx), int(ty))
             if new_move != self._last_move_target:
                 Player.Move(*new_move)
@@ -330,7 +599,6 @@ class FollowPathAndAggro:
 
             self.status_message = f"Closing in on enemy at ({int(tx)}, {int(ty)})"
 
-        # always let follow-handler tick
         self.follow_handler.update()
 
 def load_map_script():
@@ -355,17 +623,40 @@ def load_map_script():
             if isinstance(segment, dict) and "bless" in segment:
                 bless_points.append(segment["bless"])
 
+    # Merge to a flat, explorable waypoint list and cache it
+    merged = merge_map_segments(data)
+    FSM_vars.explorable_waypoints = list(merged) if merged else []
+
     bot_vars.map_data = {
         "map_path": data,
         "outpost_path": outpost,
         "outpost_id": ids.get("outpost_id", OUTPOST_ID),
-        "map_id": ids.get("map_id", MAP_ID)
+        "map_id": ids.get("map_id", MAP_ID),
     }
+
+    # Reset per-segment open states
+    bot_vars.segment_open = {}
+    if isinstance(data, list) and all(isinstance(x, dict) for x in data):
+        for i in range(len(data)):
+            bot_vars.segment_open[i] = False
+    elif isinstance(data, list) and data:
+        bot_vars.segment_open[0] = False
+
+    bot_vars.show_outpost_list = False
+    bot_vars.show_merged_list = False
 
     FSM_vars.blessing_points = bless_points
     FSM_vars.outpost_pathing = Routines.Movement.PathHandler(bot_vars.map_data["outpost_path"])
-    FSM_vars.explorable_pathing = Routines.Movement.PathHandler(merge_map_segments(bot_vars.map_data["map_path"]))
-    FSM_vars.path_and_aggro = FollowPathAndAggro(FSM_vars.explorable_pathing, FSM_vars.movement_handler, aggro_range=2500, log_actions=True)
+    FSM_vars.explorable_pathing = Routines.Movement.PathHandler(FSM_vars.explorable_waypoints)
+
+    # Rebuild FollowPathAndAggro with reliable waypoint cache
+    FSM_vars.path_and_aggro = FollowPathAndAggro(
+        FSM_vars.explorable_pathing,
+        FSM_vars.movement_handler,
+        aggro_range=2500,
+        log_actions=True,
+        waypoints=FSM_vars.explorable_waypoints
+    )
     bot_vars.starting_map = bot_vars.map_data["outpost_id"]
 
 def merge_map_segments(data):
@@ -380,15 +671,13 @@ def merge_map_segments(data):
 
 # Add combat control functions
 
-
-
 def check_combat():
     return Routines.Checks.Agents.InDanger(Range.Area)
 
-def start_combat(): 
+def start_combat():
     bot_vars.combat_started = True
 
-def stop_combat(): 
+def stop_combat():
     bot_vars.combat_started = False
 
 def pause_all(debug: bool = False):
@@ -406,7 +695,6 @@ def resume_all(debug: bool = False):
         if debug:
             ConsoleLog("FSM", "[DEBUG] Resuming Main FSM", Console.MessageType.Warning)
         FSM_vars.state_machine.resume()
-
     FSM_vars.movement_handler.resume()
 
 # Modify InitializeStateMachine
@@ -489,303 +777,480 @@ def ResetEnvironment():
     FSM_vars.movement_handler.reset()
     if bot_vars.combat_started:
         stop_combat()
-    # Remove the combat_handler.reset_all() call as it doesn't exist
 
 # --------------------------------------------------------------------------------------------------
-# NEW THEME COLORS (rename to English‐friendly names)
+# THEME COLORS
 # --------------------------------------------------------------------------------------------------
 
-# 1) Window & Frame backgrounds (dark charcoal, slightly translucent)
 window_bg_color       = Color(28,  28,  28, 230).to_tuple_normalized()
 frame_bg_color        = Color(48,  48,  48, 230).to_tuple_normalized()
 frame_hover_color     = Color(68,  68,  68, 230).to_tuple_normalized()
 frame_active_color    = Color(58,  58,  58, 230).to_tuple_normalized()
-
-# 2) Body text (off‐white for maximum readability)
 body_text_color       = Color(139, 131, 99, 255).to_tuple_normalized()
-
-# 3) Disabled text (mid‐gray for grayed‐out buttons)
 disabled_text_color   = Color(140, 140, 140, 255).to_tuple_normalized()
-
-# 4) Separator lines (medium‐gray)
 separator_color       = Color(90,  90,  90, 255).to_tuple_normalized()
-
-# 5) Header text (use the same bright off‐white as body, or tweak to slightly brighter)
-header_color          = Color(136, 117, 44, 255).to_tuple_normalized()  # “Statistics:” style: pale gold
-#    You can change (251,241,166) to any off‐white / pale‐yellow RGB you like.
-
-# 6) Icon accent color (a more “exciting” golden‐teal that fits the palette)
+header_color          = Color(136, 117, 44, 255).to_tuple_normalized()
 icon_color            = Color(177, 152, 55, 255).to_tuple_normalized()
-
-# 7) Neutral button colors (light gray → slightly brighter on hover → slightly darker on active)
-neutral_button        = Color(33, 51, 58, 255).to_tuple_normalized()  # default button
-neutral_button_hover  = Color(140, 140, 140, 255).to_tuple_normalized()  # hovered
-neutral_button_active = Color( 90,  90,  90, 255).to_tuple_normalized()  # pressed
-
-# 8) Combo‐box header (still a dark green tint, if you prefer; otherwise gray)
+neutral_button        = Color(33, 51, 58, 255).to_tuple_normalized()
+neutral_button_hover  = Color(140, 140, 140, 255).to_tuple_normalized()
+neutral_button_active = Color(90, 90, 90, 255).to_tuple_normalized()
 header_bg_color       = Color(33, 51, 58, 255).to_tuple_normalized()
 header_hover_color    = Color(33, 51, 58, 255).to_tuple_normalized()
 header_active_color   = Color(95, 145,  95, 255).to_tuple_normalized()
 
-
 # --------------------------------------------------------------------------------------------------
-# UPDATED DrawWindow() WITH EVERY ICON & HEADING COLORED
+# DrawWindow()
 # --------------------------------------------------------------------------------------------------
 
 def DrawWindow():
-    """Renders a single, themed ImGui window using our new neutral‐gray buttons,
-    pale‐gold headings, off‐white body text, and punchy icon color."""
-    # 1) Begin the window
-    if not PyImGui.begin(module_name, PyImGui.WindowFlags.AlwaysAutoResize):
+    # Remove AlwaysAutoResize to allow manual corner drag resizing
+    if not PyImGui.begin(module_name):
         PyImGui.end()
         return
 
-    # 2) Push “global” style colors: WindowBg, FrameBg, FrameBgHovered, FrameBgActive, Text, Separator
-    PyImGui.push_style_color(PyImGui.ImGuiCol.WindowBg,       window_bg_color)   # push #1
-    PyImGui.push_style_color(PyImGui.ImGuiCol.FrameBg,        frame_bg_color)    # push #2
-    PyImGui.push_style_color(PyImGui.ImGuiCol.FrameBgHovered, frame_hover_color) # push #3
-    PyImGui.push_style_color(PyImGui.ImGuiCol.FrameBgActive,  frame_active_color)# push #4
-    PyImGui.push_style_color(PyImGui.ImGuiCol.Text,           body_text_color)   # push #5
-    PyImGui.push_style_color(PyImGui.ImGuiCol.Separator,      separator_color)   # push #6
+    PyImGui.push_style_color(PyImGui.ImGuiCol.WindowBg,       window_bg_color)
+    PyImGui.push_style_color(PyImGui.ImGuiCol.FrameBg,        frame_bg_color)
+    PyImGui.push_style_color(PyImGui.ImGuiCol.FrameBgHovered, frame_hover_color)
+    PyImGui.push_style_color(PyImGui.ImGuiCol.FrameBgActive,  frame_active_color)
+    PyImGui.push_style_color(PyImGui.ImGuiCol.Text,           body_text_color)
+    PyImGui.push_style_color(PyImGui.ImGuiCol.Separator,      separator_color)
+    PyImGui.push_style_color(PyImGui.ImGuiCol.Header,         header_bg_color)
+    PyImGui.push_style_color(PyImGui.ImGuiCol.HeaderHovered,  header_hover_color)
+    PyImGui.push_style_color(PyImGui.ImGuiCol.HeaderActive,   header_active_color)
+    PyImGui.push_style_color(PyImGui.ImGuiCol.Button,         neutral_button)
+    PyImGui.push_style_color(PyImGui.ImGuiCol.ButtonHovered,  neutral_button_hover)
+    PyImGui.push_style_color(PyImGui.ImGuiCol.ButtonActive,   neutral_button_active)
 
-    # 3) Push “combo header” colors (if you still want a greenish tint for dropdowns):
-    PyImGui.push_style_color(PyImGui.ImGuiCol.Header,         header_bg_color)   # push #7
-    PyImGui.push_style_color(PyImGui.ImGuiCol.HeaderHovered,  header_hover_color)# push #8
-    PyImGui.push_style_color(PyImGui.ImGuiCol.HeaderActive,   header_active_color)# push #9
+    # ====== Run Controls (compact) ======
+    if PyImGui.collapsing_header("Run Controls", PyImGui.TreeNodeFlags.DefaultOpen):
+        # Start/Stop (compact)
+        btn_label = ">" if not bot_vars.is_running else "X"
+        if PyImGui.button(btn_label, width=24):
+            if not bot_vars.is_running:
+                StartBot()
+            else:
+                StopBot()
 
-    # 4) Push “button accent” colors (now neutral grays)
-    PyImGui.push_style_color(PyImGui.ImGuiCol.Button,         neutral_button)         # push #10
-    PyImGui.push_style_color(PyImGui.ImGuiCol.ButtonHovered,  neutral_button_hover)   # push #11
-    PyImGui.push_style_color(PyImGui.ImGuiCol.ButtonActive,   neutral_button_active)  # push #12
-
-    # --------------------------------
-    # BEGIN DRAWING ALL WIDGETS
-    # --------------------------------
-
-    # ---- Start / Stop Button ----
-    #   Renders in neutral gray by default; changes on hover/press.
-    btn_label = (
-        "Start bot " + IconsFontAwesome5.ICON_PLAY_CIRCLE
-        if not bot_vars.is_running
-        else "Stop bot  " + IconsFontAwesome5.ICON_STOP_CIRCLE
-    )
-    if PyImGui.button(btn_label, width=140):
+        # Pause (compact)
+        PyImGui.same_line(0, 4)
         if not bot_vars.is_running:
-            StartBot()
+            PyImGui.push_style_color(PyImGui.ImGuiCol.Text, disabled_text_color)
+            PyImGui.button("||", width=24)
+            PyImGui.pop_style_color(1)
         else:
-            StopBot()
+            if PyImGui.button("||", width=24):
+                TogglePause()
 
-    # ---- Pause / Resume Button (same line) ----
-    PyImGui.same_line(0, 5)
-    if not bot_vars.is_running:
-        # Bot not running → render “Pause bot” in disabled gray
-        PyImGui.push_style_color(PyImGui.ImGuiCol.Text, disabled_text_color)  # push #13
-        PyImGui.button("Pause bot  " + IconsFontAwesome5.ICON_PAUSE_CIRCLE, width=140)
-        PyImGui.pop_style_color(1)  # pop that single “Text” change
-    else:
-        pause_label = "Pause bot  " + IconsFontAwesome5.ICON_PAUSE_CIRCLE
-        if PyImGui.button(pause_label, width=140):
-            TogglePause()
+        # Hold toggle (compact)
+        PyImGui.same_line(0, 4)
+        hold_on = bool(FSM_vars.path_and_aggro and FSM_vars.path_and_aggro._debug_hold)
+        hold_label = "R" if hold_on else "H"  # R=resume auto, H=hold
+        if PyImGui.button(hold_label, width=24):
+            if FSM_vars.path_and_aggro:
+                if hold_on:
+                    FSM_vars.path_and_aggro.release_hold()
+                else:
+                    FSM_vars.path_and_aggro.enable_hold()
 
-    PyImGui.separator()
+        PyImGui.separator()
 
-    # ---- Select Region (Icon + Heading) ----
-    #   Icon in punchy accent color:
-    PyImGui.push_style_color(PyImGui.ImGuiCol.Text, icon_color)       # push #14
-    PyImGui.text(IconsFontAwesome5.ICON_GLOBE_EUROPE)
-    PyImGui.pop_style_color(1)
+        # Waypoint bar + compact prev/next
+        wps = FSM_vars.path_and_aggro.get_waypoints() if FSM_vars.path_and_aggro else []
+        cur_pt = FSM_vars.path_and_aggro.get_current_waypoint() if FSM_vars.path_and_aggro else None
+        cur_idx = FSM_vars.path_and_aggro.get_current_index() if FSM_vars.path_and_aggro else None
 
-    #   Heading “Select Region:” in pale‐gold
-    PyImGui.same_line(0, 3)
-    PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)     # push #15
-    PyImGui.text("Select Region:")
-    PyImGui.pop_style_color(1)
-
-    #   Combo itself uses frame_bg_color + body_text_color (already pushed)
-
-    regions = sorted([d for d in os.listdir(MAPS_DIR) if os.path.isdir(os.path.join(MAPS_DIR, d))])
-    if bot_vars.selected_region in regions:
-        region_index = regions.index(bot_vars.selected_region)
-    else:
-        region_index = 0
-
-    region_index = PyImGui.combo("##Region", region_index, regions)
-    if region_index < len(regions):
-        new_region = regions[region_index]
-        if bot_vars.selected_region != new_region:
-            bot_vars.selected_region = new_region
-            bot_vars.selected_map = ""
-
-    # ---- Select Map (Icon + Heading) ----
-    if bot_vars.selected_region:
-        # Icon in punchy accent:
-        PyImGui.push_style_color(PyImGui.ImGuiCol.Text, icon_color)   # push #16
-        PyImGui.text(IconsFontAwesome5.ICON_MAP)
+        PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
+        PyImGui.text("Active WP:")
         PyImGui.pop_style_color(1)
 
-        # Heading “Select Map:” in pale‐gold
+        PyImGui.same_line(0, 4)
+        if cur_pt is not None and wps:
+            total = len(wps)
+            idx_display = (cur_idx + 1) if isinstance(cur_idx, int) else "?"
+            try:
+                x, y = int(cur_pt[0]), int(cur_pt[1])
+                hold_tag = " [HOLD]" if hold_on else ""
+                PyImGui.text(f"{idx_display}/{total} ({x},{y}){hold_tag}")
+            except Exception:
+                PyImGui.text(f"{idx_display}/{total} {cur_pt}{' [HOLD]' if hold_on else ''}")
+        else:
+            PyImGui.text("(none)")
+
+        PyImGui.same_line(0, 6)
+        if PyImGui.button("<", width=22):
+            if FSM_vars.path_and_aggro:
+                FSM_vars.path_and_aggro.seek_relative(-1, sticky=True)
+        PyImGui.same_line(0, 2)
+        if PyImGui.button(">", width=22):
+            if FSM_vars.path_and_aggro:
+                FSM_vars.path_and_aggro.seek_relative(+1, sticky=True)
+
+    # ====== Map Selection ======
+    if PyImGui.collapsing_header("Map Selection", PyImGui.TreeNodeFlags.DefaultOpen):
+        PyImGui.push_style_color(PyImGui.ImGuiCol.Text, icon_color)
+        PyImGui.text(IconsFontAwesome5.ICON_GLOBE_EUROPE)
+        PyImGui.pop_style_color(1)
         PyImGui.same_line(0, 3)
-        PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color) # push #17
-        PyImGui.text("Select Map:")
+        PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
+        PyImGui.text("Select Region / Map")
         PyImGui.pop_style_color(1)
 
-        maps = sorted([
-            f[:-3] for f in os.listdir(os.path.join(MAPS_DIR, bot_vars.selected_region))
-            if f.endswith(".py")
-        ])
-        if bot_vars.selected_map in maps:
-            map_index = maps.index(bot_vars.selected_map)
-        else:
-            map_index = 0
+        regions = sorted([d for d in os.listdir(MAPS_DIR) if os.path.isdir(os.path.join(MAPS_DIR, d))])
+        region_index = regions.index(bot_vars.selected_region) if bot_vars.selected_region in regions else 0
+        region_index = PyImGui.combo("##Region", region_index, regions)
+        if region_index < len(regions):
+            new_region = regions[region_index]
+            if bot_vars.selected_region != new_region:
+                bot_vars.selected_region = new_region
+                bot_vars.selected_map = ""
 
-        map_index = PyImGui.combo("##Map", map_index, maps)
-        if map_index < len(maps):
-            new_map = maps[map_index]
-            if bot_vars.selected_map != new_map:
-                bot_vars.selected_map = new_map
-                load_map_script()
+        if bot_vars.selected_region:
+            maps = sorted([
+                f[:-3] for f in os.listdir(os.path.join(MAPS_DIR, bot_vars.selected_region))
+                if f.endswith(".py")
+            ])
+            map_index = maps.index(bot_vars.selected_map) if bot_vars.selected_map in maps else 0
+            map_index = PyImGui.combo("##Map", map_index, maps)
+            if map_index < len(maps):
+                new_map = maps[map_index]
+                if bot_vars.selected_map != new_map:
+                    bot_vars.selected_map = new_map
+                    load_map_script()
 
-    PyImGui.separator()
+    # ====== Loaded Script Info ======
+    if PyImGui.collapsing_header("Loaded Script Info", PyImGui.TreeNodeFlags.DefaultOpen):
+        stats = _compute_map_stats()
 
-    # ---- Current State (Heading Only) ----
-    PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)      # push #18
-    PyImGui.text("Current State:")
-    PyImGui.pop_style_color(1)
+        # Map IDs
+        PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
+        PyImGui.text("MapID / OutpostID:")
+        PyImGui.pop_style_color(1)
+        PyImGui.same_line(0, 6)
+        PyImGui.text(f"{stats['map_id']} / {stats['outpost_id']}")
 
-    current_state = FSM_vars.state_machine.get_current_step_name()
-    PyImGui.text(f"{current_state}")
-    if current_state == "Combat and Movement":
-        PyImGui.text(f"> {FSM_vars.path_and_aggro.status_message}")
+        # Totals
+        PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
+        PyImGui.text("Segments:")
+        PyImGui.pop_style_color(1)
+        PyImGui.same_line(0, 6)
+        PyImGui.text(str(stats["segments"]))
 
-    PyImGui.separator()
+        PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
+        PyImGui.text("Outpost WPs:")
+        PyImGui.pop_style_color(1)
+        PyImGui.same_line(0, 6)
+        PyImGui.text(str(stats["outpost_wp_total"]))
 
-    # ---- Statistics (Icon + Heading) ----
-    PyImGui.push_style_color(PyImGui.ImGuiCol.Text, icon_color)         # push #19
-    PyImGui.text(IconsFontAwesome5.ICON_LIST_ALT)
-    PyImGui.pop_style_color(1)
+        PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
+        PyImGui.text("Explorable WPs (merged):")
+        PyImGui.pop_style_color(1)
+        PyImGui.same_line(0, 6)
+        PyImGui.text(str(stats["explorable_wp_total"]))
 
-    PyImGui.same_line(0, 3)
-    PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)      # push #20
-    PyImGui.text("Statistics:")
-    PyImGui.pop_style_color(1)
+        # Per-segment quick counts
+        if stats["segments_wp_counts"]:
+            PyImGui.separator()
+            PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
+            PyImGui.text("Per-Segment Waypoints:")
+            PyImGui.pop_style_color(1)
+            for i, cnt in enumerate(stats["segments_wp_counts"], start=1):
+                PyImGui.text(f"- Segment {i}: {cnt}")
 
-    if bot_vars.is_running:
-        PyImGui.text(f"Total Time: {FormatTime(bot_vars.global_timer.GetElapsedTime(), 'hh:mm:ss')}")
-        PyImGui.text(f"Current Run: {FormatTime(bot_vars.lap_timer.GetElapsedTime(), 'mm:ss')}")
-        draw_vanquish_status("Vanquish Progress")
+        # Segment open/close controls and details WITH per-waypoint controls
+        map_path = bot_vars.map_data.get("map_path", [])
+        if isinstance(map_path, list) and map_path:
+            PyImGui.separator()
+            PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
+            PyImGui.text("Segment Details:")
+            PyImGui.pop_style_color(1)
 
-    if bot_vars.runs_attempted > 0:
-        PyImGui.text(f"Runs Attempted: {bot_vars.runs_attempted}")
-        PyImGui.text(f"Runs Completed: {bot_vars.runs_completed}")
-        PyImGui.text(f"Success Rate: {bot_vars.success_rate * 100:.1f}%")
-        if bot_vars.lap_history:
-            PyImGui.text(f"Best Time: {FormatTime(bot_vars.min_time, 'mm:ss')}")
-            PyImGui.text(f"Worst Time: {FormatTime(bot_vars.max_time, 'mm:ss')}")
-            PyImGui.text(f"Average Time: {FormatTime(bot_vars.avg_time, 'mm:ss')}")
+            if all(isinstance(x, dict) for x in map_path):
+                for i, seg in enumerate(map_path):
+                    pts = seg.get("path", []) or []
+                    bless_raw = seg.get("bless", None)
+                    # Normalize bless list per segment
+                    bless_list = []
+                    if bless_raw is not None:
+                        if isinstance(bless_raw, (list, tuple)) and bless_raw and isinstance(bless_raw[0], (list, tuple)):
+                            bless_list = list(bless_raw)
+                        else:
+                            bless_list = [bless_raw]
 
-    PyImGui.separator()
+                    # Header line with toggle
+                    PyImGui.text(f"Segment {i+1}: {len(pts)} WPs" + (f", Bless: {len(bless_list)}" if bless_list else ""))
 
-    # ---- Title / Allegiance (Icon + Heading) ----
-    PyImGui.push_style_color(PyImGui.ImGuiCol.Text, icon_color)         # push #21
-    PyImGui.text(IconsFontAwesome5.ICON_TROPHY)
-    PyImGui.pop_style_color(1)
+                    PyImGui.same_line(0, 12)
+                    is_open = bool(bot_vars.segment_open.get(i, False))
+                    btn_lbl = "Close" if is_open else "Open"
+                    if PyImGui.button(f"{btn_lbl}##seg{i}", width=60):
+                        bot_vars.segment_open[i] = not is_open
+                        is_open = not is_open
 
-    PyImGui.same_line(0, 5)
-    PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)      # push #22
-    PyImGui.text("Title / Allegiance:")
-    PyImGui.pop_style_color(1)
+                    # Details if open
+                    if is_open:
+                        # Waypoints list with controls
+                        if pts:
+                            PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
+                            PyImGui.text("  Waypoints:")
+                            PyImGui.pop_style_color(1)
+                            base_idx = _segment_base_index(map_path, i)
+                            for j, p in enumerate(pts, start=1):
+                                try:
+                                    x, y = int(p[0]), int(p[1])
+                                    PyImGui.text(f"  - WP {j}: ({x},{y})")
+                                except Exception:
+                                    PyImGui.text(f"  - WP {j}: {p}")
+                                # Buttons: Go (move to & HOLD) and Set (set active index)
+                                PyImGui.same_line(0, 6)
+                                global_idx = base_idx + (j - 1)
+                                if PyImGui.button(f">##go_{i}_{j}", width=20):
+                                    if FSM_vars.path_and_aggro:
+                                        FSM_vars.path_and_aggro.force_move_to_index(global_idx, sticky=True)
+                                PyImGui.same_line(0, 2)
+                                if PyImGui.button(f"I##set_{i}_{j}", width=18):
+                                    if FSM_vars.path_and_aggro:
+                                        FSM_vars.path_and_aggro.set_active_index(global_idx)
+                        else:
+                            PyImGui.text("  - (no waypoints)")
 
-    # Now use display_title_progress(...) as before
-    region = bot_vars.selected_region
-    if region in kurzick_regions:
-        display_faction("Kurzick", 5, Player.GetKurzickData, kurzick_tiers)
-    elif region in luxon_regions:
-        display_faction("Luxon", 6, Player.GetLuxonData, luxon_tiers)
-    elif region in nightfall_regions:
-        display_title_progress("Sunspear Title", 17, sunspear_tiers)
-        display_title_progress("Lightbringer Title", 20, lightbringer_tiers)
-    elif region in eotn_region_titles:
-        for title_id, title_name, tier_data in eotn_region_titles[region]:
-            display_title_progress(title_name, title_id, tier_data)
+                        # Bless list
+                        if bless_list:
+                            PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
+                            PyImGui.text("  Bless Points:")
+                            PyImGui.pop_style_color(1)
+                            for b in bless_list:
+                                try:
+                                    bx, by = int(b[0]), int(b[1])
+                                    PyImGui.text(f"  - ({bx},{by})")
+                                except Exception:
+                                    PyImGui.text(f"  - {b}")
 
-    PyImGui.separator()
+            else:
+                # Flat path: treat as one segment with optional open toggle at index 0
+                pts = map_path
+                PyImGui.text(f"Segment 1: {len(pts)} WPs")
+                PyImGui.same_line(0, 12)
+                is_open = bool(bot_vars.segment_open.get(0, False))
+                btn_lbl = "Close" if is_open else "Open"
+                if PyImGui.button(f"{btn_lbl}##seg0", width=60):
+                    bot_vars.segment_open[0] = not is_open
+                    is_open = not is_open
+                if is_open:
+                    PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
+                    PyImGui.text("  Waypoints:")
+                    PyImGui.pop_style_color(1)
+                    for j, p in enumerate(pts, start=1):
+                        try:
+                            x, y = int(p[0]), int(p[1])
+                            PyImGui.text(f"  - WP {j}: ({x},{y})")
+                        except Exception:
+                            PyImGui.text(f"  - WP {j}: {p}")
+                        # Buttons for flat list (global index = j-1)
+                        PyImGui.same_line(0, 6)
+                        global_idx = j - 1
+                        if PyImGui.button(f">##go_flat_{j}", width=20):
+                            if FSM_vars.path_and_aggro:
+                                FSM_vars.path_and_aggro.force_move_to_index(global_idx, sticky=True)
+                        PyImGui.same_line(0, 2)
+                        if PyImGui.button(f"I##set_flat_{j}", width=18):
+                            if FSM_vars.path_and_aggro:
+                                FSM_vars.path_and_aggro.set_active_index(global_idx)
 
-    # --------------------------------
-    # POP ALL THE STYLE COLORS WE PUSHED (in reverse order)
-    # --------------------------------
-    # We pushed 22 times (counts 1..22). Pop in reverse groups:
-    PyImGui.pop_style_color(3)   # unwinds neutral_button, neutral_button_hover, neutral_button_active (#10,#11,#12)
-    PyImGui.pop_style_color(3)   # unwinds header_bg_color, header_hover_color, header_active_color (#7,#8,#9)
-    PyImGui.pop_style_color(6)   # unwinds window_bg_color, frame_bg_color, frame_hover_color, frame_active_color, body_text_color, separator_color (#1..#6)
-    # (Note: the 13–22 pushes were popped inline, so no need to pop them here.)
+        # Bless points summary + preview
+        PyImGui.separator()
+        PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
+        PyImGui.text("Bless Points (all):")
+        PyImGui.pop_style_color(1)
+        PyImGui.same_line(0, 6)
+        PyImGui.text(str(stats["bless_count"]))
+        if stats["bless_preview"]:
+            for bp in stats["bless_preview"]:
+                try:
+                    x, y = int(bp[0]), int(bp[1])
+                    PyImGui.text(f"- ({x},{y})")
+                except Exception:
+                    PyImGui.text(f"- {bp}")
+
+        # Optional lists: Outpost path and merged exp path
+        PyImGui.separator()
+        out_btn = "Hide Outpost Path" if bot_vars.show_outpost_list else "Show Outpost Path"
+        if PyImGui.button(out_btn, width=140):
+            bot_vars.show_outpost_list = not bot_vars.show_outpost_list
+        PyImGui.same_line(0, 8)
+        exp_btn = "Hide Merged WPs" if bot_vars.show_merged_list else "Show Merged WPs"
+        if PyImGui.button(exp_btn, width=140):
+            bot_vars.show_merged_list = not bot_vars.show_merged_list
+
+        if bot_vars.show_outpost_list:
+            out_pts = bot_vars.map_data.get("outpost_path", []) or []
+            PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
+            PyImGui.text("Outpost Path:")
+            PyImGui.pop_style_color(1)
+            if out_pts:
+                for j, p in enumerate(out_pts, start=1):
+                    try:
+                        x, y = int(p[0]), int(p[1])
+                        PyImGui.text(f"- OP {j}: ({x},{y})")
+                    except Exception:
+                        PyImGui.text(f"- OP {j}: {p}")
+            else:
+                PyImGui.text("- (empty)")
+
+        if bot_vars.show_merged_list:
+            merged_pts = FSM_vars.explorable_waypoints or []
+            PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
+            PyImGui.text("Explorable (merged) Waypoints:")
+            PyImGui.pop_style_color(1)
+            if merged_pts:
+                for j, p in enumerate(merged_pts, start=1):
+                    try:
+                        x, y = int(p[0]), int(p[1])
+                        PyImGui.text(f"- WP {j}: ({x},{y})")
+                    except Exception:
+                        PyImGui.text(f"- WP {j}: {p}")
+                    # Controls for merged list too
+                    PyImGui.same_line(0, 6)
+                    global_idx = j - 1
+                    if PyImGui.button(f">##go_merge_{j}", width=20):
+                        if FSM_vars.path_and_aggro:
+                            FSM_vars.path_and_aggro.force_move_to_index(global_idx, sticky=True)
+                    PyImGui.same_line(0, 2)
+                    if PyImGui.button(f"I##set_merge_{j}", width=18):
+                        if FSM_vars.path_and_aggro:
+                            FSM_vars.path_and_aggro.set_active_index(global_idx)
+            else:
+                PyImGui.text("- (empty)")
+
+    # ====== Current State ======
+    if PyImGui.collapsing_header("Current State", PyImGui.TreeNodeFlags.DefaultOpen):
+        PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
+        PyImGui.text("State:")
+        PyImGui.pop_style_color(1)
+
+        current_state = FSM_vars.state_machine.get_current_step_name()
+        PyImGui.text(f"{current_state}")
+        if current_state == "Combat and Movement" and FSM_vars.path_and_aggro:
+            PyImGui.text(f"> {FSM_vars.path_and_aggro.status_message}")
+
+    # ====== Statistics ======
+    if PyImGui.collapsing_header("Statistics", 0):
+        PyImGui.push_style_color(PyImGui.ImGuiCol.Text, icon_color)
+        PyImGui.text(IconsFontAwesome5.ICON_LIST_ALT)
+        PyImGui.pop_style_color(1)
+        PyImGui.same_line(0, 3)
+        PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
+        PyImGui.text("Run Metrics")
+        PyImGui.pop_style_color(1)
+
+        if bot_vars.is_running:
+            PyImGui.text(f"Total Time: {FormatTime(bot_vars.global_timer.GetElapsedTime(), 'hh:mm:ss')}")
+            PyImGui.text(f"Current Run: {FormatTime(bot_vars.lap_timer.GetElapsedTime(), 'mm:ss')}")
+            draw_vanquish_status("Vanquish Progress")
+
+        if bot_vars.runs_attempted > 0:
+            PyImGui.text(f"Runs Attempted: {bot_vars.runs_attempted}")
+            PyImGui.text(f"Runs Completed: {bot_vars.runs_completed}")
+            PyImGui.text(f"Success Rate: {bot_vars.success_rate * 100:.1f}%")
+            if bot_vars.lap_history:
+                PyImGui.text(f"Best Time: {FormatTime(bot_vars.min_time, 'mm:ss')}")
+                PyImGui.text(f"Worst Time: {FormatTime(bot_vars.max_time, 'mm:ss')}")
+                PyImGui.text(f"Average Time: {FormatTime(bot_vars.avg_time, 'mm:ss')}")
+
+    # ====== Titles / Allegiance ======
+    if PyImGui.collapsing_header("Titles / Allegiance", 0):
+        PyImGui.push_style_color(PyImGui.ImGuiCol.Text, icon_color)
+        PyImGui.text(IconsFontAwesome5.ICON_TROPHY)
+        PyImGui.pop_style_color(1)
+
+        PyImGui.same_line(0, 5)
+        PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
+        PyImGui.text("Title Progress")
+        PyImGui.pop_style_color(1)
+
+        region = bot_vars.selected_region
+        if region in kurzick_regions:
+            display_faction("Kurzick", 5, Player.GetKurzickData, kurzick_tiers)
+        elif region in luxon_regions:
+            display_faction("Luxon", 6, Player.GetLuxonData, luxon_tiers)
+        elif region in nightfall_regions:
+            display_title_progress("Sunspear Title", 17, sunspear_tiers)
+            display_title_progress("Lightbringer Title", 20, lightbringer_tiers)
+        elif region in eotn_region_titles:
+            for title_id, title_name, tier_data in eotn_region_titles[region]:
+                display_title_progress(title_name, title_id, tier_data)
+
+    # Pop styles
+    PyImGui.pop_style_color(3)
+    PyImGui.pop_style_color(3)
+    PyImGui.pop_style_color(6)
 
     PyImGui.end()
-
-
 
 def main():
     try:
         DrawWindow()
-        
+
+        # (Data capture removed — handled by separate widget)
+
+        # Early outs for bot logic
         if not bot_vars.is_running or bot_vars.is_paused:
             return
-        
+
         if Map.IsMapLoading():
             FSM_vars.movement_handler.reset()
             return
-        
+
         if FSM_vars.global_combat_fsm.is_finished():
             FSM_vars.global_combat_fsm.reset()
             return
-        
+
         if Map.IsExplorable():
             if bot_vars.combat_started:
                 combat_handler.HandleCombat()
 
         ActionQueueManager().ProcessAll()
-        
+
         if not bot_vars.pause_combat_fsm:
             FSM_vars.global_combat_fsm.update()
         FSM_vars.state_machine.update()
-        
+
     except Exception as e:
         ConsoleLog(module_name, f"Error in main: {str(e)}", Console.MessageType.Error)
         raise
 
 def StartBot():
     global bot_vars, FSM_vars
-    
-    # First initialize state machines if needed
+
     if FSM_vars.state_machine.get_state_count() == 0:
         InitializeStateMachine()
-    
-    # Then reset all variables and states
+
+    # Reset vars/states
     FSM_vars.has_blessing = False
     FSM_vars.in_blessing_dialog = False
     FSM_vars.blessing_timer.Stop()
     FSM_vars.movement_handler.reset()
     FSM_vars.outpost_pathing.reset()
     FSM_vars.explorable_pathing.reset()
-    
-    # Force return to outpost if not already there
+
+    # Clear any leftover debug state
+    if FSM_vars.path_and_aggro:
+        FSM_vars.path_and_aggro.release_hold()
+
     if Map.GetMapID() != bot_vars.starting_map:
         Routines.Transition.TravelToOutpost(bot_vars.starting_map)
-    
-    # Reset state machines after initialization
+
     FSM_vars.state_machine.reset()
     FSM_vars.global_combat_fsm.reset()
     FSM_vars.global_combat_handler.reset()
-    
+
     bot_vars.is_running = True
     bot_vars.combat_started = False
     bot_vars.global_timer.Start()
     bot_vars.lap_timer.Start()
-    
-    # Start the state machines
+
     FSM_vars.state_machine.start()
     FSM_vars.global_combat_fsm.start()
 
-# Add new Pause control functions
 def TogglePause():
     if bot_vars.is_paused:
         ResumeBotExecution()
@@ -795,7 +1260,6 @@ def TogglePause():
 def PauseBotExecution():
     if not bot_vars.is_running:
         return
-    
     bot_vars.is_paused = True
     FSM_vars.state_machine.pause()
     FSM_vars.global_combat_fsm.pause()
@@ -805,7 +1269,6 @@ def PauseBotExecution():
 def ResumeBotExecution():
     if not bot_vars.is_running:
         return
-    
     bot_vars.is_paused = False
     FSM_vars.state_machine.resume()
     FSM_vars.global_combat_fsm.resume()
@@ -815,7 +1278,7 @@ def ResumeBotExecution():
 def StopBot():
     global bot_vars, FSM_vars
     bot_vars.is_running = False
-    bot_vars.is_paused = False  # Reset pause state when stopping
+    bot_vars.is_paused = False
     bot_vars.global_timer.Stop()
     bot_vars.lap_timer.Stop()
     FSM_vars.state_machine.stop()
@@ -824,6 +1287,6 @@ def StopBot():
         stop_combat()
     ResetEnvironment()
 
-# Initialize the global instances
+
 FSM_vars = FSMVars()
 bot_vars = BotVars()
