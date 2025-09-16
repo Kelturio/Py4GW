@@ -257,6 +257,13 @@ global_widget_defaults = {
         "icon": "ICON_INFO_CIRCLE",
         "quickdock": "True",
     },
+    "Party Minions Viewer": {
+        "enabled": "True",
+        "category": "Gameplay",
+        "subcategory": "Overlays",
+        "icon": "ICON_PEOPLE_CARRY",
+        "quickdock": "True",
+    },
     # TODO: Register your Widget here
 }
 
@@ -519,6 +526,13 @@ account_widget_defaults = {
         "category": "Gameplay",
         "subcategory": "Utilities",
         "icon": "ICON_INFO_CIRCLE",
+        "quickdock": "True",
+    },
+    "Party Minions Viewer": {
+        "enabled": "True",
+        "category": "Gameplay",
+        "subcategory": "Overlays",
+        "icon": "ICON_PEOPLE_CARRY",
         "quickdock": "True",
     },
     # TODO: Register your Widget here
