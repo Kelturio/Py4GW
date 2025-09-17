@@ -74,6 +74,20 @@ window_states = {
 }
 
 
+show_white_list = ini_window.read_bool(
+    "Whitelist Viewer", "open", show_white_list
+)
+show_black_list = ini_window.read_bool(
+    "Blacklist Viewer", "open", show_black_list
+)
+show_filtered_loot_list = ini_window.read_bool(
+    "Filtered Loot Window", "open", show_filtered_loot_list
+)
+show_manual_editor = ini_window.read_bool(
+    "Manual Loot Config Window", "open", show_manual_editor
+)
+
+
 def _flush_window_state_updates():
     if not save_window_timer.HasElapsed(1000):
         return
@@ -498,14 +512,42 @@ def DrawWindow():
             include_model_id_in_tooltip = PyImGui.checkbox(
                 "Display ModelID In Hovered Text", include_model_id_in_tooltip
             )
-            show_white_list         = PyImGui.checkbox("Display White List", show_white_list)
-            show_black_list         = PyImGui.checkbox("Display Black List", show_black_list)
-            show_filtered_loot_list = PyImGui.checkbox(
+
+            new_show_white_list = PyImGui.checkbox(
+                "Display White List", show_white_list
+            )
+            if new_show_white_list != show_white_list:
+                show_white_list = new_show_white_list
+                ini_window.write_key(
+                    "Whitelist Viewer", "open", str(show_white_list)
+                )
+
+            new_show_black_list = PyImGui.checkbox(
+                "Display Black List", show_black_list
+            )
+            if new_show_black_list != show_black_list:
+                show_black_list = new_show_black_list
+                ini_window.write_key(
+                    "Blacklist Viewer", "open", str(show_black_list)
+                )
+
+            new_show_filtered_loot = PyImGui.checkbox(
                 "Display Filtered Loot List", show_filtered_loot_list
             )
-            show_manual_editor      = PyImGui.checkbox(
+            if new_show_filtered_loot != show_filtered_loot_list:
+                show_filtered_loot_list = new_show_filtered_loot
+                ini_window.write_key(
+                    "Filtered Loot Window", "open", str(show_filtered_loot_list)
+                )
+
+            new_show_manual_editor = PyImGui.checkbox(
                 "Manual Loot Configuration", show_manual_editor
             )
+            if new_show_manual_editor != show_manual_editor:
+                show_manual_editor = new_show_manual_editor
+                ini_window.write_key(
+                    "Manual Loot Config Window", "open", str(show_manual_editor)
+                )
             PyImGui.tree_pop()
 
         # ——— Save/Load Configs ———
