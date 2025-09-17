@@ -15,6 +15,8 @@ from aC_api.Titles import (
     luxon_regions, kurzick_regions, nightfall_regions, eotn_region_titles
 )
 
+from map_info_ui import render_loaded_script_info_section
+
 module_name = "PyQuishAI "
 cache_data = CacheData()
 
@@ -919,207 +921,14 @@ def DrawWindow():
 
     # ====== Loaded Script Info ======
     if PyImGui.collapsing_header("Loaded Script Info", PyImGui.TreeNodeFlags.DefaultOpen):
-        stats = _compute_map_stats()
-
-        # Map IDs
-        PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
-        PyImGui.text("MapID / OutpostID:")
-        PyImGui.pop_style_color(1)
-        PyImGui.same_line(0, 6)
-        PyImGui.text(f"{stats['map_id']} / {stats['outpost_id']}")
-
-        # Totals
-        PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
-        PyImGui.text("Segments:")
-        PyImGui.pop_style_color(1)
-        PyImGui.same_line(0, 6)
-        PyImGui.text(str(stats["segments"]))
-
-        PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
-        PyImGui.text("Outpost WPs:")
-        PyImGui.pop_style_color(1)
-        PyImGui.same_line(0, 6)
-        PyImGui.text(str(stats["outpost_wp_total"]))
-
-        PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
-        PyImGui.text("Explorable WPs (merged):")
-        PyImGui.pop_style_color(1)
-        PyImGui.same_line(0, 6)
-        PyImGui.text(str(stats["explorable_wp_total"]))
-
-        # Per-segment quick counts
-        if stats["segments_wp_counts"]:
-            PyImGui.separator()
-            PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
-            PyImGui.text("Per-Segment Waypoints:")
-            PyImGui.pop_style_color(1)
-            for i, cnt in enumerate(stats["segments_wp_counts"], start=1):
-                PyImGui.text(f"- Segment {i}: {cnt}")
-
-        # Segment open/close controls and details WITH per-waypoint controls
-        map_path = bot_vars.map_data.get("map_path", [])
-        if isinstance(map_path, list) and map_path:
-            PyImGui.separator()
-            PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
-            PyImGui.text("Segment Details:")
-            PyImGui.pop_style_color(1)
-
-            if all(isinstance(x, dict) for x in map_path):
-                for i, seg in enumerate(map_path):
-                    pts = seg.get("path", []) or []
-                    bless_raw = seg.get("bless", None)
-                    # Normalize bless list per segment
-                    bless_list = []
-                    if bless_raw is not None:
-                        if isinstance(bless_raw, (list, tuple)) and bless_raw and isinstance(bless_raw[0], (list, tuple)):
-                            bless_list = list(bless_raw)
-                        else:
-                            bless_list = [bless_raw]
-
-                    # Header line with toggle
-                    PyImGui.text(f"Segment {i+1}: {len(pts)} WPs" + (f", Bless: {len(bless_list)}" if bless_list else ""))
-
-                    PyImGui.same_line(0, 12)
-                    is_open = bool(bot_vars.segment_open.get(i, False))
-                    btn_lbl = "Close" if is_open else "Open"
-                    if PyImGui.button(f"{btn_lbl}##seg{i}", width=60):
-                        bot_vars.segment_open[i] = not is_open
-                        is_open = not is_open
-
-                    # Details if open
-                    if is_open:
-                        # Waypoints list with controls
-                        if pts:
-                            PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
-                            PyImGui.text("  Waypoints:")
-                            PyImGui.pop_style_color(1)
-                            base_idx = _segment_base_index(map_path, i)
-                            for j, p in enumerate(pts, start=1):
-                                try:
-                                    x, y = int(p[0]), int(p[1])
-                                    PyImGui.text(f"  - WP {j}: ({x},{y})")
-                                except Exception:
-                                    PyImGui.text(f"  - WP {j}: {p}")
-                                # Buttons: Go (move to & HOLD) and Set (set active index)
-                                PyImGui.same_line(0, 6)
-                                global_idx = base_idx + (j - 1)
-                                if PyImGui.button(f">##go_{i}_{j}", width=20):
-                                    if FSM_vars.path_and_aggro:
-                                        FSM_vars.path_and_aggro.force_move_to_index(global_idx, sticky=True)
-                                PyImGui.same_line(0, 2)
-                                if PyImGui.button(f"I##set_{i}_{j}", width=18):
-                                    if FSM_vars.path_and_aggro:
-                                        FSM_vars.path_and_aggro.set_active_index(global_idx)
-                        else:
-                            PyImGui.text("  - (no waypoints)")
-
-                        # Bless list
-                        if bless_list:
-                            PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
-                            PyImGui.text("  Bless Points:")
-                            PyImGui.pop_style_color(1)
-                            for b in bless_list:
-                                try:
-                                    bx, by = int(b[0]), int(b[1])
-                                    PyImGui.text(f"  - ({bx},{by})")
-                                except Exception:
-                                    PyImGui.text(f"  - {b}")
-
-            else:
-                # Flat path: treat as one segment with optional open toggle at index 0
-                pts = map_path
-                PyImGui.text(f"Segment 1: {len(pts)} WPs")
-                PyImGui.same_line(0, 12)
-                is_open = bool(bot_vars.segment_open.get(0, False))
-                btn_lbl = "Close" if is_open else "Open"
-                if PyImGui.button(f"{btn_lbl}##seg0", width=60):
-                    bot_vars.segment_open[0] = not is_open
-                    is_open = not is_open
-                if is_open:
-                    PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
-                    PyImGui.text("  Waypoints:")
-                    PyImGui.pop_style_color(1)
-                    for j, p in enumerate(pts, start=1):
-                        try:
-                            x, y = int(p[0]), int(p[1])
-                            PyImGui.text(f"  - WP {j}: ({x},{y})")
-                        except Exception:
-                            PyImGui.text(f"  - WP {j}: {p}")
-                        # Buttons for flat list (global index = j-1)
-                        PyImGui.same_line(0, 6)
-                        global_idx = j - 1
-                        if PyImGui.button(f">##go_flat_{j}", width=20):
-                            if FSM_vars.path_and_aggro:
-                                FSM_vars.path_and_aggro.force_move_to_index(global_idx, sticky=True)
-                        PyImGui.same_line(0, 2)
-                        if PyImGui.button(f"I##set_flat_{j}", width=18):
-                            if FSM_vars.path_and_aggro:
-                                FSM_vars.path_and_aggro.set_active_index(global_idx)
-
-        # Bless points summary + preview
-        PyImGui.separator()
-        PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
-        PyImGui.text("Bless Points (all):")
-        PyImGui.pop_style_color(1)
-        PyImGui.same_line(0, 6)
-        PyImGui.text(str(stats["bless_count"]))
-        if stats["bless_preview"]:
-            for bp in stats["bless_preview"]:
-                try:
-                    x, y = int(bp[0]), int(bp[1])
-                    PyImGui.text(f"- ({x},{y})")
-                except Exception:
-                    PyImGui.text(f"- {bp}")
-
-        # Optional lists: Outpost path and merged exp path
-        PyImGui.separator()
-        out_btn = "Hide Outpost Path" if bot_vars.show_outpost_list else "Show Outpost Path"
-        if PyImGui.button(out_btn, width=140):
-            bot_vars.show_outpost_list = not bot_vars.show_outpost_list
-        PyImGui.same_line(0, 8)
-        exp_btn = "Hide Merged WPs" if bot_vars.show_merged_list else "Show Merged WPs"
-        if PyImGui.button(exp_btn, width=140):
-            bot_vars.show_merged_list = not bot_vars.show_merged_list
-
-        if bot_vars.show_outpost_list:
-            out_pts = bot_vars.map_data.get("outpost_path", []) or []
-            PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
-            PyImGui.text("Outpost Path:")
-            PyImGui.pop_style_color(1)
-            if out_pts:
-                for j, p in enumerate(out_pts, start=1):
-                    try:
-                        x, y = int(p[0]), int(p[1])
-                        PyImGui.text(f"- OP {j}: ({x},{y})")
-                    except Exception:
-                        PyImGui.text(f"- OP {j}: {p}")
-            else:
-                PyImGui.text("- (empty)")
-
-        if bot_vars.show_merged_list:
-            merged_pts = FSM_vars.explorable_waypoints or []
-            PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
-            PyImGui.text("Explorable (merged) Waypoints:")
-            PyImGui.pop_style_color(1)
-            if merged_pts:
-                for j, p in enumerate(merged_pts, start=1):
-                    try:
-                        x, y = int(p[0]), int(p[1])
-                        PyImGui.text(f"- WP {j}: ({x},{y})")
-                    except Exception:
-                        PyImGui.text(f"- WP {j}: {p}")
-                    # Controls for merged list too
-                    PyImGui.same_line(0, 6)
-                    global_idx = j - 1
-                    if PyImGui.button(f">##go_merge_{j}", width=20):
-                        if FSM_vars.path_and_aggro:
-                            FSM_vars.path_and_aggro.force_move_to_index(global_idx, sticky=True)
-                    PyImGui.same_line(0, 2)
-                    if PyImGui.button(f"I##set_merge_{j}", width=18):
-                        if FSM_vars.path_and_aggro:
-                            FSM_vars.path_and_aggro.set_active_index(global_idx)
-            else:
-                PyImGui.text("- (empty)")
+        render_loaded_script_info_section(
+            bot_vars=bot_vars,
+            fsm_vars=FSM_vars,
+            header_color=header_color,
+            icon_color=icon_color,
+            compute_stats=_compute_map_stats,
+            segment_offset_fn=_segment_base_index,
+        )
 
     # ====== Current State ======
     if PyImGui.collapsing_header("Current State", PyImGui.TreeNodeFlags.DefaultOpen):
