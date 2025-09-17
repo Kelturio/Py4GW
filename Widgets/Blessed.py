@@ -158,13 +158,13 @@ def on_imgui_render(me: int):
     if not ((LEADER_UI and leader_id == me) or PER_CLIENT_UI):
         return
 
-    # Begin window
-    PyImGui.begin("Get Blessed", PyImGui.WindowFlags.AlwaysAutoResize)
-
     if first_run:
         PyImGui.set_next_window_pos(win_x, win_y)
         PyImGui.set_next_window_collapsed(win_coll, 0)
         first_run = False
+
+    # Begin window
+    PyImGui.begin("Get Blessed", PyImGui.WindowFlags.AlwaysAutoResize)
 
     # If collapsed, bail out early
     if PyImGui.is_window_collapsed():
