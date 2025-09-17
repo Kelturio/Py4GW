@@ -54,6 +54,13 @@ global_widget_defaults = {
         "icon": "ICON_PEOPLE_CARRY",
         "quickdock": "True",
     },
+    "Hero Formation Flagger": {
+        "enabled": "False",
+        "category": "Gameplay",
+        "subcategory": "Utilities",
+        "icon": "ICON_FLAG",
+        "quickdock": "True",
+    },
     "Pet Helper": {
         "enabled": "True",
         "category": "Bots",
@@ -323,6 +330,13 @@ account_widget_defaults = {
         "category": "Bots",
         "subcategory": "Helpers",
         "icon": "ICON_PEOPLE_CARRY",
+        "quickdock": "True",
+    },
+    "Hero Formation Flagger": {
+        "enabled": "False",
+        "category": "Gameplay",
+        "subcategory": "Utilities",
+        "icon": "ICON_FLAG",
         "quickdock": "True",
     },
     "Pet Helper": {
