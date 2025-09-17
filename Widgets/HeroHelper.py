@@ -1382,7 +1382,14 @@ def draw_frame_content(content_frame_id):
     if selected_tab == Tabs.party_default:
         return
 
-    left, top, right, bottom = UIManager.GetFrameCoords(content_frame_id)
+    if not content_frame_id:
+        return
+
+    frame_coords = UIManager.GetFrameCoords(content_frame_id)
+    if not frame_coords:
+        return
+
+    left, top, right, bottom = frame_coords
     width, height = right - left, bottom - top
 
     UIManager().DrawFrame(content_frame_id, Utils.RGBToColor(0, 0, 0, 255))
@@ -1422,8 +1429,15 @@ def draw_embedded_window():
         content_frame_id = explorable_content_frame_id
     else:
         content_frame_id = outpost_content_frame_id
-    
-    left, top, right, bottom = UIManager.GetFrameCoords(parent_frame_id)
+
+    if not content_frame_id:
+        return
+
+    parent_coords = UIManager.GetFrameCoords(parent_frame_id)
+    if not parent_coords:
+        return
+
+    left, top, right, bottom = parent_coords
     sidebar_width = 30
     sidebar_height = bottom - top
 
