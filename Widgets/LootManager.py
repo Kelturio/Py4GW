@@ -37,22 +37,34 @@ win_y         = ini_window.read_int("Loot Manager", "y", 100)
 win_collapsed = ini_window.read_bool("Loot Manager", "collapsed", False)
 first_run     = True
 
-# restore last saved debug window visibility
-show_white_list = ini_window.read_bool("Whitelist Viewer", "open", show_white_list)
-show_black_list = ini_window.read_bool("Blacklist Viewer", "open", show_black_list)
-show_filtered_loot_list = ini_window.read_bool(
-    "Filtered Loot Window", "open", show_filtered_loot_list
-)
-show_manual_editor = ini_window.read_bool(
-    "Manual Loot Config Window", "open", show_manual_editor
-)
+# --- Debug window persistence ---
+whitelist_win_x         = ini_window.read_int("Whitelist Viewer", "x", 150)
+whitelist_win_y         = ini_window.read_int("Whitelist Viewer", "y", 150)
+whitelist_win_collapsed = ini_window.read_bool("Whitelist Viewer", "collapsed", False)
+whitelist_first_run     = True
+whitelist_save_timer    = Timer()
+whitelist_save_timer.Start()
 
-_last_saved_debug_visibility = {
-    "Whitelist Viewer": show_white_list,
-    "Blacklist Viewer": show_black_list,
-    "Filtered Loot Window": show_filtered_loot_list,
-    "Manual Loot Config Window": show_manual_editor,
-}
+blacklist_win_x         = ini_window.read_int("Blacklist Viewer", "x", 180)
+blacklist_win_y         = ini_window.read_int("Blacklist Viewer", "y", 180)
+blacklist_win_collapsed = ini_window.read_bool("Blacklist Viewer", "collapsed", False)
+blacklist_first_run     = True
+blacklist_save_timer    = Timer()
+blacklist_save_timer.Start()
+
+filtered_win_x         = ini_window.read_int("Filtered Loot Window", "x", 210)
+filtered_win_y         = ini_window.read_int("Filtered Loot Window", "y", 210)
+filtered_win_collapsed = ini_window.read_bool("Filtered Loot Window", "collapsed", False)
+filtered_first_run     = True
+filtered_save_timer    = Timer()
+filtered_save_timer.Start()
+
+manual_win_x         = ini_window.read_int("Manual Loot Config Window", "x", 240)
+manual_win_y         = ini_window.read_int("Manual Loot Config Window", "y", 240)
+manual_win_collapsed = ini_window.read_bool("Manual Loot Config Window", "collapsed", False)
+manual_first_run     = True
+manual_save_timer    = Timer()
+manual_save_timer.Start()
 
 # --- File paths setup ---
 CONFIG_FILE = os.path.join(script_directory, "Config", "loot_config.json")
@@ -436,7 +448,6 @@ def DrawWindow():
     global include_model_id_in_tooltip, show_white_list, show_filtered_loot_list
     global show_manual_editor, show_black_list
     global win_x, win_y, win_collapsed, first_run
-    global _last_saved_debug_visibility
     global weeks_future
     if not Routines.Checks.Map.MapValid():
         return
@@ -723,170 +734,249 @@ def DrawWindow():
         if new_collapsed != win_collapsed:
             win_collapsed = new_collapsed
             ini_window.write_key("Loot Manager", "collapsed", str(win_collapsed))
-
-        # Debug window visibility changed?
-        for section, flag in (
-            ("Whitelist Viewer", show_white_list),
-            ("Blacklist Viewer", show_black_list),
-            ("Filtered Loot Window", show_filtered_loot_list),
-            ("Manual Loot Config Window", show_manual_editor),
-        ):
-            if _last_saved_debug_visibility.get(section) != flag:
-                _last_saved_debug_visibility[section] = flag
-                ini_window.write_key(section, "open", str(flag))
-
         save_window_timer.Reset()
 
 def DrawWhitelistViewer():
-    if show_white_list:
-        if PyImGui.begin("Whitelist Viewer", None, PyImGui.WindowFlags.AlwaysAutoResize):
-            PyImGui.separator()
-            PyImGui.text("Filtered By Rarity")
-            PyImGui.separator()
+    global whitelist_first_run, whitelist_win_x, whitelist_win_y, whitelist_win_collapsed
 
-            try:
-                PyImGui.text(f"White: {loot_filter_singleton.loot_whites}")
-                PyImGui.text(f"Blue: {loot_filter_singleton.loot_blues}")
-                PyImGui.text(f"Purple: {loot_filter_singleton.loot_purples}")
-                PyImGui.text(f"Gold: {loot_filter_singleton.loot_golds}")
-                PyImGui.text(f"Green: {loot_filter_singleton.loot_greens}")
-                PyImGui.text(f"Gold Coins: {loot_filter_singleton.loot_gold_coins}")
-            except Exception as e:
-                PyImGui.text(f"Error reading rarity settings: {str(e)}")
+    if not show_white_list:
+        return
 
-            PyImGui.separator()
-            PyImGui.text("Filtered By ModelID")
-            PyImGui.separator()
+    if whitelist_first_run:
+        PyImGui.set_next_window_pos(whitelist_win_x, whitelist_win_y)
+        PyImGui.set_next_window_collapsed(whitelist_win_collapsed, 0)
+        whitelist_first_run = False
 
-            # normalize everything to ints before sorting to avoid '<' TypeError
-            normalized = []
-            for raw in loot_filter_singleton.GetWhitelist():
-                val = _normalize_model_id(raw)
-                if val is not None:
-                    normalized.append(val)
+    opened = PyImGui.begin("Whitelist Viewer", None, PyImGui.WindowFlags.AlwaysAutoResize)
+    new_collapsed = PyImGui.is_window_collapsed()
+    end_pos = PyImGui.get_window_pos()
 
-            for raw_mid in sorted(normalized):
-                PyImGui.text(_format_model_id(raw_mid))
+    if opened:
+        PyImGui.separator()
+        PyImGui.text("Filtered By Rarity")
+        PyImGui.separator()
 
-            # --- NEW: show dye whitelist nicely ---
-            PyImGui.separator()
-            PyImGui.text("Filtered By Dye Color")
-            PyImGui.separator()
-            try:
-                from Py4GWCoreLib import DyeColor
-                for dye_id in sorted(loot_filter_singleton.GetDyeWhitelist()):
-                    try:
-                        # pretty name like "Black" -> "Black Dye"
-                        dye_name = DyeColor(dye_id).name.replace("_", " ")
-                        PyImGui.text(f"{dye_name} Dye (DyeID: {dye_id})")
-                    except Exception:
-                        PyImGui.text(f"Unknown Dye (DyeID: {dye_id})")
-            except Exception as e:
-                PyImGui.text(f"Error reading dye whitelist: {e}")
+        try:
+            PyImGui.text(f"White: {loot_filter_singleton.loot_whites}")
+            PyImGui.text(f"Blue: {loot_filter_singleton.loot_blues}")
+            PyImGui.text(f"Purple: {loot_filter_singleton.loot_purples}")
+            PyImGui.text(f"Gold: {loot_filter_singleton.loot_golds}")
+            PyImGui.text(f"Green: {loot_filter_singleton.loot_greens}")
+            PyImGui.text(f"Gold Coins: {loot_filter_singleton.loot_gold_coins}")
+        except Exception as e:
+            PyImGui.text(f"Error reading rarity settings: {str(e)}")
+
+        PyImGui.separator()
+        PyImGui.text("Filtered By ModelID")
+        PyImGui.separator()
+
+        # normalize everything to ints before sorting to avoid '<' TypeError
+        normalized = []
+        for raw in loot_filter_singleton.GetWhitelist():
+            val = _normalize_model_id(raw)
+            if val is not None:
+                normalized.append(val)
+
+        for raw_mid in sorted(normalized):
+            PyImGui.text(_format_model_id(raw_mid))
+
+        # --- NEW: show dye whitelist nicely ---
+        PyImGui.separator()
+        PyImGui.text("Filtered By Dye Color")
+        PyImGui.separator()
+        try:
+            from Py4GWCoreLib import DyeColor
+            for dye_id in sorted(loot_filter_singleton.GetDyeWhitelist()):
+                try:
+                    # pretty name like "Black" -> "Black Dye"
+                    dye_name = DyeColor(dye_id).name.replace("_", " ")
+                    PyImGui.text(f"{dye_name} Dye (DyeID: {dye_id})")
+                except Exception:
+                    PyImGui.text(f"Unknown Dye (DyeID: {dye_id})")
+        except Exception as e:
+            PyImGui.text(f"Error reading dye whitelist: {e}")
 
     PyImGui.end()
+
+    if whitelist_save_timer.HasElapsed(1000):
+        if (end_pos[0], end_pos[1]) != (whitelist_win_x, whitelist_win_y):
+            whitelist_win_x, whitelist_win_y = int(end_pos[0]), int(end_pos[1])
+            ini_window.write_key("Whitelist Viewer", "x", str(whitelist_win_x))
+            ini_window.write_key("Whitelist Viewer", "y", str(whitelist_win_y))
+
+        if new_collapsed != whitelist_win_collapsed:
+            whitelist_win_collapsed = new_collapsed
+            ini_window.write_key("Whitelist Viewer", "collapsed", str(whitelist_win_collapsed))
+
+        whitelist_save_timer.Reset()
 
 def DrawBlacklistViewer():
+    global blacklist_first_run, blacklist_win_x, blacklist_win_y, blacklist_win_collapsed
+
     if not show_black_list:
         return
-    if not PyImGui.begin("Blacklist Viewer", None, PyImGui.WindowFlags.AlwaysAutoResize):
-        PyImGui.end()
-        return
 
-    PyImGui.text("Black listed Items")
-    PyImGui.separator()
+    if blacklist_first_run:
+        PyImGui.set_next_window_pos(blacklist_win_x, blacklist_win_y)
+        PyImGui.set_next_window_collapsed(blacklist_win_collapsed, 0)
+        blacklist_first_run = False
 
-    for raw_mid in sorted(loot_filter_singleton.GetBlacklist()):
-        PyImGui.text(_format_model_id(raw_mid))
+    opened = PyImGui.begin("Blacklist Viewer", None, PyImGui.WindowFlags.AlwaysAutoResize)
+    new_collapsed = PyImGui.is_window_collapsed()
+    end_pos = PyImGui.get_window_pos()
+
+    if opened:
+        PyImGui.text("Black listed Items")
+        PyImGui.separator()
+
+        for raw_mid in sorted(loot_filter_singleton.GetBlacklist()):
+            PyImGui.text(_format_model_id(raw_mid))
 
     PyImGui.end()
+
+    if blacklist_save_timer.HasElapsed(1000):
+        if (end_pos[0], end_pos[1]) != (blacklist_win_x, blacklist_win_y):
+            blacklist_win_x, blacklist_win_y = int(end_pos[0]), int(end_pos[1])
+            ini_window.write_key("Blacklist Viewer", "x", str(blacklist_win_x))
+            ini_window.write_key("Blacklist Viewer", "y", str(blacklist_win_y))
+
+        if new_collapsed != blacklist_win_collapsed:
+            blacklist_win_collapsed = new_collapsed
+            ini_window.write_key("Blacklist Viewer", "collapsed", str(blacklist_win_collapsed))
+
+        blacklist_save_timer.Reset()
 
 def DrawFilteredLootList():
+    global filtered_first_run, filtered_win_x, filtered_win_y, filtered_win_collapsed
+
     if not show_filtered_loot_list:
         return
-    if not PyImGui.begin("Filtered Loot Window", None, PyImGui.WindowFlags.AlwaysAutoResize):
-        PyImGui.end()
-        return
 
-    PyImGui.text("Filtered Loot Items Nearby")
-    PyImGui.separator()
+    if filtered_first_run:
+        PyImGui.set_next_window_pos(filtered_win_x, filtered_win_y)
+        PyImGui.set_next_window_collapsed(filtered_win_collapsed, 0)
+        filtered_first_run = False
 
-    loot_array = loot_filter_singleton.GetfilteredLootArray()
-    display_list: list[tuple[int, float]] = []
+    opened = PyImGui.begin("Filtered Loot Window", None, PyImGui.WindowFlags.AlwaysAutoResize)
+    new_collapsed = PyImGui.is_window_collapsed()
+    end_pos = PyImGui.get_window_pos()
 
-    for agent_id in loot_array:
-        try:
-            # get raw model-ID and distance
-            item_data = Agent.GetItemAgent(agent_id)
-            raw_mid   = Item.GetModelID(item_data.item_id)
-            dist      = Utils.Distance(Player.GetXY(), Agent.GetXY(agent_id))
+    if opened:
+        PyImGui.text("Filtered Loot Items Nearby")
+        PyImGui.separator()
 
-            display_list.append((raw_mid, dist))
+        loot_array = loot_filter_singleton.GetfilteredLootArray()
+        display_list: list[tuple[int, float]] = []
 
-        except Exception as e:
-            # print errors immediately
-            PyImGui.text(f"Error loading item ({agent_id}): {e}")
+        for agent_id in loot_array:
+            try:
+                # get raw model-ID and distance
+                item_data = Agent.GetItemAgent(agent_id)
+                raw_mid   = Item.GetModelID(item_data.item_id)
+                dist      = Utils.Distance(Player.GetXY(), Agent.GetXY(agent_id))
 
-    # sort by distance, then render with our unified formatter
-    display_list.sort(key=lambda x: x[1])
-    for mid, dist in display_list:
-        PyImGui.text(f"{_format_model_id(mid)} — {dist:.1f} units")
+                display_list.append((raw_mid, dist))
+
+            except Exception as e:
+                # print errors immediately
+                PyImGui.text(f"Error loading item ({agent_id}): {e}")
+
+        # sort by distance, then render with our unified formatter
+        display_list.sort(key=lambda x: x[1])
+        for mid, dist in display_list:
+            PyImGui.text(f"{_format_model_id(mid)} — {dist:.1f} units")
 
     PyImGui.end()
+
+    if filtered_save_timer.HasElapsed(1000):
+        if (end_pos[0], end_pos[1]) != (filtered_win_x, filtered_win_y):
+            filtered_win_x, filtered_win_y = int(end_pos[0]), int(end_pos[1])
+            ini_window.write_key("Filtered Loot Window", "x", str(filtered_win_x))
+            ini_window.write_key("Filtered Loot Window", "y", str(filtered_win_y))
+
+        if new_collapsed != filtered_win_collapsed:
+            filtered_win_collapsed = new_collapsed
+            ini_window.write_key("Filtered Loot Window", "collapsed", str(filtered_win_collapsed))
+
+        filtered_save_timer.Reset()
 
 def DrawManualLootConfig():
     global temp_model_id
+    global manual_first_run, manual_win_x, manual_win_y, manual_win_collapsed
 
-    if show_manual_editor:
-        if PyImGui.begin("Manual Loot Config Window", None, PyImGui.WindowFlags.AlwaysAutoResize):
-            PyImGui.text("Manual Loot Configuration")
+    if not show_manual_editor:
+        return
 
-            temp_model_id = PyImGui.input_int("Model ID", temp_model_id)
+    if manual_first_run:
+        PyImGui.set_next_window_pos(manual_win_x, manual_win_y)
+        PyImGui.set_next_window_collapsed(manual_win_collapsed, 0)
+        manual_first_run = False
 
-            PyImGui.separator()
-            PyImGui.text("Whitelist Actions")
+    opened = PyImGui.begin("Manual Loot Config Window", None, PyImGui.WindowFlags.AlwaysAutoResize)
+    new_collapsed = PyImGui.is_window_collapsed()
+    end_pos = PyImGui.get_window_pos()
 
-            if PyImGui.button("Add ModelID to Whitelist"):
-                loot_filter_singleton.AddToWhitelist(temp_model_id)
-                for item in loot_items:
-                    if item.get("model_id") == temp_model_id:
-                        item["enabled"] = True
-                save_loot_config()
-                temp_model_id = 0
+    if opened:
+        PyImGui.text("Manual Loot Configuration")
 
-            if PyImGui.button("Remove ModelID from Whitelist"):
-                loot_filter_singleton.RemoveFromWhitelist(temp_model_id)
-                for item in loot_items:
-                    if item.get("model_id") == temp_model_id:
-                        item["enabled"] = False
-                save_loot_config()
-                temp_model_id = 0
+        temp_model_id = PyImGui.input_int("Model ID", temp_model_id)
 
-            if PyImGui.button("Clear Whitelist"):
-                loot_filter_singleton.ClearWhitelist()
-                for item in loot_items:
-                    if not item.get("rarity_filter", False):
-                        item["enabled"] = False
-                save_loot_config()
+        PyImGui.separator()
+        PyImGui.text("Whitelist Actions")
 
-            PyImGui.separator()
-            PyImGui.text("Blacklist Actions")
+        if PyImGui.button("Add ModelID to Whitelist"):
+            loot_filter_singleton.AddToWhitelist(temp_model_id)
+            for item in loot_items:
+                if item.get("model_id") == temp_model_id:
+                    item["enabled"] = True
+            save_loot_config()
+            temp_model_id = 0
 
-            if PyImGui.button("Add ModelID to Blacklist"):
-                loot_filter_singleton.AddToBlacklist(temp_model_id)
-                save_loot_config()
-                temp_model_id = 0
+        if PyImGui.button("Remove ModelID from Whitelist"):
+            loot_filter_singleton.RemoveFromWhitelist(temp_model_id)
+            for item in loot_items:
+                if item.get("model_id") == temp_model_id:
+                    item["enabled"] = False
+            save_loot_config()
+            temp_model_id = 0
 
-            if PyImGui.button("Remove ModelID from Blacklist"):
-                loot_filter_singleton.RemoveFromBlacklist(temp_model_id)
-                save_loot_config()
-                temp_model_id = 0
+        if PyImGui.button("Clear Whitelist"):
+            loot_filter_singleton.ClearWhitelist()
+            for item in loot_items:
+                if not item.get("rarity_filter", False):
+                    item["enabled"] = False
+            save_loot_config()
 
-            if PyImGui.button("Clear Blacklist"):
-                loot_filter_singleton.ClearBlacklist()
-                save_loot_config()
+        PyImGui.separator()
+        PyImGui.text("Blacklist Actions")
 
-            PyImGui.end()
+        if PyImGui.button("Add ModelID to Blacklist"):
+            loot_filter_singleton.AddToBlacklist(temp_model_id)
+            save_loot_config()
+            temp_model_id = 0
+
+        if PyImGui.button("Remove ModelID from Blacklist"):
+            loot_filter_singleton.RemoveFromBlacklist(temp_model_id)
+            save_loot_config()
+            temp_model_id = 0
+
+        if PyImGui.button("Clear Blacklist"):
+            loot_filter_singleton.ClearBlacklist()
+            save_loot_config()
+
+    PyImGui.end()
+
+    if manual_save_timer.HasElapsed(1000):
+        if (end_pos[0], end_pos[1]) != (manual_win_x, manual_win_y):
+            manual_win_x, manual_win_y = int(end_pos[0]), int(end_pos[1])
+            ini_window.write_key("Manual Loot Config Window", "x", str(manual_win_x))
+            ini_window.write_key("Manual Loot Config Window", "y", str(manual_win_y))
+
+        if new_collapsed != manual_win_collapsed:
+            manual_win_collapsed = new_collapsed
+            ini_window.write_key("Manual Loot Config Window", "collapsed", str(manual_win_collapsed))
+
+        manual_save_timer.Reset()
 
 # --- Required Functions ---
 def main():
