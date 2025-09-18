@@ -1,6 +1,7 @@
 import tkinter as tk
 from datetime import datetime, timedelta
 from tkinter import filedialog
+from typing import Optional, Tuple
 
 from Py4GWCoreLib import *
 
@@ -28,43 +29,114 @@ last_rarity_timestamp = 0
 script_directory = os.path.dirname(os.path.abspath(__file__))
 # ——— Window Persistence Setup ———
 ini_window = IniHandler(os.path.join(script_directory, "Config", "loot_window.ini"))
-save_window_timer = Timer()
-save_window_timer.Start()
+window_state_timer = Timer()
+window_state_timer.Start()
 
-# load last‐saved window state (fallback to 100,100 / un-collapsed)
-win_x         = ini_window.read_int("Loot Manager", "x", 100)
-win_y         = ini_window.read_int("Loot Manager", "y", 100)
-win_collapsed = ini_window.read_bool("Loot Manager", "collapsed", False)
-first_run     = True
 
-# --- Debug window persistence ---
-whitelist_win_x         = ini_window.read_int("Whitelist Viewer", "x", 150)
-whitelist_win_y         = ini_window.read_int("Whitelist Viewer", "y", 150)
-whitelist_win_collapsed = ini_window.read_bool("Whitelist Viewer", "collapsed", False)
-whitelist_first_run     = True
-whitelist_save_timer    = Timer()
-whitelist_save_timer.Start()
+class WindowState:
+    """Track persisted position, collapse, and open state for a window."""
 
-blacklist_win_x         = ini_window.read_int("Blacklist Viewer", "x", 180)
-blacklist_win_y         = ini_window.read_int("Blacklist Viewer", "y", 180)
-blacklist_win_collapsed = ini_window.read_bool("Blacklist Viewer", "collapsed", False)
-blacklist_first_run     = True
-blacklist_save_timer    = Timer()
-blacklist_save_timer.Start()
+    __slots__ = (
+        "section",
+        "x",
+        "y",
+        "collapsed",
+        "first_run",
+        "toggle_name",
+        "open",
+        "_dirty_pos",
+        "_dirty_collapse",
+        "_dirty_open",
+    )
 
-filtered_win_x         = ini_window.read_int("Filtered Loot Window", "x", 210)
-filtered_win_y         = ini_window.read_int("Filtered Loot Window", "y", 210)
-filtered_win_collapsed = ini_window.read_bool("Filtered Loot Window", "collapsed", False)
-filtered_first_run     = True
-filtered_save_timer    = Timer()
-filtered_save_timer.Start()
+    def __init__(
+        self,
+        section: str,
+        default_pos: Tuple[int, int],
+        *,
+        default_collapsed: bool = False,
+        toggle_name: Optional[str] = None,
+        open_default: bool = False,
+    ) -> None:
+        self.section = section
+        self.x = ini_window.read_int(section, "x", default_pos[0])
+        self.y = ini_window.read_int(section, "y", default_pos[1])
+        self.collapsed = ini_window.read_bool(section, "collapsed", default_collapsed)
+        self.first_run = True
+        self.toggle_name = toggle_name
+        self.open: Optional[bool] = None
+        if toggle_name is not None:
+            current_open = ini_window.read_bool(section, "open", open_default)
+            globals()[toggle_name] = current_open
+            self.open = current_open
+        self._dirty_pos = False
+        self._dirty_collapse = False
+        self._dirty_open = False
 
-manual_win_x         = ini_window.read_int("Manual Loot Config Window", "x", 240)
-manual_win_y         = ini_window.read_int("Manual Loot Config Window", "y", 240)
-manual_win_collapsed = ini_window.read_bool("Manual Loot Config Window", "collapsed", False)
-manual_first_run     = True
-manual_save_timer    = Timer()
-manual_save_timer.Start()
+    def ensure_setup(self) -> None:
+        if self.first_run:
+            PyImGui.set_next_window_pos(self.x, self.y)
+            PyImGui.set_next_window_collapsed(self.collapsed, 0)
+            self.first_run = False
+
+    def record(self, end_pos: Tuple[float, float], collapsed: bool) -> None:
+        new_x, new_y = int(end_pos[0]), int(end_pos[1])
+        if (new_x, new_y) != (self.x, self.y):
+            self.x, self.y = new_x, new_y
+            self._dirty_pos = True
+        if collapsed != self.collapsed:
+            self.collapsed = collapsed
+            self._dirty_collapse = True
+
+    def sync_open_flag(self) -> None:
+        if self.toggle_name is None:
+            return
+        current = bool(globals()[self.toggle_name])
+        if self.open != current:
+            self.open = current
+            self._dirty_open = True
+
+    def flush(self) -> None:
+        if self._dirty_pos:
+            ini_window.write_key(self.section, "x", str(self.x))
+            ini_window.write_key(self.section, "y", str(self.y))
+            self._dirty_pos = False
+        if self._dirty_collapse:
+            ini_window.write_key(self.section, "collapsed", str(self.collapsed))
+            self._dirty_collapse = False
+        if self._dirty_open and self.toggle_name is not None:
+            ini_window.write_key(self.section, "open", str(self.open))
+            self._dirty_open = False
+
+
+loot_manager_state = WindowState("Loot Manager", (100, 100))
+whitelist_window_state = WindowState(
+    "Whitelist Viewer", (150, 150), toggle_name="show_white_list"
+)
+blacklist_window_state = WindowState(
+    "Blacklist Viewer", (180, 180), toggle_name="show_black_list"
+)
+filtered_window_state = WindowState(
+    "Filtered Loot Window", (210, 210), toggle_name="show_filtered_loot_list"
+)
+manual_window_state = WindowState(
+    "Manual Loot Config Window", (240, 240), toggle_name="show_manual_editor"
+)
+
+WINDOW_STATES = [
+    loot_manager_state,
+    whitelist_window_state,
+    blacklist_window_state,
+    filtered_window_state,
+    manual_window_state,
+]
+
+
+def flush_window_states() -> None:
+    if window_state_timer.HasElapsed(1000):
+        for state in WINDOW_STATES:
+            state.flush()
+        window_state_timer.Reset()
 
 # --- File paths setup ---
 CONFIG_FILE = os.path.join(script_directory, "Config", "loot_config.json")
@@ -447,16 +519,13 @@ def get_current_nick_item_by_formula():
 def DrawWindow():
     global include_model_id_in_tooltip, show_white_list, show_filtered_loot_list
     global show_manual_editor, show_black_list
-    global win_x, win_y, win_collapsed, first_run
     global weeks_future
+    state = loot_manager_state
     if not Routines.Checks.Map.MapValid():
         return
 
     # 1) On first draw, restore last position & collapsed state
-    if first_run:
-        PyImGui.set_next_window_pos(win_x, win_y)
-        PyImGui.set_next_window_collapsed(win_collapsed, 0)
-        first_run = False
+    state.ensure_setup()
 
     # 2) Begin the window (returns False if collapsed)
     opened = PyImGui.begin("Loot Manager", PyImGui.WindowFlags.AlwaysAutoResize)
@@ -479,6 +548,10 @@ def DrawWindow():
             show_manual_editor      = PyImGui.checkbox(
                 "Manual Loot Configuration", show_manual_editor
             )
+            whitelist_window_state.sync_open_flag()
+            blacklist_window_state.sync_open_flag()
+            filtered_window_state.sync_open_flag()
+            manual_window_state.sync_open_flag()
             PyImGui.tree_pop()
 
         # ——— Save/Load Configs ———
@@ -723,29 +796,16 @@ def DrawWindow():
     # 5) End the window (must be called even if collapsed)
     PyImGui.end()
 
-    # 6) Once per second, persist any position or collapse changes
-    if save_window_timer.HasElapsed(1000):
-        # Position changed?
-        if (end_pos[0], end_pos[1]) != (win_x, win_y):
-            win_x, win_y = int(end_pos[0]), int(end_pos[1])
-            ini_window.write_key("Loot Manager", "x", str(win_x))
-            ini_window.write_key("Loot Manager", "y", str(win_y))
-        # Collapsed state changed?
-        if new_collapsed != win_collapsed:
-            win_collapsed = new_collapsed
-            ini_window.write_key("Loot Manager", "collapsed", str(win_collapsed))
-        save_window_timer.Reset()
+    state.record(end_pos, new_collapsed)
 
 def DrawWhitelistViewer():
-    global whitelist_first_run, whitelist_win_x, whitelist_win_y, whitelist_win_collapsed
+    state = whitelist_window_state
+    state.sync_open_flag()
 
     if not show_white_list:
         return
 
-    if whitelist_first_run:
-        PyImGui.set_next_window_pos(whitelist_win_x, whitelist_win_y)
-        PyImGui.set_next_window_collapsed(whitelist_win_collapsed, 0)
-        whitelist_first_run = False
+    state.ensure_setup()
 
     opened = PyImGui.begin("Whitelist Viewer", None, PyImGui.WindowFlags.AlwaysAutoResize)
     new_collapsed = PyImGui.is_window_collapsed()
@@ -798,28 +858,16 @@ def DrawWhitelistViewer():
 
     PyImGui.end()
 
-    if whitelist_save_timer.HasElapsed(1000):
-        if (end_pos[0], end_pos[1]) != (whitelist_win_x, whitelist_win_y):
-            whitelist_win_x, whitelist_win_y = int(end_pos[0]), int(end_pos[1])
-            ini_window.write_key("Whitelist Viewer", "x", str(whitelist_win_x))
-            ini_window.write_key("Whitelist Viewer", "y", str(whitelist_win_y))
-
-        if new_collapsed != whitelist_win_collapsed:
-            whitelist_win_collapsed = new_collapsed
-            ini_window.write_key("Whitelist Viewer", "collapsed", str(whitelist_win_collapsed))
-
-        whitelist_save_timer.Reset()
+    state.record(end_pos, new_collapsed)
 
 def DrawBlacklistViewer():
-    global blacklist_first_run, blacklist_win_x, blacklist_win_y, blacklist_win_collapsed
+    state = blacklist_window_state
+    state.sync_open_flag()
 
     if not show_black_list:
         return
 
-    if blacklist_first_run:
-        PyImGui.set_next_window_pos(blacklist_win_x, blacklist_win_y)
-        PyImGui.set_next_window_collapsed(blacklist_win_collapsed, 0)
-        blacklist_first_run = False
+    state.ensure_setup()
 
     opened = PyImGui.begin("Blacklist Viewer", None, PyImGui.WindowFlags.AlwaysAutoResize)
     new_collapsed = PyImGui.is_window_collapsed()
@@ -834,28 +882,16 @@ def DrawBlacklistViewer():
 
     PyImGui.end()
 
-    if blacklist_save_timer.HasElapsed(1000):
-        if (end_pos[0], end_pos[1]) != (blacklist_win_x, blacklist_win_y):
-            blacklist_win_x, blacklist_win_y = int(end_pos[0]), int(end_pos[1])
-            ini_window.write_key("Blacklist Viewer", "x", str(blacklist_win_x))
-            ini_window.write_key("Blacklist Viewer", "y", str(blacklist_win_y))
-
-        if new_collapsed != blacklist_win_collapsed:
-            blacklist_win_collapsed = new_collapsed
-            ini_window.write_key("Blacklist Viewer", "collapsed", str(blacklist_win_collapsed))
-
-        blacklist_save_timer.Reset()
+    state.record(end_pos, new_collapsed)
 
 def DrawFilteredLootList():
-    global filtered_first_run, filtered_win_x, filtered_win_y, filtered_win_collapsed
+    state = filtered_window_state
+    state.sync_open_flag()
 
     if not show_filtered_loot_list:
         return
 
-    if filtered_first_run:
-        PyImGui.set_next_window_pos(filtered_win_x, filtered_win_y)
-        PyImGui.set_next_window_collapsed(filtered_win_collapsed, 0)
-        filtered_first_run = False
+    state.ensure_setup()
 
     opened = PyImGui.begin("Filtered Loot Window", None, PyImGui.WindowFlags.AlwaysAutoResize)
     new_collapsed = PyImGui.is_window_collapsed()
@@ -888,29 +924,17 @@ def DrawFilteredLootList():
 
     PyImGui.end()
 
-    if filtered_save_timer.HasElapsed(1000):
-        if (end_pos[0], end_pos[1]) != (filtered_win_x, filtered_win_y):
-            filtered_win_x, filtered_win_y = int(end_pos[0]), int(end_pos[1])
-            ini_window.write_key("Filtered Loot Window", "x", str(filtered_win_x))
-            ini_window.write_key("Filtered Loot Window", "y", str(filtered_win_y))
-
-        if new_collapsed != filtered_win_collapsed:
-            filtered_win_collapsed = new_collapsed
-            ini_window.write_key("Filtered Loot Window", "collapsed", str(filtered_win_collapsed))
-
-        filtered_save_timer.Reset()
+    state.record(end_pos, new_collapsed)
 
 def DrawManualLootConfig():
     global temp_model_id
-    global manual_first_run, manual_win_x, manual_win_y, manual_win_collapsed
+    state = manual_window_state
+    state.sync_open_flag()
 
     if not show_manual_editor:
         return
 
-    if manual_first_run:
-        PyImGui.set_next_window_pos(manual_win_x, manual_win_y)
-        PyImGui.set_next_window_collapsed(manual_win_collapsed, 0)
-        manual_first_run = False
+    state.ensure_setup()
 
     opened = PyImGui.begin("Manual Loot Config Window", None, PyImGui.WindowFlags.AlwaysAutoResize)
     new_collapsed = PyImGui.is_window_collapsed()
@@ -966,17 +990,7 @@ def DrawManualLootConfig():
 
     PyImGui.end()
 
-    if manual_save_timer.HasElapsed(1000):
-        if (end_pos[0], end_pos[1]) != (manual_win_x, manual_win_y):
-            manual_win_x, manual_win_y = int(end_pos[0]), int(end_pos[1])
-            ini_window.write_key("Manual Loot Config Window", "x", str(manual_win_x))
-            ini_window.write_key("Manual Loot Config Window", "y", str(manual_win_y))
-
-        if new_collapsed != manual_win_collapsed:
-            manual_win_collapsed = new_collapsed
-            ini_window.write_key("Manual Loot Config Window", "collapsed", str(manual_win_collapsed))
-
-        manual_save_timer.Reset()
+    state.record(end_pos, new_collapsed)
 
 # --- Required Functions ---
 def main():
@@ -1012,6 +1026,11 @@ def render():
     # Draw GUI
     DrawWindow()
 
+    whitelist_window_state.sync_open_flag()
+    blacklist_window_state.sync_open_flag()
+    filtered_window_state.sync_open_flag()
+    manual_window_state.sync_open_flag()
+
     if show_white_list:
         DrawWhitelistViewer()
 
@@ -1023,6 +1042,8 @@ def render():
 
     if show_black_list:
         DrawBlacklistViewer()
+
+    flush_window_states()
 
 # --- Exports ---
 __all__ = ['main', 'configure']
