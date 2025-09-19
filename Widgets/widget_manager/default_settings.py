@@ -68,6 +68,13 @@ global_widget_defaults = {
         "icon": "ICON_INFO_CIRCLE",
         "quickdock": "True",
     },
+    "Chat Logger": {
+        "enabled": "False",
+        "category": "Coding",
+        "subcategory": "Info",
+        "icon": "ICON_SAVE",
+        "quickdock": "True",
+    },
     "Agent Info": {
         "enabled": "False",
         "category": "Coding",
@@ -337,6 +344,13 @@ account_widget_defaults = {
         "category": "Coding",
         "subcategory": "Info",
         "icon": "ICON_INFO_CIRCLE",
+        "quickdock": "True",
+    },
+    "Chat Logger": {
+        "enabled": "False",
+        "category": "Coding",
+        "subcategory": "Info",
+        "icon": "ICON_SAVE",
         "quickdock": "True",
     },
     "Agent Info": {
