@@ -1,4 +1,4 @@
-VultureDrifts = [
+TheScar = [
     (0, 0),
     (-14547.15, -10514.00),
     (-14547.15, -10514.00),
@@ -193,11 +193,11 @@ VultureDrifts = [
     (6506, -548),
 ]
 
-VultureDrifts_outpost_path = [
+TheScar_outpost_path = [
     (10723, 5352)
 ]
 
-VultureDrifts_ids = {
+TheScar_ids = {
     "outpost_id": 116,
     "map_id": 111
 }
