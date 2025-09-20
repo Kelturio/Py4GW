@@ -701,7 +701,12 @@ class _FSM_Helpers:
             self._parent.SetCurrentStep("Loot Items", 0.10)
             yield from Routines.Yield.wait(1500)  # Wait for a second before starting to loot
             
-            filtered_agent_ids = self.loot_singleton.GetfilteredLootArray(distance=Range.Earshot.value, multibox_loot=False, allow_unasigned_loot=True)
+            pickup_radius = self.loot_singleton.GetPickupRadius()
+            filtered_agent_ids = self.loot_singleton.GetfilteredLootArray(
+                distance=pickup_radius,
+                multibox_loot=False,
+                allow_unasigned_loot=True,
+            )
             yield from Routines.Yield.Items.LootItems(filtered_agent_ids, 
                                                       log=self._parent.detailed_logging,
                                                       progress_callback=self._parent.AdvanceProgress)

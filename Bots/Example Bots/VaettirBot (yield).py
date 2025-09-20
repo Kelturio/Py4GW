@@ -774,7 +774,8 @@ def RunBotSequentialLogic():
         bot_variables.config.in_killing_routine = False
         bot_variables.config.finished_routine = True
                 
-        filtered_agent_ids = LootConfig().GetfilteredLootArray(Range.Earshot.value)
+        loot_config = LootConfig()
+        filtered_agent_ids = loot_config.GetfilteredLootArray(loot_config.GetPickupRadius())
         
         if handle_death():
             ConsoleLog(MODULE_NAME, "Player is dead before looting. Reseting Environment.", Py4GW.Console.MessageType.Error, log=log_to_console)
@@ -1087,7 +1088,8 @@ def DrawWindow():
                 identify_array = filter_identify_array()
                 salvage_array = filter_salvage_array()
                 deposit_array = filter_items_to_deposit()
-                loot_array = LootConfig().GetfilteredLootArray(Range.Earshot.value)
+                loot_config = LootConfig()
+                loot_array = loot_config.GetfilteredLootArray(loot_config.GetPickupRadius())
 
                 PyImGui.text(f"Identify Array: {len(identify_array)}")
                 PyImGui.text(f"Salvage Array: {len(salvage_array)}")

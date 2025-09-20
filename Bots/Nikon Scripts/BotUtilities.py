@@ -539,7 +539,8 @@ class ReportsProgress():
     def GetNearestPickupItem(self, player_id):
         try:            
             items = AgentArray.GetItemArray()
-            items = AgentArray.Filter.ByDistance(items, Player.GetXY(), GameAreas.Lesser_Earshot)
+            loot_config = LootConfig()
+            items = AgentArray.Filter.ByDistance(items, Player.GetXY(), loot_config.GetPickupRadius())
             items = AgentArray.Sort.ByDistance(items, Player.GetXY())
 
             if items != None and len(items) > 0:

@@ -618,7 +618,8 @@ def PickUpLoot(index, message):
 
     GLOBAL_CACHE.ShMem.MarkMessageAsRunning(message.ReceiverEmail, index)
 
-    loot_array = LootConfig().GetfilteredLootArray(Range.Earshot.value, multibox_loot=True)
+    loot_config = LootConfig()
+    loot_array = loot_config.GetfilteredLootArray(loot_config.GetPickupRadius(), multibox_loot=True)
     if len(loot_array) == 0:
         GLOBAL_CACHE.ShMem.MarkMessageAsFinished(message.ReceiverEmail, index)
         return
@@ -629,7 +630,7 @@ def PickUpLoot(index, message):
     yield from DisableHeroAIOptions(message.ReceiverEmail)
     yield from Routines.Yield.wait(100)
     while True:
-        loot_array = LootConfig().GetfilteredLootArray(Range.Earshot.value, multibox_loot=True)
+        loot_array = loot_config.GetfilteredLootArray(loot_config.GetPickupRadius(), multibox_loot=True)
         if len(loot_array) == 0:
             break
         item_id = loot_array.pop(0)
@@ -697,7 +698,7 @@ def PickUpLoot(index, message):
                 ActionQueueManager().ResetAllQueues()
                 return
 
-            loot_array = LootConfig().GetfilteredLootArray(Range.Earshot.value, multibox_loot=True)
+            loot_array = loot_config.GetfilteredLootArray(loot_config.GetPickupRadius(), multibox_loot=True)
             if item_id not in loot_array or len(loot_array) == 0:
                 yield from Routines.Yield.wait(100)
                 break
