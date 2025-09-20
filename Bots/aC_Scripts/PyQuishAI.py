@@ -751,8 +751,9 @@ def DrawWindow():
 
     # ====== Run Controls (compact) ======
     PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
-    if PyImGui.collapsing_header("Run Controls", PyImGui.TreeNodeFlags.DefaultOpen):
-        PyImGui.pop_style_color(1)
+    run_controls_open = PyImGui.collapsing_header("Run Controls", PyImGui.TreeNodeFlags.DefaultOpen)
+    PyImGui.pop_style_color(1)
+    if run_controls_open:
         # Start/Stop (compact)
         btn_label = ">" if not bot_vars.is_running else "X"
         if PyImGui.button(btn_label, width=24):
@@ -817,8 +818,12 @@ def DrawWindow():
 
     # ====== Map Selection ======
     PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
-    if PyImGui.collapsing_header(f"{IconsFontAwesome5.ICON_GLOBE_EUROPE} Select Region / Map", PyImGui.TreeNodeFlags.DefaultOpen):
-        PyImGui.pop_style_color(1)
+    map_select_open = PyImGui.collapsing_header(
+        f"{IconsFontAwesome5.ICON_GLOBE_EUROPE} Select Region / Map",
+        PyImGui.TreeNodeFlags.DefaultOpen
+    )
+    PyImGui.pop_style_color(1)
+    if map_select_open:
         regions = []
         if os.path.isdir(MAPS_DIR):
             regions = sorted(
@@ -864,8 +869,9 @@ def DrawWindow():
 
     # ====== Current State ======
     PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
-    if PyImGui.collapsing_header("Current State", PyImGui.TreeNodeFlags.DefaultOpen):
-        PyImGui.pop_style_color(1)
+    current_state_open = PyImGui.collapsing_header("Current State", PyImGui.TreeNodeFlags.DefaultOpen)
+    PyImGui.pop_style_color(1)
+    if current_state_open:
         current_state = FSM_vars.state_machine.get_current_step_name()
         PyImGui.text(f"{current_state}")
         if current_state == "Combat and Movement" and FSM_vars.path_and_aggro:
@@ -873,8 +879,12 @@ def DrawWindow():
 
     # ====== Statistics ======
     PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
-    if PyImGui.collapsing_header(f"{IconsFontAwesome5.ICON_LIST_ALT} Run Metrics", PyImGui.TreeNodeFlags.DefaultOpen):
-        PyImGui.pop_style_color(1)
+    metrics_open = PyImGui.collapsing_header(
+        f"{IconsFontAwesome5.ICON_LIST_ALT} Run Metrics",
+        PyImGui.TreeNodeFlags.DefaultOpen
+    )
+    PyImGui.pop_style_color(1)
+    if metrics_open:
         if bot_vars.is_running:
             PyImGui.text(f"Total Time: {FormatTime(bot_vars.global_timer.GetElapsedTime(), 'hh:mm:ss')}")
             PyImGui.text(f"Current Run: {FormatTime(bot_vars.lap_timer.GetElapsedTime(), 'mm:ss')}")
@@ -891,8 +901,12 @@ def DrawWindow():
 
     # ====== Titles / Allegiance ======
     PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
-    if PyImGui.collapsing_header(f"{IconsFontAwesome5.ICON_TROPHY} Title Progress", PyImGui.TreeNodeFlags.DefaultOpen):
-        PyImGui.pop_style_color(1)
+    titles_open = PyImGui.collapsing_header(
+        f"{IconsFontAwesome5.ICON_TROPHY} Title Progress",
+        PyImGui.TreeNodeFlags.DefaultOpen
+    )
+    PyImGui.pop_style_color(1)
+    if titles_open:
         region = bot_vars.selected_region
         if region in kurzick_regions:
             display_faction("Kurzick", 5, Player.GetKurzickData, kurzick_tiers)
@@ -904,11 +918,12 @@ def DrawWindow():
         elif region in eotn_region_titles:
             for title_id, title_name, tier_data in eotn_region_titles[region]:
                 display_title_progress(title_name, title_id, tier_data)
-    
+
     # ====== Loaded Script Info ======
     PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
-    if PyImGui.collapsing_header("Loaded Script Info", 0):
-        PyImGui.pop_style_color(1)
+    loaded_info_open = PyImGui.collapsing_header("Loaded Script Info", 0)
+    PyImGui.pop_style_color(1)
+    if loaded_info_open:
         stats = _compute_map_stats()
 
         # Map IDs
