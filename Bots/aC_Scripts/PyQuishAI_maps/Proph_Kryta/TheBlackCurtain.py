@@ -254,10 +254,12 @@ TheBlackCurtain = [
 ]
 
 TheBlackCurtain_outpost_path = [
-    (-5057.52, 17188.52), (-5205.00, 15562.00)
+    (-4908.0, 17096.0),
+    (-5198.0, 16120.0),
+    (-5483.0, 15161.0)
 ]
 
 TheBlackCurtain_ids = {
-    "outpost_id": None,
-    "map_id": None
+    "outpost_id": 138,
+    "map_id": 18
 }
