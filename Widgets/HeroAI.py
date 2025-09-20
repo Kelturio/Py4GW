@@ -121,8 +121,10 @@ def Loot(cached_data: CacheData):
     if GLOBAL_CACHE.Inventory.GetFreeSlotCount() < 1:
         return False
 
-    loot_array = LootConfig().GetfilteredLootArray(
-        Range.Earshot.value, multibox_loot=True
+    loot_config = LootConfig()
+    pickup_radius = loot_config.GetPickupRadius()
+    loot_array = loot_config.GetfilteredLootArray(
+        pickup_radius, multibox_loot=True
     )  # Changed for LootManager - aC
     if len(loot_array) == 0:
         cached_data.in_looting_routine = False
