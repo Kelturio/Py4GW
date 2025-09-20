@@ -327,7 +327,8 @@ class YAVB_GUI:
                                     loot_singleton = LootConfig()
                                     PyImGui.text(f"white_config = {loot_singleton.loot_whites}")
 
-                                    filtered_agent_ids = loot_singleton.GetfilteredLootArray(distance=Range.Earshot.value, multibox_loot=False, allow_unasigned_loot=True)
+                                    pickup_radius = loot_singleton.GetPickupRadius()
+                                    filtered_agent_ids = loot_singleton.GetfilteredLootArray(distance=pickup_radius, multibox_loot=False, allow_unasigned_loot=True)
 
                                     PyImGui.separator()
                                     for agent_id in filtered_agent_ids:

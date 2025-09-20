@@ -1,3 +1,4 @@
+import math
 import tkinter as tk
 from datetime import datetime, timedelta
 from tkinter import filedialog
@@ -189,7 +190,8 @@ def save_loot_config():
         # Save both loot_items and blacklist
         config_data = {
             "items": loot_items,
-            "blacklist": list(loot_filter_singleton.GetBlacklist())
+            "blacklist": list(loot_filter_singleton.GetBlacklist()),
+            "pickup_radius": loot_filter_singleton.GetPickupRadius(),
         }
         with open(CONFIG_FILE, "w") as f:
             json.dump(config_data, f, indent=4)
@@ -208,6 +210,7 @@ def save_rarity_filter_data():
                 "gold": loot_filter_singleton.loot_golds,
                 "green": loot_filter_singleton.loot_greens,
                 "gold_coins": loot_filter_singleton.loot_gold_coins,   # ← NEW
+                "pickup_radius": loot_filter_singleton.GetPickupRadius(),
             }, f, indent=4)
         print("[INFO] Saved rarity_filter_data.json")
     except Exception as e:
@@ -221,6 +224,7 @@ def load_loot_config():
     saved_items = {}
     saved_blacklist = []
     saved_dye_whitelist = []
+    saved_pickup_radius = None
     if os.path.exists(CONFIG_FILE):
         try:
             with open(CONFIG_FILE, "r") as f:
@@ -236,6 +240,10 @@ def load_loot_config():
                         saved_items[entry["model_id"]] = entry
                     saved_blacklist = data.get("blacklist", [])
                     saved_dye_whitelist = data.get("dye_whitelist", [])
+                    saved_pickup_radius = data.get("pickup_radius", saved_pickup_radius)
+                    rarity_block = data.get("rarity", {})
+                    if saved_pickup_radius is None and isinstance(rarity_block, dict):
+                        saved_pickup_radius = rarity_block.get("pickup_radius")
         except Exception as e:
             print(f"[ERROR] Failed to parse {CONFIG_FILE}: {e}")
 
@@ -251,6 +259,9 @@ def load_loot_config():
     # 4) Load dye whitelist
     for dye_id in saved_dye_whitelist:
         loot_filter_singleton.AddToDyeWhitelist(dye_id)
+
+    if saved_pickup_radius is not None:
+        loot_filter_singleton.SetPickupRadius(saved_pickup_radius)
 
     # 4) Merge saved flags onto each catalog item
     for item in loot_items:
@@ -312,6 +323,9 @@ def load_rarity_filter_settings():
         loot_greens=rarity_data.get("green", False),
         loot_gold_coins=rarity_data.get("gold_coins", False)
     )
+    loot_filter_singleton.SetPickupRadius(
+        rarity_data.get("pickup_radius", loot_filter_singleton.GetPickupRadius())
+    )
 
     # if the user wants gold coins, ensure they remain whitelisted
     if loot_filter_singleton.loot_gold_coins:
@@ -324,6 +338,7 @@ def save_loot_config_to(path: str):
             "items": loot_items,
             "blacklist": list(loot_filter_singleton.GetBlacklist()),
             "dye_whitelist": list(loot_filter_singleton.GetDyeWhitelist()),
+            "pickup_radius": loot_filter_singleton.GetPickupRadius(),
             "rarity": {
                 "loot_whites": loot_filter_singleton.loot_whites,
                 "loot_blues": loot_filter_singleton.loot_blues,
@@ -331,6 +346,7 @@ def save_loot_config_to(path: str):
                 "loot_golds": loot_filter_singleton.loot_golds,
                 "loot_greens": loot_filter_singleton.loot_greens,
                 "loot_gold_coins": loot_filter_singleton.loot_gold_coins,
+                "pickup_radius": loot_filter_singleton.GetPickupRadius(),
             }
         }
         with open(path, "w") as f:
@@ -351,6 +367,7 @@ def load_loot_config_from(path: str):
             saved_blacklist = raw.get("blacklist", [])
             saved_dye_whitelist = raw.get("dye_whitelist", [])
             rarity = raw.get("rarity", {})
+            saved_pickup_radius = raw.get("pickup_radius")
     except Exception as e:
         print(f"[ERROR] Failed to load from {path}: {e}")
         return
@@ -395,6 +412,10 @@ def load_loot_config_from(path: str):
         loot_greens=rarity.get("green", False),
         loot_gold_coins=rarity.get("gold_coins", False),
     )
+    if saved_pickup_radius is None and isinstance(rarity, dict):
+        saved_pickup_radius = rarity.get("pickup_radius")
+    if saved_pickup_radius is not None:
+        loot_filter_singleton.SetPickupRadius(saved_pickup_radius)
 
     # Persist changes to avoid core loop overwrite
     save_rarity_filter_data()
@@ -434,6 +455,9 @@ def setup():
             loot_purples=rarity_data.get("purple", False),
             loot_golds=rarity_data.get("gold", False),
             loot_greens=rarity_data.get("green", False)
+        )
+        loot_filter_singleton.SetPickupRadius(
+            rarity_data.get("pickup_radius", loot_filter_singleton.GetPickupRadius())
         )
 
         # Setup dye whitelist - only allow Black and White dyes
@@ -590,6 +614,13 @@ def DrawWindow():
             new_rg = PyImGui.checkbox("Gold Items", rg)
             new_re = PyImGui.checkbox("Green Items", re)
             new_gc = PyImGui.checkbox("Gold Coins", gc)
+            radius = loot_filter_singleton.GetPickupRadius()
+            new_radius = PyImGui.slider_float(
+                "Pickup Radius",
+                radius,
+                0.0,
+                Range.Spirit.value,
+            )
 
             if (new_rw, new_rb, new_rp, new_rg, new_re, new_gc) != (rw, rb, rp, rg, re, gc):
                 # Update all properties at once
@@ -609,6 +640,11 @@ def DrawWindow():
                     loot_filter_singleton.AddToWhitelist(coin_mid)
                 else:
                     loot_filter_singleton.RemoveFromWhitelist(coin_mid)
+                save_loot_config()
+
+            if not math.isclose(new_radius, radius, rel_tol=1e-4, abs_tol=0.1):
+                loot_filter_singleton.SetPickupRadius(new_radius)
+                save_rarity_filter_data()
                 save_loot_config()
 
             PyImGui.tree_pop()
