@@ -89,6 +89,13 @@ global_widget_defaults = {
         "icon": "ICON_INFO",
         "quickdock": "True",
     },
+    "Chat Log Saver": {
+        "enabled": "False",
+        "category": "Coding",
+        "subcategory": "Utilities",
+        "icon": "ICON_SAVE",
+        "quickdock": "True",
+    },
     "Environment Upkeeper": {
         "enabled": "True",
         "category": "Coding",
