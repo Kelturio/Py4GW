@@ -124,6 +124,13 @@ global_widget_defaults = {
         "icon": "ICON_CLOCK",
         "quickdock": "True",
     },
+    "Distance Tracker": {
+        "enabled": "True",
+        "category": "Gameplay",
+        "subcategory": "Overlays",
+        "icon": "ICON_PERSON_WALKING",
+        "quickdock": "True",
+    },
     "Get Blessed": {
         "enabled": "True",
         "category": "Gameplay",
@@ -393,6 +400,13 @@ account_widget_defaults = {
         "category": "Gameplay",
         "subcategory": "Overlays",
         "icon": "ICON_CLOCK",
+        "quickdock": "True",
+    },
+    "Distance Tracker": {
+        "enabled": "True",
+        "category": "Gameplay",
+        "subcategory": "Overlays",
+        "icon": "ICON_PERSON_WALKING",
         "quickdock": "True",
     },
     "Get Blessed": {
