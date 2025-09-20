@@ -264,6 +264,13 @@ global_widget_defaults = {
         "icon": "ICON_PEOPLE_CARRY",
         "quickdock": "True",
     },
+    "Storage Exporter": {
+        "enabled": "True",
+        "category": "Gameplay",
+        "subcategory": "Utilities",
+        "icon": "ICON_SAVE",
+        "quickdock": "True",
+    },
     # TODO: Register your Widget here
 }
 
