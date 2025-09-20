@@ -387,7 +387,7 @@ def draw_widget(state: ExporterState) -> None:
 
         if PyImGui.button("Export now"):
             state.trigger_manual_export()
-        PyImGui.same_line()
+        PyImGui.same_line(0.0, -1.0)
         PyImGui.text("Manual export")
 
         interval_value = PyImGui.slider_int("Export interval (minutes)", state.interval_minutes, 1, 60)
