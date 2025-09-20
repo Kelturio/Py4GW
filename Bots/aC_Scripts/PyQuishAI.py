@@ -750,7 +750,9 @@ def DrawWindow():
     PyImGui.push_style_color(PyImGui.ImGuiCol.ButtonActive,   neutral_button_active)
 
     # ====== Run Controls (compact) ======
+    PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
     if PyImGui.collapsing_header("Run Controls", PyImGui.TreeNodeFlags.DefaultOpen):
+        PyImGui.pop_style_color(1)
         # Start/Stop (compact)
         btn_label = ">" if not bot_vars.is_running else "X"
         if PyImGui.button(btn_label, width=24):
@@ -786,7 +788,16 @@ def DrawWindow():
         wps = FSM_vars.path_and_aggro.get_waypoints() if FSM_vars.path_and_aggro else []
         cur_pt = FSM_vars.path_and_aggro.get_current_waypoint() if FSM_vars.path_and_aggro else None
         cur_idx = FSM_vars.path_and_aggro.get_current_index() if FSM_vars.path_and_aggro else None
-
+        
+        if PyImGui.button("<", width=22):
+            if FSM_vars.path_and_aggro:
+                FSM_vars.path_and_aggro.seek_relative(-1, sticky=True)
+        PyImGui.same_line(0, 2)
+        if PyImGui.button(">", width=22):
+            if FSM_vars.path_and_aggro:
+                FSM_vars.path_and_aggro.seek_relative(+1, sticky=True)
+        
+        PyImGui.same_line(0, 6)
         PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
         PyImGui.text("Active WP:")
         PyImGui.pop_style_color(1)
@@ -804,25 +815,10 @@ def DrawWindow():
         else:
             PyImGui.text("(none)")
 
-        PyImGui.same_line(0, 6)
-        if PyImGui.button("<", width=22):
-            if FSM_vars.path_and_aggro:
-                FSM_vars.path_and_aggro.seek_relative(-1, sticky=True)
-        PyImGui.same_line(0, 2)
-        if PyImGui.button(">", width=22):
-            if FSM_vars.path_and_aggro:
-                FSM_vars.path_and_aggro.seek_relative(+1, sticky=True)
-
     # ====== Map Selection ======
-    if PyImGui.collapsing_header("Map Selection", PyImGui.TreeNodeFlags.DefaultOpen):
-        PyImGui.push_style_color(PyImGui.ImGuiCol.Text, icon_color)
-        PyImGui.text(IconsFontAwesome5.ICON_GLOBE_EUROPE)
+    PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
+    if PyImGui.collapsing_header(f"{IconsFontAwesome5.ICON_GLOBE_EUROPE} Select Region / Map", PyImGui.TreeNodeFlags.DefaultOpen):
         PyImGui.pop_style_color(1)
-        PyImGui.same_line(0, 3)
-        PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
-        PyImGui.text("Select Region / Map")
-        PyImGui.pop_style_color(1)
-
         regions = sorted([d for d in os.listdir(MAPS_DIR) if os.path.isdir(os.path.join(MAPS_DIR, d))])
         region_index = regions.index(bot_vars.selected_region) if bot_vars.selected_region in regions else 0
         region_index = PyImGui.combo("##Region", region_index, regions)
@@ -845,8 +841,53 @@ def DrawWindow():
                     bot_vars.selected_map = new_map
                     load_map_script()
 
+    # ====== Current State ======
+    PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
+    if PyImGui.collapsing_header("Current State", PyImGui.TreeNodeFlags.DefaultOpen):
+        PyImGui.pop_style_color(1)
+        current_state = FSM_vars.state_machine.get_current_step_name()
+        PyImGui.text(f"{current_state}")
+        if current_state == "Combat and Movement" and FSM_vars.path_and_aggro:
+            PyImGui.text(f"> {FSM_vars.path_and_aggro.status_message}")
+
+    # ====== Statistics ======
+    PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
+    if PyImGui.collapsing_header(f"{IconsFontAwesome5.ICON_LIST_ALT} Run Metrics", PyImGui.TreeNodeFlags.DefaultOpen):
+        PyImGui.pop_style_color(1)
+        if bot_vars.is_running:
+            PyImGui.text(f"Total Time: {FormatTime(bot_vars.global_timer.GetElapsedTime(), 'hh:mm:ss')}")
+            PyImGui.text(f"Current Run: {FormatTime(bot_vars.lap_timer.GetElapsedTime(), 'mm:ss')}")
+            draw_vanquish_status("Vanquish Progress")
+
+        if bot_vars.runs_attempted > 0:
+            PyImGui.text(f"Runs Attempted: {bot_vars.runs_attempted}")
+            PyImGui.text(f"Runs Completed: {bot_vars.runs_completed}")
+            PyImGui.text(f"Success Rate: {bot_vars.success_rate * 100:.1f}%")
+            if bot_vars.lap_history:
+                PyImGui.text(f"Best Time: {FormatTime(bot_vars.min_time, 'mm:ss')}")
+                PyImGui.text(f"Worst Time: {FormatTime(bot_vars.max_time, 'mm:ss')}")
+                PyImGui.text(f"Average Time: {FormatTime(bot_vars.avg_time, 'mm:ss')}")
+
+    # ====== Titles / Allegiance ======
+    PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
+    if PyImGui.collapsing_header(f"{IconsFontAwesome5.ICON_TROPHY} Title Progress", PyImGui.TreeNodeFlags.DefaultOpen):
+        PyImGui.pop_style_color(1)
+        region = bot_vars.selected_region
+        if region in kurzick_regions:
+            display_faction("Kurzick", 5, Player.GetKurzickData, kurzick_tiers)
+        elif region in luxon_regions:
+            display_faction("Luxon", 6, Player.GetLuxonData, luxon_tiers)
+        elif region in nightfall_regions:
+            display_title_progress("Sunspear Title", 17, sunspear_tiers)
+            display_title_progress("Lightbringer Title", 20, lightbringer_tiers)
+        elif region in eotn_region_titles:
+            for title_id, title_name, tier_data in eotn_region_titles[region]:
+                display_title_progress(title_name, title_id, tier_data)
+    
     # ====== Loaded Script Info ======
-    if PyImGui.collapsing_header("Loaded Script Info", PyImGui.TreeNodeFlags.DefaultOpen):
+    PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
+    if PyImGui.collapsing_header("Loaded Script Info", 0):
+        PyImGui.pop_style_color(1)
         stats = _compute_map_stats()
 
         # Map IDs
@@ -1048,64 +1089,6 @@ def DrawWindow():
                             FSM_vars.path_and_aggro.set_active_index(global_idx)
             else:
                 PyImGui.text("- (empty)")
-
-    # ====== Current State ======
-    if PyImGui.collapsing_header("Current State", PyImGui.TreeNodeFlags.DefaultOpen):
-        PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
-        PyImGui.text("State:")
-        PyImGui.pop_style_color(1)
-
-        current_state = FSM_vars.state_machine.get_current_step_name()
-        PyImGui.text(f"{current_state}")
-        if current_state == "Combat and Movement" and FSM_vars.path_and_aggro:
-            PyImGui.text(f"> {FSM_vars.path_and_aggro.status_message}")
-
-    # ====== Statistics ======
-    if PyImGui.collapsing_header("Statistics", 0):
-        PyImGui.push_style_color(PyImGui.ImGuiCol.Text, icon_color)
-        PyImGui.text(IconsFontAwesome5.ICON_LIST_ALT)
-        PyImGui.pop_style_color(1)
-        PyImGui.same_line(0, 3)
-        PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
-        PyImGui.text("Run Metrics")
-        PyImGui.pop_style_color(1)
-
-        if bot_vars.is_running:
-            PyImGui.text(f"Total Time: {FormatTime(bot_vars.global_timer.GetElapsedTime(), 'hh:mm:ss')}")
-            PyImGui.text(f"Current Run: {FormatTime(bot_vars.lap_timer.GetElapsedTime(), 'mm:ss')}")
-            draw_vanquish_status("Vanquish Progress")
-
-        if bot_vars.runs_attempted > 0:
-            PyImGui.text(f"Runs Attempted: {bot_vars.runs_attempted}")
-            PyImGui.text(f"Runs Completed: {bot_vars.runs_completed}")
-            PyImGui.text(f"Success Rate: {bot_vars.success_rate * 100:.1f}%")
-            if bot_vars.lap_history:
-                PyImGui.text(f"Best Time: {FormatTime(bot_vars.min_time, 'mm:ss')}")
-                PyImGui.text(f"Worst Time: {FormatTime(bot_vars.max_time, 'mm:ss')}")
-                PyImGui.text(f"Average Time: {FormatTime(bot_vars.avg_time, 'mm:ss')}")
-
-    # ====== Titles / Allegiance ======
-    if PyImGui.collapsing_header("Titles / Allegiance", 0):
-        PyImGui.push_style_color(PyImGui.ImGuiCol.Text, icon_color)
-        PyImGui.text(IconsFontAwesome5.ICON_TROPHY)
-        PyImGui.pop_style_color(1)
-
-        PyImGui.same_line(0, 5)
-        PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
-        PyImGui.text("Title Progress")
-        PyImGui.pop_style_color(1)
-
-        region = bot_vars.selected_region
-        if region in kurzick_regions:
-            display_faction("Kurzick", 5, Player.GetKurzickData, kurzick_tiers)
-        elif region in luxon_regions:
-            display_faction("Luxon", 6, Player.GetLuxonData, luxon_tiers)
-        elif region in nightfall_regions:
-            display_title_progress("Sunspear Title", 17, sunspear_tiers)
-            display_title_progress("Lightbringer Title", 20, lightbringer_tiers)
-        elif region in eotn_region_titles:
-            for title_id, title_name, tier_data in eotn_region_titles[region]:
-                display_title_progress(title_name, title_id, tier_data)
 
     # Pop styles
     PyImGui.pop_style_color(3)
