@@ -271,6 +271,17 @@ class FollowPathAndAggro:
         self._debug_hold = False
         self._forced_index = None
 
+    def _clear_follow_order(self):
+        """Stop any existing FollowXY order using the public API when possible."""
+        reset_fn = getattr(self.follow_handler, "reset", None)
+        if callable(reset_fn):
+            reset_fn()
+        else:
+            if hasattr(self.follow_handler, "following"):
+                self.follow_handler.following = False
+            if hasattr(self.follow_handler, "arrived"):
+                self.follow_handler.arrived = False
+
     def set_active_index(self, idx):
         """Set the internal active waypoint index without forcing immediate movement."""
         wps = self.get_waypoints()
@@ -283,8 +294,9 @@ class FollowPathAndAggro:
         self._forced_index = None
         self.release_hold()
         self._current_path_point = None
-        self.follow_handler._following = False
-        self.follow_handler.arrived = False
+        self._clear_follow_order()
+        if hasattr(self.follow_handler, "arrived"):
+            self.follow_handler.arrived = False
         self.status_message = f"[DEBUG] Set active index to {idx+1}/{len(wps)}"
         if self.log_actions:
             ConsoleLog("FollowPathAndAggro", self.status_message, Console.MessageType.Info)
@@ -350,8 +362,9 @@ class FollowPathAndAggro:
         if sticky:
             self.enable_hold()
         # Move now; do not auto-increment
-        self.follow_handler._following = False
-        self.follow_handler.arrived = False
+        self._clear_follow_order()
+        if hasattr(self.follow_handler, "arrived"):
+            self.follow_handler.arrived = False
         self._current_path_point = pt
         self.follow_handler.move_to_waypoint(*pt)
         self.status_message = f"[DEBUG] Forced move -> wp {idx+1}/{len(wps)} {pt}" + (" [HOLD]" if self._debug_hold else "")
@@ -483,7 +496,7 @@ class FollowPathAndAggro:
         else:
             if not self._current_path_point:
                 self.status_message = "Lost current path point, hang on a second"
-                self.follow_handler._following = False
+                self._clear_follow_order()
                 return
 
             px, py = Player.GetXY()
@@ -495,16 +508,18 @@ class FollowPathAndAggro:
             if no_enemies and dist_to_wp <= self.early_advance_dist:
                 if not self._advance_index_and_move():
                     # we're at the final wp – now we can stop
-                    self.follow_handler._following = False
-                    self.follow_handler.arrived    = True
+                    self._clear_follow_order()
+                    if hasattr(self.follow_handler, "arrived"):
+                        self.follow_handler.arrived = True
                     self.status_message            = "Arrived at final waypoint."
                 return
 
             # Fallback: if we truly reached the point, move on immediately (no pause)
             if dist_to_wp <= ARRIVAL_TOLERANCE:
                 if not self._advance_index_and_move():
-                    self.follow_handler._following = False
-                    self.follow_handler.arrived    = True
+                    self._clear_follow_order()
+                    if hasattr(self.follow_handler, "arrived"):
+                        self.follow_handler.arrived = True
                     self.status_message            = "Arrived at final waypoint."
                 return
 
