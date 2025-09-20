@@ -189,7 +189,8 @@ def save_loot_config():
         # Save both loot_items and blacklist
         config_data = {
             "items": loot_items,
-            "blacklist": list(loot_filter_singleton.GetBlacklist())
+            "blacklist": list(loot_filter_singleton.GetBlacklist()),
+            "pickup_radius": loot_filter_singleton.GetPickupRadius(),
         }
         with open(CONFIG_FILE, "w") as f:
             json.dump(config_data, f, indent=4)
@@ -221,6 +222,7 @@ def load_loot_config():
     saved_items = {}
     saved_blacklist = []
     saved_dye_whitelist = []
+    saved_pickup_radius = Range.Earshot.value
     if os.path.exists(CONFIG_FILE):
         try:
             with open(CONFIG_FILE, "r") as f:
@@ -236,6 +238,7 @@ def load_loot_config():
                         saved_items[entry["model_id"]] = entry
                     saved_blacklist = data.get("blacklist", [])
                     saved_dye_whitelist = data.get("dye_whitelist", [])
+                    saved_pickup_radius = data.get("pickup_radius", saved_pickup_radius)
         except Exception as e:
             print(f"[ERROR] Failed to parse {CONFIG_FILE}: {e}")
 
@@ -302,6 +305,8 @@ def load_loot_config():
         # ensure you have ModelID.Gold_Coin in your enum
         loot_filter_singleton.AddToWhitelist(ModelID.Gold_Coins.value)
 
+    loot_filter_singleton.SetPickupRadius(saved_pickup_radius)
+
 def load_rarity_filter_settings():
     rarity_data = load_rarity_filter_data()
     loot_filter_singleton.SetProperties(
@@ -323,6 +328,7 @@ def save_loot_config_to(path: str):
         output = {
             "items": loot_items,
             "blacklist": list(loot_filter_singleton.GetBlacklist()),
+            "pickup_radius": loot_filter_singleton.GetPickupRadius(),
             "dye_whitelist": list(loot_filter_singleton.GetDyeWhitelist()),
             "rarity": {
                 "loot_whites": loot_filter_singleton.loot_whites,
@@ -351,6 +357,7 @@ def load_loot_config_from(path: str):
             saved_blacklist = raw.get("blacklist", [])
             saved_dye_whitelist = raw.get("dye_whitelist", [])
             rarity = raw.get("rarity", {})
+            saved_pickup_radius = raw.get("pickup_radius", Range.Earshot.value)
     except Exception as e:
         print(f"[ERROR] Failed to load from {path}: {e}")
         return
@@ -385,6 +392,8 @@ def load_loot_config_from(path: str):
                 if hasattr(ModelID, model_id_name):
                     model_id = getattr(ModelID, model_id_name)
             loot_filter_singleton.AddToWhitelist(model_id)
+
+    loot_filter_singleton.SetPickupRadius(saved_pickup_radius)
 
     # Apply saved rarity filters
     loot_filter_singleton.SetProperties(
@@ -591,6 +600,15 @@ def DrawWindow():
             new_re = PyImGui.checkbox("Green Items", re)
             new_gc = PyImGui.checkbox("Gold Coins", gc)
 
+            current_radius = loot_filter_singleton.GetPickupRadius()
+            new_radius = PyImGui.slider_float(
+                "Pickup Radius",
+                current_radius,
+                0.0,
+                Range.SafeCompass.value,
+                format="%.0f units",
+            )
+
             if (new_rw, new_rb, new_rp, new_rg, new_re, new_gc) != (rw, rb, rp, rg, re, gc):
                 # Update all properties at once
                 loot_filter_singleton.SetProperties(
@@ -609,6 +627,10 @@ def DrawWindow():
                     loot_filter_singleton.AddToWhitelist(coin_mid)
                 else:
                     loot_filter_singleton.RemoveFromWhitelist(coin_mid)
+                save_loot_config()
+
+            if new_radius != current_radius:
+                loot_filter_singleton.SetPickupRadius(new_radius)
                 save_loot_config()
 
             PyImGui.tree_pop()
@@ -1043,3 +1065,4 @@ def render():
 
 # --- Exports ---
 __all__ = ['main', 'configure']
+

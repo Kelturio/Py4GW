@@ -57,7 +57,8 @@ class LootUtility(CustomSkillUtilityBase):
         if custom_behavior_helpers.Targets.is_party_in_aggro(): 
             return None
 
-        loot_array = LootConfig().GetfilteredLootArray(Range.Earshot.value, multibox_loot=True)
+        loot_config = LootConfig()
+        loot_array = loot_config.GetfilteredLootArray(loot_config.GetPickupRadius(), multibox_loot=True)
         # print(f"Loot array: {loot_array}")
         if len(loot_array) == 0: return None
 
@@ -70,8 +71,9 @@ class LootUtility(CustomSkillUtilityBase):
             yield
             return BehaviorResult.ACTION_SKIPPED
         
-        loot_array = LootConfig().GetfilteredLootArray(Range.Earshot.value, multibox_loot=True)
-        if len(loot_array) == 0: 
+        loot_config = LootConfig()
+        loot_array = loot_config.GetfilteredLootArray(loot_config.GetPickupRadius(), multibox_loot=True)
+        if len(loot_array) == 0:
             yield
             return BehaviorResult.ACTION_SKIPPED
 
@@ -80,7 +82,7 @@ class LootUtility(CustomSkillUtilityBase):
         while True:
 
             if GLOBAL_CACHE.Inventory.GetFreeSlotCount() < 1: break
-            loot_array:list[int] = LootConfig().GetfilteredLootArray(Range.Earshot.value, multibox_loot=True)
+            loot_array: list[int] = loot_config.GetfilteredLootArray(loot_config.GetPickupRadius(), multibox_loot=True)
             if len(loot_array) == 0: break
             item_id = loot_array.pop(0)
             if item_id is None or item_id == 0: 
@@ -103,7 +105,7 @@ class LootUtility(CustomSkillUtilityBase):
 
             pickup_timer = ThrottledTimer(3_000)
             while not pickup_timer.IsExpired():
-                loot_array = LootConfig().GetfilteredLootArray(Range.Earshot.value, multibox_loot=True)
+                loot_array = loot_config.GetfilteredLootArray(loot_config.GetPickupRadius(), multibox_loot=True)
                 if item_id not in loot_array or len(loot_array) == 0:
                     break
                 if pickup_timer.IsExpired():

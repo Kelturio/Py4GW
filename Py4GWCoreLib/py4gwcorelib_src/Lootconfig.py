@@ -1,3 +1,5 @@
+from typing import Optional
+
 from ..enums_src.GameData_enums import Range
 from ..enums_src.Model_enums import ModelID
 
@@ -24,6 +26,7 @@ class LootConfig:
         self.loot_purples = False
         self.loot_golds = False
         self.loot_greens = False
+        self.SetPickupRadius(Range.Earshot.value)
         self.whitelist = set()  # Avoid duplicates
         self.blacklist = set()
         self.item_id_blacklist = set()  # For items that are blacklisted by ID
@@ -38,6 +41,20 @@ class LootConfig:
         self.loot_purples = loot_purples
         self.loot_golds = loot_golds
         self.loot_greens = loot_greens
+
+    def SetPickupRadius(self, radius: Optional[float]):
+        if radius is None:
+            radius = Range.Earshot.value
+
+        try:
+            radius = float(radius)
+        except (TypeError, ValueError):
+            radius = Range.Earshot.value
+
+        self.pickup_radius = max(0.0, radius)
+
+    def GetPickupRadius(self) -> float:
+        return self.pickup_radius
 
     # ------- Whitelist management -------
     def AddToWhitelist(self, model_id: int):
@@ -133,7 +150,9 @@ class LootConfig:
     def GetDyeBlacklist(self):
         return list(self.dye_blacklist)
 
-    def GetfilteredLootArray(self, distance: float = Range.SafeCompass.value, multibox_loot: bool = False, allow_unasigned_loot=False) -> list[int]:
+    def GetfilteredLootArray(self, distance: Optional[float] = None, multibox_loot: bool = False, allow_unasigned_loot=False) -> list[int]:
+        if distance is None:
+            distance = self.pickup_radius
         from ..AgentArray import AgentArray
         from ..GlobalCache import GLOBAL_CACHE
         from ..Routines import Routines
