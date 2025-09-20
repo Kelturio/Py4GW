@@ -69,10 +69,12 @@ MamnoonLagoon = [
 ]
 
 MamnoonLagoon_outpost_path = [
-    (1683, -1594), (4600, -27863)
+    (4351.0, -9980.0),
+    (3389.0, -9547.0),
+    (2782.0, -9331.0)
 ]
 
 MamnoonLagoon_ids = {
-    "outpost_id": None,
-    "map_id": None
+    "outpost_id": 140,
+    "map_id": 42
 }
