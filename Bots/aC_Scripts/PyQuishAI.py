@@ -819,27 +819,48 @@ def DrawWindow():
     PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
     if PyImGui.collapsing_header(f"{IconsFontAwesome5.ICON_GLOBE_EUROPE} Select Region / Map", PyImGui.TreeNodeFlags.DefaultOpen):
         PyImGui.pop_style_color(1)
-        regions = sorted([d for d in os.listdir(MAPS_DIR) if os.path.isdir(os.path.join(MAPS_DIR, d))])
-        region_index = regions.index(bot_vars.selected_region) if bot_vars.selected_region in regions else 0
-        region_index = PyImGui.combo("##Region", region_index, regions)
-        if region_index < len(regions):
-            new_region = regions[region_index]
-            if bot_vars.selected_region != new_region:
-                bot_vars.selected_region = new_region
+        regions = []
+        if os.path.isdir(MAPS_DIR):
+            regions = sorted(
+                [d for d in os.listdir(MAPS_DIR) if os.path.isdir(os.path.join(MAPS_DIR, d))]
+            )
+
+        if regions:
+            region_index = regions.index(bot_vars.selected_region) if bot_vars.selected_region in regions else 0
+            region_index = PyImGui.combo("##Region", region_index, regions)
+            if region_index < len(regions):
+                new_region = regions[region_index]
+                if bot_vars.selected_region != new_region:
+                    bot_vars.selected_region = new_region
+                    bot_vars.selected_map = ""
+        else:
+            if bot_vars.selected_region:
+                bot_vars.selected_region = ""
+            if bot_vars.selected_map:
                 bot_vars.selected_map = ""
+            PyImGui.text("No map regions found")
 
         if bot_vars.selected_region:
-            maps = sorted([
-                f[:-3] for f in os.listdir(os.path.join(MAPS_DIR, bot_vars.selected_region))
-                if f.endswith(".py")
-            ])
-            map_index = maps.index(bot_vars.selected_map) if bot_vars.selected_map in maps else 0
-            map_index = PyImGui.combo("##Map", map_index, maps)
-            if map_index < len(maps):
-                new_map = maps[map_index]
-                if bot_vars.selected_map != new_map:
-                    bot_vars.selected_map = new_map
-                    load_map_script()
+            region_path = os.path.join(MAPS_DIR, bot_vars.selected_region)
+            maps = []
+            if os.path.isdir(region_path):
+                maps = sorted([
+                    f[:-3] for f in os.listdir(region_path)
+                    if f.endswith(".py")
+                ])
+
+            if maps:
+                map_index = maps.index(bot_vars.selected_map) if bot_vars.selected_map in maps else 0
+                map_index = PyImGui.combo("##Map", map_index, maps)
+                if map_index < len(maps):
+                    new_map = maps[map_index]
+                    if bot_vars.selected_map != new_map:
+                        bot_vars.selected_map = new_map
+                        load_map_script()
+            else:
+                if bot_vars.selected_map:
+                    bot_vars.selected_map = ""
+                PyImGui.text("No map scripts found")
 
     # ====== Current State ======
     PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
