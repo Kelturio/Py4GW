@@ -10,6 +10,7 @@ alcohol_procs.json
 Widgets/Config/Travel.ini
 Widgets/Config/*
 
+!Widgets/Config/DistanceTracker.ini
 !Widgets/Config/textures/
 !Widgets/Config/textures/**
 
