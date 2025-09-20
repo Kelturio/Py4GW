@@ -1,5 +1,4 @@
 from Py4GWCoreLib import *
-from Py4GWCoreLib.enums import outposts, explorables
 from Widgets.Blessed import Get_Blessed
 from aC_api import *
 from HeroAI.cache_data import *
@@ -21,7 +20,7 @@ cache_data = CacheData()
 RECHECK_INTERVAL_MS = 500 # Used for followpathandaggro
 ARRIVAL_TOLERANCE = 250  # Used for path point arrival
 
-# Auto-load selected map script
+# NEW: Auto-load selected map script
 MAPS_DIR = "PyQuishAI_maps"
 
 # Default placeholders (used if no dynamic script is selected)
@@ -259,12 +258,6 @@ class FollowPathAndAggro:
         self._forced_index = None        # one-shot command target
         self._debug_hold   = False       # if True, do not auto-advance
 
-        # ── New proximity rules for fluid motion ──────────────────────
-        # If close to WP and no enemies -> skip stopping & flow to next
-        self.early_advance_dist  = int(ARRIVAL_TOLERANCE * 1.5)
-        # While in combat, treat WP as reached if we got this close
-        self.combat_reach_dist   = int(ARRIVAL_TOLERANCE * 1.25)
-
     # --- Debug control API ---
     def enable_hold(self): self._debug_hold = True
     def release_hold(self):
@@ -371,43 +364,6 @@ class FollowPathAndAggro:
         new_idx = _clamp(cur_idx + delta, 0, len(wps) - 1)
         return self.force_move_to_index(new_idx, sticky=sticky)
 
-    # ---------------- New helpers for fluid advancement ----------------
-
-    def _advance_index_only(self) -> bool:
-        """Advance internal path index without issuing a move (used during combat)."""
-        wps = self.get_waypoints()
-        if not wps:
-            return False
-        cur = self.get_current_index()
-        if cur is None:
-            return False
-        nxt = cur + 1
-        if nxt >= len(wps):
-            return False
-        _set_index_on_handler(self.path_handler, nxt)
-        self._current_path_point = wps[nxt]
-        return True
-
-    def _advance_index_and_move(self) -> bool:
-        """Advance to next waypoint and immediately move to it (fluid pathing)."""
-        wps = self.get_waypoints()
-        if not wps:
-            return False
-        cur = self.get_current_index()
-        if cur is None:
-            return False
-        nxt = cur + 1
-        if nxt >= len(wps):
-            return False
-        _set_index_on_handler(self.path_handler, nxt)
-        next_point = wps[nxt]
-        self._current_path_point = next_point
-        self.follow_handler.move_to_waypoint(*next_point)
-        self.status_message = f"Flowing to next wp {nxt+1}/{len(wps)} {next_point}"
-        if self.log_actions:
-            ConsoleLog("FollowPathAndAggro", self.status_message, Console.MessageType.Info)
-        return True
-
     # --------------------------------------------------------
 
     def _throttled_scan(self):
@@ -485,28 +441,12 @@ class FollowPathAndAggro:
                 self.status_message = "Lost current path point, hang on a second"
                 self.follow_handler._following = False
                 return
-
             px, py = Player.GetXY()
             tx, ty = self._current_path_point
-            dist_to_wp = Utils.Distance((px, py), (tx, ty))
-
-            # ── FLUID ADVANCE: if close and no enemies, don't stop; flow to next
-            no_enemies = (self._last_scanned_enemy is None)
-            if no_enemies and dist_to_wp <= self.early_advance_dist:
-                if not self._advance_index_and_move():
-                    # we're at the final wp – now we can stop
-                    self.follow_handler._following = False
-                    self.follow_handler.arrived    = True
-                    self.status_message            = "Arrived at final waypoint."
-                return
-
-            # Fallback: if we truly reached the point, move on immediately (no pause)
-            if dist_to_wp <= ARRIVAL_TOLERANCE:
-                if not self._advance_index_and_move():
-                    self.follow_handler._following = False
-                    self.follow_handler.arrived    = True
-                    self.status_message            = "Arrived at final waypoint."
-                return
+            if Utils.Distance((px, py), (tx, ty)) <= ARRIVAL_TOLERANCE:
+                self.follow_handler._following = False
+                self.follow_handler.arrived    = True
+                self.status_message            = "Arrived at waypoint."
 
     def _maybe_log_stats(self):
         elapsed = time.time() - self._stats_start_time
@@ -554,18 +494,6 @@ class FollowPathAndAggro:
                 self._advance_to_next_point()
 
         elif self._mode == 'combat':
-            # If current waypoint is close enough during combat, count it as reached
-            wp = self.get_current_waypoint()
-            if wp is not None:
-                try:
-                    px, py = Player.GetXY()
-                    dist_wp = Utils.Distance((px, py), wp)
-                    if dist_wp <= self.combat_reach_dist:
-                        if self._advance_index_only():
-                            self.status_message = "Marked waypoint reached during combat."
-                except Exception:
-                    pass
-
             if not self._current_target_enemy or not Agent.IsAlive(self._current_target_enemy):
                 self._mode                  = 'path'
                 self._current_target_enemy  = None
@@ -793,13 +721,13 @@ header_color          = Color(136, 117, 44, 255).to_tuple_normalized()
 icon_color            = Color(177, 152, 55, 255).to_tuple_normalized()
 neutral_button        = Color(33, 51, 58, 255).to_tuple_normalized()
 neutral_button_hover  = Color(140, 140, 140, 255).to_tuple_normalized()
-neutral_button_active = Color(90, 90, 90, 255).to_tuple_normalized()
+neutral_button_active = Color( 90,  90,  90, 255).to_tuple_normalized()
 header_bg_color       = Color(33, 51, 58, 255).to_tuple_normalized()
 header_hover_color    = Color(33, 51, 58, 255).to_tuple_normalized()
 header_active_color   = Color(95, 145,  95, 255).to_tuple_normalized()
 
 # --------------------------------------------------------------------------------------------------
-# DrawWindow()
+# DrawWindow() WITH COLLAPSIBLE SECTIONS + WAYPOINT CONTROLS + COMPACT BUTTONS + RESIZABLE WINDOW
 # --------------------------------------------------------------------------------------------------
 
 def DrawWindow():
@@ -1190,9 +1118,6 @@ def main():
     try:
         DrawWindow()
 
-        # (Data capture removed — handled by separate widget)
-
-        # Early outs for bot logic
         if not bot_vars.is_running or bot_vars.is_paused:
             return
 
@@ -1287,6 +1212,6 @@ def StopBot():
         stop_combat()
     ResetEnvironment()
 
-
+# Initialize the global instances
 FSM_vars = FSMVars()
 bot_vars = BotVars()
