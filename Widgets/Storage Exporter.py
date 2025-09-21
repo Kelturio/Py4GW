@@ -309,7 +309,16 @@ class ExporterState:
 
         item_id = int(getattr(item, "item_id", 0))
 
-        name = self._resolve_item_name(item_id, getattr(item, "name", ""))
+        name = ""
+        if item_id:
+            try:
+                name = GLOBAL_CACHE.Item.GetName(item_id)
+            except AttributeError:
+                # Fallback to the item's cached attribute if the cache isn't available
+                name = ""
+
+        if not name:
+            name = getattr(item, "name", "") or ""
 
         return {
             "item_id": item_id,
