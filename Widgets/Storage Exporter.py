@@ -8,6 +8,7 @@ import Py4GW
 from Py4GWCoreLib import Bags
 from Py4GWCoreLib import GLOBAL_CACHE
 from Py4GWCoreLib import IniHandler
+from Py4GWCoreLib import Item
 from Py4GWCoreLib import PyImGui
 from Py4GWCoreLib import PyInventory
 from Py4GWCoreLib import Routines
@@ -306,16 +307,7 @@ class ExporterState:
 
         item_id = int(getattr(item, "item_id", 0))
 
-        name = ""
-        if item_id:
-            try:
-                name = GLOBAL_CACHE.Item.GetName(item_id)
-            except AttributeError:
-                # Fallback to the item's cached attribute if the cache isn't available
-                name = ""
-
-        if not name:
-            name = getattr(item, "name", "") or ""
+        name = self._resolve_item_name(item_id, getattr(item, "name", ""))
 
         return {
             "item_id": item_id,
@@ -333,6 +325,29 @@ class ExporterState:
             "name": str(name) if name else "",
             "mod_count": int(mod_count),
         }
+
+    @staticmethod
+    def _resolve_item_name(item_id: int, fallback: str) -> str:
+        if not item_id:
+            return ""
+
+        try:
+            Item.RequestName(item_id)
+            if Item.IsNameReady(item_id):
+                resolved = Item.GetName(item_id)
+                if resolved:
+                    return str(resolved)
+        except Exception:  # noqa: BLE001
+            pass
+
+        try:
+            resolved = GLOBAL_CACHE.Item.GetName(item_id)
+            if resolved:
+                return str(resolved)
+        except AttributeError:
+            pass
+
+        return str(fallback) if fallback else ""
 
     def _inventory_bags(self) -> List[Bags]:
         bags = [Bags.Backpack, Bags.BeltPouch, Bags.Bag1, Bags.Bag2]
