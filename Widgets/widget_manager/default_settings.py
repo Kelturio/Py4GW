@@ -145,6 +145,13 @@ global_widget_defaults = {
         "icon": "ICON_SHOPPING_BAG",
         "quickdock": "True",
     },
+    "Storage Exporter": {
+        "enabled": "True",
+        "category": "Gameplay",
+        "subcategory": "Utilities",
+        "icon": "ICON_SAVE",
+        "quickdock": "True",
+    },
     "LootManager": {
         "enabled": "True",
         "category": "Gameplay",
