@@ -47,10 +47,11 @@ DryTop = [
 ]
 
 DryTop_outpost_path = [
-    (1683, -1594), (4600, -27863)
+    (-14398.0, 937.0),
+    (-15374.0, 194.0)
 ]
 
 DryTop_ids = {
-    "outpost_id": None,
+    "outpost_id": 139,
     "map_id": 47
 }

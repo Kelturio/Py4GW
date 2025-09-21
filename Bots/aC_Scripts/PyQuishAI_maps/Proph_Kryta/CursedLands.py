@@ -42,10 +42,12 @@ CursedLands = [
 ]
 
 CursedLands_outpost_path = [
-    (1683, -1594), (4600, -27863)
+    (-4908.0, 17096.0),
+    (-5198.0, 16120.0),
+    (-5483.0, 15161.0)
 ]
 
 CursedLands_ids = {
-    "outpost_id": None,
+    "outpost_id": 138,
     "map_id": 56
 }

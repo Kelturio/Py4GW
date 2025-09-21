@@ -249,10 +249,11 @@ TheFalls = [
 ]
 
 TheFalls_outpost_path = [
-    (1683, -1594), (4600, -27863)
+    (-14596.0, 773.0),
+    (-15310.0, 191.0)
 ]
 
 TheFalls_ids = {
-    "outpost_id": None,
-    "map_id": None
+    "outpost_id": 139,
+    "map_id": 46
 }

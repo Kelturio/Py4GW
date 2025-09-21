@@ -8,7 +8,6 @@ import Py4GW
 from Py4GWCoreLib import Bags
 from Py4GWCoreLib import GLOBAL_CACHE
 from Py4GWCoreLib import IniHandler
-from Py4GWCoreLib import Item
 from Py4GWCoreLib import PyImGui
 from Py4GWCoreLib import PyInventory
 from Py4GWCoreLib import Routines
@@ -75,6 +74,7 @@ class ExporterState:
         self.last_storage_count = 0
         self.status_message: str = ""
         self.status_is_error = False
+        self._resolved_names: dict[int, str] = {}
 
     def set_export_enabled(self, enabled: bool) -> None:
         self.export_enabled = bool(enabled)
@@ -219,6 +219,8 @@ class ExporterState:
             return False
 
     def _build_snapshot(self, manual: bool) -> dict:
+        GLOBAL_CACHE._update_cache()
+        self._resolved_names.clear()
         timestamp = datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
         inventory_bags = self._collect_bags(self._inventory_bags())
         storage_bags = self._collect_bags(self._storage_bags())
@@ -289,53 +291,6 @@ class ExporterState:
             "items": items,
         }
 
-    def _resolve_item_name(self, item_id: int, fallback: str) -> str:
-        fallback = str(fallback) if fallback else ""
-        if not item_id:
-            return fallback
-
-        try:
-            Item.RequestName(item_id)
-        except Exception:  # noqa: BLE001
-            pass
-
-        name_ready = False
-        try:
-            name_ready = Item.IsNameReady(item_id)
-        except Exception:  # noqa: BLE001
-            name_ready = False
-
-        cache_item = getattr(GLOBAL_CACHE, "Item", None)
-
-        if name_ready and cache_item is not None:
-            try:
-                cached_name = cache_item.GetName(item_id)
-            except Exception:  # noqa: BLE001
-                cached_name = ""
-            else:
-                if cached_name and cached_name not in {"Unknown", "Timeout"}:
-                    return str(cached_name)
-
-        if name_ready:
-            try:
-                resolved = Item.GetName(item_id)
-            except Exception:  # noqa: BLE001
-                resolved = ""
-            else:
-                if resolved and resolved not in {"Unknown", "Timeout"}:
-                    return str(resolved)
-
-        if cache_item is not None:
-            try:
-                cached_name = cache_item.GetName(item_id)
-            except Exception:  # noqa: BLE001
-                cached_name = ""
-            else:
-                if cached_name and cached_name not in {"Unknown", "Timeout"}:
-                    return str(cached_name)
-
-        return fallback
-
     def _serialize_item(self, item, bag_enum: Bags) -> dict:
         try:
             item.GetContext()
@@ -354,8 +309,16 @@ class ExporterState:
 
         item_id = int(getattr(item, "item_id", 0))
 
-        fallback_name = getattr(item, "name", "") or ""
-        name = self._resolve_item_name(item_id, fallback_name)
+        name = ""
+        if item_id:
+            try:
+                name = GLOBAL_CACHE.Item.GetName(item_id)
+            except AttributeError:
+                # Fallback to the item's cached attribute if the cache isn't available
+                name = ""
+
+        if not name:
+            name = getattr(item, "name", "") or ""
 
         return {
             "item_id": item_id,
@@ -373,6 +336,28 @@ class ExporterState:
             "name": str(name) if name else "",
             "mod_count": int(mod_count),
         }
+
+    def _resolve_item_name(self, item_id: int, fallback: str) -> str:
+        if not item_id:
+            return ""
+
+        cached = self._resolved_names.get(item_id)
+        if cached is not None:
+            return cached
+
+        name = ""
+        try:
+            resolved = GLOBAL_CACHE.Item.GetName(item_id)
+            if resolved:
+                name = str(resolved)
+        except Exception:  # noqa: BLE001
+            name = ""
+
+        if not name and fallback:
+            name = str(fallback)
+
+        self._resolved_names[item_id] = name
+        return name
 
     def _inventory_bags(self) -> List[Bags]:
         bags = [Bags.Backpack, Bags.BeltPouch, Bags.Bag1, Bags.Bag2]

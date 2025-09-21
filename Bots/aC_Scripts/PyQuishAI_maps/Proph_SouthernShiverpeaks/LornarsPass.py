@@ -140,10 +140,11 @@ LornarsPass = [
 ]
 
 LornarsPass_outpost_path = [
-    (1683, -1594), (4600, -27863)
+    (-8596.0, 33555.0),
+    (-8450.0, 33150.0)
 ]
 
 LornarsPass_ids = {
-    "outpost_id": None,
+    "outpost_id": 133,
     "map_id": 90
 }
