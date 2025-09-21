@@ -1,0 +1,5 @@
+# Ignore generated export snapshots
+*.json
+
+# Allow keeping this directory in git
+!.gitignore
