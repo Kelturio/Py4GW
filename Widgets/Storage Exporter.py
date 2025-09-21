@@ -8,7 +8,6 @@ import Py4GW
 from Py4GWCoreLib import Bags
 from Py4GWCoreLib import GLOBAL_CACHE
 from Py4GWCoreLib import IniHandler
-from Py4GWCoreLib import Item
 from Py4GWCoreLib import PyImGui
 from Py4GWCoreLib import PyInventory
 from Py4GWCoreLib import Routines
@@ -75,6 +74,7 @@ class ExporterState:
         self.last_storage_count = 0
         self.status_message: str = ""
         self.status_is_error = False
+        self._resolved_names: dict[int, str] = {}
 
     def set_export_enabled(self, enabled: bool) -> None:
         self.export_enabled = bool(enabled)
@@ -219,6 +219,8 @@ class ExporterState:
             return False
 
     def _build_snapshot(self, manual: bool) -> dict:
+        GLOBAL_CACHE._update_cache()
+        self._resolved_names.clear()
         timestamp = datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
         inventory_bags = self._collect_bags(self._inventory_bags())
         storage_bags = self._collect_bags(self._storage_bags())
@@ -326,28 +328,27 @@ class ExporterState:
             "mod_count": int(mod_count),
         }
 
-    @staticmethod
-    def _resolve_item_name(item_id: int, fallback: str) -> str:
+    def _resolve_item_name(self, item_id: int, fallback: str) -> str:
         if not item_id:
             return ""
 
-        try:
-            Item.RequestName(item_id)
-            if Item.IsNameReady(item_id):
-                resolved = Item.GetName(item_id)
-                if resolved:
-                    return str(resolved)
-        except Exception:  # noqa: BLE001
-            pass
+        cached = self._resolved_names.get(item_id)
+        if cached is not None:
+            return cached
 
+        name = ""
         try:
             resolved = GLOBAL_CACHE.Item.GetName(item_id)
             if resolved:
-                return str(resolved)
-        except AttributeError:
-            pass
+                name = str(resolved)
+        except Exception:  # noqa: BLE001
+            name = ""
 
-        return str(fallback) if fallback else ""
+        if not name and fallback:
+            name = str(fallback)
+
+        self._resolved_names[item_id] = name
+        return name
 
     def _inventory_bags(self) -> List[Bags]:
         bags = [Bags.Backpack, Bags.BeltPouch, Bags.Bag1, Bags.Bag2]
