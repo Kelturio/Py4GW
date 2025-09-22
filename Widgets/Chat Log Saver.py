@@ -62,10 +62,11 @@ CHAT_REQUEST_INTERVAL_MS = 500
 def reset_chat_capture_state() -> None:
     """Reset chat capture request state to its idle defaults."""
 
-    global pending_chat_request, skip_next_snapshot
+    global pending_chat_request, skip_next_snapshot, last_processed_line
 
     pending_chat_request = False
-    skip_next_snapshot = False
+    skip_next_snapshot = True
+    last_processed_line = None
     chat_request_timer.Reset()
 
 
@@ -207,10 +208,7 @@ def start_logging() -> None:
     total_lines_written = 0
     session_started_at = datetime.now()
     last_write_time = None
-    pending_chat_request = False
-    skip_next_snapshot = True
-    last_processed_line = None
-    chat_request_timer.Reset()
+    reset_chat_capture_state()
     ini_handler.write_key(MODULE_NAME, "enabled", "True")
 
 
