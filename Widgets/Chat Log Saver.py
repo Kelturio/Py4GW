@@ -4,10 +4,10 @@ from datetime import datetime
 import Py4GW  # type: ignore
 from Py4GWCoreLib import GLOBAL_CACHE
 from Py4GWCoreLib import IniHandler
+from Py4GWCoreLib import Player
 from Py4GWCoreLib import PyImGui
 from Py4GWCoreLib import Routines
 from Py4GWCoreLib import Timer
-from Py4GWCoreLib import ActionQueue
 
 
 MODULE_NAME = "Chat Log Saver"
@@ -54,7 +54,6 @@ last_write_time: datetime | None = None
 last_error_message = ""
 
 
-chat_queue = ActionQueue()
 chat_request_timer = Timer()
 chat_request_timer.Start()
 CHAT_REQUEST_INTERVAL_MS = 500
@@ -67,7 +66,6 @@ def reset_chat_capture_state() -> None:
 
     pending_chat_request = False
     skip_next_snapshot = False
-    chat_queue.clear()
     chat_request_timer.Reset()
 
 
@@ -143,12 +141,12 @@ def write_lines_to_file(lines: list[str]) -> None:
 
 
 def request_chat_history_action() -> None:
-    """Request a chat history update via the action queue."""
+    """Request a chat history update from the Player API."""
 
     global pending_chat_request
 
     try:
-        GLOBAL_CACHE.Player.RequestChatHistory()
+        Player.RequestChatHistory()
         pending_chat_request = True
     except Exception as exc:  # noqa: BLE001 - log unexpected errors
         pending_chat_request = False
@@ -212,7 +210,6 @@ def start_logging() -> None:
     pending_chat_request = False
     skip_next_snapshot = True
     last_processed_line = None
-    chat_queue.clear()
     chat_request_timer.Reset()
     ini_handler.write_key(MODULE_NAME, "enabled", "True")
 
@@ -226,7 +223,6 @@ def stop_logging() -> None:
     persist_enabled = False
     pending_chat_request = False
     skip_next_snapshot = False
-    chat_queue.clear()
     ini_handler.write_key(MODULE_NAME, "enabled", "False")
 
 
@@ -255,13 +251,11 @@ def process_chat_updates() -> None:
         return
 
     if not pending_chat_request and chat_request_timer.HasElapsed(CHAT_REQUEST_INTERVAL_MS):
-        chat_queue.add_action(request_chat_history_action)
+        request_chat_history_action()
         chat_request_timer.Reset()
 
-    chat_queue.execute_next()
-
-    if GLOBAL_CACHE.Player.IsChatHistoryReady():
-        chat_lines = GLOBAL_CACHE.Player.GetChatHistory() or []
+    if Player.IsChatHistoryReady():
+        chat_lines = Player.GetChatHistory() or []
         pending_chat_request = False
 
         if skip_next_snapshot:
