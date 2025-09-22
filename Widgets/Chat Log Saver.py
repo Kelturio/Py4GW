@@ -236,6 +236,15 @@ def process_chat_updates() -> None:
     if not logging_enabled:
         return
 
+    if (
+        GLOBAL_CACHE.Map.IsMapLoading()
+        or GLOBAL_CACHE.Player.InCharacterSelectScreen()
+    ):
+        pending_chat_request = False
+        chat_queue.clear()
+        chat_request_timer.Reset()
+        return
+
     if not pending_chat_request and chat_request_timer.HasElapsed(CHAT_REQUEST_INTERVAL_MS):
         chat_queue.add_action(request_chat_history_action)
         chat_request_timer.Reset()
