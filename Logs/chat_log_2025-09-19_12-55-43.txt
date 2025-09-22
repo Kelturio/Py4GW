@@ -1,0 +1,218 @@
+[2025-09-19 12:57:00] Al Ways's team has won a battle in the Hall of Heroes.
+[2025-09-19 13:25:01] You have 1 guild invitation.
+[2025-09-19 13:25:27] Kurzick Priest takes 100 gold.
+[2025-09-19 13:26:05] Olias drops an Ashes of Protective Kaolai.
+[2025-09-19 13:27:03] 5 enemies slain.
+[2025-09-19 13:27:03] Screenshot saved as ‌C:\Users\seari\Documents\Guild Wars\Screens\gw017.jpg.
+[2025-09-19 13:27:07] Olias drops an Ashes of Protective Kaolai.
+[2025-09-19 13:27:50] 10 enemies slain.
+[2025-09-19 13:28:05] Olias drops an Ashes of Protective Kaolai.
+[2025-09-19 13:28:21] 15 enemies slain.
+[2025-09-19 13:29:01] Olias drops an Ashes of Protective Kaolai.
+[2025-09-19 13:29:09] 20 enemies slain.
+[2025-09-19 13:29:15] Al Ways's team has won a battle in the Hall of Heroes.
+[2025-09-19 13:29:16] Warden of the Branch drops an Amber Longbow, which your party reserves for Pelznickel Searinox.
+[2025-09-19 13:30:11] Warden of the Branch drops an Amber Wand, which your party reserves for Pelznickel Searinox.
+[2025-09-19 13:30:53] You pick up the Amber Wand.
+[2025-09-19 13:31:23] You pick up the Amber Longbow.
+[2025-09-19 13:32:22] 30 enemies slain.
+[2025-09-19 13:32:34] Your party shares 103 gold.
+[2025-09-19 13:32:56] 35 enemies slain.
+[2025-09-19 13:33:00] Craw Stonereap drops a Stone Carving, which your party reserves for Pelznickel Searinox.
+[2025-09-19 13:33:00] You gain 250 Kurzick faction.
+[2025-09-19 13:33:04] Stone Reaper drops 18 Piles of Glittering Dust, which your party reserves for Pelznickel Searinox.
+[2025-09-19 13:33:07] Olias drops an Ashes of Protective Kaolai.
+[2025-09-19 13:33:08] Stone Crusher drops a Stone Carving, which your party reserves for Pelznickel Searinox.
+[2025-09-19 13:33:16] 40 enemies slain.
+[2025-09-19 13:33:37] Zarnas Stonewrath drops a Fire Staff, which your party reserves for Pelznickel Searinox.
+[2025-09-19 13:33:37] You gain 250 Kurzick faction.
+[2025-09-19 13:33:44] You pick up the Stone Carving.
+[2025-09-19 13:34:49] You pick up 18 Piles of Glittering Dust.
+[2025-09-19 13:34:51] You pick up the Stone Carving.
+[2025-09-19 13:35:00] You pick up the Fire Staff.
+[2025-09-19 13:35:48] Warden of the Tree drops 14 Tanned Hide Squares, which your party reserves for Pelznickel Searinox.
+[2025-09-19 13:35:52] 45 enemies slain.
+[2025-09-19 13:35:58] Warden of the Leaf drops an Amber Wand, which your party reserves for Pelznickel Searinox.
+[2025-09-19 13:36:44] Your party shares 109 gold.
+[2025-09-19 13:36:53] You pick up 14 Tanned Hide Squares.
+[2025-09-19 13:36:57] You pick up the Amber Wand.
+[2025-09-19 13:37:54] 55 enemies slain.
+[2025-09-19 13:37:56] Warden of the Leaf drops a Warden Horn, which your party reserves for Pelznickel Searinox.
+[2025-09-19 13:38:19] 60 enemies slain.
+[2025-09-19 13:38:26] You pick up the Warden Horn.
+[2025-09-19 13:38:49] Warden of the Branch drops a Warden Horn, which your party reserves for Pelznickel Searinox.
+[2025-09-19 13:38:54] 65 enemies slain.
+[2025-09-19 13:39:33] You pick up the Warden Horn.
+[2025-09-19 13:39:34] Your party shares 109 gold.
+[2025-09-19 13:40:10] Olias drops an Ashes of Protective Kaolai.
+[2025-09-19 13:40:17] 70 enemies slain.
+[2025-09-19 13:40:30] Warden of the Summer drops a Warden Horn, which your party reserves for Pelznickel Searinox.
+[2025-09-19 13:40:43] You pick up the Warden Horn.
+[2025-09-19 13:41:08] Olias drops an Ashes of Protective Kaolai.
+[2025-09-19 13:41:39] 80 enemies slain.
+[2025-09-19 13:41:45] Olias drops an Ashes of Protective Kaolai.
+[2025-09-19 13:41:48] Meril Stoneweaver drops a Holy Branch, which your party reserves for Pelznickel Searinox.
+[2025-09-19 13:41:48] You gain 250 Kurzick faction.
+[2025-09-19 13:42:12] You pick up the Holy Branch.
+[2025-09-19 13:42:43] Warden of the Tree drops a Warden Horn, which your party reserves for Pelznickel Searinox.
+[2025-09-19 13:42:53] 85 enemies slain.
+[2025-09-19 13:42:59] You pick up the Warden Horn.
+[2025-09-19 13:43:29] 90 enemies slain.
+[2025-09-19 13:44:05] Olias drops an Ashes of Protective Kaolai.
+[2025-09-19 13:44:10] 95 enemies slain.
+[2025-09-19 13:44:36] Your party shares 101 gold.
+[2025-09-19 13:44:54] Olias drops an Ashes of Protective Kaolai.
+[2025-09-19 13:45:01] Roma Stuck In Halls's team has won a battle in the Hall of Heroes.
+[2025-09-19 13:45:08] Olias drops an Ashes of Protective Kaolai.
+[2025-09-19 13:45:27] 105 enemies slain.
+[2025-09-19 13:46:11] Warden of the Branch drops a Warden Armguard, which your party reserves for Pelznickel Searinox.
+[2025-09-19 13:46:11] 110 enemies slain.
+[2025-09-19 13:46:50] Olias drops an Ashes of Protective Kaolai.
+[2025-09-19 13:47:01] 115 enemies slain.
+[2025-09-19 13:47:03] Warden of the Branch drops an Amber Wand, which your party reserves for Pelznickel Searinox.
+[2025-09-19 13:47:20] You gain 250 Kurzick faction.
+[2025-09-19 13:47:24] 120 enemies slain.
+[2025-09-19 13:48:14] Warden of the Branch drops 10 Fur Squares, which your party reserves for Pelznickel Searinox.
+[2025-09-19 13:48:24] You pick up 10 Fur Squares.
+[2025-09-19 13:48:29] You pick up the Amber Wand.
+[2025-09-19 13:48:56] You pick up the Warden Armguard.
+[2025-09-19 13:49:53] Your party shares 110 gold.
+[2025-09-19 13:52:32] 130 enemies slain.
+[2025-09-19 13:53:09] 135 enemies slain.
+[2025-09-19 13:53:19] Your party shares 105 gold.
+[2025-09-19 13:53:51] Roma Stuck In Halls's team has won a battle in the Hall of Heroes.
+[2025-09-19 13:53:52] 140 enemies slain.
+[2025-09-19 13:53:57] Dredge Gatherer drops a Dredge Spaulder, which your party reserves for Pelznickel Searinox.
+[2025-09-19 13:54:33] Olias drops an Ashes of Protective Kaolai.
+[2025-09-19 13:54:38] Dredge Guardian drops a Dredge Plating, which your party reserves for Pelznickel Searinox.
+[2025-09-19 13:54:38] 145 enemies slain.
+[2025-09-19 13:54:39] You pick up the Dredge Plating.
+[2025-09-19 13:54:42] Your party shares 101 gold.
+[2025-09-19 13:54:44] Your party shares 100 gold.
+[2025-09-19 13:55:01] You pick up the Dredge Spaulder.
+[2025-09-19 13:55:40] You have been playing for 1 hour.
+[2025-09-19 13:56:08] Olias drops an Ashes of Protective Kaolai.
+[2025-09-19 13:56:09] 155 enemies slain.
+[2025-09-19 13:56:16] Mahr Stonebreaker drops an Amber Longbow, which your party reserves for Pelznickel Searinox.
+[2025-09-19 13:56:16] You gain 250 Kurzick faction.
+[2025-09-19 13:56:24] You pick up the Amber Longbow.
+[2025-09-19 13:56:54] 160 enemies slain.
+[2025-09-19 13:57:28] Dredge Gatherer drops an Amber Wand, which your party reserves for Pelznickel Searinox.
+[2025-09-19 13:57:29] Dredge Guardian drops an Ornate Shield, which your party reserves for Pelznickel Searinox.
+[2025-09-19 13:57:36] 165 enemies slain.
+[2025-09-19 13:57:38] Fungal Wallow drops a Gothic Dual Axe, which your party reserves for Pelznickel Searinox.
+[2025-09-19 13:57:54] Olias drops an Ashes of Protective Kaolai.
+[2025-09-19 13:58:02] Fungal Wallow drops a Deadly Cesta, which your party reserves for Pelznickel Searinox.
+[2025-09-19 13:58:07] Dredge Gutter drops an Amber Wand, which your party reserves for Pelznickel Searinox.
+[2025-09-19 13:58:07] 170 enemies slain.
+[2025-09-19 13:58:19] You pick up the Deadly Cesta.
+[2025-09-19 13:58:22] You pick up the Amber Wand.
+[2025-09-19 13:58:30] You pick up the Ornate Shield.
+[2025-09-19 13:58:32] You pick up the Gothic Dual Axe.
+[2025-09-19 13:59:17] Your party shares 100 gold.
+[2025-09-19 14:00:07] Stone Scale Kirin drops a Stone Horn, which your party reserves for Pelznickel Searinox.
+[2025-09-19 14:00:09] 180 enemies slain.
+[2025-09-19 14:00:12] You gain a skill point!
+[2025-09-19 14:00:21] You pick up the Stone Horn.
+[2025-09-19 14:00:22] Your party shares 104 gold.
+[2025-09-19 14:00:24] Your party shares 110 gold.
+[2025-09-19 14:00:44] 185 enemies slain.
+[2025-09-19 14:01:03] Your party shares 104 gold.
+[2025-09-19 14:01:06] Your party shares 102 gold.
+[2025-09-19 14:01:36] Stone Scale Kirin drops an Evil Eye Staff, which your party reserves for Pelznickel Searinox.
+[2025-09-19 14:01:45] 190 enemies slain.
+[2025-09-19 14:02:03] Your party shares 102 gold.
+[2025-09-19 14:02:04] You pick up the Evil Eye Staff.
+[2025-09-19 14:02:22] 195 enemies slain.
+[2025-09-19 14:02:28] Dragon Moss drops a Gothic Defender, which your party reserves for Pelznickel Searinox.
+[2025-09-19 14:02:34] Your party shares 109 gold.
+[2025-09-19 14:02:37] You pick up the Gothic Defender.
+[2025-09-19 14:03:16] Your party shares 106 gold.
+[2025-09-19 14:03:17] Your party shares 107 gold.
+[2025-09-19 14:03:21] Your party shares 108 gold.
+[2025-09-19 14:03:23] Your party shares 103 gold.
+[2025-09-19 14:03:58] 205 enemies slain.
+[2025-09-19 14:04:12] 210 enemies slain.
+[2025-09-19 14:04:41] 215 enemies slain.
+[2025-09-19 14:05:02] Your party shares 102 gold.
+[2025-09-19 14:05:11] Your party shares 103 gold.
+[2025-09-19 14:05:13] Roma Stuck In Halls's team has won a battle in the Hall of Heroes.
+[2025-09-19 14:05:13] Your party shares 102 gold.
+[2025-09-19 14:05:15] Your party shares 101 gold.
+[2025-09-19 14:06:02] 220 enemies slain.
+[2025-09-19 14:06:19] Dragon Moss drops a Wicked Blade, which your party reserves for Pelznickel Searinox.
+[2025-09-19 14:06:54] 230 enemies slain.
+[2025-09-19 14:07:15] Stone Scale Kirin drops a Pronged Rod, which your party reserves for Pelznickel Searinox.
+[2025-09-19 14:07:24] 235 enemies slain.
+[2025-09-19 14:07:53] 240 enemies slain.
+[2025-09-19 14:08:09] Your party shares 100 gold.
+[2025-09-19 14:08:34] 245 enemies slain.
+[2025-09-19 14:09:07] Stone Scale Kirin drops a Stone Horn, which your party reserves for Pelznickel Searinox.
+[2025-09-19 14:09:34] Your party shares 105 gold.
+[2025-09-19 14:09:44] You pick up the Wicked Blade.
+[2025-09-19 14:09:48] Your party shares 107 gold.
+[2025-09-19 14:09:57] Your party shares 108 gold.
+[2025-09-19 14:09:59] Your party shares 101 gold.
+[2025-09-19 14:10:23] 255 enemies slain.
+[2025-09-19 14:10:32] Stone Scale Kirin drops a Bottle of Grog, which your party reserves for Pelznickel Searinox.
+[2025-09-19 14:10:32] 260 enemies slain.
+[2025-09-19 14:11:19] Your party shares 103 gold.
+[2025-09-19 14:11:21] Your party shares 109 gold.
+[2025-09-19 14:11:25] You pick up the Bottle of Grog.
+[2025-09-19 14:11:37] Your party shares 100 gold.
+[2025-09-19 14:11:39] You salvaged 9 Piles of Glittering Dust from the Amber Wand.
+[2025-09-19 14:11:44] You salvaged 8 Wood Planks from the Amber Longbow of Marksmanship.
+[2025-09-19 14:11:54] You salvaged 14 Piles of Glittering Dust from the Amber Wand.
+[2025-09-19 14:12:02] 265 enemies slain.
+[2025-09-19 14:12:17] You salvaged 9 Piles of Glittering Dust from the Amber Wand.
+[2025-09-19 14:12:24] You salvaged 7 Tanned Hide Squares from the Dredge Plating.
+[2025-09-19 14:12:30] You salvaged 9 Wood Planks from the Amber Longbow.
+[2025-09-19 14:12:36] You salvaged 6 Iron Ingots from the Deadly Cesta.
+[2025-09-19 14:12:36] 270 enemies slain.
+[2025-09-19 14:12:39] You salvaged 11 Piles of Glittering Dust from the Amber Wand.
+[2025-09-19 14:12:39] Dredge Gatherer drops Kris Daggers, which your party reserves for Pelznickel Searinox.
+[2025-09-19 14:12:41] You salvaged 10 Piles of Glittering Dust from the Amber Wand.
+[2025-09-19 14:12:51] You salvaged 7 Iron Ingots from the Ornate Shield.
+[2025-09-19 14:12:54] You salvaged 4 Iron Ingots from the Gothic Dual Axe.
+[2025-09-19 14:12:55] Your party shares 112 gold.
+[2025-09-19 14:13:01] You pick up Kris Daggers.
+[2025-09-19 14:13:07] You salvaged 6 Iron Ingots from the Gothic Defender.
+[2025-09-19 14:13:15] You salvaged 6 Iron Ingots from the Wicked Blade.
+[2025-09-19 14:13:48] Dredge Gardener drops a Dredge Incisor, which your party reserves for Pelznickel Searinox.
+[2025-09-19 14:14:12] 280 enemies slain.
+[2025-09-19 14:14:36] 285 enemies slain.
+[2025-09-19 14:15:02] Your party shares 100 gold.
+[2025-09-19 14:15:06] Your party shares 102 gold.
+[2025-09-19 14:15:15] Your party shares 109 gold.
+[2025-09-19 14:15:19] Your party shares 101 gold.
+[2025-09-19 14:15:26] You pick up the Dredge Incisor.
+[2025-09-19 14:15:28] Your party shares 101 gold.
+[2025-09-19 14:16:13] Fungal Wallow drops an Amber Longbow, which your party reserves for Pelznickel Searinox.
+[2025-09-19 14:16:18] 290 enemies slain.
+[2025-09-19 14:16:22] You pick up the Amber Longbow.
+[2025-09-19 14:16:23] Your party shares 109 gold.
+[2025-09-19 14:17:00] 295 enemies slain.
+[2025-09-19 14:17:01] Olias drops an Ashes of Protective Kaolai.
+[2025-09-19 14:17:04] Fungal Wallow drops a Truffle, which your party reserves for Pelznickel Searinox.
+[2025-09-19 14:17:54] 305 enemies slain.
+[2025-09-19 14:18:30] Dredge Gutter drops an Amber Longbow, which your party reserves for Pelznickel Searinox.
+[2025-09-19 14:18:32] 310 enemies slain.
+[2025-09-19 14:18:50] 315 enemies slain.
+[2025-09-19 14:19:03] You gain 250 Kurzick faction.
+[2025-09-19 14:19:03] You gain 15,800 Kurzick faction.
+[2025-09-19 14:19:03] You have earned 1,580 experience and 1,580 gold!
+[2025-09-19 14:19:03] You have played this character for 335 hours 57 minutes over the past 33 days.
+[2025-09-19 14:19:03] Across all characters, you have played for 849 hours 54 minutes over the past 124 months.
+[2025-09-19 14:19:03] You have been in this map for 53 minutes.
+[2025-09-19 14:19:03] GWToolbox++: Time: 0:53:43.40
+[2025-09-19 14:19:15] Your party shares 107 gold.
+[2025-09-19 14:19:18] You pick up the Amber Longbow.
+[2025-09-19 14:19:32] Your party shares 101 gold.
+[2025-09-19 14:19:44] You pick up the Truffle.
+[2025-09-19 14:21:00] Roma Stuck In Halls's team has won a battle in the Hall of Heroes.
+[2025-09-19 14:23:10] You have 1 guild invitation.
+[2025-09-19 14:24:44] You salvaged 7 Iron Ingots from Kris Daggers.
+[2025-09-19 14:25:00] You salvaged 1 Rune of Major Vigor from the Dredge Spaulder of Major Vigor.
+[2025-09-19 14:25:09] You salvaged 7 Wood Planks from the Amber Longbow.
+[2025-09-19 14:27:00] You salvaged 1 Granite Slab from the Stone Remnants.
+[2025-09-19 14:29:24] You have 1 guild invitation.

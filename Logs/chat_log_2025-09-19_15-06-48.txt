@@ -1,0 +1,361 @@
+[2025-09-19 15:17:12] Roma Stuck In Halls's team has won a battle in the Hall of Heroes.
+[2025-09-19 15:22:00] Your party is already in the active district.
+[2025-09-19 15:24:37] Your party shares 34 gold.
+[2025-09-19 15:25:09] Your party shares 26 gold.
+[2025-09-19 15:26:38] The gods have blessed the world with their favor.
+[2025-09-19 15:28:01] Your party shares 26 gold.
+[2025-09-19 15:31:21] Zombie Warlock drops Warlock's Robes, which your party reserves for Pelznickel Searinox.
+[2025-09-19 15:31:29] You pick up Warlock's Robes.
+[2025-09-19 15:31:34] Zombie Warlock drops a Decayed Orr Emblem, which your party reserves for Pelznickel Searinox.
+[2025-09-19 15:31:37] You pick up the Decayed Orr Emblem.
+[2025-09-19 15:33:00] A Wild Gez's team has won a battle in the Hall of Heroes.
+[2025-09-19 15:33:06] Goal completed. Press "L" to view your updated Quest Log.
+[2025-09-19 15:33:23] Gate Guard Makala: This gate has been sealed to keep out any more undead incursions.
+[2025-09-19 15:33:30] Gate Guard Makala: My brother lives in this village, and I take its safety very seriously.
+[2025-09-19 15:34:20] Gate Guard: I'll let you through, but leave at your own risk. I'll not let any more of those boneheads get to my home.
+[2025-09-19 15:35:04] Skeleton Ranger drops a Dead Bow, which your party reserves for Pelznickel Searinox.
+[2025-09-19 15:35:09] Skeleton Ranger drops Decayed Orr Armor, which your party reserves for Pelznickel Searinox.
+[2025-09-19 15:35:13] You pick up the Dead Bow.
+[2025-09-19 15:35:14] You pick up Decayed Orr Armor.
+[2025-09-19 15:35:17] Your party shares 25 gold.
+[2025-09-19 15:35:32] Skeleton Ranger drops a Break Hammer, which your party reserves for Pelznickel Searinox.
+[2025-09-19 15:35:36] Skeleton Ranger drops Decayed Orr Armor, which your party reserves for Pelznickel Searinox.
+[2025-09-19 15:35:41] You pick up the Break Hammer.
+[2025-09-19 15:35:42] You pick up Decayed Orr Armor.
+[2025-09-19 15:36:06] Your party shares 42 gold.
+[2025-09-19 15:36:34] Your party shares 25 gold.
+[2025-09-19 15:37:21] Your party shares 26 gold.
+[2025-09-19 15:38:13] Grasping Ghoul drops 10 Bones, which your party reserves for Pelznickel Searinox.
+[2025-09-19 15:38:14] You pick up 10 Bones.
+[2025-09-19 15:38:35] Goal completed. Press "L" to view your updated Quest Log.
+[2025-09-19 15:39:05] Your party shares 24 gold.
+[2025-09-19 15:39:29] Grasping Ghoul drops a Dead Bow, which your party reserves for Pelznickel Searinox.
+[2025-09-19 15:39:31] Skeleton Monk drops a Decayed Orr Emblem, which your party reserves for Pelznickel Searinox.
+[2025-09-19 15:39:33] You pick up the Dead Bow.
+[2025-09-19 15:39:35] You pick up the Decayed Orr Emblem.
+[2025-09-19 15:39:55] Skeleton Ranger drops a Decayed Orr Emblem, which your party reserves for Pelznickel Searinox.
+[2025-09-19 15:39:57] You pick up the Decayed Orr Emblem.
+[2025-09-19 15:41:34] Your party shares 41 gold.
+[2025-09-19 15:41:50] Skeleton Mesmer drops a Cane, which your party reserves for Pelznickel Searinox.
+[2025-09-19 15:41:52] Skeleton Mesmer drops a Bottle of Grog, which your party reserves for Pelznickel Searinox.
+[2025-09-19 15:41:56] You pick up the Bottle of Grog.
+[2025-09-19 15:41:57] You pick up the Cane.
+[2025-09-19 15:42:08] Your party shares 41 gold.
+[2025-09-19 15:42:23] Your party shares 25 gold.
+[2025-09-19 15:43:14] Skeleton Monk drops a Holy Staff, which your party reserves for Pelznickel Searinox.
+[2025-09-19 15:43:21] You pick up the Holy Staff.
+[2025-09-19 15:43:52] Your party shares 21 gold.
+[2025-09-19 15:43:53] Your party shares 30 gold.
+[2025-09-19 15:43:55] Your party shares 28 gold.
+[2025-09-19 15:44:40] Skeleton Monk drops a Holy Staff, which your party reserves for Pelznickel Searinox.
+[2025-09-19 15:44:50] You pick up the Holy Staff.
+[2025-09-19 15:44:51] Your party shares 26 gold.
+[2025-09-19 15:44:53] Your party shares 34 gold.
+[2025-09-19 15:44:55] Skeleton Monk drops a Decayed Orr Emblem, which your party reserves for Pelznickel Searinox.
+[2025-09-19 15:45:00] A Wild Gez's team has won a battle in the Hall of Heroes.
+[2025-09-19 15:45:04] You pick up the Decayed Orr Emblem.
+[2025-09-19 15:45:46] Zombie Warlock drops a Dead Staff, which your party reserves for Pelznickel Searinox.
+[2025-09-19 15:45:50] You pick up the Dead Staff.
+[2025-09-19 15:46:17] Goal completed. Press "L" to view your updated Quest Log.
+[2025-09-19 15:46:21] Your party shares 94 gold.
+[2025-09-19 15:46:36] Confessor Dorian: Yes, yes I am already aware of the undead army. When the fort fell under attack, I sent my scribe, Dinas, away with a package.
+[2025-09-19 15:46:41] Confessor Dorian: He carries the Scepter of Orr with orders to keep it out of the hands of the undead.
+[2025-09-19 15:46:48] Confessor Dorian: I would be indebted if you would locate Dinas and return him here to safety.
+[2025-09-19 15:46:53] Goal completed. Press "L" to view your updated Quest Log.
+[2025-09-19 15:47:42] Gypsie Ettin drops an Ettin's Pauldron, which your party reserves for Pelznickel Searinox.
+[2025-09-19 15:47:43] You pick up the Ettin's Pauldron.
+[2025-09-19 15:47:54] Your party shares 36 gold.
+[2025-09-19 15:49:00] Your party shares 70 gold.
+[2025-09-19 15:52:11] Droog Stoneclub drops an Ettin Hide, which your party reserves for Pelznickel Searinox.
+[2025-09-19 15:52:11] You pick up the Ettin Hide.
+[2025-09-19 15:52:12] Your party shares 122 gold.
+[2025-09-19 15:52:49] Your party completed the mission.
+[2025-09-19 15:52:49] You have earned 1,000 experience and 1 skill point!
+[2025-09-19 15:52:52] You have 1 guild invitation.
+[2025-09-19 15:53:13] A Wild Gez's team has won a battle in the Hall of Heroes.
+[2025-09-19 15:54:28] You salvaged 3 Bolts of Cloth from the Decayed Orr Emblem.
+[2025-09-19 15:54:28] The salvaging tools were destroyed.
+[2025-09-19 15:54:28] You salvaged 3 Bolts of Cloth from the Decayed Orr Emblem.
+[2025-09-19 15:54:29] You salvaged 5 Bones from the Dead Staff.
+[2025-09-19 15:54:29] You salvaged 6 Iron Ingots from the Break Hammer.
+[2025-09-19 15:54:29] You salvaged 3 Iron Ingots from the Cane.
+[2025-09-19 16:00:11] Acolyte Sousuke: I will fight anyone who attacks us and anyone we attack.
+[2025-09-19 16:00:12] Gwen: I will fight anyone who attacks us and anyone we attack.
+[2025-09-19 16:00:13] Norgu: I will fight anyone who attacks us and anyone we attack.
+[2025-09-19 16:00:14] Razah: I will fight anyone who attacks us and anyone we attack.
+[2025-09-19 16:00:15] Zhed Shadowhoof: I will fight anyone who attacks us and anyone we attack.
+[2025-09-19 16:01:15] Justiciar Hablion: My friends! I am happy you made it in time for the testing of the chosen.
+[2025-09-19 16:01:20] Justiciar Hablion: This is the Eye of Janthir. It has the power to see inside a person and discern his or her magical aptitude.
+[2025-09-19 16:01:27] Justiciar Hablion: You will be taking it on to Loamhurst. Those who show promise will get to study with the Grand Masters at the Temple of the Unseen.
+[2025-09-19 16:01:31] Justiciar Hablion: But first you must bathe yourselves in the Fountain of Truth up on the hill to the southeast. Return here once you have been cleansed.
+[2025-09-19 16:02:35] Goal completed. Press "L" to view your updated Quest Log.
+[2025-09-19 16:03:10] Your party shares 37 gold.
+[2025-09-19 16:04:34] Goal completed. Press "L" to view your updated Quest Log.
+[2025-09-19 16:04:36] Justiciar Hablion: Well done. As you can see, the Eye will now follow you. All those whom you come in contact with will be judged by the Eye.
+[2025-09-19 16:04:42] Justiciar Hablion: Those who are deemed worthy will join you in your trek to Loamhurst. The unworthy will be humbled.
+[2025-09-19 16:04:48] Justiciar Hablion: Good luck. Travel safely my fellow Knights of the Mantle
+[2025-09-19 16:05:31] Your party shares 30 gold.
+[2025-09-19 16:06:04] Gypsie Ettin drops an Ettin Hide, which your party reserves for Pelznickel Searinox.
+[2025-09-19 16:06:18] Your party shares 41 gold.
+[2025-09-19 16:06:20] You pick up the Ettin Hide.
+[2025-09-19 16:06:22] Your party shares 42 gold.
+[2025-09-19 16:06:40] Gypsie Ettin drops a Hardened Hump, which your party reserves for Pelznickel Searinox.
+[2025-09-19 16:06:41] You pick up the Hardened Hump.
+[2025-09-19 16:06:43] Your party shares 37 gold.
+[2025-09-19 16:06:44] You have been playing for 1 hour.
+[2025-09-19 16:07:11] Screenshot saved as ‌C:\Users\seari\Documents\Guild Wars\Screens\gw018.jpg.
+[2025-09-19 16:08:56] Caromi Tengu Brave drops Heavy Tengu Armor, which your party reserves for Pelznickel Searinox.
+[2025-09-19 16:09:00] A Wild Gez's team has won a battle in the Hall of Heroes.
+[2025-09-19 16:09:03] Sky Quickfeather drops Heavy Tengu Armor, which your party reserves for Pelznickel Searinox.
+[2025-09-19 16:09:03] Sky Quickfeather drops Heavy Tengu Armor, which your party reserves for Pelznickel Searinox.
+[2025-09-19 16:09:06] You pick up Heavy Tengu Armor.
+[2025-09-19 16:10:17] Gypsie Ettin drops an Ettin Hide, which your party reserves for Pelznickel Searinox.
+[2025-09-19 16:10:18] Your party shares 38 gold.
+[2025-09-19 16:10:19] You pick up the Ettin Hide.
+[2025-09-19 16:10:36] Caromi Tengu Brave drops a Feathered Caromi Scalp, which your party reserves for Pelznickel Searinox.
+[2025-09-19 16:10:42] You pick up the Feathered Caromi Scalp.
+[2025-09-19 16:10:48] Caromi Tengu Brave drops a Wooden Buckler, which your party reserves for Pelznickel Searinox.
+[2025-09-19 16:10:50] You pick up the Wooden Buckler.
+[2025-09-19 16:11:39] Dyv Cloudclaw drops a Feathered Caromi Scalp, which your party reserves for Pelznickel Searinox.
+[2025-09-19 16:11:41] You pick up the Feathered Caromi Scalp.
+[2025-09-19 16:12:15] Your party shares 43 gold.
+[2025-09-19 16:12:43] Grasping Ghoul drops an Ornate Buckler, which your party reserves for Pelznickel Searinox.
+[2025-09-19 16:12:44] Your party shares 26 gold.
+[2025-09-19 16:12:45] You pick up the Ornate Buckler.
+[2025-09-19 16:14:09] Your party shares 35 gold.
+[2025-09-19 16:14:34] Skeleton Ranger drops a Decayed Orr Emblem, which your party reserves for Pelznickel Searinox.
+[2025-09-19 16:14:35] You pick up the Decayed Orr Emblem.
+[2025-09-19 16:15:24] Lionguard Minah: You have delivered to us the Chosen without letting any of them fall. As a token of our appreciation, please accept this small gift.
+[2025-09-19 16:15:24] Goal completed. Press "L" to view your updated Quest Log.
+[2025-09-19 16:15:24] You gain a skill point!
+[2025-09-19 16:15:24] Your party completed the bonus goal.
+[2025-09-19 16:15:24] You have earned 1,000 experience!
+[2025-09-19 16:15:24] Your party shares 500 gold.
+[2025-09-19 16:15:43] Your party completed the mission.
+[2025-09-19 16:15:43] You have earned 1,000 experience and 1 skill point!
+[2025-09-19 16:15:47] You have 1 guild invitation.
+[2025-09-19 16:17:12] A Wild Gez's team has won a battle in the Hall of Heroes.
+[2025-09-19 16:18:12] You salvaged 2 Tanned Hide Squares from Heavy Tengu Armor.
+[2025-09-19 16:18:12] You salvaged 5 Iron Ingots from Heavy Tengu Armor.
+[2025-09-19 16:18:13] You salvaged 5 Tanned Hide Squares from Heavy Tengu Armor.
+[2025-09-19 16:18:13] You salvaged 11 Iron Ingots from the Ornate Buckler.
+[2025-09-19 16:18:27] Quest Added: A Brother's Fury
+[2025-09-19 16:18:33] Quest Added: Eye For Profit
+[2025-09-19 16:18:49] Envoy Ero hands you a Mysterious Message.
+[2025-09-19 16:18:49] Quest Added: Mysterious Message
+[2025-09-19 16:19:52] You have 1 guild invitation.
+[2025-09-19 16:21:37] Your party shares 40 gold.
+[2025-09-19 16:21:49] You have 1 guild invitation.
+[2025-09-19 16:23:56] Norgu: I will defend us from attackers and, unless it would force me to abandon my post, fight anyone we attack.
+[2025-09-19 16:23:56] Razah: I will defend us from attackers and, unless it would force me to abandon my post, fight anyone we attack.
+[2025-09-19 16:23:57] Gwen: I will defend us from attackers and, unless it would force me to abandon my post, fight anyone we attack.
+[2025-09-19 16:24:32] Olias drops an Ashes of Protective Kaolai.
+[2025-09-19 16:25:44] Bladed Termite drops a Longbow, which your party reserves for Pelznickel Searinox.
+[2025-09-19 16:25:47] 5 mandragors slain.
+[2025-09-19 16:25:59] Your party shares 103 gold.
+[2025-09-19 16:26:00] You pick up the Longbow.
+[2025-09-19 16:26:02] Your party shares 101 gold.
+[2025-09-19 16:26:19] 10 mandragors slain.
+[2025-09-19 16:26:39] The world no longer has the favor of the gods.
+[2025-09-19 16:27:11] 15 mandragors slain.
+[2025-09-19 16:27:17] Stoneflesh Mandragor drops an Elementalist Tome, which your party reserves for Pelznickel Searinox.
+[2025-09-19 16:27:36] Your party shares 104 gold.
+[2025-09-19 16:27:43] Your party shares 101 gold.
+[2025-09-19 16:27:46] You pick up the Elementalist Tome.
+[2025-09-19 16:28:17] 20 mandragors slain.
+[2025-09-19 16:28:31] Bladed Termite drops an Insect Appendage, which your party reserves for Pelznickel Searinox.
+[2025-09-19 16:28:39] You pick up the Insect Appendage.
+[2025-09-19 16:28:41] Your party shares 104 gold.
+[2025-09-19 16:28:43] Your party shares 105 gold.
+[2025-09-19 16:28:45] Your party shares 101 gold.
+[2025-09-19 16:29:04] Olias drops an Ashes of Protective Kaolai.
+[2025-09-19 16:29:46] Stalking Nephila drops a Broadblade Scimitar, which your party reserves for Pelznickel Searinox.
+[2025-09-19 16:30:38] Mandragor Imp drops a War Hammer, which your party reserves for Pelznickel Searinox.
+[2025-09-19 16:31:29] Your party shares 109 gold.
+[2025-09-19 16:31:30] You pick up the War Hammer.
+[2025-09-19 16:31:43] Bladed Termite drops a Banded Spear, which your party reserves for Pelznickel Searinox.
+[2025-09-19 16:31:57] You pick up the Banded Spear.
+[2025-09-19 16:31:58] Your party shares 104 gold.
+[2025-09-19 16:32:34] Your party shares 100 gold.
+[2025-09-19 16:32:44] 30 mandragors slain.
+[2025-09-19 16:33:00] A Wild Gez's team has won a battle in the Hall of Heroes.
+[2025-09-19 16:33:06] Grub Lance drops a Protective Staff, which your party reserves for Pelznickel Searinox.
+[2025-09-19 16:33:41] 35 mandragors slain.
+[2025-09-19 16:33:54] You pick up the Protective Staff.
+[2025-09-19 16:33:56] Your party shares 103 gold.
+[2025-09-19 16:34:03] Your party shares 107 gold.
+[2025-09-19 16:34:37] 40 mandragors slain.
+[2025-09-19 16:34:44] Your party shares 104 gold.
+[2025-09-19 16:35:41] Skale Lasher drops a Half-Digested Boots, which your party reserves for Pelznickel Searinox.
+[2025-09-19 16:36:23] 45 mandragors slain.
+[2025-09-19 16:36:23] Mandragor Imp drops a Spinal Staff, which your party reserves for Pelznickel Searinox.
+[2025-09-19 16:37:38] 55 mandragors slain.
+[2025-09-19 16:37:52] Ridgeback Skale drops a Dual Winged Axe, which your party reserves for Pelznickel Searinox.
+[2025-09-19 16:38:27] Your party shares 107 gold.
+[2025-09-19 16:38:33] Your party shares 106 gold.
+[2025-09-19 16:38:35] Your party shares 104 gold.
+[2025-09-19 16:38:42] You pick up the Dual Winged Axe.
+[2025-09-19 16:38:47] Item Unlocked: Axe Grip of Warding
+[2025-09-19 16:39:54] Your party shares 101 gold.
+[2025-09-19 16:39:55] Your party shares 100 gold.
+[2025-09-19 16:39:57] Your party shares 103 gold.
+[2025-09-19 16:40:00] Your party shares 105 gold.
+[2025-09-19 16:41:08] Corsair Cutthroat drops a Corsair Pauldron, which your party reserves for Pelznickel Searinox.
+[2025-09-19 16:41:18] You pick up the Corsair Pauldron.
+[2025-09-19 16:41:31] Mandragor Slither drops a Bottle of Grog, which your party reserves for Pelznickel Searinox.
+[2025-09-19 16:41:31] 60 mandragors slain.
+[2025-09-19 16:42:06] Your party shares 107 gold.
+[2025-09-19 16:42:07] You pick up the Spinal Staff.
+[2025-09-19 16:42:13] Your party shares 106 gold.
+[2025-09-19 16:42:15] Your party shares 102 gold.
+[2025-09-19 16:42:19] Your party shares 100 gold.
+[2025-09-19 16:42:20] You pick up the Half-Digested Boots.
+[2025-09-19 16:42:22] Your party shares 105 gold.
+[2025-09-19 16:42:47] Your party shares 102 gold.
+[2025-09-19 16:43:49] You pick up the Bottle of Grog.
+[2025-09-19 16:45:00] A Wild Gez's team has won a battle in the Hall of Heroes.
+[2025-09-19 16:45:01] Frigid Skale drops a Bladed Recurve Bow, which your party reserves for Pelznickel Searinox.
+[2025-09-19 16:45:38] Your party shares 111 gold.
+[2025-09-19 16:45:40] You pick up the Bladed Recurve Bow.
+[2025-09-19 16:45:46] Your party shares 108 gold.
+[2025-09-19 16:46:12] Ehyal Longtooth drops a Half-Digested Armor, which your party reserves for Pelznickel Searinox.
+[2025-09-19 16:46:14] Your party shares 106 gold.
+[2025-09-19 16:46:16] You pick up the Half-Digested Armor.
+[2025-09-19 16:46:17] Your party shares 102 gold.
+[2025-09-19 16:48:08] Skale Lasher drops a Skale Fin, which your party reserves for Pelznickel Searinox.
+[2025-09-19 16:48:15] Your party shares 103 gold.
+[2025-09-19 16:48:17] Your party shares 100 gold.
+[2025-09-19 16:48:18] You pick up the Skale Fin.
+[2025-09-19 16:49:23] Your party shares 102 gold.
+[2025-09-19 16:49:24] Your party shares 103 gold.
+[2025-09-19 16:49:27] Your party shares 102 gold.
+[2025-09-19 16:50:02] Skree Warbler drops a Fledgling Skree Wing, which your party reserves for Pelznickel Searinox.
+[2025-09-19 16:50:45] Skree Hunter drops a Heraldic Shield, which your party reserves for Pelznickel Searinox.
+[2025-09-19 16:51:25] Your party shares 101 gold.
+[2025-09-19 16:51:27] Your party shares 100 gold.
+[2025-09-19 16:51:32] You pick up the Fledgling Skree Wing.
+[2025-09-19 16:51:34] Your party shares 102 gold.
+[2025-09-19 16:51:39] Your party shares 104 gold.
+[2025-09-19 16:51:47] You pick up the Heraldic Shield.
+[2025-09-19 16:51:50] Your party shares 106 gold.
+[2025-09-19 16:51:51] Your party shares 108 gold.
+[2025-09-19 16:52:23] Ridgeback Skale drops a Vial of Dye [Green], which your party reserves for Pelznickel Searinox.
+[2025-09-19 16:52:33] You pick up the Vial of Dye [Green].
+[2025-09-19 16:53:49] Skree Talon drops a Skree Rags, which your party reserves for Pelznickel Searinox.
+[2025-09-19 16:54:26] You pick up the Skree Rags.
+[2025-09-19 16:55:17] Corsair Reef Finder drops a Silver Bullion Coin, which your party reserves for Pelznickel Searinox.
+[2025-09-19 16:55:42] You pick up the Silver Bullion Coin.
+[2025-09-19 16:55:58] Corsair Thug drops a Silver Bullion Coin, which your party reserves for Pelznickel Searinox.
+[2025-09-19 16:56:37] You pick up the Silver Bullion Coin.
+[2025-09-19 16:56:40] Your party shares 95 gold.
+[2025-09-19 16:56:42] Your party shares 101 gold.
+[2025-09-19 16:57:00] A Wild Gez's team has won a battle in the Hall of Heroes.
+[2025-09-19 16:59:15] Your party shares 112 gold.
+[2025-09-19 16:59:57] Bladed Termite drops an Insect Appendage, which your party reserves for Pelznickel Searinox.
+[2025-09-19 17:00:05] Your party shares 101 gold.
+[2025-09-19 17:00:12] You pick up the Insect Appendage.
+[2025-09-19 17:00:15] Your party shares 100 gold.
+[2025-09-19 17:00:54] Olias drops an Ashes of Protective Kaolai.
+[2025-09-19 17:00:56] 5 skale slain.
+[2025-09-19 17:00:57] Olias drops an Ashes of Protective Kaolai.
+[2025-09-19 17:01:12] Your party shares 101 gold.
+[2025-09-19 17:01:18] Your party shares 109 gold.
+[2025-09-19 17:01:22] Your party shares 111 gold.
+[2025-09-19 17:01:23] Your party shares 114 gold.
+[2025-09-19 17:03:21] Corsair Marauder drops 25 Bolts of Cloth, which your party reserves for Pelznickel Searinox.
+[2025-09-19 17:03:30] Your party shares 101 gold.
+[2025-09-19 17:03:35] You pick up 25 Bolts of Cloth.
+[2025-09-19 17:04:03] Corsair Flogger drops a Silver Bullion Coin, which your party reserves for Pelznickel Searinox.
+[2025-09-19 17:04:32] Corsair Medic drops a Foehammer, which your party reserves for Pelznickel Searinox.
+[2025-09-19 17:04:42] You pick up the Silver Bullion Coin.
+[2025-09-19 17:04:50] You pick up the Foehammer.
+[2025-09-19 17:06:00] Corsair Flogger drops a Bone Staff, which your party reserves for Pelznickel Searinox.
+[2025-09-19 17:06:45] You have been playing for 2 hours.
+[2025-09-19 17:06:57] Corsair Thug drops a Tattooed Scimitar, which your party reserves for Pelznickel Searinox.
+[2025-09-19 17:07:06] Your party shares 110 gold.
+[2025-09-19 17:07:09] Your party shares 109 gold.
+[2025-09-19 17:07:10] You pick up the Tattooed Scimitar.
+[2025-09-19 17:07:18] You pick up the Bone Staff.
+[2025-09-19 17:08:32] Corsair Lookout drops a Corsair Pauldron, which your party reserves for Pelznickel Searinox.
+[2025-09-19 17:09:00] A Wild Gez's team has won a battle in the Hall of Heroes.
+[2025-09-19 17:09:12] Olias drops an Ashes of Protective Kaolai.
+[2025-09-19 17:09:30] You pick up the Corsair Pauldron.
+[2025-09-19 17:09:38] You salvaged 7 Wood Planks from the Banded Spear.
+[2025-09-19 17:09:38] You salvaged 6 Iron Ingots from the Protective Staff.
+[2025-09-19 17:09:39] You salvaged 8 Wood Planks from the Fiery Dual Winged Axe of Warding.
+[2025-09-19 17:09:39] You salvaged 63 Piles of Glittering Dust from the Spinal Staff.
+[2025-09-19 17:09:39] You salvaged 4 Iron Ingots from the Bladed Recurve Bow.
+[2025-09-19 17:09:40] You salvaged 11 Iron Ingots from the Heraldic Shield of Valor.
+[2025-09-19 17:09:40] You salvaged 4 Iron Ingots from the Foehammer.
+[2025-09-19 17:09:40] You salvaged 14 Iron Ingots from the Furious Tattooed Scimitar of Enchanting.
+[2025-09-19 17:09:55] Stalking Nephila drops a Bottle of Grog, which your party reserves for Pelznickel Searinox.
+[2025-09-19 17:10:18] Bladed Termite drops a Spiked Club, which your party reserves for Pelznickel Searinox.
+[2025-09-19 17:10:25] You salvaged 17 Bones from the Swift Bone Staff of Shelter.
+[2025-09-19 17:10:37] Stalking Nephila drops a Silken Spider Web, which your party reserves for Pelznickel Searinox.
+[2025-09-19 17:11:02] You pick up the Silken Spider Web.
+[2025-09-19 17:11:02] Your party shares 101 gold.
+[2025-09-19 17:11:09] You pick up the Bottle of Grog.
+[2025-09-19 17:11:12] You pick up the Spiked Club.
+[2025-09-19 17:11:15] Your party shares 111 gold.
+[2025-09-19 17:11:37] Your party shares 106 gold.
+[2025-09-19 17:12:00] Olias drops an Ashes of Protective Kaolai.
+[2025-09-19 17:12:29] Stalking Nephila drops a Tribal Axe, which your party reserves for Pelznickel Searinox.
+[2025-09-19 17:12:48] Stalking Nephila drops a Brute Sword, which your party reserves for Pelznickel Searinox.
+[2025-09-19 17:12:59] Your party shares 102 gold.
+[2025-09-19 17:13:04] You pick up the Tribal Axe.
+[2025-09-19 17:13:14] You pick up the Brute Sword.
+[2025-09-19 17:13:51] Emeju Longlegs drops a Passage Scroll to the Underworld, which your party reserves for Pelznickel Searinox.
+[2025-09-19 17:14:26] Your party shares 108 gold.
+[2025-09-19 17:14:27] Your party shares 107 gold.
+[2025-09-19 17:14:29] Your party shares 104 gold.
+[2025-09-19 17:14:30] You pick up the Passage Scroll to the Underworld.
+[2025-09-19 17:14:33] Your party shares 100 gold.
+[2025-09-19 17:16:41] Stoneflesh Mandragor drops a Rusty Machete, which your party reserves for Pelznickel Searinox.
+[2025-09-19 17:16:43] 65 mandragors slain.
+[2025-09-19 17:16:45] You pick up the Rusty Machete.
+[2025-09-19 17:17:10] 70 mandragors slain.
+[2025-09-19 17:17:37] Your party shares 110 gold.
+[2025-09-19 17:17:50] Your party shares 104 gold.
+[2025-09-19 17:19:09] Corsair Flogger drops an Accursed Staff, which your party reserves for Pelznickel Searinox.
+[2025-09-19 17:19:43] Corsair Medic drops a Corsair Trappings, which your party reserves for Pelznickel Searinox.
+[2025-09-19 17:19:50] You pick up the Accursed Staff.
+[2025-09-19 17:19:56] You pick up the Corsair Trappings.
+[2025-09-19 17:20:07] Your party shares 106 gold.
+[2025-09-19 17:21:00] A Wild Gez's team has won a battle in the Hall of Heroes.
+[2025-09-19 17:21:15] Stalking Nephila drops a Scimitar, which your party reserves for Pelznickel Searinox.
+[2025-09-19 17:21:44] You pick up the Scimitar.
+[2025-09-19 17:22:25] Mandragor Slither drops a Lustrous Stone, which your party reserves for Pelznickel Searinox.
+[2025-09-19 17:22:49] You pick up the Lustrous Stone.
+[2025-09-19 17:22:53] Your party shares 102 gold.
+[2025-09-19 17:22:54] Your party shares 101 gold.
+[2025-09-19 17:22:57] Your party shares 106 gold.
+[2025-09-19 17:23:15] Mandragor Slither drops a Mandragor Swamproot, which your party reserves for Pelznickel Searinox.
+[2025-09-19 17:24:14] Your party shares 103 gold.
+[2025-09-19 17:24:17] Your party shares 107 gold.
+[2025-09-19 17:24:18] Your party shares 103 gold.
+[2025-09-19 17:24:26] Your party shares 101 gold.
+[2025-09-19 17:24:28] You pick up the Mandragor Swamproot.
+[2025-09-19 17:24:30] Your party shares 107 gold.
+[2025-09-19 17:24:32] Your party shares 108 gold.
+[2025-09-19 17:25:20] Your party shares 105 gold.
+[2025-09-19 17:25:57] Grub Lance drops an Eternal Flame Wand, which your party reserves for Pelznickel Searinox.
+[2025-09-19 17:25:57] You gain a skill point!
+[2025-09-19 17:25:57] You gain 2,035 Sunspear promotion points.
+[2025-09-19 17:25:57] You have earned 2,035 experience and 2,035 gold!
+[2025-09-19 17:25:57] You have played this character for 338 hours 55 minutes over the past 33 days.
+[2025-09-19 17:25:57] Across all characters, you have played for 852 hours 52 minutes over the past 124 months.
+[2025-09-19 17:25:57] You have been in this map for 1 hour 1 minute.
+[2025-09-19 17:25:57] GWToolbox++: Time: 1:01:42.52
+[2025-09-19 17:26:04] You pick up the Eternal Flame Wand.
+[2025-09-19 17:27:11] You pick up the Broadblade Scimitar.
+[2025-09-19 17:27:22] Item Unlocked: Sword Pommel of Warding
+[2025-09-19 17:27:54] You have 1 guild invitation.
+[2025-09-19 17:28:18] You salvaged 1 Pile of Glittering Dust from the Silken Spider Web.
+[2025-09-19 17:29:37] You salvaged 2 Piles of Glittering Dust from the Lustrous Stone.
+[2025-09-19 17:29:37] You salvaged 7 Iron Ingots from the Scimitar.
+[2025-09-19 17:29:37] You salvaged 7 Piles of Glittering Dust from the Eternal Flame Wand.
+[2025-09-19 17:29:38] You salvaged 5 Wood Planks from the Tribal Axe.
+[2025-09-19 17:29:38] You salvaged 6 Iron Ingots from the Rusty Machete.
+[2025-09-19 17:29:38] You salvaged 7 Iron Ingots from the Half-Digested Armor.
+[2025-09-19 17:29:38] The salvaging tools were destroyed.
+[2025-09-19 17:29:52] You salvaged 7 Iron Ingots from the Brute Sword.
