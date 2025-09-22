@@ -60,6 +60,17 @@ chat_request_timer.Start()
 CHAT_REQUEST_INTERVAL_MS = 500
 
 
+def reset_chat_capture_state() -> None:
+    """Reset chat capture request state to its idle defaults."""
+
+    global pending_chat_request, skip_next_snapshot
+
+    pending_chat_request = False
+    skip_next_snapshot = False
+    chat_queue.clear()
+    chat_request_timer.Reset()
+
+
 def get_log_directory_path() -> str:
     """Return the absolute path for the configured log directory."""
 
@@ -240,9 +251,7 @@ def process_chat_updates() -> None:
         GLOBAL_CACHE.Map.IsMapLoading()
         or GLOBAL_CACHE.Player.InCharacterSelectScreen()
     ):
-        pending_chat_request = False
-        chat_queue.clear()
-        chat_request_timer.Reset()
+        reset_chat_capture_state()
         return
 
     if not pending_chat_request and chat_request_timer.HasElapsed(CHAT_REQUEST_INTERVAL_MS):
@@ -332,6 +341,7 @@ def configure():
 def main():
     try:
         if not Routines.Checks.Map.MapValid():
+            reset_chat_capture_state()
             return
 
         if persist_enabled and not logging_enabled:
