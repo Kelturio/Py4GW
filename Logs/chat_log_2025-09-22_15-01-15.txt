@@ -1,0 +1,34 @@
+[2025-09-22 15:02:41] You have 1 guild invitation.
+[2025-09-22 15:04:48] Jade Brotherhood Knight drops a Jade Bracelet, which your party reserves for Pelznickel Searinox.
+[2025-09-22 15:05:12] Olias drops an Ashes of Protective Kaolai.
+[2025-09-22 15:05:15] Al Ways's team has won a battle in the Hall of Heroes.
+[2025-09-22 15:05:27] Jade Brotherhood Knight drops a Jade Brotherhood Armguard, which your party reserves for Pelznickel Searinox.
+[2025-09-22 15:05:31] Olias drops an Ashes of Protective Kaolai.
+[2025-09-22 15:06:05] Jade Brotherhood Mage drops an Earth Wand, which your party reserves for Pelznickel Searinox.
+[2025-09-22 15:06:26] Jade Brotherhood Ritualist drops a Jade Brotherhood Garb, which your party reserves for Pelznickel Searinox.
+[2025-09-22 15:06:28] You pick up the Jade Brotherhood Garb.
+[2025-09-22 15:06:37] You pick up the Earth Wand.
+[2025-09-22 15:06:37] Your party shares 65 gold.
+[2025-09-22 15:06:39] You pick up the Jade Brotherhood Armguard.
+[2025-09-22 15:06:43] Your party shares 65 gold.
+[2025-09-22 15:06:55] You pick up the Jade Bracelet.
+[2025-09-22 15:08:20] Jade Brotherhood Knight drops a Jade Brotherhood Armguard, which your party reserves for Pelznickel Searinox.
+[2025-09-22 15:08:56] You pick up the Jade Brotherhood Armguard.
+[2025-09-22 15:10:10] Jade Brotherhood Mesmer drops a Jade Bracelet, which your party reserves for Pelznickel Searinox.
+[2025-09-22 15:10:25] Jade Brotherhood Knight drops a Jade Brotherhood Armguard, which your party reserves for Pelznickel Searinox.
+[2025-09-22 15:10:33] You pick up the Jade Bracelet.
+[2025-09-22 15:10:37] You pick up the Jade Brotherhood Armguard.
+[2025-09-22 15:10:40] Your party shares 68 gold.
+[2025-09-22 15:11:37] Royen Beastkeeper drops a Shield of the Wing, which your party reserves for Pelznickel Searinox.
+[2025-09-22 15:12:07] You pick up the Shield of the Wing.
+[2025-09-22 15:14:00] Am Fah Marksman drops an Am Fah Vambrace, which your party reserves for Pelznickel Searinox.
+[2025-09-22 15:14:21] Am Fah Healer drops an Am Fah Cape, which your party reserves for Pelznickel Searinox.
+[2025-09-22 15:14:39] You pick up the Am Fah Vambrace.
+[2025-09-22 15:14:52] You pick up the Am Fah Cape.
+[2025-09-22 15:15:41] Your party shares 96 gold.
+[2025-09-22 15:15:43] Your party shares 69 gold.
+[2025-09-22 15:16:06] Am Fah Necromancer drops a Plague Idol, which your party reserves for Pelznickel Searinox.
+[2025-09-22 15:16:15] You pick up the Plague Idol.
+[2025-09-22 15:17:16] Al Ways's team has won a battle in the Hall of Heroes.
+[2025-09-22 15:17:30] Am Fah Marksman drops a Plague Idol, which your party reserves for Pelznickel Searinox.
+[2025-09-22 15:17:44] You pick up the Plague Idol.

@@ -1,0 +1,10 @@
+[2025-09-22 16:35:02] Moss Scarab drops a Mossy Mandible, which your party reserves for Pelznickel Searinox.
+[2025-09-22 16:35:02] Your party shares 42 gold.
+[2025-09-22 16:35:02] You pick up the Mossy Mandible.
+[2025-09-22 16:35:42] Moss Scarab drops a Mossy Mandible, which your party reserves for Pelznickel Searinox.
+[2025-09-22 16:36:02] You pick up the Mossy Mandible.
+[2025-09-22 16:36:02] Your party shares 28 gold.
+[2025-09-22 16:36:17] Moss Scarab drops a Deadly Cesta, which your party reserves for Pelznickel Searinox.
+[2025-09-22 16:36:22] You pick up the Deadly Cesta.
+[2025-09-22 16:36:32] Your party shares 37 gold.
+[2025-09-22 16:36:47] Your party shares 24 gold.
