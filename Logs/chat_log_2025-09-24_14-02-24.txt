@@ -1,0 +1,6 @@
+[2025-09-24 14:03:03] Quest Updated: Fort Aspenwood
+[2025-09-24 14:03:03] Quest Reward Accepted: Fort Aspenwood
+[2025-09-24 14:03:03] You gain 3,000 experience.
+[2025-09-24 14:03:03] You receive 250 gold.
+[2025-09-24 14:03:32] Kurzick Bureaucrat [Faction Rewards] hands you an Amber Chunk.
+[2025-09-24 14:03:32] Due to your show of allegiance to the Kurzicks, you have lost 1,010 Luxon faction.

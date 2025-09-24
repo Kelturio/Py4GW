@@ -1,0 +1,6 @@
+[2025-09-24 12:55:01] Quest Updated: The Jade Quarry
+[2025-09-24 12:55:01] Quest Reward Accepted: The Jade Quarry
+[2025-09-24 12:55:01] You gain a skill point!
+[2025-09-24 12:55:01] You gain 3,000 experience.
+[2025-09-24 12:55:01] You receive 250 gold.
+[2025-09-24 13:02:51] You have 1 guild invitation.

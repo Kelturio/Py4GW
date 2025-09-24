@@ -1,0 +1,476 @@
+[2025-09-24 14:21:00] Vivec Opits's team has won a battle in the Hall of Heroes.
+[2025-09-24 14:27:50] You salvaged 6 Iron Ingots from the Golden Pillar.
+[2025-09-24 14:27:55] You salvaged 11 Iron Ingots from the Wicked Blade.
+[2025-09-24 14:28:00] You salvaged 8 Piles of Glittering Dust from the Amber Staff.
+[2025-09-24 14:28:05] You salvaged 22 Piles of Glittering Dust from Shocking Jade Daggers.
+[2025-09-24 14:28:10] You salvaged 4 Iron Ingots from the Inscribed Chakram.
+[2025-09-24 14:28:10] You salvaged 4 Iron Ingots from the Wicked Blade.
+[2025-09-24 14:28:15] You salvaged 11 Iron Ingots from the Defender.
+[2025-09-24 14:28:25] You salvaged 6 Iron Ingots from the Aegis.
+[2025-09-24 14:28:35] You salvaged 7 Wood Planks from the Amber Longbow.
+[2025-09-24 14:31:02] Baroness Lina has achieved the title Legendary Cartographer. 15 more achievements will earn the favor of the gods.
+[2025-09-24 14:33:02] Vivec Opits's team has won a battle in the Hall of Heroes.
+[2025-09-24 14:33:28] You receive 1 Shiro's Return.
+[2025-09-24 14:33:38] Gorani [Kurzick Poet] takes 600 gold.
+[2025-09-24 14:41:25] Your party shares 11 gold.
+[2025-09-24 14:41:30] Vivec Opits's team has won a battle in the Hall of Heroes.
+[2025-09-24 14:41:35] Mantid Parasite drops a Truncheon, which your party reserves for Pelznickel Searinox.
+[2025-09-24 14:41:55] Your party shares 7 gold.
+[2025-09-24 14:41:55] Your party shares 6 gold.
+[2025-09-24 14:42:05] You pick up the Truncheon.
+[2025-09-24 14:42:31] Mantid Queen drops a Mantid Pincer, which your party reserves for Pelznickel Searinox.
+[2025-09-24 14:42:31] You pick up the Mantid Pincer.
+[2025-09-24 14:42:41] Mantid Parasite drops a Hand Axe, which your party reserves for Pelznickel Searinox.
+[2025-09-24 14:42:46] You pick up the Hand Axe.
+[2025-09-24 14:43:01] Mantid Darkwing drops a Skull Shield, which your party reserves for Pelznickel Searinox.
+[2025-09-24 14:43:11] Your party shares 6 gold.
+[2025-09-24 14:43:11] Your party shares 13 gold.
+[2025-09-24 14:43:16] Your party shares 11 gold.
+[2025-09-24 14:43:26] You pick up the Skull Shield.
+[2025-09-24 14:43:26] Your party shares 9 gold.
+[2025-09-24 14:50:59] Your party shares 3 gold.
+[2025-09-24 14:52:04] Kappa drops an Earth Scroll, which your party reserves for Pelznickel Searinox.
+[2025-09-24 14:52:04] You pick up the Earth Scroll.
+[2025-09-24 14:52:19] Your party shares 8 gold.
+[2025-09-24 14:52:48] You may not enter that outpost
+[2025-09-24 14:55:58] Your party shares 6 gold.
+[2025-09-24 14:56:08] Kappa drops a Kappa Hatchling Shell, which your party reserves for Pelznickel Searinox.
+[2025-09-24 14:56:08] Your party shares 11 gold.
+[2025-09-24 14:56:08] You pick up the Kappa Hatchling Shell.
+[2025-09-24 14:56:28] Your party shares 4 gold.
+[2025-09-24 14:56:28] Your party shares 3 gold.
+[2025-09-24 14:57:03] Vivec Opits's team has won a battle in the Hall of Heroes.
+[2025-09-24 14:57:18] Kappa drops a Bone, which your party reserves for Pelznickel Searinox.
+[2025-09-24 14:57:18] Your party shares 2 gold.
+[2025-09-24 14:57:18] You pick up the Bone.
+[2025-09-24 14:57:38] You pick up the Fire Staff.
+[2025-09-24 15:00:46] Mantid Drone drops a Mantid Pincer, which your party reserves for Pelznickel Searinox.
+[2025-09-24 15:00:56] Your party shares 2 gold.
+[2025-09-24 15:01:01] You pick up the Mantid Pincer.
+[2025-09-24 15:01:01] Your party shares 5 gold.
+[2025-09-24 15:02:46] Master Togo: Yijo! Pelznickel Searinox! Come with me! Minister Cho is in grave danger. We must find him before it is too late.
+[2025-09-24 15:02:51] Yijo Tahn: Yes, Master! Right away!
+[2025-09-24 15:02:56] Yijo Tahn: Come, Pelznickel Searinox! The Master wishes us to fight by his side! We will die with great honor.
+[2025-09-24 15:03:16] Master Togo: Sickened guards! We will have to destroy them. Let us focus our attacks on one foe at a time so that we can defeat them more quickly.
+[2025-09-24 15:03:31] Yijo Tahn: Master, isn't it true that we can call out our target by holding CTRL when we begin attacking?
+[2025-09-24 15:03:31] Master Togo: Quite so. Pelznickel Searinox, you should be the one to call a target. The rest of us will attack your target. Hurry now, Pelznickel Searinox. Hold CTRL and double-click one of the Sickened Guards!
+[2025-09-24 15:03:51] Master Togo: Stay close, students. Danger lurks where you least expect it.
+[2025-09-24 15:03:56] Yijo Tahn: Yes, Master. We must keep our eyes open and stay with the group.
+[2025-09-24 15:04:16] Minister's Guard: There is something evil at work here....
+[2025-09-24 15:04:21] Master Togo: Now, students, we will regroup near that tree, there. Do you see how I have indicated the location on your mini-maps? To do this, simply left-click the mini-map.
+[2025-09-24 15:04:36] Master Togo: You can also give more advanced instructions by holding down the left mouse button and drawing on the mini-map.
+[2025-09-24 15:04:51] Yijo Tahn: I see! If I click once, a marker appears temporarily. If I click and hold, I can draw on the map. How very useful!
+[2025-09-24 15:04:56] Master Togo: Did you see that boy up there? Perhaps it is Guardsman Zui's lost son?
+[2025-09-24 15:05:06] Master Togo: Child, please stop! We wish you no harm!
+[2025-09-24 15:05:16] Master Togo: We must stay together. We are much more effective as a group.
+[2025-09-24 15:05:21] Vivec Opits's team has won a battle in the Hall of Heroes.
+[2025-09-24 15:06:42] Sickened Guard drops a Wooden Buckler, which your party reserves for Pelznickel Searinox.
+[2025-09-24 15:06:42] Master Togo: Remember, our strength comes in numbers. A lone hero is often a dead hero.
+[2025-09-24 15:06:42] You pick up the Wooden Buckler.
+[2025-09-24 15:06:52] Yijo Tahn: Yes, Master. There is safety in our numbers.
+[2025-09-24 15:08:22] Minister's Guard: Please.... No! Tahnjo! It is me, your brother! You know me! Wait! Tahnjo!
+[2025-09-24 15:08:27] Minister's Guard: Help me...please!! Something is wrong with the other guards; they have gone mad!
+[2025-09-24 15:08:32] Yijo Tahn: See, there: a large group of enemies waits just ahead. This battle will be glorious!
+[2025-09-24 15:08:42] Minister's Guard: I cannot thank you enough for your help. Those guards...they were not the people I once knew. Something changed them. Be careful, there are more of them about!
+[2025-09-24 15:08:47] Master Togo: Yijo, stop! With such a large group is best to keep your distance and see if they will separate, giving you a better opportunity to strike.
+[2025-09-24 15:08:47] Master Togo: Wait here, students, and I will lure them back to you. If you are patient, the battle will be much easier for us.
+[2025-09-24 15:09:12] Sickened Guard drops a Tribal Axe, which your party reserves for Pelznickel Searinox.
+[2025-09-24 15:09:17] You pick up the Tribal Axe.
+[2025-09-24 15:09:27] Master Togo: Keep up students. It is imperative that we find Minister Cho quickly and learn what has been happening here.
+[2025-09-24 15:10:12] Yijo Tahn: That creature is no normal foe. I can see a glowing aura of power around it!
+[2025-09-24 15:10:22] Master Togo: When you defeat such an opponent, its death will provide you with a morale boost. This will recharge all of your skills and temporarily increase your Health and Energy.
+[2025-09-24 15:10:37] Yijo Tahn: This will even allow us to recharge our Resurrection Signets! We should not hesitate to use them in a battle with such an enemy for if it is defeated, the signet will recharge afterward!
+[2025-09-24 15:11:12] Afflicted Horror drops a Flatbow, which your party reserves for Pelznickel Searinox.
+[2025-09-24 15:11:17] You pick up the Flatbow.
+[2025-09-24 15:12:07] Minister's Guard: I tried to approach the estate, but the other guards...my own friends...they attacked me! I do not understand what is happening!
+[2025-09-24 15:12:22] Yijo Tahn: What is that? Some sort of feathered demon?!
+[2025-09-24 15:12:32] Master Togo: I believe it is a moa bird, Yijo. It is from a land far across the Great Sea.
+[2025-09-24 15:12:42] Master Togo: The minister is fond of collecting exotic animals. It seems some of them have gotten loose. This one looks to be quite ill, does it not?
+[2025-09-24 15:12:58] Yijo Tahn: It looks quite dangerous to me, Master!
+[2025-09-24 15:13:43] Master Togo: There is that child again. It can only be Guardsman Zui's son.
+[2025-09-24 15:13:48] Sickened Guard drops a Bo Staff, which your party reserves for Pelznickel Searinox.
+[2025-09-24 15:13:53] Master Togo: Your father, Guardsman Zui, sent us to find you, child! Come back!
+[2025-09-24 15:13:53] Sickened Guard drops a Tribal Blade, which your party reserves for Pelznickel Searinox.
+[2025-09-24 15:13:53] Sickened Guard drops a Dusk Blade, which your party reserves for Pelznickel Searinox.
+[2025-09-24 15:13:58] Sickened Servant drops a Longbow, which your party reserves for Pelznickel Searinox.
+[2025-09-24 15:13:58] You pick up the Dusk Blade.
+[2025-09-24 15:13:58] You pick up the Tribal Blade.
+[2025-09-24 15:13:58] Master Togo: The Minister's estate is up ahead. We must hurry! I fear this...situation...is far worse than I expected.
+[2025-09-24 15:14:03] You pick up the Bo Staff.
+[2025-09-24 15:14:08] You pick up the Longbow.
+[2025-09-24 15:14:28] Sickened Guard drops a Crude Shield, which your party reserves for Pelznickel Searinox.
+[2025-09-24 15:14:33] Sickened Scribe drops a Forgotten Trinket Box, which your party reserves for Pelznickel Searinox.
+[2025-09-24 15:14:33] You pick up the Crude Shield.
+[2025-09-24 15:14:38] You pick up the Forgotten Trinket Box.
+[2025-09-24 15:17:52] Vivec Opits's team has won a battle in the Hall of Heroes.
+[2025-09-24 15:19:56] Longhair Yeti drops a Tower Shield, which your party reserves for Pelznickel Searinox.
+[2025-09-24 15:19:56] You pick up the Tower Shield.
+[2025-09-24 15:20:46] You have been playing for 1 hour.
+[2025-09-24 15:21:26] Afflicted Ranger drops a Plagueborn Armor, which your party reserves for Pelznickel Searinox.
+[2025-09-24 15:21:36] You pick up the Plagueborn Armor.
+[2025-09-24 15:22:27] Your party shares 30 gold.
+[2025-09-24 15:22:32] Afflicted Assassin drops a Plagueborn Armor, which your party reserves for Pelznickel Searinox.
+[2025-09-24 15:22:32] Afflicted Necromancer drops a Truncheon, which your party reserves for Pelznickel Searinox.
+[2025-09-24 15:22:37] You pick up the Plagueborn Armor.
+[2025-09-24 15:22:42] You pick up the Truncheon.
+[2025-09-24 15:26:49] Headmaster Vhang: Zen Daijun is overrun with the Afflicted. It is good that I am here to protect all of you.
+[2025-09-24 15:26:59] Master Togo: In times of trouble, the people of this valley gather in the main temple to the west. We should seek Yijo there.
+[2025-09-24 15:27:04] Master Togo: All right, follow me and stay close. We are in great danger.
+[2025-09-24 15:27:29] Master Togo: Do you see that purplish glow up ahead? The very air there has become sickened. Avoid it, lest you catch some disease from it.
+[2025-09-24 15:27:34] Headmaster Vhang: If you become diseased, Pelznickel Searinox, make certain you keep your distance or you will infect us all.
+[2025-09-24 15:28:05] Master Togo: Ring the bell at any of the shrines in this area to summon Zunraa, the guardian of this valley.
+[2025-09-24 15:28:20] Master Togo: You can take the lead now. I will follow you and watch your progress.
+[2025-09-24 15:28:25] Zunraa: For hundreds of years I have watched over this holy valley. If your heart is pure, I will keep your body free of all impurities.
+[2025-09-24 15:28:30] Afflicted Elementalist drops a Fire Wand, which your party reserves for Pelznickel Searinox.
+[2025-09-24 15:28:35] You pick up the Fire Wand.
+[2025-09-24 15:29:05] Afflicted Elementalist drops a Plagueborn Armor, which your party reserves for Pelznickel Searinox.
+[2025-09-24 15:29:10] You pick up the Plagueborn Armor.
+[2025-09-24 15:30:20] Afflicted Necromancer drops a Truncheon, which your party reserves for Pelznickel Searinox.
+[2025-09-24 15:30:30] You pick up the Truncheon.
+[2025-09-24 15:30:45] Master Togo: Zen Daijun temple lies in the valley ahead. We can either travel south through the caves or north past the waterfall....
+[2025-09-24 15:30:55] Afflicted Ranger drops a Longbow, which your party reserves for Pelznickel Searinox.
+[2025-09-24 15:31:00] Headmaster Vhang: Either path will suit me. The sooner we set out, the sooner I shall wipe this plague from my homeland.
+[2025-09-24 15:31:05] You pick up the Longbow.
+[2025-09-24 15:31:05] Your party shares 30 gold.
+[2025-09-24 15:31:35] Afflicted Warrior drops an Augmented Flesh, which your party reserves for Pelznickel Searinox.
+[2025-09-24 15:31:35] You pick up the Augmented Flesh.
+[2025-09-24 15:32:05] Afflicted Warrior drops 6 Bones, which your party reserves for Pelznickel Searinox.
+[2025-09-24 15:32:10] You pick up 6 Bones.
+[2025-09-24 15:32:10] Your party shares 47 gold.
+[2025-09-24 15:32:45] Headmaster Vhang: We should have brought someone who knows how to fight, Master Togo. There are so many Afflicted creatures here, it will take us some time to kill them all.
+[2025-09-24 15:32:50] Master Togo: It is true that the plague is far worse here than it was at Minister Cho's estate. This may mean the source of the affliction is somewhere in this very valley.
+[2025-09-24 15:33:00] Your party shares 31 gold.
+[2025-09-24 15:33:00] Vivec Opits's team has won a battle in the Hall of Heroes.
+[2025-09-24 15:33:25] Afflicted Elementalist drops a Wooden Buckler, which your party reserves for Pelznickel Searinox.
+[2025-09-24 15:33:35] Afflicted Elementalist drops 6 Bones, which your party reserves for Pelznickel Searinox.
+[2025-09-24 15:33:40] You pick up the Wooden Buckler.
+[2025-09-24 15:33:40] You pick up 6 Bones.
+[2025-09-24 15:33:50] Afflicted Ravager drops a Bo Staff, which your party reserves for Pelznickel Searinox.
+[2025-09-24 15:33:50] You pick up the Bo Staff.
+[2025-09-24 15:34:26] Afflicted Assassin drops a Plagueborn Armor, which your party reserves for Pelznickel Searinox.
+[2025-09-24 15:34:31] You pick up the Plagueborn Armor.
+[2025-09-24 15:35:46] Afflicted Elementalist drops a Plagueborn Armor, which your party reserves for Pelznickel Searinox.
+[2025-09-24 15:35:56] Your party shares 34 gold.
+[2025-09-24 15:36:01] You pick up the Plagueborn Armor.
+[2025-09-24 15:36:11] Headmaster Vhang: Look! The affliction has claimed them all. Even Farmer Xeng Jo has been corrupted. Yijo should have known he could not handle this on his own.
+[2025-09-24 15:36:21] Master Togo: Headmaster Vhang, that is enough! Yijo gave his life protecting those around him. There is no more noble act.
+[2025-09-24 15:36:26] Master Togo: I know it is difficult, my friends, but we must put an end to their suffering. They would want us to do so. Let us help their spirits find rest.
+[2025-09-24 15:36:26] Your party shares 29 gold.
+[2025-09-24 15:36:31] Your party shares 36 gold.
+[2025-09-24 15:36:51] Afflicted Farmer Xeng Jo drops 11 Bones, which your party reserves for Pelznickel Searinox.
+[2025-09-24 15:36:51] Goal completed. Press "L" to view your updated Quest Log.
+[2025-09-24 15:36:56] You pick up 11 Bones.
+[2025-09-24 15:36:56] You pick up the Ceremonial Cauldron.
+[2025-09-24 15:37:06] Master Togo: Look up ahead! That building is engulfed by miasma. Surely the source of the plague lies up there.
+[2025-09-24 15:37:16] Headmaster Vhang: Let us destroy Afflicted Kana, and put an end to this infestation!
+[2025-09-24 15:37:16] Afflicted Elementalist drops an Augmented Flesh, which your party reserves for Pelznickel Searinox.
+[2025-09-24 15:37:16] Afflicted Assassin drops 8 Bones, which your party reserves for Pelznickel Searinox.
+[2025-09-24 15:37:21] Goal completed. Press "L" to view your updated Quest Log.
+[2025-09-24 15:37:26] You pick up the Augmented Flesh.
+[2025-09-24 15:41:16] Vivec Opits's team has won a battle in the Hall of Heroes.
+[2025-09-24 16:42:26] Vivec Opits's team has won a battle in the Hall of Heroes.
+[2025-09-24 17:36:11] You upgraded your Turtle Clan Leggings of Major Vigor with a Blessed Insignia.
+[2025-09-24 17:36:11] You upgraded your Turtle Clan Shoes of Vitae with a Blessed Insignia.
+[2025-09-24 17:37:55] Razah: I will fight anyone who attacks us and anyone we attack.
+[2025-09-24 17:37:55] Gwen: I will fight anyone who attacks us and anyone we attack.
+[2025-09-24 17:37:55] Norgu: I will fight anyone who attacks us and anyone we attack.
+[2025-09-24 17:39:21] The Skills Template named "5 Hero Mesmerway - H1 ESurge 1" has been loaded onto Norgu.
+[2025-09-24 17:39:51] The Skills Template named "5 Hero Mesmerway - H2 ESurge 2" has been loaded onto Gwen.
+[2025-09-24 17:40:46] The Skills Template named "5 Hero Mesmerway - H3 ESurge 3" has been loaded onto Razah.
+[2025-09-24 17:40:51] The Skills Template named "5 Hero Mesmerway - H4 Soul Twisting Prot" has been loaded onto Xandra.
+[2025-09-24 17:41:01] The Skills Template named "5 Hero Mesmerway - H5 BiP Resto" has been loaded onto Olias.
+[2025-09-24 17:41:20] Vivec Opits's team has won a battle in the Hall of Heroes.
+[2025-09-24 17:46:22] Mantid Gazer drops Kamas, which your party reserves for Pelznickel Searinox.
+[2025-09-24 17:46:27] You pick up Kamas.
+[2025-09-24 17:47:47] Mantid Parasite drops a Truncheon, which your party reserves for Pelznickel Searinox.
+[2025-09-24 17:47:47] Mantid Darkwing drops an Accursed Staff, which your party reserves for Pelznickel Searinox.
+[2025-09-24 17:48:12] Your party shares 99 gold.
+[2025-09-24 17:48:22] Your party shares 102 gold.
+[2025-09-24 17:48:22] Your party shares 102 gold.
+[2025-09-24 17:48:27] You pick up the Accursed Staff.
+[2025-09-24 17:48:27] You pick up the Truncheon.
+[2025-09-24 17:48:52] Mantid Gazer drops a Holy Rod, which your party reserves for Pelznickel Searinox.
+[2025-09-24 17:49:17] Your party shares 80 gold.
+[2025-09-24 17:49:22] Your party shares 96 gold.
+[2025-09-24 17:49:27] You pick up the Holy Rod.
+[2025-09-24 17:50:07] Mantid Parasite drops an Idol, which your party reserves for Pelznickel Searinox.
+[2025-09-24 17:50:17] You have earned 170 experience and 170 gold!
+[2025-09-24 17:50:17] Pelznickel Searinox: # 1 ~ 30.67 % ~ Me/Rt Razah ~ 7882
+[2025-09-24 17:50:17] Pelznickel Searinox: # 2 ~ 29.97 % ~ Me/X Norgu ~ 7702
+[2025-09-24 17:50:17] Pelznickel Searinox: # 3 ~ 27.29 % ~ Me/Rt Gwen ~ 7012
+[2025-09-24 17:50:17] Pelznickel Searinox: # 4 ~ 10.65 % ~ P/Rt Pelznickel Searinox ~ 2736
+[2025-09-24 17:50:17] You pick up the Idol.
+[2025-09-24 17:50:17] Pelznickel Searinox: # 5 ~ 1.42 % ~ Rt/P Xandra ~ 364
+[2025-09-24 17:50:17] Pelznickel Searinox: Total ~ 100 % ~ 25696
+[2025-09-24 17:50:17] Your party shares 86 gold.
+[2025-09-24 17:53:23] Vivec Opits's team has won a battle in the Hall of Heroes.
+[2025-09-24 17:54:33] The trading session was canceled.
+[2025-09-24 17:58:24] Afflicted Necromancer drops a Shortbow, which your party reserves for Pelznickel Searinox.
+[2025-09-24 17:58:39] You salvaged 1 Iron Ingot from the Tribal Axe.
+[2025-09-24 17:58:44] You salvaged 1 Iron Ingot from the Dusk Blade.
+[2025-09-24 17:58:49] You salvaged 1 Granite Slab from the Tribal Blade.
+[2025-09-24 17:58:54] You salvaged 1 Iron Ingot from the Skull Shield.
+[2025-09-24 17:58:54] You salvaged 1 Wood Plank from the Hand Axe.
+[2025-09-24 17:58:54] The salvaging tools were destroyed.
+[2025-09-24 17:58:59] You salvaged 3 Iron Ingots from the Truncheon.
+[2025-09-24 17:59:04] You salvaged 2 Iron Ingots from the Truncheon.
+[2025-09-24 17:59:04] You salvaged 1 Iron Ingot from the Fire Wand.
+[2025-09-24 17:59:09] You salvaged 10 Bones from the Idol.
+[2025-09-24 17:59:09] You salvaged 7 Iron Ingots from the Holy Rod.
+[2025-09-24 17:59:14] You salvaged 8 Iron Ingots from the Truncheon.
+[2025-09-24 17:59:14] You salvaged 1 Iron Ingot from the Truncheon.
+[2025-09-24 17:59:24] You salvaged 1 Wood Plank from the Wooden Buckler.
+[2025-09-24 17:59:29] You salvaged 1 Wood Plank from the Fire Staff.
+[2025-09-24 17:59:34] You salvaged 1 Wood Plank from the Crude Shield.
+[2025-09-24 17:59:39] You salvaged 3 Iron Ingots from the Tower Shield.
+[2025-09-24 17:59:44] You salvaged 5 Iron Ingots from Kamas.
+[2025-09-24 17:59:49] You salvaged 5 Iron Ingots from the Ceremonial Cauldron.
+[2025-09-24 17:59:54] Afflicted Warrior drops a Plagueborn Maul, which your party reserves for Pelznickel Searinox.
+[2025-09-24 18:00:24] You pick up the Plagueborn Maul.
+[2025-09-24 18:00:29] Afflicted Ritualist drops a Plagueborn Armor, which your party reserves for Pelznickel Searinox.
+[2025-09-24 18:00:44] You pick up the Shortbow.
+[2025-09-24 18:02:34] Afflicted Assassin drops 24 Bones, which your party reserves for Pelznickel Searinox.
+[2025-09-24 18:02:44] You pick up 24 Bones.
+[2025-09-24 18:03:19] Afflicted Warrior drops a Plagueborn Armor, which your party reserves for Pelznickel Searinox.
+[2025-09-24 18:03:29] You pick up the Plagueborn Armor.
+[2025-09-24 18:05:20] Vivec Opits's team has won a battle in the Hall of Heroes.
+[2025-09-24 18:06:10] Your party shares 108 gold.
+[2025-09-24 18:07:35] Afflicted Warrior drops an Augmented Flesh, which your party reserves for Pelznickel Searinox.
+[2025-09-24 18:09:01] Afflicted Necromancer drops a Plagueborn Armor, which your party reserves for Pelznickel Searinox.
+[2025-09-24 18:09:51] Afflicted Warrior drops an Augmented Flesh, which your party reserves for Pelznickel Searinox.
+[2025-09-24 20:01:00] The gods have blessed the world with their favor.
+[2025-09-24 20:09:01] Bobita Qis's team has won a battle in the Hall of Heroes.
+[2025-09-24 20:19:37] Klausi Von Salest is now level 15!
+[2025-09-24 20:21:02] Bobita Qis's team has won a battle in the Hall of Heroes.
+[2025-09-24 20:45:04] Zgin Przepadnij Oo's team has won a battle in the Hall of Heroes.
+[2025-09-24 21:33:51] Afflicted Necromancer drops an Accursed Staff, which your party reserves for Pelznickel Searinox.
+[2025-09-24 21:33:56] Afflicted Ritualist drops an Augmented Flesh, which your party reserves for Pelznickel Searinox.
+[2025-09-24 21:34:16] Afflicted Warrior drops an Augmented Flesh, which your party reserves for Pelznickel Searinox.
+[2025-09-24 21:34:21] You pick up the Augmented Flesh.
+[2025-09-24 21:34:21] You pick up the Augmented Flesh.
+[2025-09-24 21:34:21] You pick up the Accursed Staff.
+[2025-09-24 21:35:36] Afflicted Necromancer drops an Augmented Flesh, which your party reserves for Pelznickel Searinox.
+[2025-09-24 21:35:46] You pick up the Augmented Flesh.
+[2025-09-24 21:37:27] Afflicted Ritualist drops an Augmented Flesh, which your party reserves for Pelznickel Searinox.
+[2025-09-24 21:37:27] Your party shares 109 gold.
+[2025-09-24 21:37:32] You pick up the Augmented Flesh.
+[2025-09-24 21:38:27] Afflicted Assassin drops a Bo Staff, which your party reserves for Pelznickel Searinox.
+[2025-09-24 21:38:57] Afflicted Warrior drops a Plagueborn Armor, which your party reserves for Pelznickel Searinox.
+[2025-09-24 21:39:12] You pick up the Plagueborn Armor.
+[2025-09-24 21:39:22] You pick up the Bo Staff.
+[2025-09-24 21:41:17] Zgin Przepadnij Oo's team has won a battle in the Hall of Heroes.
+[2025-09-24 21:41:47] Afflicted Assassin drops a Plagueborn Armor, which your party reserves for Pelznickel Searinox.
+[2025-09-24 21:41:52] You pick up the Plagueborn Armor.
+[2025-09-24 21:42:17] Afflicted Warrior drops a Plagueborn Recurve Bow, which your party reserves for Pelznickel Searinox.
+[2025-09-24 21:42:52] Your party shares 104 gold.
+[2025-09-24 21:42:52] You pick up the Plagueborn Recurve Bow.
+[2025-09-24 21:43:37] Your party shares 106 gold.
+[2025-09-24 21:44:08] Afflicted Necromancer drops a Plagueborn Armor, which your party reserves for Pelznickel Searinox.
+[2025-09-24 21:45:58] You pick up the Plagueborn Armor.
+[2025-09-24 21:46:03] Your party shares 103 gold.
+[2025-09-24 21:47:33] Your party shares 105 gold.
+[2025-09-24 21:48:03] Afflicted Ritualist drops a Channeling Rod, which your party reserves for Pelznickel Searinox.
+[2025-09-24 21:49:08] You pick up the Channeling Rod.
+[2025-09-24 21:49:13] Your party shares 102 gold.
+[2025-09-24 21:51:19] Afflicted Ritualist drops an Augmented Flesh, which your party reserves for Pelznickel Searinox.
+[2025-09-24 21:51:39] You pick up the Augmented Flesh.
+[2025-09-24 21:55:19] Galaxy Of Pirates And Cowboys [Rum] has won a battle in the Hall of Heroes.
+[2025-09-24 21:56:54] Your party shares 101 gold.
+[2025-09-24 21:57:14] Afflicted Warrior drops 23 Bones, which your party reserves for Pelznickel Searinox.
+[2025-09-24 21:58:00] You pick up 23 Bones.
+[2025-09-24 21:58:40] You have been playing for 2 hours.
+[2025-09-24 22:00:20] Afflicted Assassin drops an Augmented Flesh, which your party reserves for Pelznickel Searinox.
+[2025-09-24 22:00:35] Afflicted Warrior drops a Plagueborn Armor, which your party reserves for Pelznickel Searinox.
+[2025-09-24 22:00:35] You pick up the Augmented Flesh.
+[2025-09-24 22:00:40] You pick up the Plagueborn Armor.
+[2025-09-24 22:03:50] Jade Torn Kirin drops a Holy Staff, which your party reserves for Pelznickel Searinox.
+[2025-09-24 22:04:05] You pick up the Holy Staff.
+[2025-09-24 22:05:11] Afflicted Necromancer drops a Necromancer Tome, which your party reserves for Pelznickel Searinox.
+[2025-09-24 22:05:16] You pick up the Necromancer Tome.
+[2025-09-24 22:07:21] Afflicted Necromancer drops an Augmented Flesh, which your party reserves for Pelznickel Searinox.
+[2025-09-24 22:08:21] Afflicted Ritualist drops a Plagueborn Armor, which your party reserves for Pelznickel Searinox.
+[2025-09-24 22:08:42] You pick up the Plagueborn Armor.
+[2025-09-24 22:08:42] You pick up the Augmented Flesh.
+[2025-09-24 22:09:02] Galaxy Of Pirates And Cowboys [Rum] has won a battle in the Hall of Heroes.
+[2025-09-24 22:09:22] Your party shares 113 gold.
+[2025-09-24 22:10:32] Afflicted Warrior drops a Monstrous Fang, which your party reserves for Pelznickel Searinox.
+[2025-09-24 22:10:37] You pick up the Monstrous Fang.
+[2025-09-24 22:12:57] Afflicted Elementalist drops an Augmented Flesh, which your party reserves for Pelznickel Searinox.
+[2025-09-24 22:13:37] You pick up the Augmented Flesh.
+[2025-09-24 22:13:37] Your party shares 103 gold.
+[2025-09-24 22:14:17] Afflicted Ritualist drops an Eerie Staff, which your party reserves for Pelznickel Searinox.
+[2025-09-24 22:14:28] You pick up the Eerie Staff.
+[2025-09-24 22:14:58] You gain a skill point!
+[2025-09-24 22:14:58] You have earned 810 experience and 810 gold!
+[2025-09-24 22:14:58] Pelznickel Searinox: # 1 ~ 30.05 % ~ Me/Rt Razah ~ 56108
+[2025-09-24 22:14:58] Pelznickel Searinox: # 2 ~ 29.73 % ~ Me/X Norgu ~ 55498
+[2025-09-24 22:14:58] Pelznickel Searinox: # 3 ~ 29.19 % ~ Me/Rt Gwen ~ 54501
+[2025-09-24 22:14:58] Pelznickel Searinox: # 4 ~ 9.05 % ~ P/Rt Pelznickel Searinox ~ 16892
+[2025-09-24 22:14:58] Pelznickel Searinox: # 5 ~ 1.78 % ~ Rt/P Xandra ~ 3314
+[2025-09-24 22:14:58] Pelznickel Searinox: # 6 ~ 0.20 % ~ N/Rt Olias ~ 373
+[2025-09-24 22:15:03] Pelznickel Searinox: Total ~ 100 % ~ 186686
+[2025-09-24 22:17:37] You salvaged 3 Iron Ingots from the Icy Plagueborn Recurve Bow of Shelter.
+[2025-09-24 22:17:42] You salvaged 6 Iron Ingots from the Channeling Rod.
+[2025-09-24 22:21:03] Galaxy Of Pirates And Cowboys [Rum] has won a battle in the Hall of Heroes.
+[2025-09-24 22:25:08] Bonesnap Turtle drops a Bonesnap Shell, which your party reserves for Pelznickel Searinox.
+[2025-09-24 22:25:43] Your party shares 112 gold.
+[2025-09-24 22:25:48] Your party shares 106 gold.
+[2025-09-24 22:25:48] Your party shares 108 gold.
+[2025-09-24 22:25:48] You pick up the Bonesnap Shell.
+[2025-09-24 22:25:58] Your party shares 107 gold.
+[2025-09-24 22:26:58] Afflicted Warrior drops a Plagueborn Armor, which your party reserves for Pelznickel Searinox.
+[2025-09-24 22:27:03] Afflicted Necromancer drops 23 Bones, which your party reserves for Pelznickel Searinox.
+[2025-09-24 22:27:18] You pick up the Plagueborn Armor.
+[2025-09-24 22:27:18] You pick up 23 Bones.
+[2025-09-24 22:27:48] Afflicted Ranger drops a Tribal Blade, which your party reserves for Pelznickel Searinox.
+[2025-09-24 22:28:03] Afflicted Necromancer drops a Plagueborn Armor, which your party reserves for Pelznickel Searinox.
+[2025-09-24 22:28:23] You pick up the Tribal Blade.
+[2025-09-24 22:28:23] Your party shares 101 gold.
+[2025-09-24 22:28:33] You pick up the Plagueborn Armor.
+[2025-09-24 22:29:03] Afflicted Assassin drops a Brute Sword, which your party reserves for Pelznickel Searinox.
+[2025-09-24 22:29:19] S W E E T S P O T's team has won a battle in the Hall of Heroes.
+[2025-09-24 22:29:24] You pick up the Brute Sword.
+[2025-09-24 22:32:19] Afflicted Ranger drops 22 Bones, which your party reserves for Pelznickel Searinox.
+[2025-09-24 22:32:29] You pick up 22 Bones.
+[2025-09-24 22:33:09] Afflicted Elementalist drops a Plagueborn Focus, which your party reserves for Pelznickel Searinox.
+[2025-09-24 22:33:29] Afflicted Mesmer drops an Inscribed Staff, which your party reserves for Pelznickel Searinox.
+[2025-09-24 22:34:09] Your party shares 100 gold.
+[2025-09-24 22:34:09] You pick up the Plagueborn Focus.
+[2025-09-24 22:34:19] You pick up the Inscribed Staff.
+[2025-09-24 22:35:04] Your party shares 102 gold.
+[2025-09-24 22:35:19] Kappa drops a Monstrous Eye, which your party reserves for Pelznickel Searinox.
+[2025-09-24 22:35:44] Naga Warrior drops a Naga Pelt, which your party reserves for Pelznickel Searinox.
+[2025-09-24 22:36:55] You pick up the Naga Pelt.
+[2025-09-24 22:37:10] You pick up the Monstrous Eye.
+[2025-09-24 22:38:55] Naga Raincaller drops an Earth Scroll, which your party reserves for Pelznickel Searinox.
+[2025-09-24 22:39:05] Your party shares 105 gold.
+[2025-09-24 22:39:05] You pick up the Earth Scroll.
+[2025-09-24 22:39:25] Naga Warrior drops a Bo Staff, which your party reserves for Pelznickel Searinox.
+[2025-09-24 22:39:45] You pick up the Bo Staff.
+[2025-09-24 22:41:20] S W E E T S P O T's team has won a battle in the Hall of Heroes.
+[2025-09-24 22:41:40] Naga Warrior drops a Naga Longbow, which your party reserves for Pelznickel Searinox.
+[2025-09-24 22:42:00] Naga Warrior drops a Naga Pelt, which your party reserves for Pelznickel Searinox.
+[2025-09-24 22:42:00] You pick up the Naga Longbow.
+[2025-09-24 22:42:05] You pick up the Naga Pelt.
+[2025-09-24 22:43:16] Your party shares 106 gold.
+[2025-09-24 22:48:07] Your party shares 102 gold.
+[2025-09-24 22:48:17] Grasping Root drops a Bramble Shortbow, which your party reserves for Pelznickel Searinox.
+[2025-09-24 22:48:22] You pick up the Bramble Shortbow.
+[2025-09-24 22:48:22] Your party shares 111 gold.
+[2025-09-24 22:50:32] Your party shares 100 gold.
+[2025-09-24 22:50:37] Your party shares 103 gold.
+[2025-09-24 22:50:42] Your party shares 111 gold.
+[2025-09-24 22:57:03] Sp Hybrid Orbital's team has won a battle in the Hall of Heroes.
+[2025-09-24 22:57:13] Crimson Skull Ether Fiend drops a Crimson Skull Cape, which your party reserves for Pelznickel Searinox.
+[2025-09-24 22:57:18] You pick up the Crimson Skull Cape.
+[2025-09-24 22:57:18] Your party shares 104 gold.
+[2025-09-24 22:58:43] You have been playing for 3 hours. Please take a break.
+[2025-09-24 23:03:19] Your party shares 101 gold.
+[2025-09-24 23:04:04] Your party shares 111 gold.
+[2025-09-24 23:05:35] Sp Hybrid Orbital's team has won a battle in the Hall of Heroes.
+[2025-09-24 23:09:25] Your party shares 102 gold.
+[2025-09-24 23:09:30] Your party shares 106 gold.
+[2025-09-24 23:09:50] Dragon Lilly drops an Inscribed Chakram, which your party reserves for Pelznickel Searinox.
+[2025-09-24 23:09:55] You pick up the Inscribed Chakram.
+[2025-09-24 23:10:00] Your party shares 101 gold.
+[2025-09-24 23:15:06] Crimson Skull Ether Fiend drops a Crimson Skull Cape, which your party reserves for Pelznickel Searinox.
+[2025-09-24 23:16:11] Your party shares 99 gold.
+[2025-09-24 23:21:04] Legendary M A T H's team has won a battle in the Hall of Heroes.
+[2025-09-24 23:27:45] Naga Raincaller drops a Storm Artifact, which your party reserves for Pelznickel Searinox.
+[2025-09-24 23:28:45] You pick up the Storm Artifact.
+[2025-09-24 23:29:30] Tin Dao Kaineng drops a Naga Longbow, which your party reserves for Pelznickel Searinox.
+[2025-09-24 23:29:50] You pick up the Naga Longbow.
+[2025-09-24 23:30:40] Your party shares 105 gold.
+[2025-09-24 23:31:25] You have earned 840 experience and 840 gold!
+[2025-09-24 23:31:25] Pelznickel Searinox: # 1 ~ 31.75 % ~ Me/Rt Razah ~ 3669
+[2025-09-24 23:31:25] Pelznickel Searinox: # 2 ~ 29.60 % ~ Me/Rt Gwen ~ 3420
+[2025-09-24 23:31:25] Pelznickel Searinox: # 3 ~ 27.95 % ~ Me/X Norgu ~ 3230
+[2025-09-24 23:31:25] Your party shares 102 gold.
+[2025-09-24 23:31:25] Pelznickel Searinox: # 4 ~ 9.00 % ~ P/Rt Pelznickel Searinox ~ 1040
+[2025-09-24 23:31:25] Pelznickel Searinox: # 5 ~ 1.14 % ~ Rt/P Xandra ~ 132
+[2025-09-24 23:31:30] Pelznickel Searinox: # 6 ~ 0.55 % ~ N/Rt Olias ~ 64
+[2025-09-24 23:31:30] Pelznickel Searinox: Total ~ 100 % ~ 11555
+[2025-09-24 23:32:40] You salvaged 4 Bones from the Bonesnap Shell.
+[2025-09-24 23:32:45] You salvaged 7 Iron Ingots from the Tribal Blade.
+[2025-09-24 23:32:50] You salvaged 5 Iron Ingots from the Brute Sword.
+[2025-09-24 23:33:00] Legendary M A T H's team has won a battle in the Hall of Heroes.
+[2025-09-24 23:33:45] You salvaged 5 Scales from the Barbed Naga Longbow of Defense.
+[2025-09-24 23:33:50] You salvaged 12 Plant Fibers from the Bramble Shortbow.
+[2025-09-24 23:34:26] You salvaged 7 Iron Ingots from the Inscribed Chakram.
+[2025-09-24 23:34:41] You salvaged 21 Piles of Glittering Dust from the Storm Artifact.
+[2025-09-24 23:34:46] You salvaged 3 Scales from the Naga Longbow.
+[2025-09-24 23:36:58] Sensali DarkFeather drops a Sensali Garb, which your party reserves for Pelznickel Searinox.
+[2025-09-24 23:37:03] Sensali Claw drops a Feathered Crest, which your party reserves for Pelznickel Searinox.
+[2025-09-24 23:37:23] Sensali Cutter drops a Feathered Crest, which your party reserves for Pelznickel Searinox.
+[2025-09-24 23:37:53] You pick up the Feathered Crest.
+[2025-09-24 23:37:53] You pick up the Feathered Crest.
+[2025-09-24 23:37:58] You pick up the Sensali Garb.
+[2025-09-24 23:38:43] Sensali Claw drops 19 Feathers, which your party reserves for Pelznickel Searinox.
+[2025-09-24 23:39:08] You pick up 19 Feathers.
+[2025-09-24 23:39:33] Sensali Claw drops 19 Feathers, which your party reserves for Pelznickel Searinox.
+[2025-09-24 23:40:03] You pick up 19 Feathers.
+[2025-09-24 23:40:23] Sensali DarkFeather drops a Sensali Garb, which your party reserves for Pelznickel Searinox.
+[2025-09-24 23:40:44] You pick up the Sensali Garb.
+[2025-09-24 23:41:59] Sensali Cutter drops a Sensali Crestguard, which your party reserves for Pelznickel Searinox.
+[2025-09-24 23:42:49] Hanjuu Towerfist drops a Stolen Supplies, which your party reserves for Pelznickel Searinox.
+[2025-09-24 23:42:49] Hanjuu Towerfist drops a Hornbow, which your party reserves for Pelznickel Searinox.
+[2025-09-24 23:43:14] You pick up the Sensali Crestguard.
+[2025-09-24 23:43:29] You pick up the Hornbow.
+[2025-09-24 23:43:29] Your party shares 103 gold.
+[2025-09-24 23:43:34] You pick up the Stolen Supplies.
+[2025-09-24 23:44:34] Sensali Cutter drops a Sensali Crestguard, which your party reserves for Pelznickel Searinox.
+[2025-09-24 23:44:34] You pick up the Sensali Crestguard.
+[2025-09-24 23:44:39] Your party shares 114 gold.
+[2025-09-24 23:45:04] Legendary M A T H's team has won a battle in the Hall of Heroes.
+[2025-09-24 23:45:04] Sensali Cutter drops 19 Bones, which your party reserves for Pelznickel Searinox.
+[2025-09-24 23:45:34] Your party shares 111 gold.
+[2025-09-24 23:45:39] Your party shares 110 gold.
+[2025-09-24 23:45:39] You pick up 19 Bones.
+[2025-09-24 23:47:05] Sensali Cutter drops a Bo Staff, which your party reserves for Pelznickel Searinox.
+[2025-09-24 23:47:15] You pick up the Bo Staff.
+[2025-09-24 23:47:45] Sensali Claw drops a Feathered Crest, which your party reserves for Pelznickel Searinox.
+[2025-09-24 23:48:00] You pick up the Feathered Crest.
+[2025-09-24 23:48:35] Sensali Claw drops a Sensali Garb, which your party reserves for Pelznickel Searinox.
+[2025-09-24 23:48:40] You pick up the Sensali Garb.
+[2025-09-24 23:49:00] Sensali Claw drops a Longbow, which your party reserves for Pelznickel Searinox.
+[2025-09-24 23:49:20] You pick up the Longbow.
+[2025-09-24 23:49:20] Your party shares 103 gold.
+[2025-09-24 23:50:05] Sensali DarkFeather drops a Truncheon, which your party reserves for Pelznickel Searinox.
+[2025-09-24 23:50:10] Sensali Cutter drops 21 Bones, which your party reserves for Pelznickel Searinox.
+[2025-09-24 23:50:20] You pick up 21 Bones.
+[2025-09-24 23:50:20] You pick up the Truncheon.
+[2025-09-24 23:50:50] Red Yeti drops a Truncheon, which your party reserves for Pelznickel Searinox.
+[2025-09-24 23:51:45] You pick up the Truncheon.
+[2025-09-24 23:52:40] Sensali Cutter drops a Sensali Crestguard, which your party reserves for Pelznickel Searinox.
+[2025-09-24 23:52:50] You pick up the Sensali Crestguard.
+[2025-09-24 23:54:16] Longhair Yeti drops a Smiting Rod, which your party reserves for Pelznickel Searinox.
+[2025-09-24 23:55:11] You pick up the Smiting Rod.
+[2025-09-24 23:55:16] Your party shares 109 gold.
+[2025-09-24 23:56:11] Mountain Yeti drops a Shortbow, which your party reserves for Pelznickel Searinox.
+[2025-09-24 23:56:26] You pick up the Shortbow.
+[2025-09-24 23:57:01] Warrior Goes Scythe's team has won a battle in the Hall of Heroes.
+[2025-09-24 23:58:31] Mountain Yeti drops Kamas, which your party reserves for Pelznickel Searinox.
+[2025-09-24 23:58:41] You gain a skill point!
+[2025-09-24 23:58:57] Mountain Yeti drops a Tall Shield, which your party reserves for Pelznickel Searinox.
+[2025-09-24 23:59:17] You pick up the Tall Shield.
+[2025-09-24 23:59:22] You pick up Kamas.
+[2025-09-25 00:00:47] You have earned 820 experience and 820 gold!
+[2025-09-25 00:00:47] Pelznickel Searinox: # 1 ~ 32.07 % ~ Me/Rt Gwen ~ 35487
+[2025-09-25 00:00:47] Pelznickel Searinox: # 2 ~ 31.16 % ~ Me/Rt Razah ~ 34480
+[2025-09-25 00:00:47] Pelznickel Searinox: # 3 ~ 29.28 % ~ Me/X Norgu ~ 32402
+[2025-09-25 00:00:47] Pelznickel Searinox: # 4 ~ 6.39 % ~ P/Rt Pelznickel Searinox ~ 7070
+[2025-09-25 00:00:47] Pelznickel Searinox: # 5 ~ 1.10 % ~ Rt/P Xandra ~ 1214
+[2025-09-25 00:00:52] Pelznickel Searinox: # 6 ~ 0.01 % ~ N/Rt Olias ~ 6
+[2025-09-25 00:00:52] Pelznickel Searinox: Total ~ 100 % ~ 110659
+[2025-09-25 00:03:56] You salvaged 8 Tanned Hide Squares from the Sensali Crestguard.
+[2025-09-25 00:04:06] You salvaged 8 Iron Ingots from the Sensali Crestguard.
+[2025-09-25 00:04:21] You salvaged 10 Iron Ingots from the Truncheon.
+[2025-09-25 00:04:21] You salvaged 6 Iron Ingots from the Truncheon.
+[2025-09-25 00:04:36] You salvaged 11 Iron Ingots from the Hydromancer Sensali Crestguard of Major Channeling Magic.
+[2025-09-25 00:04:36] You salvaged 6 Iron Ingots from the Smiting Rod.
+[2025-09-25 00:04:51] You salvaged 9 Iron Ingots from the Tall Shield.
+[2025-09-25 00:04:51] You salvaged 6 Iron Ingots from Kamas.
+[2025-09-25 00:08:12] Your party shares 102 gold.
+[2025-09-25 00:08:42] Your party shares 89 gold.
+[2025-09-25 00:09:02] Warrior Goes Scythe's team has won a battle in the Hall of Heroes.
+[2025-09-25 00:09:22] Your party shares 89 gold.
