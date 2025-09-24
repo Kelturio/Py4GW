@@ -291,3 +291,207 @@
 [2025-09-22 18:42:12] The Runic Maul broke when you tried to salvage from it.
 [2025-09-22 18:42:12] You salvaged 1 Hammer Grip of the Warrior from the Runic Maul of the Warrior.
 [2025-09-22 18:42:27] You salvaged 5 Iron Ingots from the Skeleton Shield.
+[2025-09-22 18:43:09] You have 1 guild invitation.
+[2025-09-22 18:44:31] Fonky Family [La子子] has won a battle in the Hall of Heroes.
+[2025-09-22 18:45:01] 5 mandragors slain.
+[2025-09-22 18:45:11] Bladed Termite drops a Crenellated Spear, which your party reserves for Pelznickel Searinox.
+[2025-09-22 18:45:31] 10 mandragors slain.
+[2025-09-22 18:45:31] Your party shares 112 gold.
+[2025-09-22 18:45:41] You pick up the Crenellated Spear.
+[2025-09-22 18:46:06] Mandragor Imp drops a Lustrous Stone, which your party reserves for Pelznickel Searinox.
+[2025-09-22 18:46:22] 15 mandragors slain.
+[2025-09-22 18:46:52] You pick up the Lustrous Stone.
+[2025-09-22 18:46:52] Your party shares 101 gold.
+[2025-09-22 18:47:27] 20 mandragors slain.
+[2025-09-22 18:47:57] Your party shares 111 gold.
+[2025-09-22 18:48:02] Your party shares 102 gold.
+[2025-09-22 18:48:02] Your party shares 103 gold.
+[2025-09-22 18:48:57] Stoneflesh Mandragor drops a Piercing Axe, which your party reserves for Pelznickel Searinox.
+[2025-09-22 18:49:07] Your party shares 112 gold.
+[2025-09-22 18:49:17] Your party shares 105 gold.
+[2025-09-22 18:49:17] You pick up the Piercing Axe.
+[2025-09-22 18:49:58] Your party shares 100 gold.
+[2025-09-22 18:49:58] Your party shares 109 gold.
+[2025-09-22 18:50:33] Stalking Nephila drops a Lockpick, which your party reserves for Pelznickel Searinox.
+[2025-09-22 18:51:08] Your party shares 109 gold.
+[2025-09-22 18:51:08] You pick up the Lockpick.
+[2025-09-22 18:51:28] 30 mandragors slain.
+[2025-09-22 18:52:28] 35 mandragors slain.
+[2025-09-22 18:52:53] 40 mandragors slain.
+[2025-09-22 18:53:29] Skale Lasher drops a Skale Claw, which your party reserves for Pelznickel Searinox.
+[2025-09-22 18:53:44] The Fox Tavern [FOX] has won a battle in the Hall of Heroes.
+[2025-09-22 18:54:34] Your party shares 101 gold.
+[2025-09-22 18:54:39] Your party shares 109 gold.
+[2025-09-22 18:54:44] You pick up the Skale Claw.
+[2025-09-22 18:54:49] Your party shares 103 gold.
+[2025-09-22 18:55:09] Skale Blighter drops a Grim Cesta, which your party reserves for Pelznickel Searinox.
+[2025-09-22 18:55:39] Ridgeback Skale drops a Half-Digested Boots, which your party reserves for Pelznickel Searinox.
+[2025-09-22 18:55:49] You pick up the Half-Digested Boots.
+[2025-09-22 18:55:54] Your party shares 103 gold.
+[2025-09-22 18:56:04] Your party shares 102 gold.
+[2025-09-22 18:56:04] You pick up the Grim Cesta.
+[2025-09-22 18:56:39] 45 mandragors slain.
+[2025-09-22 18:56:50] Your party shares 111 gold.
+[2025-09-22 18:56:50] Your party shares 101 gold.
+[2025-09-22 18:57:30] Stoneflesh Mandragor drops a Fire Staff, which your party reserves for Pelznickel Searinox.
+[2025-09-22 18:57:35] Stoneflesh Mandragor drops a Mandragor Swamproot, which your party reserves for Pelznickel Searinox.
+[2025-09-22 18:57:35] 55 mandragors slain.
+[2025-09-22 18:57:50] You pick up the Fire Staff.
+[2025-09-22 18:57:55] You pick up the Mandragor Swamproot.
+[2025-09-22 18:57:55] Your party shares 107 gold.
+[2025-09-22 18:58:00] The world no longer has the favor of the gods.
+[2025-09-22 18:58:00] Your party shares 101 gold.
+[2025-09-22 18:58:15] 5 corsairs slain.
+[2025-09-22 18:58:20] Corsair Thug drops a Stolen Shipment, which your party reserves for Pelznickel Searinox.
+[2025-09-22 18:58:45] 10 corsairs slain.
+[2025-09-22 18:59:00] You pick up the Stolen Shipment.
+[2025-09-22 19:01:01] Skale Lasher drops 7 Scales, which your party reserves for Pelznickel Searinox.
+[2025-09-22 19:01:56] Your party shares 104 gold.
+[2025-09-22 19:01:56] You pick up 7 Scales.
+[2025-09-22 19:02:01] Your party shares 109 gold.
+[2025-09-22 19:02:06] Your party shares 110 gold.
+[2025-09-22 19:02:06] Your party shares 100 gold.
+[2025-09-22 19:02:31] 15 corsairs slain.
+[2025-09-22 19:03:41] Your party shares 100 gold.
+[2025-09-22 19:07:17] Skree Hunter drops a Tribal Shield, which your party reserves for Pelznickel Searinox.
+[2025-09-22 19:07:22] Skree Hunter drops a Duskblade Scythe, which your party reserves for Pelznickel Searinox.
+[2025-09-22 19:07:32] Skree Hunter drops a Suntouched Scythe, which your party reserves for Pelznickel Searinox.
+[2025-09-22 19:08:28] Your party shares 109 gold.
+[2025-09-22 19:08:33] Your party shares 102 gold.
+[2025-09-22 19:08:43] Your party shares 110 gold.
+[2025-09-22 19:08:43] You pick up the Suntouched Scythe.
+[2025-09-22 19:08:48] Your party shares 103 gold.
+[2025-09-22 19:08:53] You pick up the Tribal Shield.
+[2025-09-22 19:08:53] Your party shares 106 gold.
+[2025-09-22 19:08:53] You pick up the Duskblade Scythe.
+[2025-09-22 19:09:03] Warrior Goes Derv's team has won a battle in the Hall of Heroes.
+[2025-09-22 19:09:03] Item Unlocked: Inscription: "Not the face!"
+[2025-09-22 19:09:33] Your party shares 102 gold.
+[2025-09-22 19:09:48] Skree Hunter drops a Fledgling Skree Wing, which your party reserves for Pelznickel Searinox.
+[2025-09-22 19:09:48] The Tribal Shield broke when you tried to salvage from it.
+[2025-09-22 19:09:48] You salvaged 1 Inscription: "Not the face!" from the Tribal Shield.
+[2025-09-22 19:10:28] You pick up the Fledgling Skree Wing.
+[2025-09-22 19:11:08] Your party shares 107 gold.
+[2025-09-22 19:11:13] Your party shares 102 gold.
+[2025-09-22 19:11:28] Skree Talon drops a Sickle, which your party reserves for Pelznickel Searinox.
+[2025-09-22 19:11:43] Your party shares 106 gold.
+[2025-09-22 19:11:43] Your party shares 111 gold.
+[2025-09-22 19:11:48] You pick up the Sickle.
+[2025-09-22 19:12:08] Corsair Reef Finder drops an Ungula Axe, which your party reserves for Pelznickel Searinox.
+[2025-09-22 19:12:08] 20 corsairs slain.
+[2025-09-22 19:12:18] You pick up the Ungula Axe.
+[2025-09-22 19:13:54] Corsair Medic drops a Holy Staff, which your party reserves for Pelznickel Searinox.
+[2025-09-22 19:13:54] You pick up the Holy Staff.
+[2025-09-22 19:15:40] 5 skale slain.
+[2025-09-22 19:15:55] Skale Lasher drops a Spiked Club, which your party reserves for Pelznickel Searinox.
+[2025-09-22 19:16:05] Your party shares 108 gold.
+[2025-09-22 19:16:20] You pick up the Spiked Club.
+[2025-09-22 19:16:20] The identification kit was consumed.
+[2025-09-22 19:16:45] Corsair Reef Finder drops a Fire Wand, which your party reserves for Pelznickel Searinox.
+[2025-09-22 19:16:45] 30 corsairs slain.
+[2025-09-22 19:17:05] You pick up the Fire Wand.
+[2025-09-22 19:17:20] Warrior Goes Derv's team has won a battle in the Hall of Heroes.
+[2025-09-22 19:17:35] 35 corsairs slain.
+[2025-09-22 19:18:50] 40 corsairs slain.
+[2025-09-22 19:18:55] Corsair Lookout drops a Sturdy Recurve Bow, which your party reserves for Pelznickel Searinox.
+[2025-09-22 19:19:10] 45 corsairs slain.
+[2025-09-22 19:19:20] You pick up the Sturdy Recurve Bow.
+[2025-09-22 19:19:25] Your party shares 90 gold.
+[2025-09-22 19:20:36] 55 corsairs slain.
+[2025-09-22 19:20:41] Corsair Lookout drops a Stolen Shipment, which your party reserves for Pelznickel Searinox.
+[2025-09-22 19:21:06] You pick up the Stolen Shipment.
+[2025-09-22 19:21:06] Your party shares 103 gold.
+[2025-09-22 19:21:21] 60 corsairs slain.
+[2025-09-22 19:21:51] 65 corsairs slain.
+[2025-09-22 19:22:01] Your party shares 100 gold.
+[2025-09-22 19:22:11] Your party shares 108 gold.
+[2025-09-22 19:22:31] 70 corsairs slain.
+[2025-09-22 19:24:07] Corsair Thug drops a Corsair Pauldron, which your party reserves for Pelznickel Searinox.
+[2025-09-22 19:24:07] 80 corsairs slain.
+[2025-09-22 19:24:37] 85 corsairs slain.
+[2025-09-22 19:24:52] 90 corsairs slain.
+[2025-09-22 19:24:52] Your party shares 106 gold.
+[2025-09-22 19:24:57] Your party shares 101 gold.
+[2025-09-22 19:25:07] You pick up the Corsair Pauldron.
+[2025-09-22 19:25:27] Corsair Flogger drops a Bleached Skull, which your party reserves for Pelznickel Searinox.
+[2025-09-22 19:25:37] Your party shares 101 gold.
+[2025-09-22 19:25:37] You pick up the Bleached Skull.
+[2025-09-22 19:25:52] Item Unlocked: Inscription: "Ignorance is Bliss"
+[2025-09-22 19:26:02] Corsair Lookout drops a Wooden Longbow, which your party reserves for Pelznickel Searinox.
+[2025-09-22 19:26:02] 95 corsairs slain.
+[2025-09-22 19:26:27] Stalking Nephila drops an Embossed Scythe, which your party reserves for Pelznickel Searinox.
+[2025-09-22 19:26:47] Corsair Cutthroat drops a Silver Bullion Coin, which your party reserves for Pelznickel Searinox.
+[2025-09-22 19:27:23] Bladed Termite drops an Insect Appendage, which your party reserves for Pelznickel Searinox.
+[2025-09-22 19:27:43] Your party shares 110 gold.
+[2025-09-22 19:27:48] Your party shares 101 gold.
+[2025-09-22 19:27:58] You pick up the Insect Appendage.
+[2025-09-22 19:27:58] You pick up the Wooden Longbow.
+[2025-09-22 19:28:03] Your party shares 102 gold.
+[2025-09-22 19:28:08] Your party shares 104 gold.
+[2025-09-22 19:28:08] You pick up the Embossed Scythe.
+[2025-09-22 19:28:13] You pick up the Silver Bullion Coin.
+[2025-09-22 19:28:53] Bladed Termite drops an Insect Appendage, which your party reserves for Pelznickel Searinox.
+[2025-09-22 19:29:18] Warrior Goes Derv's team has won a battle in the Hall of Heroes.
+[2025-09-22 19:29:48] Your party shares 101 gold.
+[2025-09-22 19:29:53] Your party shares 112 gold.
+[2025-09-22 19:29:58] Your party shares 109 gold.
+[2025-09-22 19:30:03] You pick up the Insect Appendage.
+[2025-09-22 19:30:38] Stalking Nephila drops a Windblade Spear, which your party reserves for Pelznickel Searinox.
+[2025-09-22 19:31:14] Your party shares 100 gold.
+[2025-09-22 19:31:14] You pick up the Windblade Spear.
+[2025-09-22 19:32:39] Your party shares 102 gold.
+[2025-09-22 19:32:44] Your party shares 112 gold.
+[2025-09-22 19:33:24] Your party shares 105 gold.
+[2025-09-22 19:33:24] Your party shares 100 gold.
+[2025-09-22 19:34:09] Mandragor Imp drops a Butterfly Sword, which your party reserves for Pelznickel Searinox.
+[2025-09-22 19:34:09] 60 mandragors slain.
+[2025-09-22 19:34:29] 65 mandragors slain.
+[2025-09-22 19:34:29] You gain a skill point!
+[2025-09-22 19:35:00] Your party shares 101 gold.
+[2025-09-22 19:35:20] You pick up the Butterfly Sword.
+[2025-09-22 19:35:35] You salvaged 6 Iron Ingots from the Windblade Spear.
+[2025-09-22 19:35:45] You salvaged 4 Wood Planks from the Sickle.
+[2025-09-22 19:35:55] You salvaged 4 Bones from the Skale Claw.
+[2025-09-22 19:36:05] You salvaged 7 Iron Ingots from the Duskblade Scythe.
+[2025-09-22 19:36:05] You salvaged 7 Iron Ingots from the Embossed Scythe.
+[2025-09-22 19:36:10] You salvaged 6 Wood Planks from the Suntouched Scythe.
+[2025-09-22 19:36:25] You salvaged 21 Bones from the Bleached Skull.
+[2025-09-22 19:36:40] You salvaged 8 Piles of Glittering Dust from the Fire Wand.
+[2025-09-22 19:36:45] 105 corsairs slain.
+[2025-09-22 19:36:45] Your party shares 108 gold.
+[2025-09-22 19:36:50] You salvaged 27 Wood Planks from the Crenellated Spear.
+[2025-09-22 19:36:55] Corsair Medic drops an Aureate Lamp, which your party reserves for Pelznickel Searinox.
+[2025-09-22 19:37:00] Corsair Captain drops a Corsair Raiment, which your party reserves for Pelznickel Searinox.
+[2025-09-22 19:37:00] 110 corsairs slain.
+[2025-09-22 19:37:30] 115 corsairs slain.
+[2025-09-22 19:37:50] You pick up the Corsair Raiment.
+[2025-09-22 19:37:50] You pick up the Aureate Lamp.
+[2025-09-22 19:37:50] Your party shares 102 gold.
+[2025-09-22 19:38:51] Your party shares 104 gold.
+[2025-09-22 19:38:51] Your party shares 111 gold.
+[2025-09-22 19:39:01] Your party shares 105 gold.
+[2025-09-22 19:39:01] Your party shares 106 gold.
+[2025-09-22 19:39:06] Your party shares 104 gold.
+[2025-09-22 19:39:06] Your party shares 104 gold.
+[2025-09-22 19:39:16] You have been playing for 3 hours. Please take a break.
+[2025-09-22 19:39:46] Mandragor Slither drops an Istani Shield, which your party reserves for Pelznickel Searinox.
+[2025-09-22 19:39:56] 70 mandragors slain.
+[2025-09-22 19:40:11] Mandragor Imp drops a Skull Brush, which your party reserves for Pelznickel Searinox.
+[2025-09-22 19:41:06] You pick up the Istani Shield.
+[2025-09-22 19:41:11] Your party shares 104 gold.
+[2025-09-22 19:41:11] You pick up the Skull Brush.
+[2025-09-22 19:41:16] Your party shares 106 gold.
+[2025-09-22 19:41:16] Your party shares 101 gold.
+[2025-09-22 19:41:16] Warrior Goes Derv's team has won a battle in the Hall of Heroes.
+[2025-09-22 19:41:41] Stalking Nephila drops a Granite Hammer, which your party reserves for Pelznickel Searinox.
+[2025-09-22 19:42:17] You pick up the Granite Hammer.
+[2025-09-22 19:42:27] Your party shares 100 gold.
+[2025-09-22 19:42:27] Your party shares 105 gold.
+[2025-09-22 19:43:12] Stoneflesh Mandragor drops an Earth Wand, which your party reserves for Pelznickel Searinox.
+[2025-09-22 19:43:17] You pick up the Earth Wand.
+[2025-09-22 19:43:27] Your party shares 103 gold.
+[2025-09-22 19:43:27] Your party shares 102 gold.
+[2025-09-22 19:48:18] Corsair Blackhand drops 7 Bolts of Silk, which your party reserves for Pelznickel Searinox.
+[2025-09-22 19:48:23] 120 corsairs slain.
+[2025-09-22 19:48:33] Your party shares 109 gold.
+[2025-09-22 19:48:33] You pick up 7 Bolts of Silk.

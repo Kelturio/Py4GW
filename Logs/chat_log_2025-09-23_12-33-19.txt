@@ -1,0 +1,168 @@
+[2025-09-23 12:41:05] Jade Brotherhood Ritualist drops a Channeling Rod, which your party reserves for Pelznickel Searinox.
+[2025-09-23 12:41:15] Roma Stuck On Fetid's team has won a battle in the Hall of Heroes.
+[2025-09-23 12:41:25] You pick up the Channeling Rod.
+[2025-09-23 12:41:25] Your party shares 104 gold.
+[2025-09-23 12:41:30] Your party shares 110 gold.
+[2025-09-23 12:42:55] Jade Brotherhood Ritualist drops a Jade Bracelet, which your party reserves for Pelznickel Searinox.
+[2025-09-23 12:43:25] You pick up the Jade Bracelet.
+[2025-09-23 12:46:16] Jade Brotherhood Mage drops a Crude Shield, which your party reserves for Pelznickel Searinox.
+[2025-09-23 12:46:16] Jade Brotherhood Mage drops a Shield of the Wing, which your party reserves for Pelznickel Searinox.
+[2025-09-23 12:46:36] You pick up the Crude Shield.
+[2025-09-23 12:46:36] You pick up the Shield of the Wing.
+[2025-09-23 12:47:09] Quest Updated: Battle in the Sewers
+[2025-09-23 12:49:54] Your party shares 104 gold.
+[2025-09-23 12:50:34] Afflicted Ritualist drops a Putrid Cyst, which your party reserves for Pelznickel Searinox.
+[2025-09-23 12:50:39] You pick up the Putrid Cyst.
+[2025-09-23 12:51:49] Your party shares 107 gold.
+[2025-09-23 12:55:10] Your party shares 105 gold.
+[2025-09-23 12:57:00] Roma Stuck On Fetid's team has won a battle in the Hall of Heroes.
+[2025-09-23 13:04:37] Am Fah Marksman drops a Ranger Tome, which your party reserves for Pelznickel Searinox.
+[2025-09-23 13:04:42] You pick up the Ranger Tome.
+[2025-09-23 13:05:17] Roma Stuck On Fetid's team has won a battle in the Hall of Heroes.
+[2025-09-23 13:07:17] Am Fah Marksman drops an Am Fah Vambrace, which your party reserves for Pelznickel Searinox.
+[2025-09-23 13:07:27] Am Fah Necromancer drops a Plague Idol, which your party reserves for Pelznickel Searinox.
+[2025-09-23 13:07:37] You pick up the Plague Idol.
+[2025-09-23 13:07:37] You pick up the Am Fah Vambrace.
+[2025-09-23 13:08:17] Am Fah Marksman drops an Am Fah Vambrace, which your party reserves for Pelznickel Searinox.
+[2025-09-23 13:08:42] You pick up the Am Fah Vambrace.
+[2025-09-23 13:09:53] Am Fah Marksman drops a Plague Idol, which your party reserves for Pelznickel Searinox.
+[2025-09-23 13:10:03] You pick up the Plague Idol.
+[2025-09-23 13:10:03] You pick up the Plague Idol.
+[2025-09-23 13:11:53] Your party shares 111 gold.
+[2025-09-23 13:12:23] Am Fah Marksman drops a Battlepick, which your party reserves for Pelznickel Searinox.
+[2025-09-23 13:12:23] Your party shares 105 gold.
+[2025-09-23 13:12:28] You pick up the Battlepick.
+[2025-09-23 13:14:08] Am Fah Necromancer drops a Ball Hammer, which your party reserves for Pelznickel Searinox.
+[2025-09-23 13:14:13] You pick up the Ball Hammer.
+[2025-09-23 13:15:03] Am Fah Assassin drops an Am Fah Cape, which your party reserves for Pelznickel Searinox.
+[2025-09-23 13:15:13] Am Fah Necromancer drops a Wailing Staff, which your party reserves for Pelznickel Searinox.
+[2025-09-23 13:15:19] You pick up the Wailing Staff.
+[2025-09-23 13:15:24] You pick up the Am Fah Cape.
+[2025-09-23 13:16:24] Am Fah Assassin drops an Am Fah Cape, which your party reserves for Pelznickel Searinox.
+[2025-09-23 13:16:34] You pick up the Am Fah Cape.
+[2025-09-23 13:18:04] Am Fah Assassin drops an Assassin Tome, which your party reserves for Pelznickel Searinox.
+[2025-09-23 13:18:04] You pick up the Assassin Tome.
+[2025-09-23 13:18:29] Am Fah Marksman drops a War Hammer, which your party reserves for Pelznickel Searinox.
+[2025-09-23 13:18:34] You pick up the War Hammer.
+[2025-09-23 13:19:09] Afflicted Ranger drops a Putrid Cyst, which your party reserves for Pelznickel Searinox.
+[2025-09-23 13:19:14] Afflicted Mesmer drops a Double-bladed Axe, which your party reserves for Pelznickel Searinox.
+[2025-09-23 13:19:45] The Afflicted Li Yun drops a Scroll of Rampager's Insight, which your party reserves for Pelznickel Searinox.
+[2025-09-23 13:19:50] You pick up the Putrid Cyst.
+[2025-09-23 13:19:50] You pick up the Double-bladed Axe.
+[2025-09-23 13:19:55] You pick up the Scroll of Rampager's Insight.
+[2025-09-23 13:21:05] Al Ways's team has won a battle in the Hall of Heroes.
+[2025-09-23 13:21:15] Your party shares 112 gold.
+[2025-09-23 13:23:55] Afflicted Ranger drops a Feathered Longbow, which your party reserves for Pelznickel Searinox.
+[2025-09-23 13:24:05] Afflicted Mesmer drops a Gilded Artifact, which your party reserves for Pelznickel Searinox.
+[2025-09-23 13:24:05] You pick up the Feathered Longbow.
+[2025-09-23 13:24:10] You pick up the Gilded Artifact.
+[2025-09-23 13:24:45] Your party shares 105 gold.
+[2025-09-23 13:27:06] Afflicted Warrior drops a Putrid Cyst, which your party reserves for Pelznickel Searinox.
+[2025-09-23 13:27:11] You pick up the Putrid Cyst.
+[2025-09-23 13:29:57] Afflicted Warrior drops a Plagueborn Armor, which your party reserves for Pelznickel Searinox.
+[2025-09-23 13:29:57] Afflicted Ranger drops a Putrid Cyst, which your party reserves for Pelznickel Searinox.
+[2025-09-23 13:30:02] Afflicted Mesmer drops 22 Bones, which your party reserves for Pelznickel Searinox.
+[2025-09-23 13:30:07] You have earned 1,060 experience and 1,060 gold!
+[2025-09-23 13:30:07] Pelznickel Searinox: # 1 ~ 25.80 % ~ Me/X Razah ~ 50844
+[2025-09-23 13:30:07] Pelznickel Searinox: # 2 ~ 24.55 % ~ Me/X Norgu ~ 48379
+[2025-09-23 13:30:07] You pick up the Putrid Cyst.
+[2025-09-23 13:30:07] Pelznickel Searinox: # 3 ~ 23.07 % ~ Me/Rt Gwen ~ 45461
+[2025-09-23 13:30:07] Pelznickel Searinox: # 4 ~ 15.91 % ~ N/P Master of Whispers ~ 31355
+[2025-09-23 13:30:07] Pelznickel Searinox: # 5 ~ 9.06 % ~ P/Rt Pelznickel Searinox ~ 17859
+[2025-09-23 13:30:12] You pick up 22 Bones.
+[2025-09-23 13:30:12] Pelznickel Searinox: # 6 ~ 0.97 % ~ Rt/P Xandra ~ 1921
+[2025-09-23 13:30:12] Pelznickel Searinox: # 7 ~ 0.54 % ~ Mo/Me Tahlkora ~ 1058
+[2025-09-23 13:30:12] Pelznickel Searinox: # 8 ~ 0.11 % ~ N/Rt Olias ~ 216
+[2025-09-23 13:30:12] Your party shares 107 gold.
+[2025-09-23 13:30:12] Pelznickel Searinox: Total ~ 100 % ~ 197093
+[2025-09-23 13:30:17] You pick up the Plagueborn Armor.
+[2025-09-23 13:33:02] Al Ways's team has won a battle in the Hall of Heroes.
+[2025-09-23 13:33:17] You have been playing for 1 hour.
+[2025-09-23 13:33:27] Quest Updated: Battle in the Sewers
+[2025-09-23 13:35:45] You have 1 guild invitation.
+[2025-09-23 13:41:16] Al Ways's team has won a battle in the Hall of Heroes.
+[2025-09-23 13:43:12] You salvaged 6 Iron Ingots from the Hypnotic Staff.
+[2025-09-23 13:43:12] The salvaging tools were destroyed.
+[2025-09-23 13:43:27] You salvaged 5 Iron Ingots from the Battlepick.
+[2025-09-23 13:43:27] You salvaged 21 Iron Ingots from the Double-bladed Axe.
+[2025-09-23 13:43:32] You salvaged 4 Iron Ingots from the Ball Hammer.
+[2025-09-23 13:43:32] You salvaged 5 Iron Ingots from the War Hammer.
+[2025-09-23 13:43:32] You salvaged 7 Iron Ingots from the Gilded Artifact.
+[2025-09-23 13:44:42] Quest Reward Accepted: Battle in the Sewers
+[2025-09-23 13:44:42] You gain a skill point!
+[2025-09-23 13:44:42] You gain 3,000 experience.
+[2025-09-23 13:44:42] You receive 150 gold.
+[2025-09-23 13:44:42] You gain 1 skill point.
+[2025-09-23 13:50:53] You pick up the Urn of Saint Viktor.
+[2025-09-23 13:50:58] You pick up the Supreme Spear of Archemorus.
+[2025-09-23 13:50:58] You drop an Urn of Saint Viktor.
+[2025-09-23 13:52:06] You have 1 guild invitation.
+[2025-09-23 13:54:11] You pick up the Spear of Archemorus.
+[2025-09-23 13:54:21] Togo: I believe that Shiro has created spirit rifts...openings into the spirit realm...and he is using these to bring in more of his foul supporters. We must destroy Shiro's constructs and his spirit rifts to keep him from gaining more power.
+[2025-09-23 13:54:26] Togo: We must be extremely cautious. There are countless environmental hazards down here. I will try to point out any dangers as we near them, but nevertheless, you must remain vigilant at all times.
+[2025-09-23 13:55:27] Togo: Look, there on the ground: those are flame fissures. Use caution when approaching them. They flare up without warning and set anything nearby on fire.
+[2025-09-23 13:55:47] Afflicted Assassin drops a Plagueborn Armor, which your party reserves for Pelznickel Searinox.
+[2025-09-23 13:56:12] You pick up the Plagueborn Armor.
+[2025-09-23 13:56:57] Togo: Hmm...it looks as if these spirit rifts are summoning something. Yes...I was correct. We must destroy it before a Spirit Warrior is torn from the spirit world and sent here.
+[2025-09-23 13:57:02] Togo: I doubt Shiro would be so careless as to create only one spirit rift... There must be more. Come, let us find the other rifts and locate Shiro.
+[2025-09-23 13:57:02] Al Ways's team has won a battle in the Hall of Heroes.
+[2025-09-23 13:57:17] You drop a Supreme Spear of Archemorus.
+[2025-09-23 13:57:27] You pick up the Spear of Archemorus.
+[2025-09-23 13:57:32] Goal completed. Press "L" to view your updated Quest Log.
+[2025-09-23 13:57:37] Shiro Tagachi: No one can stop me, let alone you puny mortals!
+[2025-09-23 13:57:42] Togo: Look! Shiro is just up ahead! He has some type of shield protecting him. We must destroy it before we can engage him.
+[2025-09-23 13:57:42] Togo: He must be drawing his power from the four primal powers. We disabled one of his sources, but we must take out all of them before we attack, or we will never be able to defeat him!
+[2025-09-23 13:57:47] Togo: If I am right, there should be rifts east, west, and north of here. We must search the area and destroy them as quickly as possible!
+[2025-09-23 13:57:52] You drop a Spear of Archemorus.
+[2025-09-23 13:57:58] Afflicted Necromancer drops a Pulsating Growth, which your party reserves for Pelznickel Searinox.
+[2025-09-23 13:58:03] You pick up the Spear of Archemorus.
+[2025-09-23 13:58:03] You pick up the Pulsating Growth.
+[2025-09-23 13:58:23] You drop a Supreme Spear of Archemorus.
+[2025-09-23 13:58:28] You pick up the Spear of Archemorus.
+[2025-09-23 13:58:53] Togo: Those panels over there may be hiding stalagmite spikes. Avoid walking over them if you can. The spikes can spring upward at any time and Cripple you.
+[2025-09-23 13:59:03] You drop a Spear of Archemorus.
+[2025-09-23 13:59:13] You pick up the Spear of Archemorus.
+[2025-09-23 13:59:28] Shiro Tagachi: No one can stop me, let alone you puny mortals!
+[2025-09-23 13:59:33] You drop a Spear of Archemorus.
+[2025-09-23 13:59:38] You pick up the Spear of Archemorus.
+[2025-09-23 13:59:38] Afflicted Assassin drops a Bo Staff, which your party reserves for Pelznickel Searinox.
+[2025-09-23 13:59:43] You drop a Spear of Archemorus.
+[2025-09-23 13:59:53] You pick up 23 Bones.
+[2025-09-23 13:59:58] You pick up the Bo Staff.
+[2025-09-23 14:00:03] You pick up the Spear of Archemorus.
+[2025-09-23 14:00:33] You drop a Spear of Archemorus.
+[2025-09-23 14:00:38] You pick up the Spear of Archemorus.
+[2025-09-23 14:00:38] Afflicted Ranger drops a Pulsating Growth, which your party reserves for Pelznickel Searinox.
+[2025-09-23 14:00:43] You drop a Spear of Archemorus.
+[2025-09-23 14:00:43] You pick up the Pulsating Growth.
+[2025-09-23 14:00:48] You pick up the Spear of Archemorus.
+[2025-09-23 14:00:58] Togo: That water looks befouled... I believe it will Poison any who touch it. Avoid it if you are able.
+[2025-09-23 14:01:03] You drop a Spear of Archemorus.
+[2025-09-23 14:01:08] Shiro Tagachi: You are messing with affairs that are beyond your comprehension. Leave now and I may let you live!
+[2025-09-23 14:01:08] You pick up the Spear of Archemorus.
+[2025-09-23 14:01:18] You drop a Spear of Archemorus.
+[2025-09-23 14:01:23] Afflicted Assassin drops a Plagueborn Armor, which your party reserves for Pelznickel Searinox.
+[2025-09-23 14:01:28] You pick up the Spear of Archemorus.
+[2025-09-23 14:01:33] You pick up the Plagueborn Armor.
+[2025-09-23 14:01:48] You drop a Spear of Archemorus.
+[2025-09-23 14:01:53] You pick up the Spear of Archemorus.
+[2025-09-23 14:02:13] Togo: There are many perils here in the sewers. For example, those vents you see on the platforms can Daze you if get too close. Stay away from them, if you can.
+[2025-09-23 14:02:13] Togo: Quickly now! We must destroy this spirit rift before it brings in another of Shiro's deadly Spirit Warriors.
+[2025-09-23 14:02:28] Goal completed. Press "L" to view your updated Quest Log.
+[2025-09-23 14:02:28] You drop a Spear of Archemorus.
+[2025-09-23 14:03:29] You pick up the Spear of Archemorus.
+[2025-09-23 14:03:29] Togo: Good work! Now that we have destroyed the spirit rifts, we can engage Shiro and, gods willing, destroy him once and for all! Follow me.
+[2025-09-23 14:03:54] You drop a Spear of Archemorus.
+[2025-09-23 14:04:04] You pick up the Spear of Archemorus.
+[2025-09-23 14:07:35] You drop a Spear of Archemorus.
+[2025-09-23 14:07:35] Togo: I cannot believe I have witnessed such a foul act! Shiro has just inhabited another physical creature! He is controlling its actions!
+[2025-09-23 14:07:35] Mission Completion Time: 09:38
+[2025-09-23 14:07:35] You have earned the Master's Reward for Sunjiang District! It is worth 2,000 experience, 200 gold, and 1 skill point.
+[2025-09-23 14:07:35] You have earned the Expert's Reward for Sunjiang District! It is worth 1,500 experience, 150 gold, and 1 skill point.
+[2025-09-23 14:07:35] You have earned the Standard Reward for Sunjiang District! It is worth 1,000 experience, 100 gold, and 1 skill point.
+[2025-09-23 14:07:35] Al Ways's team has won a battle in the Hall of Heroes.
+[2025-09-23 14:07:35] You have 1 guild invitation.
+[2025-09-23 14:07:55] Quest Added: Journey to House zu Heltzer
+[2025-09-23 14:08:05] Quest Added: Journey to Cavalon
+[2025-09-23 14:11:47] You have 1 guild invitation.
+[2025-09-23 14:15:07] Quest Added: Melodic Gaki Flute

@@ -1,0 +1,100 @@
+[2025-09-23 14:16:40] You have 1 guild invitation.
+[2025-09-23 14:17:15] Al Ways's team has won a battle in the Hall of Heroes.
+[2025-09-23 14:23:45] Quest Added: Befriending the Kurzicks
+[2025-09-23 14:23:50] Quest Updated: Befriending the Kurzicks
+[2025-09-23 14:24:15] Quest Reward Accepted: Befriending the Kurzicks
+[2025-09-23 14:24:15] You gain a skill point!
+[2025-09-23 14:24:15] You gain 10,000 experience.
+[2025-09-23 14:24:15] You receive 700 gold.
+[2025-09-23 14:24:25] Quest Added: The Defenders of the Forest
+[2025-09-23 14:24:25] Quest Added: Song and Stone
+[2025-09-23 14:24:30] Quest Added: Defend Fort Aspenwood
+[2025-09-23 14:24:30] Quest Added: The Jade Quarry
+[2025-09-23 14:24:55] Quest Added: The Beak of Darkness
+[2025-09-23 14:24:55] Quest Added: Wardens On the March
+[2025-09-23 14:25:20] Quest Added: The Ancient Forest
+[2025-09-23 14:26:00] Quest Added: Artistic Endeavors
+[2025-09-23 14:26:59] You have 1 guild invitation.
+[2025-09-23 14:27:46] Quest Reward Accepted: Journey to Cavalon
+[2025-09-23 14:27:46] You gain 4,000 experience.
+[2025-09-23 14:27:46] You gain 250 Luxon faction.
+[2025-09-23 14:27:46] You gain 1 skill point.
+[2025-09-23 14:27:56] Quest Added: Befriending the Luxons
+[2025-09-23 14:28:01] Quest Added: Fort Aspenwood
+[2025-09-23 14:28:01] Quest Added: The Jade Quarry
+[2025-09-23 14:28:16] Quest Added: Challenge of Strength
+[2025-09-23 14:28:51] Quest Added: The Halcyon Job
+[2025-09-23 14:29:01] Quest Added: Attack the Kurzicks!
+[2025-09-23 14:29:06] Quest Added: Night Raiders
+[2025-09-23 14:29:16] Al Ways's team has won a battle in the Hall of Heroes.
+[2025-09-23 14:31:30] You have 1 guild invitation.
+[2025-09-23 14:32:05] Kurzick Bureaucrat [Faction Rewards] hands you 6 Amber Chunks.
+[2025-09-23 14:32:05] Due to your show of allegiance to the Kurzicks, you have lost 3,606 Luxon faction.
+[2025-09-23 14:36:24] Quest Added: Kurzick Supply Lines
+[2025-09-23 14:36:34] Kurzick Priest takes 100 gold.
+[2025-09-23 14:37:09] 5 enemies slain.
+[2025-09-23 14:37:34] Mantis Mender drops a Mantis Pincer, which your party reserves for Pelznickel Searinox.
+[2025-09-23 14:37:34] You pick up the Mantis Pincer.
+[2025-09-23 14:37:39] 10 enemies slain.
+[2025-09-23 14:37:39] Your party shares 103 gold.
+[2025-09-23 14:37:54] Mantis Dreamweaver drops a Gothic Axe, which your party reserves for Pelznickel Searinox.
+[2025-09-23 14:38:04] You pick up the Gothic Axe.
+[2025-09-23 14:38:54] 15 enemies slain.
+[2025-09-23 14:39:15] You drop a Kurzick Supplies.
+[2025-09-23 14:39:15] Quest Updated: Kurzick Supply Lines
+[2025-09-23 14:39:35] 20 enemies slain.
+[2025-09-23 14:39:40] You gain 125 Kurzick faction.
+[2025-09-23 14:39:55] Mantis Stormcaller drops a Gothic Sword, which your party reserves for Pelznickel Searinox.
+[2025-09-23 14:39:55] You pick up the Kurzick Supplies.
+[2025-09-23 14:39:55] Quest Updated: Kurzick Supply Lines
+[2025-09-23 14:40:05] You pick up the Gothic Sword.
+[2025-09-23 14:40:10] Your party shares 108 gold.
+[2025-09-23 14:40:10] Your party shares 91 gold.
+[2025-09-23 14:40:10] 30 enemies slain.
+[2025-09-23 14:40:10] Your party shares 102 gold.
+[2025-09-23 14:40:15] Your party shares 101 gold.
+[2025-09-23 14:41:20] Al Ways's team has won a battle in the Hall of Heroes.
+[2025-09-23 14:41:40] You drop a Kurzick Supplies.
+[2025-09-23 14:41:40] Quest Updated: Kurzick Supply Lines
+[2025-09-23 14:41:50] 35 enemies slain.
+[2025-09-23 14:42:05] 40 enemies slain.
+[2025-09-23 14:42:15] Dredge Guardian drops an Amber Staff, which your party reserves for Pelznickel Searinox.
+[2025-09-23 14:42:15] Your party shares 105 gold.
+[2025-09-23 14:42:15] Your party shares 103 gold.
+[2025-09-23 14:42:20] You pick up the Amber Staff.
+[2025-09-23 14:42:25] Your party shares 110 gold.
+[2025-09-23 14:42:30] Your party shares 102 gold.
+[2025-09-23 14:42:35] Your party shares 109 gold.
+[2025-09-23 14:42:50] You pick up the Kurzick Supplies.
+[2025-09-23 14:42:50] Quest Updated: Kurzick Supply Lines
+[2025-09-23 14:47:41] Quest Updated: The Ancient Forest
+[2025-09-23 14:47:46] 45 enemies slain.
+[2025-09-23 14:47:56] Warden of the Branch drops a Gothic Sword, which your party reserves for Pelznickel Searinox.
+[2025-09-23 14:48:01] Quest Updated: The Ancient Forest
+[2025-09-23 14:48:01] You pick up the Gothic Sword.
+[2025-09-23 14:49:06] Your party shares 103 gold.
+[2025-09-23 14:49:31] You gain 125 Kurzick faction.
+[2025-09-23 14:49:46] Luxon Ranger: You can't defeat all of us!
+[2025-09-23 14:49:51] 55 enemies slain.
+[2025-09-23 14:49:51] Luxon Ranger drops a Luxon Pendant, which your party reserves for Pelznickel Searinox.
+[2025-09-23 14:49:51] Luxon Elementalist drops a Luxon Pendant, which your party reserves for Pelznickel Searinox.
+[2025-09-23 14:49:51] 60 enemies slain.
+[2025-09-23 14:49:56] You pick up the Luxon Pendant.
+[2025-09-23 14:49:56] You pick up the Luxon Pendant.
+[2025-09-23 14:50:26] Your party shares 106 gold.
+[2025-09-23 14:50:26] Your party shares 107 gold.
+[2025-09-23 14:51:07] Luxon Necromancer: Give us the supplies and we might let you live!
+[2025-09-23 14:51:12] 65 enemies slain.
+[2025-09-23 14:51:27] 70 enemies slain.
+[2025-09-23 14:51:37] Your party shares 95 gold.
+[2025-09-23 14:53:52] Quest Updated: Charting the Forests
+[2025-09-23 14:55:12] Luxon Ranger: Die, Kurzick! Die!
+[2025-09-23 14:55:27] Luxon Assassin drops a Recurve Bow, which your party reserves for Pelznickel Searinox.
+[2025-09-23 14:55:32] Luxon Ranger drops a Bo Staff, which your party reserves for Pelznickel Searinox.
+[2025-09-23 14:55:32] 80 enemies slain.
+[2025-09-23 14:55:42] You pick up the Recurve Bow.
+[2025-09-23 14:55:42] You pick up the Bo Staff.
+[2025-09-23 14:56:32] Luxon Elementalist: Stop them before they reach the front lines!
+[2025-09-23 14:56:48] 85 enemies slain.
+[2025-09-23 14:57:03] Al Ways's team has won a battle in the Hall of Heroes.
+[2025-09-23 14:57:03] Quest Added: Scouting Ferndale
