@@ -2,9 +2,10 @@ import json
 import os
 import traceback
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 
 import Py4GW
+import PyItem
 from Py4GWCoreLib import Bags
 from Py4GWCoreLib import GLOBAL_CACHE
 from Py4GWCoreLib import IniHandler
@@ -309,6 +310,22 @@ class ExporterState:
 
         item_id = int(getattr(item, "item_id", 0))
 
+        stackable_attr = getattr(item, "is_stackable", None)
+        tradable_attr = getattr(item, "is_tradable", None)
+        material_attr = getattr(item, "is_material", None)
+        usable_attr = getattr(item, "is_usable", None)
+
+        fallback_flags = {
+            "stackable": False,
+            "tradable": False,
+            "material": False,
+            "usable": False,
+        }
+        if item_id and any(
+            value is None for value in (stackable_attr, tradable_attr, material_attr, usable_attr)
+        ):
+            fallback_flags = self._get_definitive_item_flags(item_id)
+
         name = ""
         if item_id:
             try:
@@ -320,6 +337,11 @@ class ExporterState:
         if not name:
             name = getattr(item, "name", "") or ""
 
+        def _resolve_flag(value, key: str) -> bool:
+            if value is None:
+                return fallback_flags.get(key, False)
+            return bool(value)
+
         return {
             "item_id": item_id,
             "model_id": int(getattr(item, "model_id", 0)),
@@ -329,13 +351,65 @@ class ExporterState:
             "rarity": rarity_name,
             "rarity_value": int(rarity_value) if rarity_value is not None else None,
             "identified": bool(getattr(item, "is_identified", False)),
-            "stackable": bool(getattr(item, "is_stackable", False)),
-            "tradable": bool(getattr(item, "is_tradable", False)),
-            "material": bool(getattr(item, "is_material", False)),
-            "usable": bool(getattr(item, "is_usable", False)),
+            "stackable": _resolve_flag(stackable_attr, "stackable"),
+            "tradable": _resolve_flag(tradable_attr, "tradable"),
+            "material": _resolve_flag(material_attr, "material"),
+            "usable": _resolve_flag(usable_attr, "usable"),
             "name": str(name) if name else "",
             "mod_count": int(mod_count),
         }
+
+    def _get_definitive_item_flags(self, item_id: int) -> dict[str, bool]:
+        flags: dict[str, Optional[bool]] = {
+            "stackable": None,
+            "tradable": None,
+            "material": None,
+            "usable": None,
+        }
+
+        if not item_id:
+            return {key: False for key in flags}
+
+        try:
+            fallback_item = PyItem.PyItem(item_id)
+        except Exception:  # noqa: BLE001
+            fallback_item = None
+
+        if fallback_item is not None and getattr(fallback_item, "item_id", 0):
+            for attr_name, key in (
+                ("is_stackable", "stackable"),
+                ("is_tradable", "tradable"),
+                ("is_material", "material"),
+                ("is_usable", "usable"),
+            ):
+                value = getattr(fallback_item, attr_name, None)
+                if value is not None:
+                    flags[key] = bool(value)
+
+        cache_item = getattr(GLOBAL_CACHE, "Item", None)
+        if cache_item is not None:
+            try:
+                if flags["stackable"] is None:
+                    flags["stackable"] = bool(cache_item.Customization.IsStackable(item_id))
+            except Exception:  # noqa: BLE001
+                pass
+            try:
+                if flags["tradable"] is None:
+                    flags["tradable"] = bool(cache_item.Trade.IsTradable(item_id))
+            except Exception:  # noqa: BLE001
+                pass
+            try:
+                if flags["material"] is None:
+                    flags["material"] = bool(cache_item.Type.IsMaterial(item_id))
+            except Exception:  # noqa: BLE001
+                pass
+            try:
+                if flags["usable"] is None:
+                    flags["usable"] = bool(cache_item.Usage.IsUsable(item_id))
+            except Exception:  # noqa: BLE001
+                pass
+
+        return {key: bool(value) if value is not None else False for key, value in flags.items()}
 
     def _resolve_item_name(self, item_id: int, fallback: str) -> str:
         if not item_id:
