@@ -52,21 +52,25 @@ total_lines_written = 0
 session_started_at: datetime | None = None
 last_write_time: datetime | None = None
 last_error_message = ""
+pending_request_started_at: datetime | None = None
 
 
 chat_request_timer = Timer()
 chat_request_timer.Start()
 CHAT_REQUEST_INTERVAL_MS = 500
+CHAT_REQUEST_TIMEOUT_MS = 2500
 
 
 def reset_chat_capture_state() -> None:
     """Reset chat capture request state to its idle defaults."""
 
     global pending_chat_request, skip_next_snapshot, last_processed_line
+    global pending_request_started_at
 
     pending_chat_request = False
     skip_next_snapshot = True
     last_processed_line = None
+    pending_request_started_at = None
     chat_request_timer.Reset()
 
 
@@ -144,13 +148,15 @@ def write_lines_to_file(lines: list[str]) -> None:
 def request_chat_history_action() -> None:
     """Request a chat history update from the Player API."""
 
-    global pending_chat_request
+    global pending_chat_request, pending_request_started_at
 
     try:
         Player.RequestChatHistory()
         pending_chat_request = True
+        pending_request_started_at = datetime.now()
     except Exception as exc:  # noqa: BLE001 - log unexpected errors
         pending_chat_request = False
+        pending_request_started_at = None
         Py4GW.Console.Log(
             MODULE_NAME,
             f"Failed to request chat history: {exc}",
@@ -216,11 +222,13 @@ def stop_logging() -> None:
     """Stop capturing chat history and reset runtime state."""
 
     global logging_enabled, pending_chat_request, skip_next_snapshot, persist_enabled
+    global pending_request_started_at
 
     logging_enabled = False
     persist_enabled = False
     pending_chat_request = False
     skip_next_snapshot = False
+    pending_request_started_at = None
     ini_handler.write_key(MODULE_NAME, "enabled", "False")
 
 
@@ -236,7 +244,7 @@ def update_settings() -> None:
 def process_chat_updates() -> None:
     """Poll the chat system and write any new lines to disk."""
 
-    global pending_chat_request, skip_next_snapshot
+    global pending_chat_request, skip_next_snapshot, pending_request_started_at
 
     if not logging_enabled:
         return
@@ -248,25 +256,39 @@ def process_chat_updates() -> None:
         reset_chat_capture_state()
         return
 
-    if not pending_chat_request and chat_request_timer.HasElapsed(CHAT_REQUEST_INTERVAL_MS):
+    if pending_chat_request:
+        if pending_request_started_at is not None:
+            elapsed_ms = int(
+                (datetime.now() - pending_request_started_at).total_seconds() * 1000
+            )
+            if elapsed_ms >= CHAT_REQUEST_TIMEOUT_MS:
+                Py4GW.Console.Log(
+                    MODULE_NAME,
+                    f"Chat history request timed out after {elapsed_ms} ms; resetting state.",
+                    Py4GW.Console.MessageType.Error,
+                )
+                reset_chat_capture_state()
+                return
+
+        if Player.IsChatHistoryReady():
+            chat_lines = Player.GetChatHistory() or []
+            pending_chat_request = False
+            pending_request_started_at = None
+
+            if skip_next_snapshot:
+                skip_next_snapshot = False
+                if chat_lines:
+                    # Establish baseline without writing out existing history.
+                    global last_processed_line
+                    last_processed_line = chat_lines[-1]
+                return
+
+            new_lines = extract_new_lines(chat_lines)
+            if new_lines:
+                write_lines_to_file(new_lines)
+    elif chat_request_timer.HasElapsed(CHAT_REQUEST_INTERVAL_MS):
         request_chat_history_action()
         chat_request_timer.Reset()
-
-    if Player.IsChatHistoryReady():
-        chat_lines = Player.GetChatHistory() or []
-        pending_chat_request = False
-
-        if skip_next_snapshot:
-            skip_next_snapshot = False
-            if chat_lines:
-                # Establish baseline without writing out existing history.
-                global last_processed_line
-                last_processed_line = chat_lines[-1]
-            return
-
-        new_lines = extract_new_lines(chat_lines)
-        if new_lines:
-            write_lines_to_file(new_lines)
 
 
 def draw_widget() -> None:
