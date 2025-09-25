@@ -10,6 +10,7 @@ from Py4GWCoreLib import GLOBAL_CACHE
 from Py4GWCoreLib import IniHandler
 from Py4GWCoreLib import PyImGui
 from Py4GWCoreLib import PyInventory
+import PyItem
 from Py4GWCoreLib import Routines
 from Py4GWCoreLib import Timer
 
@@ -266,18 +267,19 @@ class ExporterState:
             size = 0
 
         try:
-            raw_items = bag.GetItems() or []
+            bag_list = GLOBAL_CACHE.ItemArray.CreateBagList(bag_enum.value)
+            raw_item_ids = GLOBAL_CACHE.ItemArray.GetItemArray(bag_list) or []
         except Exception:  # noqa: BLE001
-            raw_items = []
+            raw_item_ids = []
 
         items = []
-        for item in raw_items:
+        for item_id in raw_item_ids:
             try:
-                items.append(self._serialize_item(item, bag_enum))
+                items.append(self._serialize_item(item_id, bag_enum))
             except Exception as exc:  # noqa: BLE001
                 Py4GW.Console.Log(
                     MODULE_NAME,
-                    f"Failed to read item {getattr(item, 'item_id', '?')} in {bag_enum.name}: {exc}",
+                    f"Failed to read item {item_id} in {bag_enum.name}: {exc}",
                     Py4GW.Console.MessageType.Warning,
                 )
         items.sort(key=lambda entry: entry.get("slot", -1))
@@ -291,7 +293,8 @@ class ExporterState:
             "items": items,
         }
 
-    def _serialize_item(self, item, bag_enum: Bags) -> dict:
+    def _serialize_item(self, item_id: int, bag_enum: Bags) -> dict:
+        item = PyItem.PyItem(int(item_id))
         try:
             item.GetContext()
         except AttributeError:
@@ -306,8 +309,6 @@ class ExporterState:
             mod_count = len(modifiers)
         except TypeError:
             mod_count = 0
-
-        item_id = int(getattr(item, "item_id", 0))
 
         name = ""
         if item_id:
