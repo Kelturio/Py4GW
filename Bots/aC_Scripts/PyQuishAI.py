@@ -608,6 +608,20 @@ def start_combat():
 def stop_combat():
     bot_vars.combat_started = False
 
+
+def ensure_hard_mode_enabled():
+    if Map.IsMapLoading():
+        return
+
+    if not GLOBAL_CACHE.Party.IsHardModeUnlocked():
+        return
+
+    if GLOBAL_CACHE.Party.IsHardMode():
+        return
+
+    GLOBAL_CACHE.Party.SetHardMode()
+
+
 def pause_all(debug: bool = False):
     if not check_combat():
         return
@@ -666,6 +680,16 @@ def InitializeStateMachine():
         name="Wait For Map Load",
         exit_condition=lambda: not Map.IsMapLoading(),
         transition_delay_ms=1000
+    )
+    FSM_vars.state_machine.AddState(
+        name="Ensure Hard Mode",
+        execute_fn=ensure_hard_mode_enabled,
+        exit_condition=lambda: (
+            not GLOBAL_CACHE.Party.IsHardModeUnlocked()
+            or GLOBAL_CACHE.Party.IsHardMode()
+        ),
+        transition_delay_ms=1000,
+        run_once=True
     )
     FSM_vars.state_machine.AddState(
         name="Navigate Outpost",
