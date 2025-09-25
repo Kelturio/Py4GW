@@ -1,248 +1,248 @@
-[15:34:21] [GWCA] [SCAN] SkillTimerPtr = 00E80044
-[15:34:21] [GWCA] [SCAN] WinHandlePtr = 00E8E06C
-[15:34:21] [GWCA] [SCAN] GetPersonalDirPtr = 0089D5F0
-[15:34:21] [GWCA] [SCAN] GetGWVersion_Func = 00891400, 37628
-[15:34:21] [GWCA] [SCAN] MemAllocHelper_Func = 0089E890
-[15:34:21] [GWCA] [SCAN] MemReallocHelper_Func = 0089E920
-[15:34:21] [GWCA] [SCAN] MemFree_Func = 0088C540
-[15:34:21] [GWCA] [SCAN] base_ptr = 00E807D0, 00000001
-[15:34:21] [GWCA] [SCAN] GameplayContext_addr = 00E850E8
-[15:34:21] [GWCA] [SCAN] PreGameContext_addr = 00E83D24
-[15:34:21] [GWCA] 
+[15:56:20] [GWCA] [SCAN] SkillTimerPtr = 00E80044
+[15:56:20] [GWCA] [SCAN] WinHandlePtr = 00E8E06C
+[15:56:20] [GWCA] [SCAN] GetPersonalDirPtr = 0089D5F0
+[15:56:20] [GWCA] [SCAN] GetGWVersion_Func = 00891400, 37628
+[15:56:20] [GWCA] [SCAN] MemAllocHelper_Func = 0089E890
+[15:56:20] [GWCA] [SCAN] MemReallocHelper_Func = 0089E920
+[15:56:20] [GWCA] [SCAN] MemFree_Func = 0088C540
+[15:56:20] [GWCA] [SCAN] base_ptr = 00E807D0, 00000001
+[15:56:20] [GWCA] [SCAN] GameplayContext_addr = 00E850E8
+[15:56:20] [GWCA] [SCAN] PreGameContext_addr = 00E83D24
+[15:56:20] [GWCA] 
 Initializing module 'GameThreadModule'
 
-[15:34:21] [GWCA] 
+[15:56:20] [GWCA] 
 Initializing module 'RenderModule'
 
-[15:34:21] [GWCA] [SCAN] GwGetTransform = 00A541F0
-[15:34:21] [GWCA] [SCAN] GwReset = 00AACB10
-[15:34:21] [GWCA] [SCAN] GwEndScene = 00AAB450
-[15:34:21] [GWCA] [SCAN] GwScreenCapture = 00AAB7A0
-[15:34:21] [GWCA] 
+[15:56:20] [GWCA] [SCAN] GwGetTransform = 00A541F0
+[15:56:20] [GWCA] [SCAN] GwReset = 00AACB10
+[15:56:20] [GWCA] [SCAN] GwEndScene = 00AAB450
+[15:56:20] [GWCA] [SCAN] GwScreenCapture = 00AAB7A0
+[15:56:20] [GWCA] 
 Initializing module 'UIModule'
 
-[15:34:21] [GWCA] [SCAN] WorldMapState_Addr = 00E8513C
-[15:34:21] [GWCA] [SCAN] SendFrameUIMessage_Func = 00A2D6B0
-[15:34:21] [GWCA] [SCAN] SendUIMessage = 00A18F40
-[15:34:21] [GWCA] [SCAN] LoadSettings = 008B23A0
-[15:34:21] [GWCA] [SCAN] ui_drawn_addr = 00E83C68
-[15:34:21] [GWCA] [SCAN] shift_screen_addr = 00E83D08
-[15:34:21] [GWCA] [SCAN] GetStringPreference_Func = 008B2760
-[15:34:21] [GWCA] [SCAN] GetEnumPreference_Func = 008B25D0
-[15:34:21] [GWCA] [SCAN] GetNumberPreference_Func = 008B27D0
-[15:34:21] [GWCA] [SCAN] GetFlagPreference_Func = 008B26B0
-[15:34:21] [GWCA] [SCAN] SetStringPreference_Func = 008B2F60
-[15:34:21] [GWCA] [SCAN] SetEnumPreference_Func = 008B2C90
-[15:34:21] [GWCA] [SCAN] SetNumberPreference_Func = 008B3080
-[15:34:21] [GWCA] [SCAN] SetFlagPreference_Func = 008B2DF0
-[15:34:21] [GWCA] [SCAN] SetTooltip_Func = 00A33E60
-[15:34:21] [GWCA] [SCAN] CurrentTooltipPtr = 00E8EBE8
-[15:34:21] [GWCA] [SCAN] GameSettings = 00E6A26C
-[15:34:21] [GWCA] [SCAN] SetWindowVisible_Func = 008B3250
-[15:34:21] [GWCA] [SCAN] SetWindowPosition_Func = 008B3170
-[15:34:21] [GWCA] [SCAN] window_positions_array = 00E82FE8
-[15:34:21] [GWCA] [SCAN] ValidateAsyncDecodeStr = 00B85950
-[15:34:21] [GWCA] [SCAN] AsyncDecodeStringPtr = 00B87290
-[15:34:21] [GWCA] [SCAN] SetVolume_Func = 00B6FFC0
-[15:34:21] [GWCA] [SCAN] SetMasterVolume_Func = 00B6FD30
-[15:34:21] [GWCA] [SCAN] DrawOnCompass_Func = 00CB2770
-[15:34:21] [GWCA] [SCAN] CreateUIComponent_Func = 00A162D0
-[15:34:21] [GWCA] [SCAN] CommandLineNumber_Buffer = 00E82584
-[15:34:21] [GWCA] [SCAN] EnumPreferenceOptions_Addr = 00CD5370
-[15:34:21] [GWCA] [SCAN] NumberPreferenceOptions_Addr = 00CD58B8
-[15:34:21] [GWCA] [SCAN] SetInGameStaticPreference_Func = 00AC9840
-[15:34:21] [GWCA] [SCAN] SetInGameUIScale_Func = 00A19660
-[15:34:21] [GWCA] [SCAN] PreferencesInitialised_Addr = 00E8293C
-[15:34:21] [GWCA] [SCAN] GetRootFrame_Func 00A32870
-[15:34:21] [GWCA] [SCAN] s_FrameArray = 00E73418
-[15:34:21] [GWCA] [SCAN] SendFrameUIMessageById_Func = 00A18DE0
-[15:34:21] [GWCA] [SCAN] SendFrameUIMessage_Func = 00A2D6B0
-[15:34:21] [GWCA] [SCAN] CreateHashFromWchar_Func = 0088AEE0
-[15:34:21] [GWCA] [SCAN] GetChildFrameId_Func = 00A16FE0
-[15:34:21] [GWCA] [SCAN] GetRootFrame_Func = 00A32870
-[15:34:21] [GWCA] [SCAN] GetGraphicsRendererValue_Func = 00A35820
-[15:34:21] [GWCA] [SCAN] SetGraphicsRendererValue_Func = 00A384F0
-[15:34:21] [GWCA] [SCAN] SetGameRendererMode_Func = 00A38630
-[15:34:21] [GWCA] [SCAN] GetGameRendererMetric_Func = 00A35950
-[15:34:21] [GWCA] 
+[15:56:20] [GWCA] [SCAN] WorldMapState_Addr = 00E8513C
+[15:56:20] [GWCA] [SCAN] SendFrameUIMessage_Func = 00A2D6B0
+[15:56:20] [GWCA] [SCAN] SendUIMessage = 00A18F40
+[15:56:20] [GWCA] [SCAN] LoadSettings = 008B23A0
+[15:56:20] [GWCA] [SCAN] ui_drawn_addr = 00E83C68
+[15:56:20] [GWCA] [SCAN] shift_screen_addr = 00E83D08
+[15:56:20] [GWCA] [SCAN] GetStringPreference_Func = 008B2760
+[15:56:20] [GWCA] [SCAN] GetEnumPreference_Func = 008B25D0
+[15:56:20] [GWCA] [SCAN] GetNumberPreference_Func = 008B27D0
+[15:56:20] [GWCA] [SCAN] GetFlagPreference_Func = 008B26B0
+[15:56:20] [GWCA] [SCAN] SetStringPreference_Func = 008B2F60
+[15:56:20] [GWCA] [SCAN] SetEnumPreference_Func = 008B2C90
+[15:56:20] [GWCA] [SCAN] SetNumberPreference_Func = 008B3080
+[15:56:20] [GWCA] [SCAN] SetFlagPreference_Func = 008B2DF0
+[15:56:20] [GWCA] [SCAN] SetTooltip_Func = 00A33E60
+[15:56:20] [GWCA] [SCAN] CurrentTooltipPtr = 00E8EBE8
+[15:56:20] [GWCA] [SCAN] GameSettings = 00E6A26C
+[15:56:20] [GWCA] [SCAN] SetWindowVisible_Func = 008B3250
+[15:56:20] [GWCA] [SCAN] SetWindowPosition_Func = 008B3170
+[15:56:20] [GWCA] [SCAN] window_positions_array = 00E82FE8
+[15:56:20] [GWCA] [SCAN] ValidateAsyncDecodeStr = 00B85950
+[15:56:20] [GWCA] [SCAN] AsyncDecodeStringPtr = 00B87290
+[15:56:20] [GWCA] [SCAN] SetVolume_Func = 00B6FFC0
+[15:56:20] [GWCA] [SCAN] SetMasterVolume_Func = 00B6FD30
+[15:56:20] [GWCA] [SCAN] DrawOnCompass_Func = 00CB2770
+[15:56:20] [GWCA] [SCAN] CreateUIComponent_Func = 00A162D0
+[15:56:20] [GWCA] [SCAN] CommandLineNumber_Buffer = 00E82584
+[15:56:20] [GWCA] [SCAN] EnumPreferenceOptions_Addr = 00CD5370
+[15:56:20] [GWCA] [SCAN] NumberPreferenceOptions_Addr = 00CD58B8
+[15:56:20] [GWCA] [SCAN] SetInGameStaticPreference_Func = 00AC9840
+[15:56:20] [GWCA] [SCAN] SetInGameUIScale_Func = 00A19660
+[15:56:20] [GWCA] [SCAN] PreferencesInitialised_Addr = 00E8293C
+[15:56:20] [GWCA] [SCAN] GetRootFrame_Func 00A32870
+[15:56:20] [GWCA] [SCAN] s_FrameArray = 00E73418
+[15:56:20] [GWCA] [SCAN] SendFrameUIMessageById_Func = 00A18DE0
+[15:56:20] [GWCA] [SCAN] SendFrameUIMessage_Func = 00A2D6B0
+[15:56:20] [GWCA] [SCAN] CreateHashFromWchar_Func = 0088AEE0
+[15:56:20] [GWCA] [SCAN] GetChildFrameId_Func = 00A16FE0
+[15:56:20] [GWCA] [SCAN] GetRootFrame_Func = 00A32870
+[15:56:20] [GWCA] [SCAN] GetGraphicsRendererValue_Func = 00A35820
+[15:56:20] [GWCA] [SCAN] SetGraphicsRendererValue_Func = 00A384F0
+[15:56:20] [GWCA] [SCAN] SetGameRendererMode_Func = 00A38630
+[15:56:20] [GWCA] [SCAN] GetGameRendererMetric_Func = 00A35950
+[15:56:20] [GWCA] 
 Initializing module 'CameraModule'
 
-[15:34:21] [GWCA] [SCAN] patch_cam_update_addr = 00907B86
-[15:34:21] [GWCA] [SCAN] patch_fog_addr = 00AAF3D8
-[15:34:21] [GWCA] [SCAN] scan_cam_class = 00E851F8
-[15:34:21] [GWCA] 
+[15:56:20] [GWCA] [SCAN] patch_cam_update_addr = 00907B86
+[15:56:20] [GWCA] [SCAN] patch_fog_addr = 00AAF3D8
+[15:56:20] [GWCA] [SCAN] scan_cam_class = 00E851F8
+[15:56:20] [GWCA] 
 Initializing module 'AgentModule'
 
-[15:34:21] [GWCA] [SCAN] AgentArrayPtr = 00E77068
-[15:34:21] [GWCA] [SCAN] PlayerAgentIdPtr = 00E851F8
-[15:34:21] [GWCA] [SCAN] MoveTo_Func = 00943090
-[15:34:21] [GWCA] [SCAN] ChangeTargetFunction = 00BA1230
-[15:34:21] [GWCA] [SCAN] SendAgentDialog_Func = 00BCFEC0
-[15:34:21] [GWCA] [SCAN] SendGadgetDialog_Func = 00BD0700
-[15:34:21] [GWCA] 
+[15:56:20] [GWCA] [SCAN] AgentArrayPtr = 00E77068
+[15:56:20] [GWCA] [SCAN] PlayerAgentIdPtr = 00E851F8
+[15:56:20] [GWCA] [SCAN] MoveTo_Func = 00943090
+[15:56:20] [GWCA] [SCAN] ChangeTargetFunction = 00BA1230
+[15:56:20] [GWCA] [SCAN] SendAgentDialog_Func = 00BCFEC0
+[15:56:20] [GWCA] [SCAN] SendGadgetDialog_Func = 00BD0700
+[15:56:20] [GWCA] 
 Initializing module 'MapModule'
 
-[15:34:21] [GWCA] [SCAN] Minimap_UICallback_Func = 00955A50
-[15:34:21] [GWCA] [SCAN] WorldMap_UICallback_Func = 00955A50
-[15:34:21] [GWCA] [SCAN] map_type_instance_infos address = E4C9E885, size = 30
-[15:34:21] [GWCA] [SCAN] RegionId address = 00E809BC
-[15:34:21] [GWCA] [SCAN] AreaInfo address = 00CFB268
-[15:34:21] [GWCA] [SCAN] InstanceInfoPtr address = 013028DC
-[15:34:21] [GWCA] [SCAN] QueryAltitude Function = 00ACB5A0
-[15:34:21] [GWCA] [SCAN] EnterChallengeMission_Func = 00C0E5C0
-[15:34:21] [GWCA] [SCAN] CancelEnterChallengeMission_Func = 0089DF60
-[15:34:21] [GWCA] 
+[15:56:20] [GWCA] [SCAN] Minimap_UICallback_Func = 00955A50
+[15:56:20] [GWCA] [SCAN] WorldMap_UICallback_Func = 00955A50
+[15:56:20] [GWCA] [SCAN] map_type_instance_infos address = E4C9E885, size = 30
+[15:56:20] [GWCA] [SCAN] RegionId address = 00E809BC
+[15:56:20] [GWCA] [SCAN] AreaInfo address = 00CFB268
+[15:56:20] [GWCA] [SCAN] InstanceInfoPtr address = 013028DC
+[15:56:20] [GWCA] [SCAN] QueryAltitude Function = 00ACB5A0
+[15:56:20] [GWCA] [SCAN] EnterChallengeMission_Func = 00C0E5C0
+[15:56:20] [GWCA] [SCAN] CancelEnterChallengeMission_Func = 0089DF60
+[15:56:20] [GWCA] 
 Initializing module 'ChatModule'
 
-[15:34:21] [GWCA] [SCAN] PrintChatMessage_Func = 0094BC40
-[15:34:21] [GWCA] [SCAN] GetSenderColor = 00929780
-[15:34:21] [GWCA] [SCAN] GetMessageColor = 009296D0
-[15:34:21] [GWCA] [SCAN] SendChat = 00BE6CC0
-[15:34:21] [GWCA] [SCAN] StartWhisper = 0092BC70
-[15:34:21] [GWCA] [SCAN] RecvWhisper_Func = 008A7C10
-[15:34:21] [GWCA] [SCAN] AddToChatLog_Func = 00BDEE10
-[15:34:21] [GWCA] [SCAN] ChatBuffer_Addr = 013031C8
-[15:34:21] [GWCA] [SCAN] IsTyping_FrameId = 00E8E254
-[15:34:21] [GWCA] [SCAN] UICallback_AssignEditableText_Func = 00C30410
-[15:34:21] [GWCA] [SCAN] UICallback_ChatLogLine_Func = 0094CAF0
-[15:34:21] [GWCA] 
+[15:56:20] [GWCA] [SCAN] PrintChatMessage_Func = 0094BC40
+[15:56:20] [GWCA] [SCAN] GetSenderColor = 00929780
+[15:56:20] [GWCA] [SCAN] GetMessageColor = 009296D0
+[15:56:20] [GWCA] [SCAN] SendChat = 00BE6CC0
+[15:56:20] [GWCA] [SCAN] StartWhisper = 0092BC70
+[15:56:20] [GWCA] [SCAN] RecvWhisper_Func = 008A7C10
+[15:56:20] [GWCA] [SCAN] AddToChatLog_Func = 00BDEE10
+[15:56:20] [GWCA] [SCAN] ChatBuffer_Addr = 013031C8
+[15:56:20] [GWCA] [SCAN] IsTyping_FrameId = 00E8E254
+[15:56:20] [GWCA] [SCAN] UICallback_AssignEditableText_Func = 00C30410
+[15:56:20] [GWCA] [SCAN] UICallback_ChatLogLine_Func = 0094CAF0
+[15:56:20] [GWCA] 
 Initializing module 'ItemModule'
 
-[15:34:21] [GWCA] [SCAN] OnSalvagePopup_UICallback_Func = 00C8E6B0
-[15:34:21] [GWCA] [SCAN] InventorySlot_UICallback_Func = 00C91EB0
-[15:34:21] [GWCA] [SCAN] item_formulas = 00DB4FD8, item_count = 000005DA
-[15:34:21] [GWCA] [SCAN] StorageOpenPtr = 01304204
-[15:34:21] [GWCA] [SCAN] OnItemClick Function = 00C8FFB0
-[15:34:21] [GWCA] [SCAN] UseItem Function = 00BFEFC0
-[15:34:21] [GWCA] [SCAN] EquipItem Function = 009342A0
-[15:34:21] [GWCA] [SCAN] MoveItem Function = 00934330
-[15:34:21] [GWCA] [SCAN] DropGold Function = 00CB2880
-[15:34:21] [GWCA] [SCAN] DropItem Function = 00BCFCA0
-[15:34:21] [GWCA] [SCAN] DestroyItem_Func Function = 00BFE7D0
-[15:34:21] [GWCA] [SCAN] ChangeEquipmentVisibility Function = 00CB3520
-[15:34:21] [GWCA] [SCAN] ChangeGold Function = 00C03920
-[15:34:21] [GWCA] [SCAN] OpenLockedChest Function = 00BD0700
-[15:34:21] [GWCA] [SCAN] PingWeaponSet_Func = 00CB2610
-[15:34:21] [GWCA] [SCAN] unlocked_pvp_item_upgrade_array.m_buffer = 00DA5090
-[15:34:21] [GWCA] [SCAN] unlocked_pvp_item_upgrade_array.m_size = 00000186
-[15:34:21] [GWCA] [SCAN] GetPvPItemUpgradeInfoName_Func = 00BBE920
-[15:34:21] [GWCA] 
+[15:56:20] [GWCA] [SCAN] OnSalvagePopup_UICallback_Func = 00C8E6B0
+[15:56:20] [GWCA] [SCAN] InventorySlot_UICallback_Func = 00C91EB0
+[15:56:20] [GWCA] [SCAN] item_formulas = 00DB4FD8, item_count = 000005DA
+[15:56:20] [GWCA] [SCAN] StorageOpenPtr = 01304204
+[15:56:20] [GWCA] [SCAN] OnItemClick Function = 00C8FFB0
+[15:56:20] [GWCA] [SCAN] UseItem Function = 00BFEFC0
+[15:56:20] [GWCA] [SCAN] EquipItem Function = 009342A0
+[15:56:20] [GWCA] [SCAN] MoveItem Function = 00934330
+[15:56:20] [GWCA] [SCAN] DropGold Function = 00CB2880
+[15:56:20] [GWCA] [SCAN] DropItem Function = 00BCFCA0
+[15:56:20] [GWCA] [SCAN] DestroyItem_Func Function = 00BFE7D0
+[15:56:20] [GWCA] [SCAN] ChangeEquipmentVisibility Function = 00CB3520
+[15:56:20] [GWCA] [SCAN] ChangeGold Function = 00C03920
+[15:56:20] [GWCA] [SCAN] OpenLockedChest Function = 00BD0700
+[15:56:20] [GWCA] [SCAN] PingWeaponSet_Func = 00CB2610
+[15:56:20] [GWCA] [SCAN] unlocked_pvp_item_upgrade_array.m_buffer = 00DA5090
+[15:56:20] [GWCA] [SCAN] unlocked_pvp_item_upgrade_array.m_size = 00000186
+[15:56:20] [GWCA] [SCAN] GetPvPItemUpgradeInfoName_Func = 00BBE920
+[15:56:20] [GWCA] 
 Initializing module 'StoCModule'
 
-[15:34:21] [GWCA] 
+[15:56:20] [GWCA] 
 Initializing module 'GuildModule'
 
-[15:34:21] [GWCA] 
+[15:56:20] [GWCA] 
 Initializing module 'PartyModule'
 
-[15:34:21] [GWCA] [SCAN] TickButtonUICallback Function = 009778A0
-[15:34:21] [GWCA] [SCAN] SetDifficulty_Func = 00C0D5C0
-[15:34:21] [GWCA] [SCAN] PartySearchSeek_Func = 00C0E440
-[15:34:21] [GWCA] [SCAN] SetReadyStatus_Func = 00C0E630
-[15:34:21] [GWCA] [SCAN] FlagHeroAgent_Func = 00BC8120
-[15:34:21] [GWCA] [SCAN] FlagAll_Func = 00BC8140
-[15:34:21] [GWCA] [SCAN] SetHeroBehavior_Func = 00BC80A0
-[15:34:21] [GWCA] [SCAN] LockPetTarget_Func = 00CB2240
-[15:34:21] [GWCA] [SCAN] PartyWindowButtonCallback_Func = 00979160
-[15:34:21] [GWCA] [SCAN] PartySearchButtonCallback_Func = 0096D310
-[15:34:21] [GWCA] 
+[15:56:20] [GWCA] [SCAN] TickButtonUICallback Function = 009778A0
+[15:56:20] [GWCA] [SCAN] SetDifficulty_Func = 00C0D5C0
+[15:56:20] [GWCA] [SCAN] PartySearchSeek_Func = 00C0E440
+[15:56:20] [GWCA] [SCAN] SetReadyStatus_Func = 00C0E630
+[15:56:20] [GWCA] [SCAN] FlagHeroAgent_Func = 00BC8120
+[15:56:20] [GWCA] [SCAN] FlagAll_Func = 00BC8140
+[15:56:20] [GWCA] [SCAN] SetHeroBehavior_Func = 00BC80A0
+[15:56:20] [GWCA] [SCAN] LockPetTarget_Func = 00CB2240
+[15:56:20] [GWCA] [SCAN] PartyWindowButtonCallback_Func = 00979160
+[15:56:20] [GWCA] [SCAN] PartySearchButtonCallback_Func = 0096D310
+[15:56:20] [GWCA] 
 Initializing module 'TradeModule'
 
-[15:34:21] [GWCA] 
+[15:56:20] [GWCA] 
 Initializing module 'EffectModule'
 
-[15:34:21] [GWCA] [SCAN] PostProcessEffect Function = 00BCA970
-[15:34:21] [GWCA] [SCAN] DropBuff Function = 00BCFC70
-[15:34:21] [GWCA] 
+[15:56:20] [GWCA] [SCAN] PostProcessEffect Function = 00BCA970
+[15:56:20] [GWCA] [SCAN] DropBuff Function = 00BCFC70
+[15:56:20] [GWCA] 
 Initializing module 'PlayerModule'
 
-[15:34:21] [GWCA] [SCAN] title_data = 00DBF820
-[15:34:21] [GWCA] [SCAN] RemoveActiveTitle_Func = 00CB35A0
-[15:34:21] [GWCA] [SCAN] SetActiveTitle_Func = 00CB3570
-[15:34:21] [GWCA] [SCAN] DepositFaction_Func = 00BCFDF0
-[15:34:21] [GWCA] 
+[15:56:20] [GWCA] [SCAN] title_data = 00DBF820
+[15:56:20] [GWCA] [SCAN] RemoveActiveTitle_Func = 00CB35A0
+[15:56:20] [GWCA] [SCAN] SetActiveTitle_Func = 00CB3570
+[15:56:20] [GWCA] [SCAN] DepositFaction_Func = 00BCFDF0
+[15:56:20] [GWCA] 
 Initializing module 'MerchantModule'
 
-[15:34:21] [GWCA] [SCAN] TransactItem Function = 00CB2FB0
-[15:34:21] [GWCA] [SCAN] RequestQuote Function = 00CB31C0
-[15:34:21] [GWCA] 
+[15:56:20] [GWCA] [SCAN] TransactItem Function = 00CB2FB0
+[15:56:20] [GWCA] [SCAN] RequestQuote Function = 00CB31C0
+[15:56:20] [GWCA] 
 Initializing module 'SkillbarModule'
 
-[15:34:21] [GWCA] [SCAN] SkillArray = 00D16A00
-[15:34:21] [GWCA] [SCAN] AttributeArray = 00DBF3E0
-[15:34:21] [GWCA] [SCAN] ChangeSecondary_Func = 00CB2D40
-[15:34:21] [GWCA] [SCAN] LoadAttributes_Func = 00BC7AC0
-[15:34:21] [GWCA] [SCAN] LoadSkills_Func = 00BD0800
-[15:34:21] [GWCA] 
+[15:56:20] [GWCA] [SCAN] SkillArray = 00D16A00
+[15:56:20] [GWCA] [SCAN] AttributeArray = 00DBF3E0
+[15:56:20] [GWCA] [SCAN] ChangeSecondary_Func = 00CB2D40
+[15:56:20] [GWCA] [SCAN] LoadAttributes_Func = 00BC7AC0
+[15:56:20] [GWCA] [SCAN] LoadSkills_Func = 00BD0800
+[15:56:20] [GWCA] 
 Initializing module 'FriendListModule'
 
-[15:34:21] [GWCA] [SCAN] FriendList_Addr = 013035C8
-[15:34:21] [GWCA] [SCAN] FriendStatusHandler = 00BF4F60
-[15:34:21] [GWCA] [SCAN] SetOnlineStatus = 00BF4D70
-[15:34:21] [GWCA] [SCAN] AddFriend_Func = 00BF4A70
-[15:34:21] [GWCA] [SCAN] RemoveFriend_Func = 008A9180
-[15:34:21] [GWCA] 
+[15:56:20] [GWCA] [SCAN] FriendList_Addr = 013035C8
+[15:56:20] [GWCA] [SCAN] FriendStatusHandler = 00BF4F60
+[15:56:20] [GWCA] [SCAN] SetOnlineStatus = 00BF4D70
+[15:56:20] [GWCA] [SCAN] AddFriend_Func = 00BF4A70
+[15:56:20] [GWCA] [SCAN] RemoveFriend_Func = 008A9180
+[15:56:20] [GWCA] 
 Initializing module 'EventMgrModule'
 
-[15:34:21] [GWCA] [SCAN] SendEventMessage_Func = 00A10E80
-[15:34:21] [GWCA] 
+[15:56:20] [GWCA] [SCAN] SendEventMessage_Func = 00A10E80
+[15:56:20] [GWCA] 
 Initializing module 'QuestModule'
 
-[15:34:21] [GWCA] [SCAN] AbandonQuest_Func = 00BC7E90
-[15:34:21] [GWCA] [SCAN] SetActiveQuest_Func = 00BC7F30
-[15:34:21] [GWCA] [SCAN] RequestQuestData_Func = 00CB21A0
-[15:34:21] [GWCA] [SCAN] RequestQuestInfo_Func = 00BC7EE0
-[15:34:21] [GWCA] [SCAN] StoCHandler pattern = 00B99335
+[15:56:20] [GWCA] [SCAN] AbandonQuest_Func = 00BC7E90
+[15:56:20] [GWCA] [SCAN] SetActiveQuest_Func = 00BC7F30
+[15:56:20] [GWCA] [SCAN] RequestQuestData_Func = 00CB21A0
+[15:56:20] [GWCA] [SCAN] RequestQuestInfo_Func = 00BC7EE0
+[15:56:20] [GWCA] [SCAN] StoCHandler pattern = 00B99335
 
-[15:34:21] Creating Toolbox
-[15:34:21] [ToolboxIni] LoadFile successful for C:\Users\seari\Documents\GWToolboxpp\DESKTOP-8IL5G0E\GWToolbox.ini
-[15:34:21] Creating Modules
-[15:34:21] [ToolboxIni] LoadFile successful for C:\Users\seari\Documents\GWToolboxpp\DESKTOP-8IL5G0E\Theme.ini
-[15:34:21] [GwDatTextureModule] FileHashToRecObj_func = 0088F950
-[15:34:21] [GwDatTextureModule] ReadFileBuffer_Func = 0088F4A0
-[15:34:21] [GwDatTextureModule] DecodeImage_func = 00A586A0
-[15:34:21] [GwDatTextureModule] FreeFileBuffer_Func = 0088FE00
-[15:34:21] [GwDatTextureModule] CloseRecObj_func = 0088E630
-[15:34:21] [GwDatTextureModule] AllocateImage_func = 00A90510
-[15:34:21] [GwDatTextureModule] Depalletize_func = 00A8A250
-[15:34:21] [GameSettings] ctrl_click_patch = 008B0A8F
-[15:34:21] [GameSettings] SkillList_UICallback_Func = 00C74210
-[15:34:21] [GameSettings] skip_map_entry_message_patch = 009351B5
-[15:34:21] [GameSettings] gold_confirm_patch = 009A0010
-[15:34:21] [GameSettings] remove_skill_warmup_duration_patch = 0093E318
-[15:34:21] [GameSettings] CreateEncodedTextLabel_Func = 009F5C10
-[15:34:21] [GameSettings] skill_description_patch = 00948296
-[15:34:21] [GameSettings] SetGlobalNameTagVisibility_Func = 00BBD2D0
-[15:34:21] [GameSettings] GlobalNameTagVisibilityFlags = 01303174
-[15:34:21] [GameSettings] ShowAgentFactionGain_Func = 00B9AF00
-[15:34:21] [GameSettings] ShowAgentExperienceGain_Func = 00B9AEE0
+[15:56:20] Creating Toolbox
+[15:56:20] [ToolboxIni] LoadFile successful for C:\Users\seari\Documents\GWToolboxpp\DESKTOP-8IL5G0E\GWToolbox.ini
+[15:56:20] Creating Modules
+[15:56:20] [ToolboxIni] LoadFile successful for C:\Users\seari\Documents\GWToolboxpp\DESKTOP-8IL5G0E\Theme.ini
+[15:56:21] [GwDatTextureModule] FileHashToRecObj_func = 0088F950
+[15:56:21] [GwDatTextureModule] ReadFileBuffer_Func = 0088F4A0
+[15:56:21] [GwDatTextureModule] DecodeImage_func = 00A586A0
+[15:56:21] [GwDatTextureModule] FreeFileBuffer_Func = 0088FE00
+[15:56:21] [GwDatTextureModule] CloseRecObj_func = 0088E630
+[15:56:21] [GwDatTextureModule] AllocateImage_func = 00A90510
+[15:56:21] [GwDatTextureModule] Depalletize_func = 00A8A250
+[15:56:21] [GameSettings] ctrl_click_patch = 008B0A8F
+[15:56:21] [GameSettings] SkillList_UICallback_Func = 00C74210
+[15:56:21] [GameSettings] skip_map_entry_message_patch = 009351B5
+[15:56:21] [GameSettings] gold_confirm_patch = 009A0010
+[15:56:21] [GameSettings] remove_skill_warmup_duration_patch = 0093E318
+[15:56:21] [GameSettings] CreateEncodedTextLabel_Func = 009F5C10
+[15:56:21] [GameSettings] skill_description_patch = 00948296
+[15:56:21] [GameSettings] SetGlobalNameTagVisibility_Func = 00BBD2D0
+[15:56:21] [GameSettings] GlobalNameTagVisibilityFlags = 01303174
+[15:56:21] [GameSettings] ShowAgentFactionGain_Func = 00B9AF00
+[15:56:21] [GameSettings] ShowAgentExperienceGain_Func = 00B9AEE0
 [GameSettings] FadeFrameContent_Func = 00A16D80
-[15:34:22] Keyboard layout address 00E8D97C, 00000000
-[15:34:22] [ToolboxIni] LoadFile failed for C:\Users\seari\Documents\GWToolboxpp\DESKTOP-8IL5G0E\builds.ini
-[15:34:22] [ToolboxIni] LoadFile successful for C:\Users\seari\Documents\GWToolboxpp\DESKTOP-8IL5G0E\character_completion.ini
-[15:34:22] Friend List: Loading friends from ini
-[15:34:22] [ToolboxIni] LoadFile successful for C:\Users\seari\Documents\GWToolboxpp\DESKTOP-8IL5G0E\herobuilds.ini
-[15:34:22] [ToolboxIni] LoadFile successful for C:\Users\seari\Documents\GWToolboxpp\DESKTOP-8IL5G0E\healthlog.ini
-[15:34:22] [ToolboxIni] LoadFile successful for C:\Users\seari\Documents\GWToolboxpp\DESKTOP-8IL5G0E\HealthThreshold.ini
-[15:34:22] [ToolboxIni] LoadFile successful for C:\Users\seari\Documents\GWToolboxpp\DESKTOP-8IL5G0E\Markers.ini
-[15:34:22] [ToolboxIni] C:\Users\seari\Documents\GWToolboxpp\DESKTOP-8IL5G0E\AgentColors.ini doesn't exist
-[15:34:22] [ToolboxIni] LoadFile successful for C:\Users\seari\Documents\GWToolboxpp\DESKTOP-8IL5G0E\Markers.ini
-[15:34:22] Creating toolbox thread
-[15:34:22] Initializing API
-[15:34:22] Installing dx hooks
-[15:34:22] Installed dx hooks
-[15:34:22] [15:34:22] Installed chat hooks
-[ToolboxIni] LoadFile successful for C:\Users\seari\Documents\GWToolboxpp\DESKTOP-8IL5G0E\friends.ini
-[15:34:22] Friend List: Loaded friends from ini
-[15:34:22] installing event handler
-[15:34:22] Installed input event handler, oldwndproc = 0xAC8170
-[15:34:22] Loaded item image Essence of Celerity
-[15:34:22] Loaded item image Grail of Might
-[15:34:22] Loaded item image Armor of Salvation
-[15:34:22] Loaded item image Powerstone of Courage
-[15:34:22] Loaded item image Scroll of Resurrection
-[15:34:22] Loaded item image Passage Scroll to the Deep
+[15:56:21] Keyboard layout address 00E8D97C, 00000000
+[15:56:22] [ToolboxIni] LoadFile failed for C:\Users\seari\Documents\GWToolboxpp\DESKTOP-8IL5G0E\builds.ini
+[15:56:22] [ToolboxIni] LoadFile successful for C:\Users\seari\Documents\GWToolboxpp\DESKTOP-8IL5G0E\character_completion.ini
+[15:56:22] Friend List: Loading friends from ini
+[15:56:22] [ToolboxIni] LoadFile successful for C:\Users\seari\Documents\GWToolboxpp\DESKTOP-8IL5G0E\herobuilds.ini
+[15:56:22] [ToolboxIni] LoadFile successful for C:\Users\seari\Documents\GWToolboxpp\DESKTOP-8IL5G0E\healthlog.ini
+[15:56:22] [ToolboxIni] LoadFile successful for C:\Users\seari\Documents\GWToolboxpp\DESKTOP-8IL5G0E\HealthThreshold.ini
+[15:56:22] [ToolboxIni] LoadFile successful for C:\Users\seari\Documents\GWToolboxpp\DESKTOP-8IL5G0E\Markers.ini
+[15:56:22] [ToolboxIni] C:\Users\seari\Documents\GWToolboxpp\DESKTOP-8IL5G0E\AgentColors.ini doesn't exist
+[15:56:22] [ToolboxIni] LoadFile successful for C:\Users\seari\Documents\GWToolboxpp\DESKTOP-8IL5G0E\Markers.ini
+[15:56:22] [ToolboxIni] LoadFile successful for C:\Users\seari\Documents\GWToolboxpp\DESKTOP-8IL5G0E\friends.ini
+[15:56:22] Creating toolbox thread
+[15:56:22] [15:56:22] Initializing API
+Friend List: Loaded friends from ini
+[15:56:22] Installing dx hooks
+[15:56:22] Installed dx hooks
+[15:56:22] Installed chat hooks
+[15:56:22] installing event handler
+[15:56:22] Installed input event handler, oldwndproc = 0xAC8170
+[15:56:22] Loaded item image Essence of Celerity
+[15:56:22] Loaded item image Grail of Might
+[15:56:22] Loaded item image Armor of Salvation
+[15:56:22] Loaded item image Powerstone of Courage
+[15:56:22] Loaded item image Scroll of Resurrection
+[15:56:22] Loaded item image Passage Scroll to the Deep
 Loading fonts
 Fonts loaded
-[15:34:26] [ToolboxIni] LoadFile successful for C:\Users\seari\Documents\GWToolboxpp\DESKTOP-8IL5G0E\herobuilds.ini
-[15:34:26]
+[15:56:25] Failed to load account hom code 
+Failed to download https://hom.guildwars2.com/character/, curl status 400 Complete
