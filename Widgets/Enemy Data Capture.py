@@ -123,7 +123,7 @@ class EnemyObservationCollector:
     def __init__(self):
         self.enabled = False
         self.sample_interval_ms = 1000
-        self.min_move_delta = 200              # don't re-log if agent hasn't moved ~>200 units
+        self.min_move_delta = 500              # don't re-log if agent hasn't moved ~>500 units
         self.max_buffer = 200                  # flush to disk every N records
         self._timer = Timer()
         self._buffer = []
@@ -447,21 +447,21 @@ def draw_widget(_cached_data: CacheData):
         # Controls
         PyImGui.push_item_width(120)
         cur = collector._current_aggro_range
-        new_aggro = PyImGui.input_int("Aggro", cur, 100, 500, 0)
+        new_aggro = PyImGui.input_int("Aggro", cur, 100, 2500, 0)
         PyImGui.pop_item_width()
         if new_aggro != cur and new_aggro > 0:
             collector.set_aggro_range(new_aggro)
 
         PyImGui.push_item_width(120)
         cur_int = collector.sample_interval_ms
-        new_int = PyImGui.input_int("Interval(ms)", cur_int, 100, 500, 0)
+        new_int = PyImGui.input_int("Interval(ms)", cur_int, 100, 1000, 0)
         PyImGui.pop_item_width()
         if new_int != cur_int and new_int >= 100:
             collector.sample_interval_ms = new_int
 
         PyImGui.push_item_width(120)
         cur_move = collector.min_move_delta
-        new_move = PyImGui.input_int("MinMove", cur_move, 10, 200, 0)
+        new_move = PyImGui.input_int("MinMove", cur_move, 10, 500, 0)
         PyImGui.pop_item_width()
         if new_move != cur_move and new_move >= 0:
             collector.min_move_delta = new_move
