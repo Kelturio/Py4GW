@@ -1,0 +1,60 @@
+App: Gw.exe
+Fatal error (2): Exception
+Exception Code: 3221225477 (0 652081664)
+When: 8/27/2025 11:26:16
+File: u:\arena\core\platform\windows\exe\error\exeerror.cpp(420)
+
+App: Gw.exe
+Fatal error (2): Exception
+Exception Code: 3221225477 (0 864877992)
+When: 8/27/2025 11:26:56
+File: u:\arena\core\platform\windows\exe\error\exeerror.cpp(420)
+
+App: Gw.exe
+Fatal error (2): Exception
+Exception Code: 3221225477 (0 806812652)
+When: 8/27/2025 11:31:02
+File: u:\arena\core\platform\windows\exe\error\exeerror.cpp(420)
+
+App: Gw.exe
+Fatal error (2): Exception
+Exception Code: 3221225477 (0 857733092)
+When: 8/27/2025 11:43:02
+File: u:\arena\core\platform\windows\exe\error\exeerror.cpp(420)
+
+App: Gw.exe
+Fatal error (2): Exception
+Exception Code: 3221225477 (0 4294967292)
+When: 8/27/2025 11:47:42
+File: u:\arena\core\platform\windows\exe\error\exeerror.cpp(420)
+
+App: Gw.exe
+Fatal error (2): Exception
+Exception Code: 3221225477 (0 844103368)
+When: 8/27/2025 11:52:29
+File: u:\arena\core\platform\windows\exe\error\exeerror.cpp(420)
+
+App: Gw.exe
+Fatal error (0): !m_connsByAddress.Head()
+Exception Code: 0 (0 0)
+When: 9/17/2025 15:31:01
+File: u:\arena\services\stslib\stssocket.cpp(855)
+
+App: Gw.exe
+Fatal error (2): Exception
+Exception Code: 3221225477 (0 1234958200)
+When: 9/19/2025 17:53:43
+File: u:\arena\core\platform\windows\exe\error\exeerror.cpp(420)
+
+App: Gw.exe
+Fatal error (2): Exception
+Exception Code: 3221225477 (0 1191902072)
+When: 9/24/2025 10:41:44
+File: u:\arena\core\platform\windows\exe\error\exeerror.cpp(420)
+
+App: Gw.exe
+Fatal error (2): Exception
+Exception Code: 3221225477 (0 965606256)
+When: 9/24/2025 11:34:37
+File: u:\arena\core\platform\windows\exe\error\exeerror.cpp(420)
+

@@ -1,0 +1,285 @@
+23:34:06:483 [39696] | INFO  | Initializing crosire's ReShade version '5.9.0.1753' (32-bit) loaded from "C:\Program Files (x86)\Steam\steamapps\common\Guild Wars\d3d9.dll" into "C:/Program Files (x86)/Steam/steamapps/common/Guild Wars/Gw.exe" -email "searinox@quantentunnel.de" -password "Penwhckdio0" -character "Pelznickel Searinox" -perf -lodfull -log -nosound -oldfov ...
+23:34:06:485 [39696] | INFO  | Registering hooks for "user32.dll" ...
+23:34:06:485 [39696] | INFO  | > Libraries loaded.
+23:34:06:486 [39696] | INFO  | > Found 14 match(es). Installing ...
+23:34:06:532 [39696] | INFO  | Registering hooks for "C:\Windows\system32\dinput.dll" ...
+23:34:06:534 [39696] | INFO  | > Delayed.
+23:34:06:534 [39696] | INFO  | Registering hooks for "C:\Windows\system32\d2d1.dll" ...
+23:34:06:535 [39696] | INFO  | > Delayed.
+23:34:06:535 [39696] | INFO  | Registering hooks for "C:\Windows\system32\d3d9.dll" ...
+23:34:06:536 [39696] | INFO  | > Delayed until first call to an exported function.
+23:34:06:537 [39696] | INFO  | Registering hooks for "C:\Windows\system32\d3d10.dll" ...
+23:34:06:537 [39696] | INFO  | > Delayed.
+23:34:06:538 [39696] | INFO  | Registering hooks for "C:\Windows\system32\d3d10_1.dll" ...
+23:34:06:538 [39696] | INFO  | > Delayed.
+23:34:06:538 [39696] | INFO  | Registering hooks for "C:\Windows\system32\d3d11.dll" ...
+23:34:06:539 [39696] | INFO  | > Delayed.
+23:34:06:540 [39696] | INFO  | Registering hooks for "C:\Windows\system32\d3d12.dll" ...
+23:34:06:540 [39696] | INFO  | > Delayed.
+23:34:06:541 [39696] | INFO  | Registering hooks for "C:\Windows\system32\dxgi.dll" ...
+23:34:06:541 [39696] | INFO  | > Delayed.
+23:34:06:542 [39696] | INFO  | Registering hooks for "vrclient.dll" ...
+23:34:06:542 [39696] | INFO  | > Delayed.
+23:34:06:543 [39696] | INFO  | Initialized.
+23:34:06:589 [39696] | INFO  | Redirecting Direct3DCreate9(SDKVersion = 32) ...
+23:34:06:592 [39696] | INFO  | Installing export hooks for "C:\Windows\system32\d3d9.dll" ...
+23:34:06:592 [39696] | INFO  | > Found 11 match(es). Installing ...
+23:34:06:643 [39696] | INFO  | Installing delayed hooks for "C:\Windows\system32\dxgi.dll" (Just loaded via LoadLibrary("C:\Windows\SYSTEM32\dxgi.dll")) ...
+23:34:06:644 [39696] | INFO  | > Found 5 match(es). Installing ...
+23:34:06:690 [39696] | INFO  | Redirecting CreateDXGIFactory1(riid = {7B7166EC-21C7-44AE-B21A-C9AE321AE369}, ppFactory = 00E9AA68) ...
+23:34:06:826 [14764] | INFO  | Redirecting RegisterClassA(lpWndClass = 0987FBF8 { "IoLookupWnd", style = 0 }) ...
+23:34:06:836 [37144] | INFO  | Redirecting RegisterClassA(lpWndClass = 03EDF56C { "ArenaNet_Dialog_Class", style = 0 }) ...
+23:34:06:836 [37144] | INFO  | > Adding 'CS_OWNDC' window class style flag to "ArenaNet_Dialog_Class".
+23:34:06:907 [39880] | INFO  | Redirecting RegisterClassA(lpWndClass = 0B00FC74 { "IoSelectWindow", style = 0 }) ...
+23:34:07:390 [37144] | INFO  | Redirecting RegisterClassExW(lpWndClassEx = 03EDEBD8 { "SteamWinsockInitFakeClass_1", style = 0 }) ...
+23:34:07:404 [37144] | INFO  | Redirecting RegisterClassW(lpWndClass = 03EDF450 { "ArenaNet_Dx_Window_Class", style = 0xb }) ...
+23:34:07:405 [37144] | INFO  | > Adding 'CS_OWNDC' window class style flag to "ArenaNet_Dx_Window_Class".
+23:34:07:433 [37144] | INFO  | Redirecting IDirect3D9::CreateDevice(this = 01C91660, Adapter = 0, DeviceType = 1, hFocusWindow = 0011117C, BehaviorFlags = 0x50, pPresentationParameters = 03EDF65C, ppReturnedDeviceInterface = 05099BC0) ...
+23:34:07:434 [37144] | INFO  | Searching for add-ons (*.addon, *.addon32) in "C:\Program Files (x86)\Steam\steamapps\common\Guild Wars" ...
+23:34:07:435 [37144] | INFO  | Dumping presentation parameters:
+23:34:07:435 [37144] | INFO  |   +-----------------------------------------+-----------------------------------------+
+23:34:07:436 [37144] | INFO  |   | Parameter                               | Value                                   |
+23:34:07:436 [37144] | INFO  |   +-----------------------------------------+-----------------------------------------+
+23:34:07:437 [37144] | INFO  |   | BackBufferWidth                         | 1920                                    |
+23:34:07:438 [37144] | INFO  |   | BackBufferHeight                        | 1200                                    |
+23:34:07:438 [37144] | INFO  |   | BackBufferFormat                        | D3DFMT_X8R8G8B8                         |
+23:34:07:439 [37144] | INFO  |   | BackBufferCount                         | 0                                       |
+23:34:07:439 [37144] | INFO  |   | MultiSampleType                         | 0                                       |
+23:34:07:440 [37144] | INFO  |   | MultiSampleQuality                      | 0                                       |
+23:34:07:440 [37144] | INFO  |   | SwapEffect                              | 1                                       |
+23:34:07:441 [37144] | INFO  |   | DeviceWindow                            | 0011117C                                |
+23:34:07:442 [37144] | INFO  |   | Windowed                                | TRUE                                    |
+23:34:07:442 [37144] | INFO  |   | EnableAutoDepthStencil                  | TRUE                                    |
+23:34:07:443 [37144] | INFO  |   | AutoDepthStencilFormat                  | 75                                      |
+23:34:07:443 [37144] | INFO  |   | Flags                                   | 0                                       |
+23:34:07:444 [37144] | INFO  |   | FullScreen_RefreshRateInHz              | 0                                       |
+23:34:07:445 [37144] | INFO  |   | PresentationInterval                    | 0x1                                     |
+23:34:07:445 [37144] | INFO  |   +-----------------------------------------+-----------------------------------------+
+23:34:07:625 [37144] | INFO  | Running on NVIDIA GeForce GTX 770 Driver 466.77.
+23:34:07:629 [37144] | INFO  | Recreated runtime environment on runtime 0CAFFA08 ("C:\Program Files (x86)\Steam\steamapps\common\Guild Wars\ReShade.ini").
+23:34:10:600 [37144] | INFO  | Redirecting IDirect3DDevice9::Reset(this = 0CAFEA28, pPresentationParameters = 03EDF6BC) ...
+23:34:10:891 [37144] | INFO  | Dumping presentation parameters:
+23:34:10:942 [37144] | INFO  |   +-----------------------------------------+-----------------------------------------+
+23:34:10:943 [37144] | INFO  |   | Parameter                               | Value                                   |
+23:34:10:943 [37144] | INFO  |   +-----------------------------------------+-----------------------------------------+
+23:34:10:944 [37144] | INFO  |   | BackBufferWidth                         | 1920                                    |
+23:34:10:944 [37144] | INFO  |   | BackBufferHeight                        | 1200                                    |
+23:34:10:945 [37144] | INFO  |   | BackBufferFormat                        | D3DFMT_X8R8G8B8                         |
+23:34:10:945 [37144] | INFO  |   | BackBufferCount                         | 0                                       |
+23:34:10:946 [37144] | INFO  |   | MultiSampleType                         | 0                                       |
+23:34:10:946 [37144] | INFO  |   | MultiSampleQuality                      | 0                                       |
+23:34:10:947 [37144] | INFO  |   | SwapEffect                              | 1                                       |
+23:34:10:948 [37144] | INFO  |   | DeviceWindow                            | 0011117C                                |
+23:34:10:948 [37144] | INFO  |   | Windowed                                | TRUE                                    |
+23:34:10:949 [37144] | INFO  |   | EnableAutoDepthStencil                  | TRUE                                    |
+23:34:10:949 [37144] | INFO  |   | AutoDepthStencilFormat                  | 75                                      |
+23:34:10:950 [37144] | INFO  |   | Flags                                   | 0                                       |
+23:34:10:950 [37144] | INFO  |   | FullScreen_RefreshRateInHz              | 0                                       |
+23:34:10:951 [37144] | INFO  |   | PresentationInterval                    | 0x1                                     |
+23:34:10:952 [37144] | INFO  |   +-----------------------------------------+-----------------------------------------+
+23:34:10:952 [37144] | INFO  | Destroyed runtime environment on runtime 0CAFFA08 ("C:\Program Files (x86)\Steam\steamapps\common\Guild Wars\ReShade.ini").
+23:34:10:957 [37144] | INFO  | Recreated runtime environment on runtime 0CAFFA08 ("C:\Program Files (x86)\Steam\steamapps\common\Guild Wars\ReShade.ini").
+23:34:11:683 [34632] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\Vignette.fx" in 0.004 s.
+23:34:11:683 [17824] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\qUINT_sharp.fx" in 0.004 s.
+23:34:11:687 [36592] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\FXAA.fx" in 0.007 s.
+23:34:11:688 [33252] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\AmbientLight.fx" in 0.01 s.
+23:34:11:690 [29168] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\qUINT_mxao.fx" in 0.011 s.
+23:34:11:692 [17824] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\SurfaceBlur.fx" in 0.005 s.
+23:34:11:693 [33252] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\FakeHDR.fx" in 0.003 s.
+23:34:12:122 [37144] | INFO  | Resizing image data for texture 'V__lensDBTex' from 1024x576 to 1920x1080.
+23:34:12:183 [37144] | INFO  | Resizing image data for texture 'V__lensDB2Tex' from 1024x576 to 1920x1080.
+23:34:20:874 [37144] | INFO  | Redirecting IDirect3DDevice9::Reset(this = 0CAFEA28, pPresentationParameters = 03EDF350) ...
+23:34:20:877 [37144] | INFO  | Dumping presentation parameters:
+23:34:20:878 [37144] | INFO  |   +-----------------------------------------+-----------------------------------------+
+23:34:20:879 [37144] | INFO  |   | Parameter                               | Value                                   |
+23:34:20:879 [37144] | INFO  |   +-----------------------------------------+-----------------------------------------+
+23:34:20:880 [37144] | INFO  |   | BackBufferWidth                         | 1920                                    |
+23:34:20:880 [37144] | INFO  |   | BackBufferHeight                        | 1200                                    |
+23:34:20:881 [37144] | INFO  |   | BackBufferFormat                        | D3DFMT_X8R8G8B8                         |
+23:34:20:881 [37144] | INFO  |   | BackBufferCount                         | 0                                       |
+23:34:20:882 [37144] | INFO  |   | MultiSampleType                         | 0                                       |
+23:34:20:883 [37144] | INFO  |   | MultiSampleQuality                      | 0                                       |
+23:34:20:883 [37144] | INFO  |   | SwapEffect                              | 1                                       |
+23:34:20:884 [37144] | INFO  |   | DeviceWindow                            | 0011117C                                |
+23:34:20:884 [37144] | INFO  |   | Windowed                                | TRUE                                    |
+23:34:20:885 [37144] | INFO  |   | EnableAutoDepthStencil                  | TRUE                                    |
+23:34:20:885 [37144] | INFO  |   | AutoDepthStencilFormat                  | 75                                      |
+23:34:20:886 [37144] | INFO  |   | Flags                                   | 0                                       |
+23:34:20:887 [37144] | INFO  |   | FullScreen_RefreshRateInHz              | 0                                       |
+23:34:20:887 [37144] | INFO  |   | PresentationInterval                    | 0x1                                     |
+23:34:20:888 [37144] | INFO  |   +-----------------------------------------+-----------------------------------------+
+23:34:20:889 [37144] | INFO  | Destroyed runtime environment on runtime 0CAFFA08 ("C:\Program Files (x86)\Steam\steamapps\common\Guild Wars\ReShade.ini").
+23:34:20:894 [37144] | INFO  | Recreated runtime environment on runtime 0CAFFA08 ("C:\Program Files (x86)\Steam\steamapps\common\Guild Wars\ReShade.ini").
+23:34:22:594 [41632] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\Vignette.fx" in 0.004 s.
+23:34:22:595 [21120] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\qUINT_sharp.fx" in 0.004 s.
+23:34:22:598 [20788] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\qUINT_mxao.fx" in 0.008 s.
+23:34:22:598 [23312] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\FXAA.fx" in 0.007 s.
+23:34:22:599 [24068] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\AmbientLight.fx" in 0.009 s.
+23:34:22:601 [21120] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\SurfaceBlur.fx" in 0.005 s.
+23:34:22:602 [24068] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\FakeHDR.fx" in 0.002 s.
+23:34:23:310 [37144] | INFO  | Resizing image data for texture 'V__lensDBTex' from 1024x576 to 1920x1080.
+23:34:23:371 [37144] | INFO  | Resizing image data for texture 'V__lensDB2Tex' from 1024x576 to 1920x1080.
+23:59:08:457 [37144] | INFO  | Redirecting IDirect3DDevice9::Reset(this = 0CAFEA28, pPresentationParameters = 03EDF78C) ...
+23:59:08:461 [37144] | INFO  | Dumping presentation parameters:
+23:59:08:478 [37144] | INFO  |   +-----------------------------------------+-----------------------------------------+
+23:59:08:489 [37144] | INFO  |   | Parameter                               | Value                                   |
+23:59:08:490 [37144] | INFO  |   +-----------------------------------------+-----------------------------------------+
+23:59:08:491 [37144] | INFO  |   | BackBufferWidth                         | 1920                                    |
+23:59:08:491 [37144] | INFO  |   | BackBufferHeight                        | 1200                                    |
+23:59:08:492 [37144] | INFO  |   | BackBufferFormat                        | D3DFMT_X8R8G8B8                         |
+23:59:08:492 [37144] | INFO  |   | BackBufferCount                         | 0                                       |
+23:59:08:493 [37144] | INFO  |   | MultiSampleType                         | 0                                       |
+23:59:08:493 [37144] | INFO  |   | MultiSampleQuality                      | 0                                       |
+23:59:08:494 [37144] | INFO  |   | SwapEffect                              | 1                                       |
+23:59:08:494 [37144] | INFO  |   | DeviceWindow                            | 0011117C                                |
+23:59:08:495 [37144] | INFO  |   | Windowed                                | TRUE                                    |
+23:59:08:495 [37144] | INFO  |   | EnableAutoDepthStencil                  | TRUE                                    |
+23:59:08:496 [37144] | INFO  |   | AutoDepthStencilFormat                  | 75                                      |
+23:59:08:496 [37144] | INFO  |   | Flags                                   | 0                                       |
+23:59:08:497 [37144] | INFO  |   | FullScreen_RefreshRateInHz              | 0                                       |
+23:59:08:497 [37144] | INFO  |   | PresentationInterval                    | 0x1                                     |
+23:59:08:497 [37144] | INFO  |   +-----------------------------------------+-----------------------------------------+
+23:59:08:499 [37144] | INFO  | Destroyed runtime environment on runtime 0CAFFA08 ("C:\Program Files (x86)\Steam\steamapps\common\Guild Wars\ReShade.ini").
+23:59:08:506 [37144] | INFO  | Recreated runtime environment on runtime 0CAFFA08 ("C:\Program Files (x86)\Steam\steamapps\common\Guild Wars\ReShade.ini").
+23:59:09:577 [26364] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\Vignette.fx" in 0.003 s.
+23:59:09:578 [05088] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\qUINT_sharp.fx" in 0.005 s.
+23:59:09:581 [08772] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\FXAA.fx" in 0.007 s.
+23:59:09:583 [30320] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\qUINT_mxao.fx" in 0.01 s.
+23:59:09:583 [11976] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\AmbientLight.fx" in 0.011 s.
+23:59:09:584 [05088] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\SurfaceBlur.fx" in 0.004 s.
+23:59:09:589 [11976] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\FakeHDR.fx" in 0.004 s.
+23:59:10:109 [37144] | INFO  | Resizing image data for texture 'V__lensDBTex' from 1024x576 to 1920x1080.
+23:59:10:173 [37144] | INFO  | Resizing image data for texture 'V__lensDB2Tex' from 1024x576 to 1920x1080.
+23:59:27:979 [37144] | INFO  | Installing delayed hooks for "C:\Windows\system32\d2d1.dll" (Just loaded via LoadLibrary("C:\Windows\system32\d2d1.dll")) ...
+23:59:27:983 [37144] | INFO  | > Found 2 match(es). Installing ...
+23:59:28:094 [37144] | INFO  | Installing delayed hooks for "C:\Windows\system32\d3d11.dll" (Just loaded via LoadLibrary("C:\Windows\system32\d3d11.dll")) ...
+23:59:28:129 [37144] | INFO  | > Found 3 match(es). Installing ...
+23:59:28:185 [37144] | INFO  | Redirecting RegisterClassExW(lpWndClassEx = 03EDCE34 { "DirectUIHWND", style = 0x4000 }) ...
+23:59:28:316 [37144] | INFO  | Redirecting RegisterClassExW(lpWndClassEx = 03EDCBF0 { "CtrlNotifySink", style = 0x4000 }) ...
+23:59:52:554 [37144] | INFO  | Redirecting IDirect3DDevice9::Reset(this = 0CAFEA28, pPresentationParameters = 03EDF330) ...
+23:59:52:555 [37144] | INFO  | Dumping presentation parameters:
+23:59:52:555 [37144] | INFO  |   +-----------------------------------------+-----------------------------------------+
+23:59:52:556 [37144] | INFO  |   | Parameter                               | Value                                   |
+23:59:52:556 [37144] | INFO  |   +-----------------------------------------+-----------------------------------------+
+23:59:52:557 [37144] | INFO  |   | BackBufferWidth                         | 1920                                    |
+23:59:52:558 [37144] | INFO  |   | BackBufferHeight                        | 1200                                    |
+23:59:52:559 [37144] | INFO  |   | BackBufferFormat                        | D3DFMT_X8R8G8B8                         |
+23:59:52:559 [37144] | INFO  |   | BackBufferCount                         | 0                                       |
+23:59:52:560 [37144] | INFO  |   | MultiSampleType                         | 0                                       |
+23:59:52:560 [37144] | INFO  |   | MultiSampleQuality                      | 0                                       |
+23:59:52:561 [37144] | INFO  |   | SwapEffect                              | 1                                       |
+23:59:52:561 [37144] | INFO  |   | DeviceWindow                            | 0011117C                                |
+23:59:52:562 [37144] | INFO  |   | Windowed                                | TRUE                                    |
+23:59:52:562 [37144] | INFO  |   | EnableAutoDepthStencil                  | TRUE                                    |
+23:59:52:563 [37144] | INFO  |   | AutoDepthStencilFormat                  | 75                                      |
+23:59:52:563 [37144] | INFO  |   | Flags                                   | 0                                       |
+23:59:52:564 [37144] | INFO  |   | FullScreen_RefreshRateInHz              | 0                                       |
+23:59:52:565 [37144] | INFO  |   | PresentationInterval                    | 0x1                                     |
+23:59:52:565 [37144] | INFO  |   +-----------------------------------------+-----------------------------------------+
+23:59:52:566 [37144] | INFO  | Destroyed runtime environment on runtime 0CAFFA08 ("C:\Program Files (x86)\Steam\steamapps\common\Guild Wars\ReShade.ini").
+23:59:52:572 [37144] | INFO  | Recreated runtime environment on runtime 0CAFFA08 ("C:\Program Files (x86)\Steam\steamapps\common\Guild Wars\ReShade.ini").
+23:59:55:007 [35984] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\qUINT_sharp.fx" in 0.003 s.
+23:59:55:007 [13364] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\Vignette.fx" in 0.003 s.
+23:59:55:011 [34028] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\AmbientLight.fx" in 0.008 s.
+23:59:55:012 [38612] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\FXAA.fx" in 0.007 s.
+23:59:55:013 [17984] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\qUINT_mxao.fx" in 0.009 s.
+23:59:55:014 [35984] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\SurfaceBlur.fx" in 0.004 s.
+23:59:55:014 [34028] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\FakeHDR.fx" in 0.002 s.
+23:59:55:520 [37144] | INFO  | Resizing image data for texture 'V__lensDBTex' from 1024x576 to 1920x1080.
+23:59:55:592 [37144] | INFO  | Resizing image data for texture 'V__lensDB2Tex' from 1024x576 to 1920x1080.
+00:00:30:363 [37144] | INFO  | Redirecting IDirect3DDevice9::Reset(this = 0CAFEA28, pPresentationParameters = 03EDF350) ...
+00:00:30:364 [37144] | INFO  | Dumping presentation parameters:
+00:00:30:364 [37144] | INFO  |   +-----------------------------------------+-----------------------------------------+
+00:00:30:365 [37144] | INFO  |   | Parameter                               | Value                                   |
+00:00:30:366 [37144] | INFO  |   +-----------------------------------------+-----------------------------------------+
+00:00:30:366 [37144] | INFO  |   | BackBufferWidth                         | 1920                                    |
+00:00:30:367 [37144] | INFO  |   | BackBufferHeight                        | 1200                                    |
+00:00:30:367 [37144] | INFO  |   | BackBufferFormat                        | D3DFMT_X8R8G8B8                         |
+00:00:30:368 [37144] | INFO  |   | BackBufferCount                         | 0                                       |
+00:00:30:368 [37144] | INFO  |   | MultiSampleType                         | 0                                       |
+00:00:30:369 [37144] | INFO  |   | MultiSampleQuality                      | 0                                       |
+00:00:30:370 [37144] | INFO  |   | SwapEffect                              | 1                                       |
+00:00:30:370 [37144] | INFO  |   | DeviceWindow                            | 0011117C                                |
+00:00:30:371 [37144] | INFO  |   | Windowed                                | TRUE                                    |
+00:00:30:371 [37144] | INFO  |   | EnableAutoDepthStencil                  | TRUE                                    |
+00:00:30:372 [37144] | INFO  |   | AutoDepthStencilFormat                  | 75                                      |
+00:00:30:372 [37144] | INFO  |   | Flags                                   | 0                                       |
+00:00:30:373 [37144] | INFO  |   | FullScreen_RefreshRateInHz              | 0                                       |
+00:00:30:373 [37144] | INFO  |   | PresentationInterval                    | 0x1                                     |
+00:00:30:374 [37144] | INFO  |   +-----------------------------------------+-----------------------------------------+
+00:00:30:375 [37144] | INFO  | Destroyed runtime environment on runtime 0CAFFA08 ("C:\Program Files (x86)\Steam\steamapps\common\Guild Wars\ReShade.ini").
+00:00:30:381 [37144] | INFO  | Recreated runtime environment on runtime 0CAFFA08 ("C:\Program Files (x86)\Steam\steamapps\common\Guild Wars\ReShade.ini").
+00:00:33:274 [06860] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\Vignette.fx" in 0.003 s.
+00:00:33:274 [23784] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\qUINT_sharp.fx" in 0.004 s.
+00:00:33:278 [16316] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\FXAA.fx" in 0.006 s.
+00:00:33:280 [31456] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\qUINT_mxao.fx" in 0.009 s.
+00:00:33:281 [29716] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\AmbientLight.fx" in 0.011 s.
+00:00:33:283 [23784] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\SurfaceBlur.fx" in 0.005 s.
+00:00:33:290 [29716] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\FakeHDR.fx" in 0.002 s.
+00:00:33:974 [37144] | INFO  | Resizing image data for texture 'V__lensDBTex' from 1024x576 to 1920x1080.
+00:00:34:043 [37144] | INFO  | Resizing image data for texture 'V__lensDB2Tex' from 1024x576 to 1920x1080.
+00:17:17:597 [37144] | INFO  | Redirecting IDirect3DDevice9::Reset(this = 0CAFEA28, pPresentationParameters = 03EDF300) ...
+00:17:17:601 [37144] | INFO  | Dumping presentation parameters:
+00:17:17:601 [37144] | INFO  |   +-----------------------------------------+-----------------------------------------+
+00:17:17:602 [37144] | INFO  |   | Parameter                               | Value                                   |
+00:17:17:602 [37144] | INFO  |   +-----------------------------------------+-----------------------------------------+
+00:17:17:603 [37144] | INFO  |   | BackBufferWidth                         | 1920                                    |
+00:17:17:603 [37144] | INFO  |   | BackBufferHeight                        | 1200                                    |
+00:17:17:604 [37144] | INFO  |   | BackBufferFormat                        | D3DFMT_X8R8G8B8                         |
+00:17:17:604 [37144] | INFO  |   | BackBufferCount                         | 0                                       |
+00:17:17:605 [37144] | INFO  |   | MultiSampleType                         | 0                                       |
+00:17:17:606 [37144] | INFO  |   | MultiSampleQuality                      | 0                                       |
+00:17:17:606 [37144] | INFO  |   | SwapEffect                              | 1                                       |
+00:17:17:607 [37144] | INFO  |   | DeviceWindow                            | 0011117C                                |
+00:17:17:607 [37144] | INFO  |   | Windowed                                | TRUE                                    |
+00:17:17:608 [37144] | INFO  |   | EnableAutoDepthStencil                  | TRUE                                    |
+00:17:17:608 [37144] | INFO  |   | AutoDepthStencilFormat                  | 75                                      |
+00:17:17:609 [37144] | INFO  |   | Flags                                   | 0                                       |
+00:17:17:609 [37144] | INFO  |   | FullScreen_RefreshRateInHz              | 0                                       |
+00:17:17:610 [37144] | INFO  |   | PresentationInterval                    | 0x1                                     |
+00:17:17:610 [37144] | INFO  |   +-----------------------------------------+-----------------------------------------+
+00:17:17:611 [37144] | INFO  | Destroyed runtime environment on runtime 0CAFFA08 ("C:\Program Files (x86)\Steam\steamapps\common\Guild Wars\ReShade.ini").
+00:17:17:622 [37144] | INFO  | Recreated runtime environment on runtime 0CAFFA08 ("C:\Program Files (x86)\Steam\steamapps\common\Guild Wars\ReShade.ini").
+00:17:19:154 [36248] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\Vignette.fx" in 0.003 s.
+00:17:19:154 [38772] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\qUINT_sharp.fx" in 0.004 s.
+00:17:19:157 [15728] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\qUINT_mxao.fx" in 0.007 s.
+00:17:19:159 [30304] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\FXAA.fx" in 0.007 s.
+00:17:19:160 [34948] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\AmbientLight.fx" in 0.01 s.
+00:17:19:160 [38772] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\SurfaceBlur.fx" in 0.004 s.
+00:17:19:163 [34948] | INFO  | Successfully compiled "G:\Steam\steamapps\common\Guild Wars\reshade-shaders\Shaders\FakeHDR.fx" in 0.002 s.
+00:17:20:061 [37144] | INFO  | Resizing image data for texture 'V__lensDBTex' from 1024x576 to 1920x1080.
+00:17:20:128 [37144] | INFO  | Resizing image data for texture 'V__lensDB2Tex' from 1024x576 to 1920x1080.
+01:07:54:578 [37144] | INFO  | Redirecting IDirect3DDevice9::Reset(this = 0CAFEA28, pPresentationParameters = 03EDF78C) ...
+01:07:54:582 [37144] | INFO  | Dumping presentation parameters:
+01:07:54:582 [37144] | INFO  |   +-----------------------------------------+-----------------------------------------+
+01:07:54:583 [37144] | INFO  |   | Parameter                               | Value                                   |
+01:07:54:583 [37144] | INFO  |   +-----------------------------------------+-----------------------------------------+
+01:07:54:584 [37144] | INFO  |   | BackBufferWidth                         | 1920                                    |
+01:07:54:584 [37144] | INFO  |   | BackBufferHeight                        | 1200                                    |
+01:07:54:585 [37144] | INFO  |   | BackBufferFormat                        | D3DFMT_X8R8G8B8                         |
+01:07:54:585 [37144] | INFO  |   | BackBufferCount                         | 0                                       |
+01:07:54:586 [37144] | INFO  |   | MultiSampleType                         | 0                                       |
+01:07:54:586 [37144] | INFO  |   | MultiSampleQuality                      | 0                                       |
+01:07:54:587 [37144] | INFO  |   | SwapEffect                              | 1                                       |
+01:07:54:587 [37144] | INFO  |   | DeviceWindow                            | 0011117C                                |
+01:07:54:588 [37144] | INFO  |   | Windowed                                | TRUE                                    |
+01:07:54:588 [37144] | INFO  |   | EnableAutoDepthStencil                  | TRUE                                    |
+01:07:54:589 [37144] | INFO  |   | AutoDepthStencilFormat                  | 75                                      |
+01:07:54:590 [37144] | INFO  |   | Flags                                   | 0                                       |
+01:07:54:590 [37144] | INFO  |   | FullScreen_RefreshRateInHz              | 0                                       |
+01:07:54:591 [37144] | INFO  |   | PresentationInterval                    | 0x1                                     |
+01:07:54:591 [37144] | INFO  |   +-----------------------------------------+-----------------------------------------+
+01:07:54:592 [37144] | INFO  | Destroyed runtime environment on runtime 0CAFFA08 ("C:\Program Files (x86)\Steam\steamapps\common\Guild Wars\ReShade.ini").
+01:07:54:614 [37144] | INFO  | Recreated runtime environment on runtime 0CAFFA08 ("C:\Program Files (x86)\Steam\steamapps\common\Guild Wars\ReShade.ini").
+01:07:55:702 [22040] | INFO  | Successfully compiled "C:\Users\seari\Documents\Guild Wars\Py4GW\Addons\Guild Wars\reshade-shaders\Shaders\Vignette.fx" in 0.005 s.
+01:07:55:703 [22768] | INFO  | Successfully compiled "C:\Users\seari\Documents\Guild Wars\Py4GW\Addons\Guild Wars\reshade-shaders\Shaders\qUINT_sharp.fx" in 0.005 s.
+01:07:55:709 [32892] | INFO  | Successfully compiled "C:\Users\seari\Documents\Guild Wars\Py4GW\Addons\Guild Wars\reshade-shaders\Shaders\AmbientLight.fx" in 0.012 s.
+01:07:55:709 [11668] | INFO  | Successfully compiled "C:\Users\seari\Documents\Guild Wars\Py4GW\Addons\Guild Wars\reshade-shaders\Shaders\FXAA.fx" in 0.009 s.
+01:07:55:709 [35228] | INFO  | Successfully compiled "C:\Users\seari\Documents\Guild Wars\Py4GW\Addons\Guild Wars\reshade-shaders\Shaders\qUINT_mxao.fx" in 0.013 s.
+01:07:55:714 [32892] | INFO  | Successfully compiled "C:\Users\seari\Documents\Guild Wars\Py4GW\Addons\Guild Wars\reshade-shaders\Shaders\FakeHDR.fx" in 0.004 s.
+01:07:55:714 [22768] | INFO  | Successfully compiled "C:\Users\seari\Documents\Guild Wars\Py4GW\Addons\Guild Wars\reshade-shaders\Shaders\SurfaceBlur.fx" in 0.008 s.
+01:07:56:298 [37144] | INFO  | Resizing image data for texture 'V__lensDBTex' from 1024x576 to 1920x1080.
+01:07:56:362 [37144] | INFO  | Resizing image data for texture 'V__lensDB2Tex' from 1024x576 to 1920x1080.
+01:08:01:116 [37144] | INFO  | Exiting ...
+01:08:01:120 [37144] | INFO  | Uninstalling 40 hook(s) ...
+01:08:02:173 [37144] | INFO  | Finished exiting.

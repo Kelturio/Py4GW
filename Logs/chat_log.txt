@@ -2980,3 +2980,848 @@
 [2025-09-25 14:58:45] Your party shares 3 gold.
 [2025-09-25 14:59:20] Your party shares 5 gold.
 [2025-09-25 14:59:30] Your party shares 3 gold.
+[2025-09-25 15:42:51] You salvaged 6 Iron Ingots from Kamas.
+[2025-09-25 15:45:02] Vivec Opits's team has won a battle in the Hall of Heroes.
+[2025-09-25 16:12:10] Vivec Opits's team has won a battle in the Hall of Heroes.
+[2025-09-25 16:13:42] Norgu: I will defend us from attackers and, unless it would force me to abandon my post, fight anyone we attack.
+[2025-09-25 16:13:42] Razah: I will defend us from attackers and, unless it would force me to abandon my post, fight anyone we attack.
+[2025-09-25 16:13:42] Gwen: I will defend us from attackers and, unless it would force me to abandon my post, fight anyone we attack.
+[2025-09-25 16:13:42] Norgu: I will fight anyone who attacks us and anyone we attack.
+[2025-09-25 16:13:42] Gwen: I will fight anyone who attacks us and anyone we attack.
+[2025-09-25 16:13:42] Razah: I will fight anyone who attacks us and anyone we attack.
+[2025-09-25 16:18:48] Kurzick Priest takes 100 gold.
+[2025-09-25 16:20:03] 5 enemies slain.
+[2025-09-25 16:20:08] Warden of Seasons drops a Channeling Focus, which your party reserves for Pelznickel Searinox.
+[2025-09-25 16:20:23] Salke Fur Friend drops an Elite Ranger Tome, which your party reserves for Pelznickel Searinox.
+[2025-09-25 16:20:23] You gain 140 Kurzick faction.
+[2025-09-25 16:20:53] You pick up the Elite Ranger Tome.
+[2025-09-25 16:20:53] You pick up the Channeling Focus.
+[2025-09-25 16:21:03] Vivec Opits's team has won a battle in the Hall of Heroes.
+[2025-09-25 16:22:24] 10 enemies slain.
+[2025-09-25 16:24:27] Kurzick Priest takes 100 gold.
+[2025-09-25 16:25:07] Your party shares 103 gold.
+[2025-09-25 16:25:42] 5 enemies slain.
+[2025-09-25 16:25:57] You gain 180 Kurzick faction.
+[2025-09-25 16:26:52] 10 enemies slain.
+[2025-09-25 16:27:02] You gain 240 Kurzick faction.
+[2025-09-25 16:27:12] 15 enemies slain.
+[2025-09-25 16:27:48] Your party shares 109 gold.
+[2025-09-25 16:27:48] Your party shares 102 gold.
+[2025-09-25 16:27:53] Your party shares 112 gold.
+[2025-09-25 16:27:58] Your party shares 105 gold.
+[2025-09-25 16:28:03] Mantis Dreamweaver drops 7 Chitin Fragments, which your party reserves for Pelznickel Searinox.
+[2025-09-25 16:28:03] 20 enemies slain.
+[2025-09-25 16:28:08] You pick up 7 Chitin Fragments.
+[2025-09-25 16:29:43] You gain 250 Kurzick faction.
+[2025-09-25 16:29:58] 30 enemies slain.
+[2025-09-25 16:30:03] Vivec Opits's team has won a battle in the Hall of Heroes.
+[2025-09-25 16:30:08] Your party shares 112 gold.
+[2025-09-25 16:30:08] Your party shares 206 gold.
+[2025-09-25 16:30:08] Your party shares 105 gold.
+[2025-09-25 16:30:18] Your party shares 103 gold.
+[2025-09-25 16:30:23] Your party shares 111 gold.
+[2025-09-25 16:30:43] Mantis Stormcaller drops an Air Wand, which your party reserves for Pelznickel Searinox.
+[2025-09-25 16:30:48] Mantis Hunter drops a Mantis Pincer, which your party reserves for Pelznickel Searinox.
+[2025-09-25 16:30:48] 35 enemies slain.
+[2025-09-25 16:31:43] Your party shares 104 gold.
+[2025-09-25 16:31:48] You pick up the Air Wand.
+[2025-09-25 16:31:53] You pick up the Mantis Pincer.
+[2025-09-25 16:32:08] 40 enemies slain.
+[2025-09-25 16:32:28] 45 enemies slain.
+[2025-09-25 16:32:38] Quest Updated: Charting the Forests
+[2025-09-25 16:33:03] You gain 250 Kurzick faction.
+[2025-09-25 16:33:23] 55 enemies slain.
+[2025-09-25 16:33:23] Mantis Hunter drops 8 Chitin Fragments, which your party reserves for Pelznickel Searinox.
+[2025-09-25 16:34:09] 60 enemies slain.
+[2025-09-25 16:34:54] Your party shares 100 gold.
+[2025-09-25 16:34:59] Your party shares 102 gold.
+[2025-09-25 16:34:59] Your party shares 102 gold.
+[2025-09-25 16:35:04] Your party shares 101 gold.
+[2025-09-25 16:35:04] You pick up 8 Chitin Fragments.
+[2025-09-25 16:35:09] Your party shares 213 gold.
+[2025-09-25 16:35:09] Your party shares 101 gold.
+[2025-09-25 16:35:19] Mantis Dreamweaver drops a Marble Hammer, which your party reserves for Pelznickel Searinox.
+[2025-09-25 16:35:39] You pick up the Marble Hammer.
+[2025-09-25 16:36:14] 65 enemies slain.
+[2025-09-25 16:37:04] 70 enemies slain.
+[2025-09-25 16:37:19] Stone Scale Kirin drops a Truncheon, which your party reserves for Pelznickel Searinox.
+[2025-09-25 16:37:29] Skill Hungry Gaki drops a Channeling Staff, which your party reserves for Pelznickel Searinox.
+[2025-09-25 16:38:04] 80 enemies slain.
+[2025-09-25 16:38:34] 85 enemies slain.
+[2025-09-25 16:38:55] 90 enemies slain.
+[2025-09-25 16:39:05] Your party shares 110 gold.
+[2025-09-25 16:39:10] Your party shares 102 gold.
+[2025-09-25 16:39:10] Your party shares 106 gold.
+[2025-09-25 16:39:20] Your party shares 104 gold.
+[2025-09-25 16:39:20] Your party shares 104 gold.
+[2025-09-25 16:39:30] You pick up the Channeling Staff.
+[2025-09-25 16:39:35] You pick up the Truncheon.
+[2025-09-25 16:39:35] Your party shares 101 gold.
+[2025-09-25 16:39:50] Your party shares 104 gold.
+[2025-09-25 16:39:55] Your party shares 101 gold.
+[2025-09-25 16:41:10] Your party shares 104 gold.
+[2025-09-25 16:41:15] Your party shares 103 gold.
+[2025-09-25 16:41:30] Vivec Opits's team has won a battle in the Hall of Heroes.
+[2025-09-25 16:42:50] 95 enemies slain.
+[2025-09-25 16:43:30] Mantis Dreamweaver drops a Gothic Axe, which your party reserves for Pelznickel Searinox.
+[2025-09-25 16:43:30] You pick up the Gothic Axe.
+[2025-09-25 16:44:05] Mantis Dreamweaver drops a Gothic Dual Axe, which your party reserves for Pelznickel Searinox.
+[2025-09-25 16:44:30] 105 enemies slain.
+[2025-09-25 16:44:40] You pick up the Gothic Dual Axe.
+[2025-09-25 16:44:40] Your party shares 100 gold.
+[2025-09-25 16:44:50] Your party shares 105 gold.
+[2025-09-25 16:44:56] Your party shares 104 gold.
+[2025-09-25 16:44:56] Your party shares 111 gold.
+[2025-09-25 16:45:26] Mantis Dreamweaver drops a Cane, which your party reserves for Pelznickel Searinox.
+[2025-09-25 16:45:56] Your party shares 103 gold.
+[2025-09-25 16:45:56] Your party shares 110 gold.
+[2025-09-25 16:46:01] You pick up the Cane.
+[2025-09-25 16:46:36] Quest Updated: Charting the Forests
+[2025-09-25 16:46:51] 110 enemies slain.
+[2025-09-25 16:47:56] Quest Updated: Charting the Forests
+[2025-09-25 16:48:26] Dredge Gutter drops a Dredge Garment, which your party reserves for Pelznickel Searinox.
+[2025-09-25 16:48:26] 115 enemies slain.
+[2025-09-25 16:49:06] You pick up the Dredge Garment.
+[2025-09-25 16:49:06] Your party shares 105 gold.
+[2025-09-25 16:49:41] Dredge Gutter drops an Amber Wand, which your party reserves for Pelznickel Searinox.
+[2025-09-25 16:49:46] 120 enemies slain.
+[2025-09-25 16:50:37] Your party shares 102 gold.
+[2025-09-25 16:50:57] Fungal Wallow drops a Gothic Defender, which your party reserves for Pelznickel Searinox.
+[2025-09-25 16:50:57] 130 enemies slain.
+[2025-09-25 16:51:02] You pick up the Gothic Defender.
+[2025-09-25 16:52:02] Quest Updated: The Beak of Darkness
+[2025-09-25 16:53:07] Your party shares 111 gold.
+[2025-09-25 16:53:37] 135 enemies slain.
+[2025-09-25 16:53:47] Your party shares 104 gold.
+[2025-09-25 16:53:52] Your party shares 105 gold.
+[2025-09-25 16:54:37] 140 enemies slain.
+[2025-09-25 16:54:37] Your party shares 107 gold.
+[2025-09-25 16:55:27] 145 enemies slain.
+[2025-09-25 16:55:47] Dredge Gatherer drops a Dredge Incisor, which your party reserves for Pelznickel Searinox.
+[2025-09-25 16:56:17] Dredge Gatherer drops an Amber Wand, which your party reserves for Pelznickel Searinox.
+[2025-09-25 16:56:22] You have been playing for 1 hour.
+[2025-09-25 16:56:33] Quest Updated: Charting the Forests
+[2025-09-25 16:56:53] 155 enemies slain.
+[2025-09-25 16:57:03] Vivec Opits's team has won a battle in the Hall of Heroes.
+[2025-09-25 16:57:43] Your party shares 103 gold.
+[2025-09-25 16:57:43] You pick up the Amber Wand.
+[2025-09-25 16:57:48] Your party shares 108 gold.
+[2025-09-25 16:57:53] You pick up the Dredge Incisor.
+[2025-09-25 16:58:33] Dredge Guardian drops an Amber Staff, which your party reserves for Pelznickel Searinox.
+[2025-09-25 16:58:48] 160 enemies slain.
+[2025-09-25 16:58:48] You gain 250 Kurzick faction.
+[2025-09-25 16:59:03] You pick up the Amber Staff.
+[2025-09-25 16:59:08] Your party shares 102 gold.
+[2025-09-25 16:59:08] Your party shares 103 gold.
+[2025-09-25 16:59:53] 165 enemies slain.
+[2025-09-25 17:01:13] Quest Updated: Charting the Forests
+[2025-09-25 17:07:04] You gain 8,800 Kurzick faction.
+[2025-09-25 17:07:04] You have earned 880 experience and 880 gold!
+[2025-09-25 17:07:04] Pelznickel Searinox: # 1 ~ 25.76 % ~ Me/Rt Gwen ~ 39777
+[2025-09-25 17:07:04] Pelznickel Searinox: # 2 ~ 25.25 % ~ Me/X Norgu ~ 38979
+[2025-09-25 17:07:04] Pelznickel Searinox: # 3 ~ 24.98 % ~ Me/Rt Razah ~ 38558
+[2025-09-25 17:07:04] Pelznickel Searinox: # 4 ~ 15.35 % ~ N/P Master of Whispers ~ 23702
+[2025-09-25 17:07:04] Pelznickel Searinox: # 5 ~ 7.17 % ~ P/Rt Pelznickel Searinox ~ 11075
+[2025-09-25 17:07:04] Pelznickel Searinox: # 6 ~ 0.90 % ~ Rt/P Xandra ~ 1387
+[2025-09-25 17:07:04] Pelznickel Searinox: # 7 ~ 0.57 % ~ Mo/Me Tahlkora ~ 873
+[2025-09-25 17:07:09] Pelznickel Searinox: # 8 ~ 0.02 % ~ N/Rt Olias ~ 33
+[2025-09-25 17:07:09] Pelznickel Searinox: Total ~ 100 % ~ 154384
+[2025-09-25 17:09:01] Vivec Opits's team has won a battle in the Hall of Heroes.
+[2025-09-25 17:10:24] Tree Singer: Today, three brave Kurzicks have volunteered to become new, more powerful kinds of juggernauts. We honor them for their sacrifice. Let the Awakening begin!
+[2025-09-25 17:10:29] Baron Mirek Vasburg: You must remain vigilant. There have been many signs and omens...it is certain that the Luxons will attempt to kill the Tree Singers and interrupt the ceremony.
+[2025-09-25 17:10:44] Danika: Until the ceremony is complete, fear not for my life, or the baron's...concern yourself only with the lives of the Tree Singers. Without them, all is lost.
+[2025-09-25 17:11:29] Your party shares 95 gold.
+[2025-09-25 17:11:34] Baron Mirek Vasburg: New siege turtle on the western front!
+[2025-09-25 17:13:04] Your party shares 76 gold.
+[2025-09-25 17:13:04] Baron Mirek Vasburg: Ha! These Luxon brutes have no chance against us.
+[2025-09-25 17:13:04] Baron Mirek Vasburg: New siege turtle to the south! Protect those Tree Singers!
+[2025-09-25 17:13:09] Danika: I've seen my friends here handle enemies far more frightening than these ragtag savages.
+[2025-09-25 17:13:19] Baron Mirek Vasburg: North! Siege turtle ready to fire!
+[2025-09-25 17:13:39] Luxon Ranger drops a Luxon Bracers, which your party reserves for Pelznickel Searinox.
+[2025-09-25 17:13:54] You pick up the Luxon Bracers.
+[2025-09-25 17:14:34] Tree Singer: You have done well so far, but do not grow complacent. We sense there is much danger lurking in the forest.
+[2025-09-25 17:14:44] Danika: Grow complacent!? There's not much danger of that, is there? Not with all these bloodthirsty Luxons everywhere.
+[2025-09-25 17:14:49] Your party shares 81 gold.
+[2025-09-25 17:14:54] Baron Mirek Vasburg: Countess! You should show more respect. Our apologies, honored Tree Singers.
+[2025-09-25 17:15:14] Luxon Ranger drops a Luxon Pendant, which your party reserves for Pelznickel Searinox.
+[2025-09-25 17:15:45] You pick up the Luxon Pendant.
+[2025-09-25 17:16:37] Tree Singer: Today, three brave Kurzicks have volunteered to become new, more powerful kinds of juggernauts. We honor them for their sacrifice. Let the Awakening begin!
+[2025-09-25 17:16:47] Baron Mirek Vasburg: You must remain vigilant. There have been many signs and omens...it is certain that the Luxons will attempt to kill the Tree Singers and interrupt the ceremony.
+[2025-09-25 17:17:02] Danika: Until the ceremony is complete, fear not for my life, or the baron's...concern yourself only with the lives of the Tree Singers. Without them, all is lost.
+[2025-09-25 17:17:07] Norgu: I will fight anyone who attacks us and anyone we attack.
+[2025-09-25 17:17:07] Razah: I will defend us from attackers and, unless it would force me to abandon my post, fight anyone we attack.
+[2025-09-25 17:17:12] Razah: I will fight anyone who attacks us and anyone we attack.
+[2025-09-25 17:17:17] Gwen: I will fight anyone who attacks us and anyone we attack.
+[2025-09-25 17:17:17] Vivec Opits's team has won a battle in the Hall of Heroes.
+[2025-09-25 17:17:52] Baron Mirek Vasburg: New siege turtle on the western front!
+[2025-09-25 17:18:07] Your party shares 82 gold.
+[2025-09-25 17:19:07] Luxon Ranger drops a Bo Staff, which your party reserves for Pelznickel Searinox.
+[2025-09-25 17:19:12] You pick up the Bo Staff.
+[2025-09-25 17:19:17] Luxon Warrior drops 9 Bolts of Cloth, which your party reserves for Pelznickel Searinox.
+[2025-09-25 17:19:22] You pick up 9 Bolts of Cloth.
+[2025-09-25 17:19:27] Baron Mirek Vasburg: New siege turtle to the south! Protect those Tree Singers!
+[2025-09-25 17:19:37] Baron Mirek Vasburg: North! Siege turtle ready to fire!
+[2025-09-25 17:20:12] Baron Mirek Vasburg: Ha! These Luxon brutes have no chance against us.
+[2025-09-25 17:20:17] Danika: I've seen my friends here handle enemies far more frightening than these ragtag savages.
+[2025-09-25 17:21:12] Your party shares 85 gold.
+[2025-09-25 17:22:07] Luxon Ranger drops a Luxon Pendant, which your party reserves for Pelznickel Searinox.
+[2025-09-25 17:22:38] Siege Turtle drops 4 Bones, which your party reserves for Pelznickel Searinox.
+[2025-09-25 17:22:38] You pick up the Luxon Pendant.
+[2025-09-25 17:22:43] Your party shares 69 gold.
+[2025-09-25 17:22:43] You pick up 4 Bones.
+[2025-09-25 17:23:18] Baron Mirek Vasburg: New siege turtle to the south! Protect those Tree Singers!
+[2025-09-25 17:23:23] Siege Turtle drops a Luxon Pendant, which your party reserves for Pelznickel Searinox.
+[2025-09-25 17:23:23] Tree Singer: You have done well so far, but do not grow complacent. We sense there is much danger lurking in the forest.
+[2025-09-25 17:23:33] Danika: Grow complacent!? There's not much danger of that, is there? Not with all these bloodthirsty Luxons everywhere.
+[2025-09-25 17:23:43] Baron Mirek Vasburg: Countess! You should show more respect. Our apologies, honored Tree Singers.
+[2025-09-25 17:23:48] Baron Mirek Vasburg: North! Siege turtle ready to fire!
+[2025-09-25 17:23:53] You pick up the Luxon Pendant.
+[2025-09-25 17:24:08] Your party shares 101 gold.
+[2025-09-25 17:24:58] Baron Mirek Vasburg: New siege turtle on the western front!
+[2025-09-25 17:25:28] Luxon Ranger drops a Luxon Bracers, which your party reserves for Pelznickel Searinox.
+[2025-09-25 17:25:33] You pick up the Luxon Bracers.
+[2025-09-25 17:25:38] Your party shares 67 gold.
+[2025-09-25 17:28:34] Afflicted Mesmer drops a Shortbow, which your party reserves for Pelznickel Searinox.
+[2025-09-25 17:28:34] Afflicted Elementalist drops a Plagueborn Armor, which your party reserves for Pelznickel Searinox.
+[2025-09-25 17:28:49] Afflicted Ranger drops a Plagueborn Armor, which your party reserves for Pelznickel Searinox.
+[2025-09-25 17:28:54] Afflicted Warrior drops 14 Bones, which your party reserves for Pelznickel Searinox.
+[2025-09-25 17:29:14] Afflicted Warrior drops a Plagueborn Armor, which your party reserves for Pelznickel Searinox.
+[2025-09-25 17:29:19] You pick up the Shortbow.
+[2025-09-25 17:29:19] You pick up the Plagueborn Armor.
+[2025-09-25 17:29:34] Danika: Why aren't we done yet? Can't you sing any faster? Honestly, if you doubled the tempo, wouldn't the ceremony finish sooner?
+[2025-09-25 17:29:39] Baron Mirek Vasburg: I expect it is not so simple, Countess. Though perhaps they would finish sooner if there were fewer interruptions.
+[2025-09-25 17:29:49] Danika: Yes, I know. That's why I've been fighting for the last hour...so the adagio chorus back there doesn't get interrupted.
+[2025-09-25 17:29:54] Afflicted Elementalist drops a Putrid Cyst, which your party reserves for Pelznickel Searinox.
+[2025-09-25 17:30:19] You pick up the Putrid Cyst.
+[2025-09-25 17:31:04] Vivec Opits's team has won a battle in the Hall of Heroes.
+[2025-09-25 17:31:40] Afflicted Warrior drops a Ram's Hammer, which your party reserves for Pelznickel Searinox.
+[2025-09-25 17:31:40] Afflicted Warrior drops a Bo Staff, which your party reserves for Pelznickel Searinox.
+[2025-09-25 17:31:40] You pick up the Bo Staff.
+[2025-09-25 17:31:45] You pick up the Ram's Hammer.
+[2025-09-25 17:32:55] Afflicted Monk drops a Plagueborn Armor, which your party reserves for Pelznickel Searinox.
+[2025-09-25 17:33:05] Afflicted Elementalist drops a Wingblade Sword, which your party reserves for Pelznickel Searinox.
+[2025-09-25 17:33:10] You pick up the Wingblade Sword.
+[2025-09-25 17:33:20] You pick up the Plagueborn Armor.
+[2025-09-25 17:41:19] Vivec Opits's team has won a battle in the Hall of Heroes.
+[2025-09-25 17:41:39] You salvaged 5 Iron Ingots from the Air Wand.
+[2025-09-25 17:41:49] You salvaged 7 Granite Slabs from the Marble Hammer.
+[2025-09-25 17:41:59] You salvaged 8 Iron Ingots from the Truncheon.
+[2025-09-25 17:41:59] You salvaged 4 Iron Ingots from the Gothic Axe.
+[2025-09-25 17:42:10] You salvaged 8 Iron Ingots from the Fiery Gothic Dual Axe.
+[2025-09-25 17:42:19] You salvaged 9 Iron Ingots from the Cane.
+[2025-09-25 17:42:50] You salvaged 8 Iron Ingots from the Gothic Defender.
+[2025-09-25 17:43:25] You salvaged 9 Piles of Glittering Dust from the Amber Wand.
+[2025-09-25 17:43:25] The salvaging tools were destroyed.
+[2025-09-25 17:43:36] You salvaged 8 Piles of Glittering Dust from the Amber Staff.
+[2025-09-25 17:44:06] You salvaged 10 Iron Ingots from the Ram's Hammer.
+[2025-09-25 17:44:11] You salvaged 7 Iron Ingots from the Wingblade Sword.
+[2025-09-25 17:44:11] The salvaging tools were destroyed.
+[2025-09-25 17:48:23] Gertrud [Weapons] takes 10 gold.
+[2025-09-25 17:53:16] Vivec Opits's team has won a battle in the Hall of Heroes.
+[2025-09-25 17:56:26] You have been playing for 2 hours.
+[2025-09-25 18:20:43] Vivec Opits's team has won a battle in the Hall of Heroes.
+[2025-09-25 20:14:00] Galaxy Of Pirates And Cowboys [Rum] has won a battle in the Hall of Heroes.
+[2025-09-25 20:14:00] Galaxy Of Pirates And Cowboys [Rum] has won a battle in the Hall of Heroes.
+[2025-09-25 20:14:00] Galaxy Of Pirates And Cowboys [Rum] has won a battle in the Hall of Heroes.
+[2025-09-25 20:14:00] You have been playing for 4 hours. Please take a break.
+[2025-09-25 20:14:00] Luxon Guard: Vasburg Armory is now under Luxon control.
+[2025-09-25 20:14:00] Galaxy Of Pirates And Cowboys [Rum] has won a battle in the Hall of Heroes.
+[2025-09-25 20:23:51] The gods have blessed the world with their favor.
+[2025-09-25 20:32:12] Gertrud [Weapons] takes 10 gold.
+[2025-09-25 20:33:02] Galaxy Of Pirates And Cowboys [Rum] has won a battle in the Hall of Heroes.
+[2025-09-25 20:33:12] Gertrud [Weapons] takes 10 gold.
+[2025-09-25 20:41:38] Galaxy Of Pirates And Cowboys [Rum] has won a battle in the Hall of Heroes.
+[2025-09-25 21:21:04] Galaxy Of Pirates And Cowboys [Rum] has won a battle in the Hall of Heroes.
+[2025-09-25 21:29:43] Valmseman Xanloh has achieved the title Grandmaster Treasure Hunter. The gods have extended their blessings.
+[2025-09-25 21:33:01] Galaxy Of Pirates And Cowboys [Rum] has won a battle in the Hall of Heroes.
+[2025-09-25 21:44:53] The world no longer has the favor of the gods.
+[2025-09-25 21:45:03] Galaxy Of Pirates And Cowboys [Rum] has won a battle in the Hall of Heroes.
+[2025-09-25 21:57:04] Galaxy Of Pirates And Cowboys [Rum] has won a battle in the Hall of Heroes.
+[2025-09-25 22:02:16] You have been playing for 6 hours. Please take a break.
+[2025-09-25 22:09:05] Galaxy Of Pirates And Cowboys [Rum] has won a battle in the Hall of Heroes.
+[2025-09-25 22:14:12] Manzo [Weapons] takes 10 gold.
+[2025-09-25 22:15:42] You upgraded your Spawning Staff with a Staff Wrapping of Fortitude.
+[2025-09-25 22:17:12] Alexa The Mesmeriza: ich glaub du konntest deine Spieler auch als Npc kaufen, aber ändert nichts am spiel script
+[2025-09-25 22:17:37] Ms Luna Longbottom: söldner ja
+[2025-09-25 22:18:50] You upgraded your Spawning Staff of Fortitude with a Hale Staff Head.
+[2025-09-25 22:22:00] Jaeger Le Coultre's team has won a battle in the Hall of Heroes.
+[2025-09-25 22:25:39] Norgu: I will defend us from attackers and, unless it would force me to abandon my post, fight anyone we attack.
+[2025-09-25 22:25:39] Razah: I will defend us from attackers and, unless it would force me to abandon my post, fight anyone we attack.
+[2025-09-25 22:25:39] Gwen: I will defend us from attackers and, unless it would force me to abandon my post, fight anyone we attack.
+[2025-09-25 22:29:13] Your party shares 103 gold.
+[2025-09-25 22:29:18] Your party shares 111 gold.
+[2025-09-25 22:29:49] Your party shares 102 gold.
+[2025-09-25 22:29:49] Your party shares 65 gold.
+[2025-09-25 22:30:19] Your party shares 74 gold.
+[2025-09-25 22:31:14] Kournan Phalanx: MIRZA!
+[2025-09-25 22:31:14] Kournan Phalanx: Mirza Veldrunner! Half-beast! Warmarshal Varesh demands your surrender!
+[2025-09-25 22:31:19] Kournan Phalanx: All half-beasts are ordered to the Dejarin Estate for confinement. Any who resist will be slaughtered!
+[2025-09-25 22:31:29] Kournan Phalanx: Fine words for a half-beast.
+[2025-09-25 22:31:29] Mirza Veldrunner: The Kournans hold no sway over the Centaurs, human!
+[2025-09-25 22:31:34] Kournan Phalanx: Here is the death of your "true day!"
+[2025-09-25 22:31:39] Mirza Veldrunner: Your darkness will pass. We will be here when the true day dawns anew.
+[2025-09-25 22:31:44] Mirza Veldrunner: You will die for that, Kournan.
+[2025-09-25 22:31:49] Mirza Veldrunner: Centaurs of the Veld!
+[2025-09-25 22:31:49] Mirza Veldrunner: We will fight to our dying breaths to break the Kournan hold over this land!
+[2025-09-25 22:33:00] I Zodiac Keys I's team has won a battle in the Hall of Heroes.
+[2025-09-25 22:33:40] Sende [Weapons] takes 10 gold.
+[2025-09-25 22:36:51] You upgraded your Restoration Staff with a Adept Staff Head.
+[2025-09-25 22:38:06] The Insightful Inscribed Staff broke when you tried to salvage from it.
+[2025-09-25 22:38:06] You salvaged 1 Staff Wrapping of Enchanting from the Insightful Inscribed Staff of Enchanting.
+[2025-09-25 22:38:16] You upgraded your Adept Restoration Staff with a Staff Wrapping of Enchanting.
+[2025-09-25 22:39:57] You salvaged 1 Adept Staff Head from the Adept Smiting Staff of Devotion.
+[2025-09-25 22:40:32] You salvaged 1 Adept Staff Head from the Adept Restoration Staff of Enchanting.
+[2025-09-25 22:40:37] You upgraded your Restoration Staff of Enchanting with a Adept Staff Head.
+[2025-09-25 22:41:12] Alexa The Mesmeriza starts dancing.
+[2025-09-25 22:45:04] I Zodiac Keys I's team has won a battle in the Hall of Heroes.
+[2025-09-25 22:49:49] The Scrying Glass Staff of Mastery broke when you tried to salvage from it.
+[2025-09-25 22:49:49] You salvaged 1 Inscription: "Aptitude not Attitude" from the Scrying Glass Staff of Mastery.
+[2025-09-25 22:50:04] You upgraded your Adept Restoration Staff of Enchanting with a Inscription: "Aptitude not Attitude".
+[2025-09-25 22:54:50] I White Turtle I's team has won a battle in the Hall of Heroes.
+[2025-09-25 23:04:07] You have been playing for 7 hours. Please take a break.
+[2025-09-25 23:09:03] I White Turtle I's team has won a battle in the Hall of Heroes.
+[2025-09-25 23:09:58] Termi Is On Fire: WTB +5 sr for staff 15e
+[2025-09-25 23:09:58] Ra Shadowplay: wts nic gifts 5e/each wtb jadeite 18e/stack or 500g/each
+[2025-09-25 23:10:08] S V P: WTS 5 gott = 25e / next week nick set = 10e
+[2025-09-25 23:10:33] Nori Nevermore: wtb unids 2k ea
+[2025-09-25 23:10:38] The Neutralyzer: WTS 4x insightfull staff heads | vampiric bowstring | bow grip of fortitude | staff wrapping of fortitude etc!
+[2025-09-25 23:10:38] Dh Khd: WTS GotT 5e/ea
+[2025-09-25 23:10:38] Dh Khd: WTS Frog q10 Divine - 4a/160e/30GotT
+[2025-09-25 23:10:38] Avatar Of Soo Won: WTB NIC SET
+[2025-09-25 23:10:48] Krazy Shazam: WTS 250 Superb Charr Carvings. 100e.
+[2025-09-25 23:10:53] Junk In Djs Trunk: WTS Apples 19e Cupcakes 10e honeycomb 8e //// wtb arms 36e
+[2025-09-25 23:10:58] Fair Trade For You: WTS d-cores 200e/stk | cloths of the brotherhood 3e/ea | silver/gold zcoins 1e/10e/ea |WTB GotT 4e/ea open trade@bridg
+[2025-09-25 23:11:03] Alexander Sigmar: Wtb ~ CC Chann ~ pm for offer
+[2025-09-25 23:11:03] The Neutralyzer: WTS dagger handle of fortitude | zealous scythe snathe
+[2025-09-25 23:11:08] Pablo Jones: WTB Zehtuka's Pack
+[2025-09-25 23:11:14] Devona Von Elsass: WTB 1 elite sin 1e
+[2025-09-25 23:11:19] U Ltimate Elemental: wts staff wrap nec 20e
+[2025-09-25 23:11:19] Marquis Losstarot: WTB Q9 15^50 Plagueborn Hornbow
+[2025-09-25 23:11:29] Fair Trade For You: WTS d-cores 200e/stk | cloths of the brotherhood 3e/ea | silver/gold zcoins 1e/10e/ea |WTB GotT 4e/ea open trade@bridg
+[2025-09-25 23:11:34] Alexander Sigmar: Wtb ~ CC Chann ~ pm for offer
+[2025-09-25 23:11:34] Krazy Shazam: WTS 250 Superb Charr Carvings. 100e.
+[2025-09-25 23:11:39] Fair Trade For You: WTS d-cores 200e/stk | cloths of the brotherhood 3e/ea | silver/gold zcoins 1e/10e/ea |WTB GotT 4e/ea open trade@bridg
+[2025-09-25 23:11:49] The Neutralyzer: WTS frog scepter q10 spawning power
+[2025-09-25 23:15:13] Devona Von Elsass: WTB 1 elite sin = 2e
+[2025-09-25 23:15:13] Denetria Gue: WTB Q9 Kournan/Eagle Defender (com), Ball Hammer, Dragon Fangs, Deldrimor hammer, Sunspear, Ghostly staff Dom
+[2025-09-25 23:15:13] Super Monkies: WTS gott 5 =24e
+[2025-09-25 23:15:13] Fair Trade For You: WTS d-cores 200e/stk | cloths of the brotherhood 3e/ea | silver/gold zcoins 1e/10e/ea |WTB GotT 4e/ea open trade@bridg
+[2025-09-25 23:15:13] Onyx Annihilation: Wtb Candy Cane Shard Stack4e ea
+[2025-09-25 23:15:13] Marquis Losstarot: WTB Q9 15^50 Plagueborn Hornbow
+[2025-09-25 23:15:13] Alexander Sigmar: Wtb ~ CC Chann ~ pm for offer
+[2025-09-25 23:15:13] Krazy Shazam: WTS 250 Superb Charr Carvings. 100e.
+[2025-09-25 23:15:13] S V P: WTS 5 gott = 25e / next week nick set = 10e
+[2025-09-25 23:15:13] Controlled Fantasy: WTS +5 FC, ES, Memory for Wand (2e/ea) | Focus core of Aptitude (3e)
+[2025-09-25 23:15:13] The Neutralyzer: WTS 4x insightfull staff heads | vampiric bowstring | bow grip of fortitude | staff wrapping of fortitude etc!
+[2025-09-25 23:15:13] Fair Trade For You: WTS d-cores 200e/stk | cloths of the brotherhood 3e/ea | silver/gold zcoins 1e/10e/ea |WTB GotT 4e/ea open trade@bridg
+[2025-09-25 23:15:13] Krazy Shazam: WTS 250 Superb Charr Carvings. 100e.
+[2025-09-25 23:15:13] Nyla Veng: WTS 25 GotT 4.7e/each, 117e all
+[2025-09-25 23:15:13] Fair Trade For You: WTS d-cores 200e/stk | cloths of the brotherhood 3e/ea | silver/gold zcoins 1e/10e/ea |WTB GotT 4e/ea open trade@bridg
+[2025-09-25 23:15:13] C R A C K S: WTB Diessa set 4a
+[2025-09-25 23:15:13] Fair Trade For You: WTS d-cores 200e/stk | cloths of the brotherhood 3e/ea | silver/gold zcoins 1e/10e/ea |WTB GotT 4e/ea open trade@bridg
+[2025-09-25 23:15:13] Krazy Shazam: WTS 250 Superb Charr Carvings. 100e.
+[2025-09-25 23:15:13] X Angorodon X: WTS rare unid 1k/each
+[2025-09-25 23:15:13] Controlled Fantasy: WTS Zeal, Ench, +5 ES, for Dagger | +5 Expertise for Axe | +5 SR for Sword
+[2025-09-25 23:15:13] S V P: WTS 5 gott = 25e / next week nick set = 10e
+[2025-09-25 23:15:13] Alexander Sigmar: Wtb ~ CC Chann ~ pm for offer
+[2025-09-25 23:15:13] Fair Trade For You: WTS d-cores 200e/stk | cloths of the brotherhood 3e/ea | silver/gold zcoins 1e/10e/ea |WTB GotT 4e/ea open trade@bridg
+[2025-09-25 23:15:13] Asre Iriema: WTS Req 8 Shield of the Lion STR Inscri - wsp me with offer
+[2025-09-25 23:15:13] Othara Overdrive: WTS 5 SR for wand, 20e
+[2025-09-25 23:15:13] Alexander Sigmar: Wtb ~ CC Channeling ~ pm for offer
+[2025-09-25 23:15:13] Krazy Shazam: WTS 250 Superb Charr Carvings. 100e.
+[2025-09-25 23:15:13] Fair Trade For You: WTS d-cores 200e/stk | cloths of the brotherhood 3e/ea | silver/gold zcoins 1e/10e/ea |WTB GotT 4e/ea open trade@bridg
+[2025-09-25 23:15:13] The Neutralyzer: WTS miniature bone dragon, mad king!
+[2025-09-25 23:15:13] Obi Wan Kenobi Dark: wts green items
+[2025-09-25 23:15:13] Asre Iriema: WTS Req 8 Shield of the Lion STR Inscri - wsp me with offer
+[2025-09-25 23:15:23] Raven Mindblend: WTS Insc q9 Bows Half Moon, Longbow - 1e/ea
+[2025-09-25 23:15:38] Nori Nevermore: wtb unids 2k ea
+[2025-09-25 23:17:18] Nyla Veng: WTS 25 GotT 4.6e/each, 115e all
+[2025-09-25 23:17:18] Fair Trade For You: WTS d-cores 200e/stk | cloths of the brotherhood 3e/ea | silver/gold zcoins 1e/10e/ea |WTB GotT 4e/ea open trade@bridg
+[2025-09-25 23:17:18] Raven Mindblend: WTS OS q9 Bows Feathered-Longbow, Stormbow, Shortbow, Jade-Longbow 3e/ea
+[2025-09-25 23:17:18] Krazy Shazam: WTS 250 Superb Charr Carvings. 100e.
+[2025-09-25 23:17:18] Fair Trade For You: WTS d-cores 200e/stk | cloths of the brotherhood 3e/ea | silver/gold zcoins 1e/10e/ea |WTB GotT 4e/ea open trade@bridg
+[2025-09-25 23:17:18] Gladiator Egg Roll: WTT my GW1 arms for your GW2 gold/MC, PM
+[2025-09-25 23:17:18] Asre Iriema: WTS Req 8 Shield of the Lion STR Inscri - wsp me with offer
+[2025-09-25 23:17:18] Raven Mindblend: WTS Insc Q9 Shields Zodiac (mot). Adamantine (tac), Diamond (mot), Skull (com) 2e/ea
+[2025-09-25 23:17:18] Fair Trade For You: WTS d-cores 200e/stk | cloths of the brotherhood 3e/ea | silver/gold zcoins 1e/10e/ea |WTB GotT 4e/ea open trade@bridg
+[2025-09-25 23:17:18] Till You Drop: Wts Tengus 15a| Warhorns 50a| Seals 10a| Rez Scrolls 2=5a|Kabob 1a| Lockpicks 1a/40e
+[2025-09-25 23:17:18] Emi The Mouse: WTS Services: Quests,FOW Armor, Infusion,Proof, Weapon crafts ,CTC, outpost runs, missions, Ferry docs/LA/KC/and more!
+[2025-09-25 23:17:18] Fair Trade For You: WTS d-cores 200e/stk | cloths of the brotherhood 3e/ea | silver/gold zcoins 1e/10e/ea |WTB GotT 4e/ea open trade@bridg
+[2025-09-25 23:17:23] Raven Mindblend: WTS OS Zodiac Axe q9 15%vsHex
+[2025-09-25 23:17:23] Asre Iriema: WTS Req 8 Shield of the Lion STR Inscri - wsp me with offer
+[2025-09-25 23:17:33] Krazy Shazam: WTS 250 Superb Charr Carvings. 100e.
+[2025-09-25 23:17:33] Alexander Sigmar: Wtb ~ CC Channeling ~ pm for offer
+[2025-09-25 23:17:48] Fair Trade For You: WTS d-cores 200e/stk | cloths of the brotherhood 3e/ea | silver/gold zcoins 1e/10e/ea |WTB GotT 4e/ea open trade@bridg
+[2025-09-25 23:21:02] I White Turtle I's team has won a battle in the Hall of Heroes.
+[2025-09-25 23:21:22] Pelznickel Searinox: # 1 ~ 29.97 % ~ Me/Rt Gwen ~ 7369
+[2025-09-25 23:21:22] Pelznickel Searinox: # 2 ~ 27.51 % ~ Me/Rt Razah ~ 6764
+[2025-09-25 23:21:22] Pelznickel Searinox: # 3 ~ 25.51 % ~ Me/X Norgu ~ 6271
+[2025-09-25 23:21:27] Pelznickel Searinox: # 4 ~ 11.51 % ~ N/P Master of Whispers ~ 2829
+[2025-09-25 23:21:27] Pelznickel Searinox: # 5 ~ 4.48 % ~ P/Rt Pelznickel Searinox ~ 1102
+[2025-09-25 23:21:27] Pelznickel Searinox: # 6 ~ 0.53 % ~ Mo/Me Tahlkora ~ 130
+[2025-09-25 23:21:27] Pelznickel Searinox: # 7 ~ 0.48 % ~ Rt/P Xandra ~ 119
+[2025-09-25 23:21:27] Pelznickel Searinox: Total ~ 100 % ~ 24584
+[2025-09-25 23:30:10] Alexander Sigmar: Wtb ~ CC Channeling ~ pm for offer
+[2025-09-25 23:30:20] Mids Pro: Wtb Green daggers
+[2025-09-25 23:30:30] Krazy Shazam: WTS 250 Superb Charr Carvings. 100e.
+[2025-09-25 23:30:30] Cornichon En Cavale: WTS - Storm Bow q9 inscr. 20e - Ghostly illusion q9 inscr. 3a - Ghostly DF & Water q9 inscr. 25e/ea -
+[2025-09-25 23:30:50] Helia Dea: WTS Bison Cup 1e WTS Elemental Sword Of Enchanting PST offer
+[2025-09-25 23:31:00] Alexander Sigmar: Wtb ~ CC Channeling ~ pm for offer
+[2025-09-25 23:31:20] Denetria Gue: WTB Q9 Kournan/Eagle Defender (com), Ball Hammer, Dragon Fangs, Deldrimor hammer, Sunspear, Ghostly staff Dom
+[2025-09-25 23:31:20] Sikotics Dervish: WTS +4 of the rit wand
+[2025-09-25 23:31:35] Denetria Gue: WTB Q9 Kournan/Eagle Defender (com), Ball Hammer (or same skin), Dragon Fangs, Sunspear, Ghostly staff Dom
+[2025-09-25 23:31:40] A Candy Cane Shard: wts stone rain polymock 5e/ea
+[2025-09-25 23:31:45] Krazy Shazam: WTS 250 Superb Charr Carvings. 100e.
+[2025-09-25 23:32:05] Wooden Stick Figure: WTB 10 arms 380e
+[2025-09-25 23:32:10] Lord Grisha: WTS Zkeys 17A
+[2025-09-25 23:32:10] Spirit Of Vince: wts 250 gott 36A//frog scepter q12 death magic//quicksilver q9 illusion magic
+[2025-09-25 23:32:10] Dh Khd: WTS GotT 5e/ea
+[2025-09-25 23:32:15] Dh Khd: WTS Frog q10 Divine - 4a/160e/30GotT
+[2025-09-25 23:32:15] Helia Dea: WTS Bison Cup 1e WTS Elemental Sword Of Enchanting WTS Urkal's Kamas PST Offers
+[2025-09-25 23:32:30] Mc Hett: WTS Bones stack 15 k
+[2025-09-25 23:32:30] Ailbhe Ui Ceallaigh: WTB 3 ancient armor remnants
+[2025-09-25 23:32:35] Spirit Of Vince: wts 250 gott 36A//frog scepter q12 death magic//quicksilver q9 illusion magic
+[2025-09-25 23:32:40] Obi Wan Kenobi Dark: wts oola's wand and focus
+[2025-09-25 23:32:40] Krazy Shazam: WTS 250 Superb Charr Carvings. 100e.
+[2025-09-25 23:32:45] E C T O Spammer: Wts bds q12 fire
+[2025-09-25 23:32:55] Lord Grisha: WTS Zkeys 17A
+[2025-09-25 23:33:01] Ailbhe Ui Ceallaigh: WTB 3 ancient armor remnants
+[2025-09-25 23:33:01] I White Turtle I's team has won a battle in the Hall of Heroes.
+[2025-09-25 23:33:11] Spirit Of Vince: wts 250 gott 36A//frog scepter q12 death magic//quicksilver q9 illusion magic
+[2025-09-25 23:33:16] My Butt Burns: WTS Zeal, Ench, +5 ES, for Dagger | +5 Expertise for Axe | +5 SR for Sword
+[2025-09-25 23:33:21] E C T O Spammer: Wts bds q12 fire
+[2025-09-25 23:33:26] Assassinator Jordan: WTS GotT x15 for 70e
+[2025-09-25 23:33:31] Helia Dea: WTS Bison Cup 1e WTS Elemental Sword Of Enchanting WTS Urkal's Kamas PST Offers
+[2025-09-25 23:33:46] Ailbhe Ui Ceallaigh: WTB 3 ancient armor remnants or primeval armor remnants
+[2025-09-25 23:33:46] A Candy Cane Shard: wtb ruby polymock
+[2025-09-25 23:34:32] Ailbhe Ui Ceallaigh: WTB 3 ancient armor remnants or primeval armor remnants
+[2025-09-25 23:34:37] Le Tueur De Hordes: WTB Dagger Handle of the Ranger
+[2025-09-25 23:34:37] Sweet Domia X: wts os defender q12 str +45^ench +10vs cold//////q9 golden maul +15%/-1 health regen pm offer
+[2025-09-25 23:34:42] A Candy Cane Shard: wts 49 torment 12 styg
+[2025-09-25 23:34:47] Ninjistic Elements: wts salad 1
+[2025-09-25 23:34:47] Ninjistic Elements: wts salad 1a
+[2025-09-25 23:34:52] Le Tueur De Hordes: WTB Dagger Handle of the Ranger
+[2025-09-25 23:35:02] Mc Hett: WTS Bones stack 15 k
+[2025-09-25 23:35:07] Jrendavich Mai: WTB "Like a Rolling Stone"  ins
+[2025-09-25 23:35:12] My Butt Burns: WTS for Staff: +5 FC & SR | Mastery, Fortitude, Ench | Adept head
+[2025-09-25 23:35:17] Ailbhe Ui Ceallaigh: WTB 3 ancient armor remnants or primeval armor remnants
+[2025-09-25 23:35:22] Helia Dea: WTS Bison Cup 1e WTS Elemental Sword Of Enchanting WTS Urkal's Kamas PST Offers
+[2025-09-25 23:35:22] Krazy Shazam: WTS 250 Superb Charr Carvings. 100e.
+[2025-09-25 23:35:27] E C T O Spammer: Wts bds q12 fire
+[2025-09-25 23:35:37] S V P: WTS 5 gott = 25e / next week nick set = 10e
+[2025-09-25 23:36:02] Assassinator Jordan: WTS GotT x15, 4.6e/ea or 68e total
+[2025-09-25 23:36:22] Ninjistic Elements: wts rez--cons--diessa--rin--pstones--q10 glacial dags--pm what u need
+[2025-09-25 23:36:22] Alexander Sigmar: Wtb ~ CC Channeling q10/11/12 ~ pm for offer
+[2025-09-25 23:36:27] Junk In Djs Trunk: WTS Apples 19e Cupcakes 10e honeycomb 8e //// wtb arms 36e
+[2025-09-25 23:36:32] The Neutralyzer: WTS 13 ectos = 100k
+[2025-09-25 23:36:32] Ailbhe Ui Ceallaigh: WTB 3 ancient armor remnants or primeval armor remnants
+[2025-09-25 23:36:32] Wooden Stick Figure: WTB 10 arms 380e
+[2025-09-25 23:36:42] Helia Dea: WTS Bison Cup 1e WTS Elemental Sword Of Enchanting WTS Urkal's Kamas PST Offers
+[2025-09-25 23:36:47] E C T O Spammer: Wts bds q12 fire
+[2025-09-25 23:37:02] Cornichon En Cavale: WTS - Storm Bow q9 inscr. 20e - Ghostly illusion q9 inscr. 3a - Ghostly DF & Water q9 inscr. 25e/ea -
+[2025-09-25 23:37:07] The Neutralyzer: WTS 13 ectos = 100k
+[2025-09-25 23:37:07] Krazy Shazam: WTS 250 Superb Charr Carvings. 100e.
+[2025-09-25 23:37:22] Moon Bouncer: WTB Inscr Ghostly Staff Channeling
+[2025-09-25 23:37:32] Ninjistic Elements: wts rez--cons--diessa--rin--pstones--q10 glacial dags--pm what u need
+[2025-09-25 23:37:47] Ailbhe Ui Ceallaigh: WTB 3 ancient armor remnants or primeval armor remnants
+[2025-09-25 23:37:57] Nori Nevermore: wtb unids 2k ea
+[2025-09-25 23:37:57] Michelle Martell: WTS MOX/Gwen mini 40plat each
+[2025-09-25 23:38:02] My Butt Burns: WTS Vamp, Sundering, Warding for Spear
+[2025-09-25 23:38:07] E C T O Spammer: Wts bds q12 fire
+[2025-09-25 23:38:22] Krazy Shazam: WTS 250 Superb Charr Carvings. 100e.
+[2025-09-25 23:38:27] High Ho Farm We Go: WTT MY ARMS FOR YOUR OSRS GP 1A = 1.5M
+[2025-09-25 23:38:37] Wooden Stick Figure: WTB 10 arms 380e
+[2025-09-25 23:38:37] Lewellyn Villanelle: WTS Heal Froggy q9
+[2025-09-25 23:38:42] Le Tueur De Hordes: WTB Dagger Handle of the Ranger 55e
+[2025-09-25 23:38:42] Ailbhe Ui Ceallaigh: WTB 3 ancient armor remnants or primeval armor remnants
+[2025-09-25 23:38:57] Assassinator Jordan: WTS GotT x15, 4.6e/ea or 68e total
+[2025-09-25 23:38:57] Crazy Baked: wtb soup
+[2025-09-25 23:39:02] My Butt Burns: WTB 9x ranger elite tomes (3e/ea) | WTS 3x Deld Armor (20e/ea)
+[2025-09-25 23:39:02] Nori Nevermore: wtb unids 2k ea
+[2025-09-25 23:39:07] Ailbhe Ui Ceallaigh: WTB 3 ancient armor remnants or
+[2025-09-25 23:39:12] Krazy Shazam: WTS 250 Superb Charr Carvings. 100e.
+[2025-09-25 23:39:17] Darius Stormcharger: WTS Golden Flames = 10e each, PM ME!
+[2025-09-25 23:39:22] Helia Dea: WTS Mini Lich 2e, Mini Black Beast 5k, Mini Gwen 1e, mini Bone Dragon 1e PST
+[2025-09-25 23:39:37] Chasing Diamonds: wtb 1 black dye 1 e
+[2025-09-25 23:39:42] Ailbhe Ui Ceallaigh: WTB 3 ancient armor remnants or primeval armor remnants
+[2025-09-25 23:39:52] Lewellyn Villanelle: WTS Heal Froggy q9
+[2025-09-25 23:39:57] Chasing Diamonds: wtb 1 black dye 1 e
+[2025-09-25 23:40:02] Darius Stormcharger: WTS Golden Flames = 10e each, PM ME!
+[2025-09-25 23:40:07] Heal Heal Frog Tail: WTB Elite sin tome 1e/e
+[2025-09-25 23:40:12] My Butt Burns: WTS OS Q9 Celestial Bows (15/50 + 15/Stance)
+[2025-09-25 23:40:22] Le Tueur De Hordes: WTB Dagger Handle of the Ranger 55e
+[2025-09-25 23:40:22] E C T O Spammer: Wts bds q12 fire
+[2025-09-25 23:40:32] Ra Shadowplay: wts nic gifts 5e/each wtb jadeite 18e/stack or 500g/each
+[2025-09-25 23:40:57] Michelle Martell: WTS MOX mini 40plat each
+[2025-09-25 23:41:07] Lord Grisha: WTS Zkeys 17A
+[2025-09-25 23:41:17] Helia Dea: WTS Mini Lich 2e, Mini Black Beast 5k, Mini Bone Dragon 1e PST
+[2025-09-25 23:41:22] Dh Khd: WTS Frog q10 Divine - 4a/160e/30GotT
+[2025-09-25 23:41:22] Dh Khd: WTS GotT 5e/ea
+[2025-09-25 23:41:32] E C T O Spammer: Wts bds q12 fire
+[2025-09-25 23:41:47] Tiny Lil Spirits: WTS  EL Frosty Tonic 80a
+[2025-09-25 23:41:58] Assassinator Jordan: WTS GotT x15, 4.6e/ea or 68e total
+[2025-09-25 23:42:13] Helia Dea: WTS Mini Lich 1e, Mini Black Beast 5k, Mini Gwen 1e, mini Bone Dragon 1e PST
+[2025-09-25 23:42:13] E C T O Spammer: Wts bds q12 fire
+[2025-09-25 23:42:13] Rea L Grim Reaper: WTS 250 Zaishen Keys 18a
+[2025-09-25 23:42:18] Dont Fear Teh Reapr: WTS Zaishen Keys 3e/each
+[2025-09-25 23:42:18] Dont Fearthe Reaper: WTB Nick Set 7e
+[2025-09-25 23:42:23] Krazy Shazam: WTS 250 Superb Charr Carvings. 100e.
+[2025-09-25 23:42:28] Moon Bouncer: WTB Inscr Ghostly Staff Channeling
+[2025-09-25 23:42:28] Darius Stormcharger: WTS Golden Flames = 10e each, P
+[2025-09-25 23:42:38] Darius Stormcharger: WTS Golden Flames = 10e each, PM ME!
+[2025-09-25 23:42:48] S V P: WTS 5 gott = 25e / next week nick set = 10e
+[2025-09-25 23:42:53] Dont Fearthe Reaper: WTB Nick Set 7e
+[2025-09-25 23:42:58] Crazy Baked: wtb soup
+[2025-09-25 23:42:58] E C T O Spammer: Wts bds q12 fire
+[2025-09-25 23:43:23] Ra Shadowplay: wts nic gifts 5e/each wtb jadeite 18e/stack or 500g/each
+[2025-09-25 23:43:48] Krazy Shazam: WTS 250 Superb Charr Carvings. 100e.
+[2025-09-25 23:43:53] Lewellyn Villanelle: WTS Heal Froggy q9
+[2025-09-25 23:43:53] Helia Dea: WTS Mini Lich 1e, Mini Black Beast 5k, Mini Gwen 1e, mini Bone Dragon 1e PST
+[2025-09-25 23:44:18] Dh Khd: WTS GotT 5e/ea
+[2025-09-25 23:44:23] Dh Khd: WTS Frog q10 Divine - 4a/160e/30GotT
+[2025-09-25 23:44:33] Helia Dea: WTS Mini Lich 1e, Mini Black Beast 5k, Mini Gwen 1e, mini Bone Dragon 1e PST
+[2025-09-25 23:45:03] Krazy Shazam: WTS 250 Superb Charr Carvings. 100e.
+[2025-09-25 23:45:03] I White Turtle I's team has won a battle in the Hall of Heroes.
+[2025-09-25 23:45:38] Dont Fearthe Reaper: WTB Nick Set 7e
+[2025-09-25 23:45:38] E C T O Spammer: Wts bds q12 fire
+[2025-09-25 23:45:38] Helia Dea: WTS Mini Lich 1e, Mini Black Beast 5k, Mini Gwen 1e, mini Bone Dragon 1e PST
+[2025-09-25 23:45:43] Ra Shadowplay: wts nic gifts 5e/each wtb jadeite 18e/stack or 500g/each
+[2025-09-25 23:46:18] Assassinator Jordan: WTS GotT x15, 4.6e/ea or 68e total
+[2025-09-25 23:46:23] Gwen Valor: WTB BDS Channel q10-12
+[2025-09-25 23:46:33] Helia Dea: WTS Mini Lich 1e, Mini Black Beast 5k, Mini Gwen 1e, mini Bone Dragon 1e PST
+[2025-09-25 23:46:33] E C T O Spammer: Wts bds q12 fire
+[2025-09-25 23:46:33] Nori Nevermore: wtb unids 2k ea
+[2025-09-25 23:47:13] Lewellyn Villanelle: WTS Heal Froggy q9
+[2025-09-25 23:48:28] Krazy Shazam: WTS 250 Superb Charr Carvings. 100e.
+[2025-09-25 23:48:43] Le Feu Du Dragon: WTS Nick set Full (gold crimson
+[2025-09-25 23:48:48] Assassinator Jordan: WTS GotT x15, 4.6e/ea or 68e total
+[2025-09-25 23:49:03] Ill Killin Sin: wts mini asura 30a
+[2025-09-25 23:49:08] Krazy Shazam: WTS 250 Superb Charr Carvings. 100e.
+[2025-09-25 23:49:08] Lewellyn Villanelle: WTS Heal Froggy q9
+[2025-09-25 23:49:13] Crazy Baked: wtb soup
+[2025-09-25 23:49:13] Step Into The Light: WTS unded minis for tips
+[2025-09-25 23:49:18] Ill Killin Sin: wts mini asura 30a
+[2025-09-25 23:49:18] Stunning Scythe: WTS Q9 BDS PROT
+[2025-09-25 23:49:23] Lord Grisha: WTS Zkeys 17A
+[2025-09-25 23:49:28] Le Feu Du Dragon: WTS Nick set Full (gold crimson
+[2025-09-25 23:49:33] Zara Dreama: WTB 1 ecto  7k
+[2025-09-25 23:49:43] Lord Grisha: WTS Zkeys 17A
+[2025-09-25 23:49:58] Krazy Shazam: WTS 250 Superb Charr Carvings. 100e.
+[2025-09-25 23:50:08] A Candy Cane Shard: wts q9 15^50 chaos axe
+[2025-09-25 23:50:23] Le Feu Du Dragon: WTS Nick set Full (gold crimson
+[2025-09-25 23:50:23] Gladiator Egg Roll: WTT my GW1 arms for your GW2 gold/MC, PM
+[2025-09-25 23:50:23] Gwen Valor: WTB BDS Channel q10-12
+[2025-09-25 23:50:58] Nori Nevermore: wtb unids 2k ea
+[2025-09-25 23:51:03] Maestro Callisto: WTB Quicksilver Q9 Dom
+[2025-09-25 23:51:08] R A T T L E D: wts Ded Kunna+EL|Ded Varesh|Unded Pig
+[2025-09-25 23:51:08] Step Into The Light: WTS unded minis for tips
+[2025-09-25 23:51:18] Deathlord Zeke: WTS Staff Wrapping of Enchanting 20% 3e
+[2025-09-25 23:51:23] Maestro Callisto: WTB Quicksilver Q9 Dom
+[2025-09-25 23:51:28] Le Feu Du Dragon: WTS Nick set Full (gold crimson coin) 9e / Nickset part (1 crimson) 2e
+[2025-09-25 23:51:33] Lord Grisha: WTS Zkeys 17A
+[2025-09-25 23:51:38] Stunning Scythe: WTS Q9 BDS PROT
+[2025-09-25 23:51:48] My Butt Burns: WTS for Staff: +5 FC & SR | Mastery, Fortitude, Ench | Adept head
+[2025-09-25 23:51:58] R A T T L E D: wts Ded Kunna+EL|Ded Varesh|Unded Pig
+[2025-09-25 23:52:08] Maestro Callisto: WTB Quicksilver Q9 Dom
+[2025-09-25 23:52:58] Corrupt Is The Man: wts envoy scythe
+[2025-09-25 23:59:09] Sweet Domia X: wts os defender q12 str +45^ench +10vs cold//////q9 golden maul +15%/-1 health regen pm offer
+[2025-09-25 23:59:09] Krazy Shazam: WTS Mini Gwen 1e.
+[2025-09-25 23:59:09] Nori Nevermore: wtb unids 2k ea
+[2025-09-25 23:59:09] Wizard Aura: wts CC q9 earth magic 2a
+[2025-09-25 23:59:09] I White Turtle I's team has won a battle in the Hall of Heroes.
+[2025-09-25 23:59:09] Jorn The Quick: WTS Unded Miniature Celestial Dragon [20e]
+[2025-09-25 23:59:09] Krazy Shazam: WTS Mini Gwen 1e.
+[2025-09-25 23:59:09] Ill Killin Sin: wts mini asura 30a
+[2025-09-25 23:59:09] Dinxiang Jo: wts rez--cons--diessa--rin--pstones--q10 glacial dags--pm what u need
+[2025-09-25 23:59:09] Popolizist Alois: wts 5 nick gifts 25e
+[2025-09-25 23:59:09] Dinxiang Jo: wtb rift wardens--pm
+[2025-09-25 23:59:09] Krazy Shazam: WTS 250 Superb Charr Carvings. 100e.
+[2025-09-25 23:59:09] Ghostly Shadee: WTB Rit Elite Tome 2e
+[2025-09-25 23:59:09] Stunning Scythe: wtb lunars
+[2025-09-25 23:59:09] Wizard Aura: wts unded mini cele dragon 9e
+[2025-09-25 23:59:09] Moon Bouncer: WTB Inscr Ghostly Staff Channeling
+[2025-09-25 23:59:09] Krazy Shazam: WTS 250 Superb Charr Carvings. 100e.
+[2025-09-25 23:59:09] Krazy Shazam: WTS Mini Gwen 1e.
+[2025-09-25 23:59:09] Stunning Scythe: WTB LUNAR FORTUNE  <-
+[2025-09-25 23:59:09] Nori Nevermore: wtb unids 2k ea
+[2025-09-25 23:59:09] Dinxiang Jo: wts rez--cons--diessa--rin--pstones--q10 glacial dags--pm what u need
+[2025-09-25 23:59:09] Ghostly Shadee: WTB Rit Elite Tome 2e
+[2025-09-25 23:59:09] Deathlord Zeke: WTS Icy Dagger Tang 5e
+[2025-09-25 23:59:14] Gwen Valor: WTB BDS Channel q10-12
+[2025-09-25 23:59:14] Krazy Shazam: WTS Mini Gwen 1e.
+[2025-09-25 23:59:14] Stunning Scythe: WTB LUNAR FORTUNE  <-
+[2025-09-25 23:59:24] Krazy Shazam: WTS 250 Superb Charr Carvings. 100e.
+[2025-09-25 23:59:31] Dinxiang Jo: wts rez--cons--diessa--rin--pstones--q10 glacial dags--pm what u need
+[2025-09-25 23:59:36] Wizard Aura: wts gold q9 wands: fire, earth, air 3e ea
+[2025-09-25 23:59:36] Popolizist Alois: wts 5 travelers gifts
+[2025-09-26 00:00:03] Dh Khd: WTS Frog q10 Divine - 4a/160e/30GotT
+[2025-09-26 00:00:03] Ghostly Shadee: WTB Rit Elite Tome 2e
+[2025-09-26 00:00:08] Shekka Shalmos: WTB of the ranger staff mod
+[2025-09-26 00:00:13] Dh Khd: WTS Frog q10 Divine - 4a/160e/30GotT
+[2025-09-26 00:00:28] Ra Shadowplay: wts nic gifts 5e/each wtb jadeite 18e/stack or 500g/each
+[2025-09-26 00:00:28] Krazy Shazam: WTS 250 Superb Charr Carvings. 100e.
+[2025-09-26 00:00:41] Kurzick Priest takes 100 gold.
+[2025-09-26 00:00:41] Quest Updated: Charting the Forests
+[2025-09-26 00:00:46] Liandrin Guiraie: WTS 250 DCores 3a/125e
+[2025-09-26 00:00:51] Ill Killin Sin: wts mini rift 35a
+[2025-09-26 00:01:01] Shekka Shalmos: WTB of the ranger staff mod | WTB Zealous Bow String x 2
+[2025-09-26 00:01:06] Maestro Callisto: WTB Quicksilver Q9 Dom
+[2025-09-26 00:01:16] Krazy Shazam: WTS 250 Superb Charr Carvings. 100e.
+[2025-09-26 00:01:26] Ghostly Shadee: WTB Rit Elite Tome 2e
+[2025-09-26 00:01:26] 5 enemies slain.
+[2025-09-26 00:01:26] Dinxiang Jo: wts rez--cons--diessa--rin--pstones--q10 glacial dags--pm what u need
+[2025-09-26 00:01:41] Ill Killin Sin: wts mini asura 30a rift 35a
+[2025-09-26 00:01:51] Dinxiang Jo: wts rez--cons--diessa--rin--pstones--q10 glacial dags--pm what u need
+[2025-09-26 00:02:01] Stunning Scythe: WTB LUNAR FORTUNE  <-
+[2025-09-26 00:02:11] Warden of the Branch drops an Amber Wand, which your party reserves for Pelznickel Searinox.
+[2025-09-26 00:02:11] 10 enemies slain.
+[2025-09-26 00:02:16] Corrupt Is The Man: wts envoy scythe
+[2025-09-26 00:02:21] You pick up the Amber Wand.
+[2025-09-26 00:02:26] Ghostly Shadee: WTB Rit Elite Tome 2e
+[2025-09-26 00:02:41] Krazy Shazam: WTS 250 Superb Charr Carvings. 100e.
+[2025-09-26 00:02:46] Shekka Shalmos: WTB of the ranger staff mod
+[2025-09-26 00:02:56] Deathlord Zeke: WTS Icy Dagger Tang 5e, Brawn over brains 15%  1e, Staff Wrapping of Ench 20% 3e
+[2025-09-26 00:03:01] 15 enemies slain.
+[2025-09-26 00:03:01] Your party shares 107 gold.
+[2025-09-26 00:03:07] William The Breeze: WTB Nic Set!
+[2025-09-26 00:03:22] You gain 250 Kurzick faction.
+[2025-09-26 00:03:37] 20 enemies slain.
+[2025-09-26 00:03:52] Dinxiang Jo: wts rez--cons--diessa--rin--pstones--q10 glacial dags--pm what u need
+[2025-09-26 00:03:57] Ghostly Shadee: WTB Rit Elite Tome 2e
+[2025-09-26 00:03:57] Gwen Valor: WTB BDS Channel q10-12
+[2025-09-26 00:04:02] Krazy Shazam: WTS 250 Superb Charr Carvings. 100e.
+[2025-09-26 00:04:07] Zarnas Stonewrath drops a Scroll of Rampager's Insight, which your party reserves for Pelznickel Searinox.
+[2025-09-26 00:04:07] You gain 250 Kurzick faction.
+[2025-09-26 00:04:07] You pick up the Scroll of Rampager's Insight.
+[2025-09-26 00:04:17] Deathlord Zeke: WTS Icy Dagger Tang 5e, Brawn over brains 15%  1e, Staff Wrapping of Ench 20% 3e
+[2025-09-26 00:04:17] Your party shares 103 gold.
+[2025-09-26 00:04:22] Ill Killin Sin: wts mini asura 30a rift 35a
+[2025-09-26 00:04:22] Dinxiang Jo: wtb rift wardens--+5SR wand/staff--+5ES staff--pm
+[2025-09-26 00:04:52] Jorn The Quick: WTS 5ecto 45K
+[2025-09-26 00:04:57] Krazy Shazam: WTS 250 Superb Charr Carvings. 100e.
+[2025-09-26 00:05:12] Gladiator Egg Roll: WTT my GW1 arms for your GW2 gold/MC, PM
+[2025-09-26 00:05:12] Warden of the Leaf drops 14 Tanned Hide Squares, which your party reserves for Pelznickel Searinox.
+[2025-09-26 00:05:17] Warden of the Trunk drops 14 Tanned Hide Squares, which your party reserves for Pelznickel Searinox.
+[2025-09-26 00:05:22] Corrupt Is The Man: wts envoy scythe
+[2025-09-26 00:05:27] You pick up 14 Tanned Hide Squares.
+[2025-09-26 00:05:57] Warden of the Trunk drops an Amber Staff, which your party reserves for Pelznickel Searinox.
+[2025-09-26 00:06:02] Krazy Shazam: WTS 250 Superb Charr Carvings. 100e.
+[2025-09-26 00:06:02] 30 enemies slain.
+[2025-09-26 00:06:12] S V P: WTS 5 gott = 25e / next week nick set = 10e
+[2025-09-26 00:06:12] A Candy Cane Shard: gn!
+[2025-09-26 00:06:12] Your party shares 112 gold.
+[2025-09-26 00:06:17] You pick up the Amber Staff.
+[2025-09-26 00:06:37] 35 enemies slain.
+[2025-09-26 00:06:52] Krazy Shazam: WTS 250 Superb Charr Carvings. 100e.
+[2025-09-26 00:06:52] 40 enemies slain.
+[2025-09-26 00:06:57] Jorn The Quick: WTS 5ecto 45K
+[2025-09-26 00:07:02] Lucrecia Mercer: WTS Nick Set
+[2025-09-26 00:07:02] Quest Updated: Charting the Forests
+[2025-09-26 00:07:02] Junk In Djs Trunk: WTS Apples 19e Cupcakes 10e honeycomb 8e //// wtb arms 36e
+[2025-09-26 00:07:38] Obi Wan Kenobi Dark: wts oola's wand and focus
+[2025-09-26 00:07:43] S V P: WTS 5 gott = 25e / next week nick set = 10e
+[2025-09-26 00:07:58] Warden of the Spring drops a Warden Vestments, which your party reserves for Pelznickel Searinox.
+[2025-09-26 00:07:58] 45 enemies slain.
+[2025-09-26 00:08:08] You pick up the Warden Vestments.
+[2025-09-26 00:08:18] A Candy Cane Shard: wts os +5e shadow blades
+[2025-09-26 00:08:18] Gwen Valor: WTB BDS Channel q10-12
+[2025-09-26 00:08:38] Shekka Shalmos: WTB of the ranger staff mod
+[2025-09-26 00:08:43] Istani Rastani: wts q13 eaglecrest axe 120e
+[2025-09-26 00:08:43] Junk In Djs Trunk: WTS Apples 19e Cupcakes 10e honeycomb 8e //// wtb arms 36e
+[2025-09-26 00:08:53] Obi Wan Kenobi Dark: wts oola's wand and focus
+[2025-09-26 00:09:03] Istani Rastani: wts q13 eaglecrest axe 120e
+[2025-09-26 00:09:03] I White Turtle I's team has won a battle in the Hall of Heroes.
+[2025-09-26 00:09:18] S V P: WTS 5 gott = 25e / next week nick set = 9e
+[2025-09-26 00:09:18] You gain 250 Kurzick faction.
+[2025-09-26 00:09:18] 55 enemies slain.
+[2025-09-26 00:09:23] Jorn The Quick: WTS 5ecto 45K
+[2025-09-26 00:09:43] Dh Khd: WTS GotT 5e/ea
+[2025-09-26 00:10:08] Warden of the Tree drops a Gothic Defender, which your party reserves for Pelznickel Searinox.
+[2025-09-26 00:10:08] 60 enemies slain.
+[2025-09-26 00:10:18] Gwen Valor: WTB BDS Channel q10-12
+[2025-09-26 00:10:23] Ill Killin Sin: wts mini asura 30a rift 35a
+[2025-09-26 00:10:53] Blacky Scyther: WTS Fellblade perfect q9 15^50
+[2025-09-26 00:10:58] Sweet Domia X: wts os defender q12 str +45^ench +10vs cold//////q9 golden maul +15%/-1 health regen pm offer
+[2025-09-26 00:11:28] Lucrecia Mercer: WTS Nick Sets
+[2025-09-26 00:11:48] Montrell Detox: WTB STEP UUP
+[2025-09-26 00:11:53] Jorn The Quick: WTS 5ecto 45K
+[2025-09-26 00:12:34] Crazy Baked: wtb soup 30e
+[2025-09-26 00:12:44] Spirit Of Vince: wts 250 gott 36A//frog scepter q12 death magic//quicksilver q9 illusion magic
+[2025-09-26 00:12:54] Avatar Of Soo Won: WTB NIC SET
+[2025-09-26 00:13:29] My Heart Is Burning: WTB  Apple Cider
+[2025-09-26 00:16:39] Corrupt Is The Man: WTS Envoy scythe
+[2025-09-26 00:16:49] Hi No Musume: WTB q9 Storm Daggers!!!!!!!!!!!
+[2025-09-26 00:17:09] Spirit Malkav: WTS 3 Gold Balthazar Flames 3e Each and 1 Regular Balthazar Flame 1e Open Trade!!!!!
+[2025-09-26 00:17:28] Spirit Malkav: WTS 3 Gold Balthazar Flames 3e Each and 1 Regular Balthazar Flame 1e Open Trade!!!!!
+[2025-09-26 00:17:53] Liandrin Guiraie: WTS 250 DCores 3a/125e
+[2025-09-26 00:17:58] Captain Linhard: WTS-Kukris (OS +5ene r12), Forgotten Fan, Bogroot Staff, Mysterious Tonic; WTB-ALL Peppermint CC-100g/ea
+[2025-09-26 00:18:48] Spirit Malkav: WTS 3 Gold Flames of Balthazar 3e Each and 1 Regular Flame of Balthazar1e Open Trade!!!!!
+[2025-09-26 00:18:53] My Heart Is Burning: WTB  Apple Cider
+[2025-09-26 00:19:43] Paragon Drjanitor: WTB focus and wand mods pm me what you have
+[2025-09-26 00:19:58] Nagy Tordek: WTS Droknars Key 20e!
+[2025-09-26 00:20:53] Spirit Malkav: WTS 3 Gold Flames of Balthazar 3e Each and 1 Regular Flame of Balthazar1e Open Trade!!!!!
+[2025-09-26 00:21:03] I White Turtle I's team has won a battle in the Hall of Heroes.
+[2025-09-26 00:21:28] Darius Stormcharger: WTS Golden Flames of Balthazar = 10e each, PM!!!!!!
+[2025-09-26 00:23:03] Paragon Drjanitor: WTB FOCS CORE OF APTITUDE
+[2025-09-26 00:23:18] My Heart Is Burning: WTB Hard Apple Cider! x1
+[2025-09-26 00:23:34] Popolizist Alois: wts 5 nic gifts 25e
+[2025-09-26 00:23:59] Spirit Malkav: WTS Unded Mini Gwen Pm Offer (need the money)
+[2025-09-26 00:23:59] Darius Stormcharger: WTS Golden Flames of Balthazar = 10e each, PM!!!!!!
+[2025-09-26 00:24:24] Shekka Shalmos: WTB of the Ranger staff wrapping
+[2025-09-26 00:24:39] Unspoken Rituals: WTS Vamp, Sundering, Warding for Spear
+[2025-09-26 00:24:44] Spirit Malkav: WTS Unded Mini Gwen Pm Offer (need the money)
+[2025-09-26 00:24:49] Popolizist Alois: wts 5 nic gifts 5e each
+[2025-09-26 01:07:55] Spirit Malkav: WTS Unded Mini Gwen Pm Offer (need the money)
+[2025-09-26 01:07:55] Captain Linhard: WTS-Kukris (OS +5ene r12), Forgotten Fan, Bogroot Staff, Mysterious Tonic; WTB-ALL Peppermint CC-100g/ea
+[2025-09-26 01:07:55] Mau Da Fita: WTS GotT 5e ea
+[2025-09-26 01:07:55] Valkyrie Verasity: WTB OS Crude Shields
+[2025-09-26 01:07:55] Dinxiang Jo: wts rez--cons--diessa--rin--pstones--q10 glacial dags--pm what u need
+[2025-09-26 01:07:55] Scarab Dung Ranger: WTB Adept Staff Head
+[2025-09-26 01:07:55] Mau Da Fita: WTS GotT 5e ea
+[2025-09-26 01:07:55] Dinxiang Jo: wtb rift wardens--+5SR wand/staff--+5ES staff--pm
+[2025-09-26 01:07:55] Ill Killin Sin: wts mini asura 30a rift 35a
+[2025-09-26 01:07:55] Paragon Drjanitor: WTB Forget me not
+[2025-09-26 01:07:55] Mau Da Fita: WTS GotT 5e ea
+[2025-09-26 01:07:55] Blacky Scyther: WTS OS spider's gluttony q12 leadership +10 vs demons +44/stance /offer
+[2025-09-26 01:07:55] Scarab Dung Ranger: WTB Staff Wrapping of the Ritualist
+[2025-09-26 01:07:55] Obi Wan Kenobi Dark: wts oola's wand and focus
+[2025-09-26 01:07:55] Unspoken Rituals: WTS for Staff: +5 FC & SR | Mastery, Fortitude, Ench | Adept head
+[2025-09-26 01:07:55] Scarab Dung Ranger: WTB Staff Wrapping of the Ritualist
+[2025-09-26 01:07:55] I White Turtle I's team has won a battle in the Hall of Heroes.
+[2025-09-26 01:07:55] Professor Chaos: ty ty
+[2025-09-26 01:07:55] Druss Of Iron: WTB Elite elementalist tome x4 / Bone stacks x4
+[2025-09-26 01:07:55] Unspoken Rituals: WTS for Staff: +5 FC | Mastery, Fortitude, Ench | Adept head
+[2025-09-26 01:07:55] Professor Chaos: WTB Droknars Keys 20e/ea x7 pm me
+[2025-09-26 01:07:55] Crazy Baked: wtb soup 30e
+[2025-09-26 01:07:55] You have been playing for 1 hour.
+[2025-09-26 01:07:55] Scarab Dung Ranger: WTB Staff Wrapping of the Ritualist
+[2025-09-26 01:07:55] Mercenary Anri: WTS Axe Grip of the Para = 2e, Assa = 10e, q9 Draconic Spear 12e, q10 Clockwork Scythe 100e, Spear Grip of Fortitude 3
+[2025-09-26 01:07:55] Druss Of Iron: WTB Elite elementalist tome x4 / Bone stacks x4
+[2025-09-26 01:07:55] Professor Chaos: WTB Droknars Keys 20e/ea x6 pm me
+[2025-09-26 01:07:55] Mercenary Anri: WTS Axe Grip of the Para = 2e, Assa = 10e, q9 Draconic Spear 12e, q10 Clockwork Scythe 100e, Spear Grip of Fortitude 3
+[2025-09-26 01:07:55] Druss Of Iron: WTB Elite elementalist tome x4 / Bone stacks x4
+[2025-09-26 01:07:55] Obi Wan Kenobi Dark: wts oola's wand and focus
+[2025-09-26 01:07:55] Wukki Wukki: wtb zealous dagger mods
+[2025-09-26 01:07:55] Scarab Dung Ranger: WTB Staff Wrapping of the Ritualist
+[2025-09-26 01:07:55] Twice Slive: WTS gold z coins x9 9e/ea
+[2025-09-26 01:07:55] Wukki Wukki: wtb giggity
+[2025-09-26 01:07:55] Mercenary Anri: WTS Axe Grip of the Para = 2e, Assa = 10e, q9 Draconic Spear 12e, q10 Clockwork Scythe 100e, Spear Grip of Fortitude 3
+[2025-09-26 01:07:55] Paragon Drjanitor: WTB Forget me not inscr
+[2025-09-26 01:07:55] Druss Of Iron: WTB Elite elementalist tome x4 / Bone stacks x4
+[2025-09-26 01:07:55] Scarab Dung Ranger: WTB Staff Wrapping of the Ritualist 30e
+[2025-09-26 01:07:55] Twice Slive: WTS gold z coins x9 9e/ea
+[2025-09-26 01:07:55] Scarab Dung Ranger: WTB Staff Wrapping Ritualist 30e
+[2025-09-26 01:07:55] Osnovy Hudozhnik: WTB cc shards 5e/stack
+[2025-09-26 01:07:55] Deathlord Zeke: WTS 2 Gold Crimson Skull Coins 5e ea
+[2025-09-26 01:07:55] Mercenary Anri: WTS Axe Grip of the Para = 2e, Assa = 10e, q9 Draconic Spear 12e, q10 Clockwork Scythe 100e, Spear Grip of Fortitude 3
+[2025-09-26 01:07:55] Scarab Dung Ranger: WTB Staff Wrapping of the Rit 30e
+[2025-09-26 01:07:55] Rush Boost: WTB Malinon's Skull Crusher
+[2025-09-26 01:07:55] Scarab Dung Ranger: WTB Staff Wrapping of Rit 30e
+[2025-09-26 01:07:55] Druss Of Iron: WTB Elite elementalist tome x4 / Bone stacks x4
+[2025-09-26 01:07:55] Twice Slive: WTS gold z coins x9 9e/ea
+[2025-09-26 01:07:55] Rush Boost: WTB Malinon's Skull Crusher
+[2025-09-26 01:07:55] Crying In My Grave: WTB Rago's Flame Staff
+[2025-09-26 01:07:55] Twice Slive: WTS gold z coins x9 9e/ea
+[2025-09-26 01:07:55] Mercenary Anri: WTS Axe Grip of the Para = 2e, Assa = 10e, q9 Draconic Spear 12e, q10 Clockwork Scythe 100e, Spear Grip of Fortitude 3
+[2025-09-26 01:07:55] Fede Goes Sin: WTB Froggy + CC q9-13 Death
+[2025-09-26 01:07:55] Twice Slive: WTS gold z coins x9 9e/ea
+[2025-09-26 01:07:55] Junk In Djs Trunk: WTS Apples 19e Cupcakes 10e honeycomb 8e //// wtb arms 36e
+[2025-09-26 01:07:55] Druss Of Iron: WTB Elite elementalist tome x4 / Bone stacks x4
+[2025-09-26 01:07:55] Junk In Djs Trunk: WTS Apples 19e Cupcakes 10e honeycomb 8e //// wtb arms 36e
+[2025-09-26 01:07:55] Druss Of Iron: WTB Elite elementalist tome x4 / Bone stacks x4
+[2025-09-26 01:07:55] Mercenary Anri: WTS Axe Grip of the Para = 2e, Assa = 10e, q9 Draconic Spear 12e, q10 Clockwork Scythe 100e, Spear Grip of Fortitude 3
+[2025-09-26 01:07:55] Dh Khd: WTS GotT 5e/ea
+[2025-09-26 01:07:55] Dh Khd: WTS Frog q10 Divine - 4a/160e/30GotT
+[2025-09-26 01:07:55] Drew Of Cantha: WTS Grim Cesta (-50HP)(off-hand) for 35e
+[2025-09-26 01:07:55] Osnovy Hudozhnik: WTB cc shards 5e/stack
+[2025-09-26 01:07:55] Jacked Ironfist Ix: WTB Sword Pommel of Defence | Fiery Sword Hilt. PM Price.
+[2025-09-26 01:07:55] Druss Of Iron: WTB Elite elementalist tome x4 / Bone stacks x4
+[2025-09-26 01:07:55] Drew Of Cantha: WTS Grim Cesta (-50HP)(off-hand) for 35e
+[2025-09-26 01:07:55] Twice Slive: WTS gold Z coin x9// 9e/ ea
+[2025-09-26 01:07:55] Jacked Ironfist Ix: WTB Fiery Hilt. Pm Price.
+[2025-09-26 01:07:55] I White Turtle I's team has won a battle in the Hall of Heroes.
+[2025-09-26 01:07:55] Fire In A Nutshell: wtb gold crimson coins
+[2025-09-26 01:07:55] Druss Of Iron: WTB Elite elementalist tome x4 / Bone stacks x4
+[2025-09-26 01:07:55] Gwen Valor: WTB BDS Channel q10-q12
+[2025-09-26 01:07:55] Isin Lightfoot: WTB ANCIENT FLATBOW Q9!
+[2025-09-26 01:07:55] Jacked Ironfist Ix: WTB Fiery Hilt. Pm Price.
+[2025-09-26 01:07:55] Junk In Djs Trunk: WTS Apples 19e Cupcakes 10e honeycomb 8e //// wtb arms 36e
+[2025-09-26 01:07:55] Druss Of Iron: WTB Elite elementalist tome x4 / Bone stacks x4
+[2025-09-26 01:07:55] Mercenary Anri: WTS Axe Grip of the Para = 2e, Assa = 10e, q9 Draconic Spear 12e, q10 Clockwork Scythe 100e, Spear Grip of Fortitude 3
+[2025-09-26 01:07:55] Da Silver Healer: WTB R11-13 EBLADE WHISPER ME
+[2025-09-26 01:07:55] Twice Slive: WTS gold Z coin x9// 9e/ ea
+[2025-09-26 01:07:55] Gwen Valor: WTB BDS Channel q10-q12
+[2025-09-26 01:07:55] Mr Parrot Head: wts etomes: war /1, monk /6, ele /1, rang /1 rit /1, mes /1@4e/ea.
+[2025-09-26 01:07:55] Twice Slive: WTS gold Z coin x9// 9e/ ea
+[2025-09-26 01:07:55] Da Silver Healer: WTB R11-13 EBLADE WHISPER ME
+[2025-09-26 01:07:55] Twice Slive: WTS gold Z coin x9// 9e/ ea
+[2025-09-26 01:07:55] Mr Parrot Head: wtb gold crimson coins...wsp
+[2025-09-26 01:07:55] Gwen Valor: WTB BDS Channel q10-q12
+[2025-09-26 01:07:55] Mercenary Anri: WTS Axe Grip of the Para = 2e, Assa = 10e, q9 Draconic Spear 12e, q10 Clockwork Scythe 100e, Spear Grip of Fortitude 3
+[2025-09-26 01:07:55] Osiris Is A Noob: WTS cons 14a | rez 3a | diessa set 5a | rin set 20e
+[2025-09-26 01:07:55] Twice Slive: WTS gold Z coin x9// 9e/ ea
+[2025-09-26 01:07:55] Osiris Is A Noob: WTS cons 14a | rez 3a | diessa set 5a | rin set 20e
+[2025-09-26 01:07:55] Twice Slive: WTS gold Z coin x9// 9e/ ea
+[2025-09-26 01:07:55] Jacked Ironfist Ix: WTB Fiery Hilt. Pm Price.
+[2025-09-26 01:07:55] Gwen Valor: WTB BDS Channel q10-q12
+[2025-09-26 01:07:55] I White Turtle I's team has won a battle in the Hall of Heroes.
+[2025-09-26 01:07:55] Willow Shadowglade: WTB all 4 treasure map pieces
+[2025-09-26 01:07:55] Osiris Is A Noob: WTS cons 14a | rez 3a | diessa set 5a | rin set 20e
+[2025-09-26 01:07:55] Twice Slive: WTS gold Z coin x9// 9e/ ea
+[2025-09-26 01:07:55] Rush Boost: WTB Malinon's Skull Crusher
+[2025-09-26 01:07:55] Junk In Djs Trunk: WTS Apples 19e Cupcakes 10e honeycomb 8e //// wtb arms 36e
+[2025-09-26 01:07:55] Mercenary Anri: WTS Axe Grip of the Para = 2e, Assa = 10e, q9 Draconic Spear 12e, q10 Clockwork Scythe 100e, Spear Grip of Fortitude 3
+[2025-09-26 01:07:55] Twice Slive: WTS gold Z coin x9// 9e/ ea
+[2025-09-26 01:07:55] Osiris Is A Noob: WTS cons 14a | rez 3a | diessa set 5a | rin set 20e
+[2025-09-26 01:07:55] Twice Slive: WTS gold Z coin x9// 9e/ ea
+[2025-09-26 01:07:55] Wts You Pcons: WTS Pie40e/Apl/Cor/Eg25e/Cup20e
+[2025-09-26 01:07:55] Jacked Ironfist Ix: WTB Fiery Hilt. Pm Price.
+[2025-09-26 01:07:55] S V P: WTS 5 gott = 25e / next week nick set = 9e
+[2025-09-26 01:07:55] Mira Pol Tu Si Aha: WTB GOTT 4e/ea, 5=20e [d1 bridge] // WTS 42e/ea arms (x84 left)
+[2025-09-26 01:07:55] Kratos Bonegrinder: Wts Insc VDS 10e
+[2025-09-26 01:07:55] Mercenary Anri: WTB. 2 regular dervish tomes 1k
+[2025-09-26 01:07:55] Mira Pol Tu Si Aha: WTB GOTT 4e/ea, 5=20e [d1 bridge] // WTS 42e/ea arms (x84 left)
+[2025-09-26 01:07:55] Wts You Pcons: WTS Pie40e/Apl/Cor/Eg25e/Cup20e
+[2025-09-26 01:07:55] Rashim Stormbreaker: WTS CC Smiting/SpwnPowerq9(6a)/q12 death(2a)/Fire q9 11a//q13 water(35e)
+[2025-09-26 01:07:55] Jacked Ironfist Ix: WTB Fiery Hilt. Pm Price.
+[2025-09-26 01:07:55] My Heart Is Burning: WTB Zealous daggers of defense with "Strength and Honor!" or single mods
+[2025-09-26 01:07:55] My Heart Is Burning: WTB Zealous daggers with "Strength and Honor!" or single mods
+[2025-09-26 01:07:55] Kratos Bonegrinder: Wts OS Ironwing Flatbow 15-ench Soosc ready with Zealous and 20% undead 50e obo
+[2025-09-26 01:07:55] Kratos Bonegrinder: Wts Insc VDS 10e
+[2025-09-26 01:07:55] Wts You Pcons: WTS Pie40e/Apl/Cor/Eg25e/Cup20e
+[2025-09-26 01:07:55] Mira Pol Tu Si Aha: WTB GOTT 4e/ea, 5=20e [d1 bridge] // WTS 42e/ea arms (x84 left)
+[2025-09-26 01:07:55] Rashim Stormbreaker: WTS CC Smiting/SpwnPowerq9(6a)/q12 death(2a)/Fire q9 11a//q13 water(35e)
+[2025-09-26 01:07:55] Mira Pol Tu Si Aha: WTB GOTT 4e/ea, 5=20e [d1 bridge] // WTS 42e/ea arms (x84 left)
+[2025-09-26 01:07:55] Rashim Stormbreaker: WTS CC Smiting/SpwnPowerq9(6a)/q12 death(2a)/Fire q9 11a//q13 water(35e)
+[2025-09-26 01:07:55] Dh Khd: WTS Frog q10 Divine - 4a/160e/30GotT
+[2025-09-26 01:07:55] Wts You Pcons: WTS Pie40e/Apl/Cor/Eg25e/Cup20e
+[2025-09-26 01:07:55] Dh Khd: WTS GotT 5e/ea
+[2025-09-26 01:07:55] Le Feu Du Dragon: WTB scyte grip of the dervish (Myst 5)
+[2025-09-26 01:07:55] Kratos Bonegrinder: Wts Insc VDS 10e
+[2025-09-26 01:07:55] Kratos Bonegrinder: Wts OS Ironwing Flatbow 15-ench Soosc ready with Zealous and 20% undead 50e obo
+[2025-09-26 01:07:55] Da Silver Healer: WTB R11-13 EBLADE WHISPER ME
+[2025-09-26 01:07:55] Osnovy Hudozhnik: WTB cc shards 5e/stack
+[2025-09-26 01:07:55] Lara Raya: WTB Staff wrap of mastery 2e
+[2025-09-26 01:07:55] Super Monkies: WTS staff dervish, sword dervish
+[2025-09-26 01:07:55] Moon Bouncer: WTB Inscr Ghostly Staff Channeling
+[2025-09-26 01:07:55] Mia Quickening: WTB Unded Ghostly Hero PM Price
+[2025-09-26 01:07:55] Mia Quickening: WTB Unded Kanaxai, Panda, Islan
+[2025-09-26 01:07:55] Mini Mia Quickening: WTS White Minis 10e/ea / / WTT Unded Kuunavang + xxx Armbraces for Unded Mad King's Guard
+[2025-09-26 01:07:55] Marquis Losstarot: WTB Q9 15^50 Plagueborn Hornbow
+[2025-09-26 01:07:55] Super Monkies: WTS ecto 12=100k
+[2025-09-26 01:07:55] Kimber Leah: WTS Elite Tomes 5e/ea Green EL
+[2025-09-26 01:07:55] Kimber Leah: WTS Deldrimor Armor 100k/ea / C
+[2025-09-26 01:07:55] Kimber Leah: WTS EL Miku 30e Gwen/Keiran/Shi
+[2025-09-26 01:07:55] Lara Raya: WTB Staff wrap of mastery 2e
+[2025-09-26 01:07:55] Kratos Bonegrinder: Wts OS Ironwing Flatbow 15-ench Soosc ready with Zealous and 20% undead 50e obo
+[2025-09-26 01:07:55] Marquis Losstarot: WTB Q9 15^50 Plagueborn Hornbow
+[2025-09-26 01:07:55] Le Feu Du Dragon: WTB aptitude not attitude 20%   -- 4e
+[2025-09-26 01:07:55] Kratos Bonegrinder: Wts Insc VDS 10e
+[2025-09-26 01:07:55] Da Silver Healer: WTB R11-13 EBLADE WHISPER ME
+[2025-09-26 01:07:55] Junk In Djs Trunk: WTS Apples 19e Cupcakes 10e honeycomb 8e //// wtb arms 36e
+[2025-09-26 01:07:55] Twice Slive: WTS gold Z coin x9// 9e/ ea
+[2025-09-26 01:07:55] Jacked Ironfist Ix: WTB Sheltered by Faith -2. 2e
+[2025-09-26 01:07:55] Rose Pique: WTS random green weapons. pm what you are looking
+[2025-09-26 01:07:55] Super Monkies: WTS ecto 12=100k
+[2025-09-26 01:07:55] I Spirit Shino I: wtb zealous scythe, staff mod mp me
+[2025-09-26 01:07:55] Cornichon En Cavale: WTS - Storm Bow q9 inscr. 20e - Ghostly illusion q9 inscr. 3a - Ghostly DF & Water q9 inscr. 25e/ea -

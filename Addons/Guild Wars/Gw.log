@@ -1,0 +1,1477 @@
+Debug: Downloading Dll 376457 to GwLoginClient.dll
+Debug: Dll C:\Program Files (x86)\Steam\steamapps\common\Guild Wars\GwLoginClient.dll download success
+Debug: Downloading Dll 381477 to steam_api.dll
+Debug: Dll C:\Program Files (x86)\Steam\steamapps\common\Guild Wars\steam_api.dll download success
+Error: Failed to initialize Steam - GW probably not launched from Steam
+Debug: OnEventPostGameCliFriendUpdate user you; friend guid 4DA5A21C-0BC0-4F4F-8C5C-58AB55C6E659; friend char name ; friend name Melandrus Searinox; new state 1; error 0
+Debug: OnEventPostGameCliFriendUpdate user you; friend guid 9C09291B-B9CB-4176-8CA0-4CE8882C49B0; friend char name ; friend name I Hit Noobs; new state 1; error 0
+Error: Client pathing data out of sync with server.  You may observe your character 'warping' during movement.
+Error: Invalid text fixup [23:34:22] hash 1748076427 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[23:34:22]</c> <c=#64BEFF>[AutoHandler]</c> <c=#FFFFFF>Auto Widget Options initialized</c>"
+Error: Invalid text fixup [AutoHandler] hash 1104279395 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[23:34:22]</c> <c=#64BEFF>[AutoHandler]</c> <c=#FFFFFF>Auto Widget Options initialized</c>"
+Error: Invalid text fixup [23:34:22] hash 1748076427 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[23:34:22]</c> <c=#64BEFF>[AutoInventoryHandler]</c> <c=#FFFFFF>Starting ID, Salvage and Deposit routine</c>"
+Error: Invalid text fixup [AutoInventoryH hash 186660417 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[23:34:22]</c> <c=#64BEFF>[AutoInventoryHandler]</c> <c=#FFFFFF>Starting ID, Salvage and Deposit routine</c>"
+Error: Invalid text fixup [23:34:22] hash 1748076427 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[23:34:22]</c> <c=#64BEFF>[AutoInventoryHandler]</c> <c=#FFFFFF>ID, Salvage and Deposit routine completed</c>"
+Error: Invalid text fixup [AutoInventoryH hash 186660417 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[23:34:22]</c> <c=#64BEFF>[AutoInventoryHandler]</c> <c=#FFFFFF>ID, Salvage and Deposit routine completed</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "[null]<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [23:59:31] hash 731042866 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[23:59:31]</c> <c=#64BEFF>[Py4GW]</c> <c=#99FF99>Selected script: C:/Users/seari/Documents/Guild Wars/Py4GW/Bots/aC_Scripts/PyQuishAI.py</c>"
+Error: Invalid text fixup [Py4GW] hash 2070429553 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[23:59:31]</c> <c=#64BEFF>[Py4GW]</c> <c=#99FF99>Selected script: C:/Users/seari/Documents/Guild Wars/Py4GW/Bots/aC_Scripts/PyQuishAI.py</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [23:59:34] hash 3078159577 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[23:59:34]</c> <c=#64BEFF>[Py4GW]</c> <c=#99FF99>Script compiled successfully.</c>"
+Error: Invalid text fixup [Py4GW] hash 2070429553 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[23:59:34]</c> <c=#64BEFF>[Py4GW]</c> <c=#99FF99>Script compiled successfully.</c>"
+Error: Invalid text fixup [23:59:34] hash 3078159577 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[23:59:34]</c> <c=#64BEFF>[Py4GW]</c> <c=#99FF99>main() function found.</c>"
+Error: Invalid text fixup [Py4GW] hash 2070429553 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[23:59:34]</c> <c=#64BEFF>[Py4GW]</c> <c=#99FF99>main() function found.</c>"
+Error: Invalid text fixup [23:59:34] hash 3078159577 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[23:59:34]</c> <c=#64BEFF>[Py4GW]</c> <c=#99FF99>Script started.</c>"
+Error: Invalid text fixup [Py4GW] hash 2070429553 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[23:59:34]</c> <c=#64BEFF>[Py4GW]</c> <c=#99FF99>Script started.</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [23:59:51] hash 2811544672 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[23:59:51]</c> <c=#64BEFF>[TravelToOutpost]</c> <c=#FFFFFF>Traveling to outpost: Altrumm Ruins outpost.</c>"
+Error: Invalid text fixup [TravelToOutpos hash 2235678522 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[23:59:51]</c> <c=#64BEFF>[TravelToOutpost]</c> <c=#FFFFFF>Traveling to outpost: Altrumm Ruins outpost.</c>"
+Error: Invalid text fixup [23:59:51] hash 2811544672 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[23:59:51]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>MainStateMachine: Starting FSM with initial state: Check Current Map</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[23:59:51]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>MainStateMachine: Starting FSM with initial state: Check Current Map</c>"
+Error: Invalid text fixup [23:59:51] hash 2811544672 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[23:59:51]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Global Combat Monitor: Starting FSM with initial state: Check: In Danger</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[23:59:51]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Global Combat Monitor: Starting FSM with initial state: Check: In Danger</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "[null]<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "[null]<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "[null]<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Client pathing data out of sync with server.  You may observe your character 'warping' during movement.
+Error: Invalid text fixup [23:59:53] hash 3459395771 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[23:59:53]</c> <c=#64BEFF>[HasArrivedToOutpost]</c> <c=#FFFFFF>Still traveling... Waiting to arrive at: Altrumm Ruins outpost.</c>"
+Error: Invalid text fixup [HasArrivedToOu hash 2217433099 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[23:59:53]</c> <c=#64BEFF>[HasArrivedToOutpost]</c> <c=#FFFFFF>Still traveling... Waiting to arrive at: Altrumm Ruins outpost.</c>"
+Error: Invalid text fixup [23:59:54] hash 328129781 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[23:59:54]</c> <c=#64BEFF>[IsOutpostLoaded]</c> <c=#FFFFFF>Outpost Map Not Loaded. Retrying.</c>"
+Error: Invalid text fixup [IsOutpostLoade hash 16831717 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[23:59:54]</c> <c=#64BEFF>[IsOutpostLoaded]</c> <c=#FFFFFF>Outpost Map Not Loaded. Retrying.</c>"
+Error: Invalid text fixup [23:59:54] hash 328129781 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[23:59:54]</c> <c=#64BEFF>[HasArrivedToOutpost]</c> <c=#FFFFFF>Still traveling... Waiting to arrive at: Altrumm Ruins outpost.</c>"
+Error: Invalid text fixup [HasArrivedToOu hash 2217433099 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[23:59:54]</c> <c=#64BEFF>[HasArrivedToOutpost]</c> <c=#FFFFFF>Still traveling... Waiting to arrive at: Altrumm Ruins outpost.</c>"
+Error: Invalid text fixup [23:59:55] hash 4084636411 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[23:59:55]</c> <c=#64BEFF>[IsOutpostLoaded]</c> <c=#FFFFFF>Outpost Map Loaded.</c>"
+Error: Invalid text fixup [IsOutpostLoade hash 16831717 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[23:59:55]</c> <c=#64BEFF>[IsOutpostLoaded]</c> <c=#FFFFFF>Outpost Map Loaded.</c>"
+Error: Invalid text fixup [23:59:55] hash 4084636411 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[23:59:55]</c> <c=#64BEFF>[HasArrivedToOutpost]</c> <c=#FFFFFF>Arrived at outpost: Altrumm Ruins outpost.</c>"
+Error: Invalid text fixup [HasArrivedToOu hash 2217433099 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[23:59:55]</c> <c=#64BEFF>[HasArrivedToOutpost]</c> <c=#FFFFFF>Arrived at outpost: Altrumm Ruins outpost.</c>"
+Error: Invalid text fixup [23:59:55] hash 4084636411 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[23:59:55]</c> <c=#64BEFF>[AutoInventoryHandler]</c> <c=#FFFFFF>Starting ID, Salvage and Deposit routine</c>"
+Error: Invalid text fixup [AutoInventoryH hash 186660417 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[23:59:55]</c> <c=#64BEFF>[AutoInventoryHandler]</c> <c=#FFFFFF>Starting ID, Salvage and Deposit routine</c>"
+Error: Invalid text fixup [23:59:55] hash 4084636411 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[23:59:55]</c> <c=#64BEFF>[AutoInventoryHandler]</c> <c=#FFFFFF>ID, Salvage and Deposit routine completed</c>"
+Error: Invalid text fixup [AutoInventoryH hash 186660417 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[23:59:55]</c> <c=#64BEFF>[AutoInventoryHandler]</c> <c=#FFFFFF>ID, Salvage and Deposit routine completed</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:00:11] hash 510631921 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:00:11]</c> <c=#64BEFF>[PyQuishAI ]</c> <c=#FFFFFF>Bot Paused</c>"
+Error: Invalid text fixup [PyQuishAI ] hash 1179359630 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:00:11]</c> <c=#64BEFF>[PyQuishAI ]</c> <c=#FFFFFF>Bot Paused</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:00:24] hash 1631576926 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:00:24]</c> <c=#64BEFF>[PyQuishAI ]</c> <c=#FFFFFF>Bot Resumed</c>"
+Error: Invalid text fixup [PyQuishAI ] hash 1179359630 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:00:24]</c> <c=#64BEFF>[PyQuishAI ]</c> <c=#FFFFFF>Bot Resumed</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "[null]<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "[null]<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "[null]<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Client pathing data out of sync with server.  You may observe your character 'warping' during movement.
+Error: Invalid text fixup [00:00:33] hash 3981039564 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:00:33]</c> <c=#64BEFF>[BlessingRunner]</c> <c=#FFFFFF>Starting blessing sequence</c>"
+Error: Invalid text fixup [BlessingRunner hash 94689900 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:00:33]</c> <c=#64BEFF>[BlessingRunner]</c> <c=#FFFFFF>Starting blessing sequence</c>"
+Error: Invalid text fixup [00:00:33] hash 3981039564 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:00:33]</c> <c=#64BEFF>[WidgetHandler]</c> <c=#FFFFFF>"HeroAI" is Disabled</c>"
+Error: Invalid text fixup [WidgetHandler] hash 1473124655 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:00:33]</c> <c=#64BEFF>[WidgetHandler]</c> <c=#FFFFFF>"HeroAI" is Disabled</c>"
+Error: Invalid text fixup [00:00:34] hash 2261121922 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:00:34]</c> <c=#64BEFF>[BlessingRunner]</c> <c=#FFFFFF>Starting blessing sequence</c>"
+Error: Invalid text fixup [BlessingRunner hash 94689900 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:00:34]</c> <c=#64BEFF>[BlessingRunner]</c> <c=#FFFFFF>Starting blessing sequence</c>"
+Error: Invalid text fixup [00:00:34] hash 2261121922 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:00:34]</c> <c=#64BEFF>[WidgetHandler]</c> <c=#FFFFFF>"HeroAI" is Disabled</c>"
+Error: Invalid text fixup [WidgetHandler] hash 1473124655 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:00:34]</c> <c=#64BEFF>[WidgetHandler]</c> <c=#FFFFFF>"HeroAI" is Disabled</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:00:36] hash 522273260 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:00:36]</c> <c=#64BEFF>[BlessingRunner]</c> <c=#FFFFFF>Kurzick Priest: interacted, waiting for dialog
+Error: Invalid text fixup [BlessingRunner hash 94689900 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:00:36]</c> <c=#64BEFF>[BlessingRunner]</c> <c=#FFFFFF>Kurzick Priest: interacted, waiting for dialog
+Error: Invalid text fixup [00:00:37] hash 1935708576 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:00:37]</c> <c=#64BEFF>[BlessingRunner]</c> <c=#FFFFFF>Kurzick Priest: click 1 (initial request)</c>"
+Error: Invalid text fixup [BlessingRunner hash 94689900 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:00:37]</c> <c=#64BEFF>[BlessingRunner]</c> <c=#FFFFFF>Kurzick Priest: click 1 (initial request)</c>"
+Error: Invalid text fixup [00:00:37] hash 1935708576 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:00:37]</c> <c=#64BEFF>[BlessingRunner]</c> <c=#FFFFFF>Kurzick Priest: click 1 (no bribe)</c>"
+Error: Invalid text fixup [BlessingRunner hash 94689900 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:00:37]</c> <c=#64BEFF>[BlessingRunner]</c> <c=#FFFFFF>Kurzick Priest: click 1 (no bribe)</c>"
+Error: Invalid text fixup [00:00:37] hash 1935708576 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:00:37]</c> <c=#64BEFF>[WidgetHandler]</c> <c=#FFFFFF>"HeroAI" is Enabled</c>"
+Error: Invalid text fixup [WidgetHandler] hash 1473124655 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:00:37]</c> <c=#64BEFF>[WidgetHandler]</c> <c=#FFFFFF>"HeroAI" is Enabled</c>"
+Error: Invalid text fixup [00:00:38] hash 3045433302 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:00:38]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 52s] fetches=0, changeTarget=0, move=0</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:00:38]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 52s] fetches=0, changeTarget=0, move=0</c>"
+Error: Invalid text fixup [Stats over 52s hash 2549205782 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:00:38]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 52s] fetches=0, changeTarget=0, move=0</c>"
+Error: Invalid text fixup [00:00:38] hash 3045433302 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:00:38]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (12237.73, -15807.37)</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:00:38]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (12237.73, -15807.37)</c>"
+Error: Invalid text fixup [00:00:38] hash 3045433302 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:00:38]</c> <c=#64BEFF>[Blessing]</c> <c=#FFFFFF>[220] created flag file</c>"
+Error: Invalid text fixup [Blessing] hash 3082872194 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:00:38]</c> <c=#64BEFF>[Blessing]</c> <c=#FFFFFF>[220] created flag file</c>"
+Error: Invalid text fixup [220] hash 1293913201 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:00:38]</c> <c=#64BEFF>[Blessing]</c> <c=#FFFFFF>[220] created flag file</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:00:49] hash 2507136804 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:00:49]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (13102.91, -11608.98)</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:00:49]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (13102.91, -11608.98)</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:00:54] hash 722326610 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:00:54]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:00:54]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:01:00] hash 78326111 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:00]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:00]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:01:04] hash 53252250 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:04]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:04]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:01:04] hash 53252250 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:04]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:04]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:01:25] hash 2725976823 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:25]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 46s] fetches=45, changeTarget=2, move=61</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:25]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 46s] fetches=45, changeTarget=2, move=61</c>"
+Error: Invalid text fixup [Stats over 46s hash 2209232335 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:25]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 46s] fetches=45, changeTarget=2, move=61</c>"
+Error: Invalid text fixup [00:01:25] hash 2725976823 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:25]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:25]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:01:26] hash 846593030 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:26]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:26]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:01:29] hash 1945736202 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:29]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:29]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:01:31] hash 1816925435 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:31]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (10580.59, -14392.66)</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:31]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (10580.59, -14392.66)</c>"
+Error: Invalid text fixup [00:01:32] hash 4239738163 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:32]</c> <c=#64BEFF>[Enemy Data Capture]</c> <c=#FFFFFF>[Data] Started run capture -> .../Arborstone (explorable area)/run-20250926-000132-map244.ndjson</c>"
+Error: Invalid text fixup [Enemy Data Cap hash 1147024950 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:32]</c> <c=#64BEFF>[Enemy Data Capture]</c> <c=#FFFFFF>[Data] Started run capture -> .../Arborstone (explorable area)/run-20250926-000132-map244.ndjson</c>"
+Error: Invalid text fixup [Data] hash 2845401598 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:32]</c> <c=#64BEFF>[Enemy Data Capture]</c> <c=#FFFFFF>[Data] Started run capture -> .../Arborstone (explorable area)/run-20250926-000132-map244.ndjson</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:01:41] hash 4156516512 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:41]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (7230.12, -12890.25)</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:41]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (7230.12, -12890.25)</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:01:47] hash 1593867414 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:47]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:47]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:01:55] hash 3059758002 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:55]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 30s] fetches=53, changeTarget=4, move=100</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:55]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 30s] fetches=53, changeTarget=4, move=100</c>"
+Error: Invalid text fixup [Stats over 30s hash 1499212697 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:55]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 30s] fetches=53, changeTarget=4, move=100</c>"
+Error: Invalid text fixup [00:01:56] hash 3978262034 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:56]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:56]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:01:57] hash 3244107358 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:57]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:57]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:01:57] hash 3244107358 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:57]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:57]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [00:01:58] hash 83365896 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:58]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:01:58]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:02:04] hash 1599366686 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:02:04]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:02:04]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:02:04] hash 1599366686 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:02:04]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:02:04]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:02:04] hash 1599366686 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:02:04]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:02:04]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:02:05] hash 3514923099 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:02:05]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:02:05]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:02:15] hash 4171683848 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:02:15]</c> <c=#64BEFF>[Messaging]</c> <c=#FFFFFF>Starting PickUpLoot routine</c>"
+Error: Invalid text fixup [Messaging] hash 2655714474 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:02:15]</c> <c=#64BEFF>[Messaging]</c> <c=#FFFFFF>Starting PickUpLoot routine</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:02:21] hash 135975312 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:02:21]</c> <c=#64BEFF>[Messaging]</c> <c=#FFFFFF>PickUpLoot routine finished.</c>"
+Error: Invalid text fixup [Messaging] hash 2655714474 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:02:21]</c> <c=#64BEFF>[Messaging]</c> <c=#FFFFFF>PickUpLoot routine finished.</c>"
+Error: Invalid text fixup [00:02:21] hash 135975312 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:02:21]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (8682.2, -16137.7)</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:02:21]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (8682.2, -16137.7)</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:02:25] hash 3951492009 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:02:25]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 30s] fetches=37, changeTarget=5, move=5</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:02:25]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 30s] fetches=37, changeTarget=5, move=5</c>"
+Error: Invalid text fixup [Stats over 30s hash 1499212697 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:02:25]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 30s] fetches=37, changeTarget=5, move=5</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:02:27] hash 3493979550 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:02:27]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (4156.44, -18683.01)</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:02:27]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (4156.44, -18683.01)</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:02:33] hash 2514661086 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:02:33]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:02:33]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:02:40] hash 1575943925 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:02:40]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:02:40]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:02:52] hash 1372588935 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:02:52]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:02:52]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:02:54] hash 1420214816 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:02:54]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:02:54]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:02:58] hash 1105651452 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:02:58]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 32s] fetches=32, changeTarget=4, move=84</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:02:58]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 32s] fetches=32, changeTarget=4, move=84</c>"
+Error: Invalid text fixup [Stats over 32s hash 3260482475 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:02:58]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 32s] fetches=32, changeTarget=4, move=84</c>"
+Error: Invalid text fixup [00:03:00] hash 2869205261 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:00]</c> <c=#64BEFF>[Messaging]</c> <c=#FFFFFF>Starting PickUpLoot routine</c>"
+Error: Invalid text fixup [Messaging] hash 2655714474 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:00]</c> <c=#64BEFF>[Messaging]</c> <c=#FFFFFF>Starting PickUpLoot routine</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:03:02] hash 1312384959 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:02]</c> <c=#64BEFF>[Messaging]</c> <c=#FFFFFF>PickUpLoot routine finished.</c>"
+Error: Invalid text fixup [Messaging] hash 2655714474 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:02]</c> <c=#64BEFF>[Messaging]</c> <c=#FFFFFF>PickUpLoot routine finished.</c>"
+Error: Invalid text fixup [00:03:02] hash 1312384959 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:02]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (2038.92, -17167.68)</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:02]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (2038.92, -17167.68)</c>"
+Error: Invalid text fixup [00:03:05] hash 1001134727 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:05]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:05]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:03:11] hash 4121102219 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:11]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:11]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:03:28] hash 2985329586 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:28]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 30s] fetches=23, changeTarget=1, move=1</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:28]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 30s] fetches=23, changeTarget=1, move=1</c>"
+Error: Invalid text fixup [Stats over 30s hash 1499212697 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:28]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 30s] fetches=23, changeTarget=1, move=1</c>"
+Error: Invalid text fixup [00:03:28] hash 2985329586 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:28]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:28]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:03:30] hash 3002137907 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:30]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:30]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:03:33] hash 3867725732 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:33]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:33]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:03:41] hash 36921538 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:41]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:41]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:03:41] hash 36921538 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:41]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:41]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:03:41] hash 36921538 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:41]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:41]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:03:41] hash 36921538 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:41]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:41]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:03:41] hash 36921538 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:41]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:41]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:03:41] hash 36921538 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:41]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (1155.69, -16048.55)</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:41]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (1155.69, -16048.55)</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:03:44] hash 2945581222 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:44]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:44]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:03:50] hash 3068214701 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:50]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:03:50]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:04:04] hash 204896292 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:04:04]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 36s] fetches=37, changeTarget=4, move=52</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:04:04]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 36s] fetches=37, changeTarget=4, move=52</c>"
+Error: Invalid text fixup [Stats over 36s hash 3581717389 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:04:04]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 36s] fetches=37, changeTarget=4, move=52</c>"
+Error: Invalid text fixup [00:04:05] hash 2615506919 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:04:05]</c> <c=#64BEFF>[Messaging]</c> <c=#FFFFFF>Starting PickUpLoot routine</c>"
+Error: Invalid text fixup [Messaging] hash 2655714474 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:04:05]</c> <c=#64BEFF>[Messaging]</c> <c=#FFFFFF>Starting PickUpLoot routine</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:04:16] hash 991545782 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:04:16]</c> <c=#64BEFF>[Messaging]</c> <c=#FFFFFF>PickUpLoot routine finished.</c>"
+Error: Invalid text fixup [Messaging] hash 2655714474 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:04:16]</c> <c=#64BEFF>[Messaging]</c> <c=#FFFFFF>PickUpLoot routine finished.</c>"
+Error: Invalid text fixup [00:04:16] hash 991545782 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:04:16]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (-379.77, -16719.59)</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:04:16]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (-379.77, -16719.59)</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:04:23] hash 2620974864 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:04:23]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (1009.66, -16029.28)</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:04:23]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (1009.66, -16029.28)</c>"
+Error: Invalid text fixup [00:04:27] hash 421712352 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:04:27]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (2641.12, -17554.34)</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:04:27]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (2641.12, -17554.34)</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:04:33] hash 3561044800 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:04:33]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (-3507.84, -18341.21)</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:04:33]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (-3507.84, -18341.21)</c>"
+Error: Invalid text fixup [00:04:34] hash 3099907738 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:04:34]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 30s] fetches=37, changeTarget=0, move=0</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:04:34]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 30s] fetches=37, changeTarget=0, move=0</c>"
+Error: Invalid text fixup [Stats over 30s hash 1499212697 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:04:34]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 30s] fetches=37, changeTarget=0, move=0</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:04:48] hash 1747536326 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:04:48]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:04:48]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:04:54] hash 402986510 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:04:54]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:04:54]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:05:17] hash 3313246348 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:17]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 42s] fetches=39, changeTarget=1, move=88</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:17]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 42s] fetches=39, changeTarget=1, move=88</c>"
+Error: Invalid text fixup [Stats over 42s hash 3098010189 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:17]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 42s] fetches=39, changeTarget=1, move=88</c>"
+Error: Invalid text fixup [00:05:17] hash 3313246348 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:17]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:17]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:05:21] hash 2213442984 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:21]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:21]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:05:21] hash 2213442984 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:21]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:21]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:05:23] hash 1444907942 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:23]</c> <c=#64BEFF>[Messaging]</c> <c=#FFFFFF>Starting PickUpLoot routine</c>"
+Error: Invalid text fixup [Messaging] hash 2655714474 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:23]</c> <c=#64BEFF>[Messaging]</c> <c=#FFFFFF>Starting PickUpLoot routine</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:05:30] hash 724509163 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:30]</c> <c=#64BEFF>[Messaging]</c> <c=#FFFFFF>PickUpLoot routine finished.</c>"
+Error: Invalid text fixup [Messaging] hash 2655714474 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:30]</c> <c=#64BEFF>[Messaging]</c> <c=#FFFFFF>PickUpLoot routine finished.</c>"
+Error: Invalid text fixup [00:05:30] hash 724509163 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:30]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (-5941.9, -13901.7)</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:30]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (-5941.9, -13901.7)</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:05:41] hash 2080288172 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:41]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (-8871.92, -13791.85)</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:41]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (-8871.92, -13791.85)</c>"
+Error: Invalid text fixup [00:05:41] hash 2080288172 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:41]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:41]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:05:46] hash 911538690 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:46]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:46]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:05:56] hash 1647227170 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:56]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 39s] fetches=44, changeTarget=2, move=55</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:56]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 39s] fetches=44, changeTarget=2, move=55</c>"
+Error: Invalid text fixup [Stats over 39s hash 1138989731 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:56]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 39s] fetches=44, changeTarget=2, move=55</c>"
+Error: Invalid text fixup [00:05:57] hash 1986814110 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:57]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:57]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:05:57] hash 1986814110 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:57]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:57]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:05:57] hash 1986814110 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:57]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:57]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:05:58] hash 3368098644 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:58]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:58]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:05:58] hash 3368098644 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:58]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:58]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:05:58] hash 3368098644 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:58]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:05:58]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:06:09] hash 1452520032 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:09]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:09]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:06:10] hash 2590093119 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:10]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:10]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:06:10] hash 2590093119 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:10]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:10]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:06:10] hash 2590093119 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:10]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:10]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:06:10] hash 2590093119 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:10]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:10]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:06:10] hash 2590093119 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:10]</c> <c=#64BEFF>[Messaging]</c> <c=#FFFFFF>Starting PickUpLoot routine</c>"
+Error: Invalid text fixup [Messaging] hash 2655714474 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:10]</c> <c=#64BEFF>[Messaging]</c> <c=#FFFFFF>Starting PickUpLoot routine</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:06:16] hash 1146187604 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:16]</c> <c=#64BEFF>[Messaging]</c> <c=#FFFFFF>PickUpLoot routine finished.</c>"
+Error: Invalid text fixup [Messaging] hash 2655714474 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:16]</c> <c=#64BEFF>[Messaging]</c> <c=#FFFFFF>PickUpLoot routine finished.</c>"
+Error: Invalid text fixup [00:06:16] hash 1146187604 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:16]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (-11966.26, -17936.03)</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:16]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (-11966.26, -17936.03)</c>"
+Error: Invalid text fixup [00:06:16] hash 1146187604 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:16]</c> <c=#64BEFF>[AutoInventoryHandler]</c> <c=#FFFFFF>Identified 1 items</c>"
+Error: Invalid text fixup [AutoInventoryH hash 186660417 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:16]</c> <c=#64BEFF>[AutoInventoryHandler]</c> <c=#FFFFFF>Identified 1 items</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:06:21] hash 3397469548 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:21]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:21]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:06:25] hash 3994395467 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:25]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:25]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:06:30] hash 2522747681 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:30]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 33s] fetches=23, changeTarget=4, move=122</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:30]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 33s] fetches=23, changeTarget=4, move=122</c>"
+Error: Invalid text fixup [Stats over 33s hash 1274255899 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:30]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 33s] fetches=23, changeTarget=4, move=122</c>"
+Error: Invalid text fixup [00:06:31] hash 3525292303 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:31]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:31]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:06:43] hash 1933650522 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:43]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:43]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:06:45] hash 635847289 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:45]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:45]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:06:49] hash 1382268990 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:49]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:49]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:06:51] hash 1451475257 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:51]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:51]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:06:51] hash 1451475257 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:51]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:51]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:06:51] hash 1451475257 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:51]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:51]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:06:52] hash 2815069809 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:52]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:52]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:06:52] hash 2815069809 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:52]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:06:52]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:07:00] hash 2965307913 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:07:00]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 30s] fetches=29, changeTarget=6, move=66</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:07:00]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 30s] fetches=29, changeTarget=6, move=66</c>"
+Error: Invalid text fixup [Stats over 30s hash 1499212697 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:07:00]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 30s] fetches=29, changeTarget=6, move=66</c>"
+Error: Invalid text fixup [00:07:02] hash 1538082971 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:07:02]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (-8871.92, -13791.85)</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:07:02]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (-8871.92, -13791.85)</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:07:20] hash 2258607739 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:07:20]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (-7361.26, -9262.68)</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:07:20]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (-7361.26, -9262.68)</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:07:24] hash 2266633910 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:07:24]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:07:24]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:07:30] hash 1396435103 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:07:30]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 30s] fetches=58, changeTarget=1, move=142</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:07:30]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 30s] fetches=58, changeTarget=1, move=142</c>"
+Error: Invalid text fixup [Stats over 30s hash 1499212697 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:07:30]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 30s] fetches=58, changeTarget=1, move=142</c>"
+Error: Invalid text fixup [00:07:31] hash 402262709 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:07:31]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:07:31]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:07:35] hash 542927904 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:07:35]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:07:35]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:07:35] hash 542927904 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:07:35]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:07:35]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [00:07:37] hash 1967749180 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:07:37]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:07:37]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:07:59] hash 1129010917 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:07:59]</c> <c=#64BEFF>[Messaging]</c> <c=#FFFFFF>Starting PickUpLoot routine</c>"
+Error: Invalid text fixup [Messaging] hash 2655714474 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:07:59]</c> <c=#64BEFF>[Messaging]</c> <c=#FFFFFF>Starting PickUpLoot routine</c>"
+Error: Invalid text fixup [00:08:00] hash 3056445757 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:00]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 30s] fetches=15, changeTarget=2, move=2</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:00]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 30s] fetches=15, changeTarget=2, move=2</c>"
+Error: Invalid text fixup [Stats over 30s hash 1499212697 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:00]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 30s] fetches=15, changeTarget=2, move=2</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:08:04] hash 3081253368 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:04]</c> <c=#64BEFF>[Messaging]</c> <c=#FFFFFF>PickUpLoot routine finished.</c>"
+Error: Invalid text fixup [Messaging] hash 2655714474 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:04]</c> <c=#64BEFF>[Messaging]</c> <c=#FFFFFF>PickUpLoot routine finished.</c>"
+Error: Invalid text fixup [00:08:04] hash 3081253368 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:04]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (-5497.86, -7684.02)</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:04]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (-5497.86, -7684.02)</c>"
+Error: Invalid text fixup [00:08:07] hash 4206904714 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:07]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:07]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:08:12] hash 4235688759 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:12]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:12]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:08:26] hash 2618815892 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:26]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:26]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:08:27] hash 952153716 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:27]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:27]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:08:30] hash 2546590655 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:30]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 30s] fetches=17, changeTarget=2, move=88</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:30]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 30s] fetches=17, changeTarget=2, move=88</c>"
+Error: Invalid text fixup [Stats over 30s hash 1499212697 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:30]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 30s] fetches=17, changeTarget=2, move=88</c>"
+Error: Invalid text fixup [00:08:30] hash 2546590655 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:30]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:30]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:08:30] hash 2546590655 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:30]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:30]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:08:36] hash 3980010068 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:36]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:36]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:08:40] hash 3022145553 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:40]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:40]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:08:40] hash 3022145553 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:40]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:40]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:08:40] hash 3022145553 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:40]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:40]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:08:40] hash 3022145553 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:40]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:40]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:08:40] hash 3022145553 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:40]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:40]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:08:40] hash 3022145553 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:40]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (-3802.64, -11097.4)</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:40]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (-3802.64, -11097.4)</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:08:43] hash 2062476148 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:43]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:43]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:08:49] hash 1527270864 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:49]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:08:49]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:09:17] hash 410662648 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:09:17]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 47s] fetches=28, changeTarget=3, move=3</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:09:17]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 47s] fetches=28, changeTarget=3, move=3</c>"
+Error: Invalid text fixup [Stats over 47s hash 4073670201 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:09:17]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 47s] fetches=28, changeTarget=3, move=3</c>"
+Error: Invalid text fixup [00:09:17] hash 410662648 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:09:17]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:09:17]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:09:18] hash 1523002546 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:09:18]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:09:18]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:09:20] hash 718222949 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:09:20]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:09:20]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:09:27] hash 1713542650 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:09:27]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:09:27]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:09:34] hash 3221720256 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:09:34]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (-5497.86, -7684.02)</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:09:34]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (-5497.86, -7684.02)</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:09:46] hash 190173546 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:09:46]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (-4580.37, -4030.16)</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:09:46]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Moving to (-4580.37, -4030.16)</c>"
+Error: Invalid text fixup [00:09:47] hash 1864536522 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:09:47]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 30s] fetches=42, changeTarget=2, move=13</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:09:47]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 30s] fetches=42, changeTarget=2, move=13</c>"
+Error: Invalid text fixup [Stats over 30s hash 1499212697 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:09:47]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 30s] fetches=42, changeTarget=2, move=13</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:09:50] hash 925579027 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:09:50]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:09:50]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:09:55] hash 2248649454 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:09:55]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:09:55]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [00:09:56] hash 4250629966 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:09:56]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:09:56]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:10:03] hash 3520377979 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:10:03]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:10:03]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [00:10:04] hash 2441270873 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:10:04]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:10:04]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:10:33] hash 1478317717 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:10:33]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 45s] fetches=19, changeTarget=3, move=4</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:10:33]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 45s] fetches=19, changeTarget=3, move=4</c>"
+Error: Invalid text fixup [Stats over 45s hash 172064553 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:10:33]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 45s] fetches=19, changeTarget=3, move=4</c>"
+Error: Invalid text fixup [00:10:33] hash 1478317717 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:10:33]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:10:33]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>Switching to COMBAT mode</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:10:34] hash 90272479 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:10:34]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:10:34]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:11:01] hash 197596083 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:11:01]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:11:01]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:11:06] hash 3735897901 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:11:06]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 33s] fetches=13, changeTarget=4, move=13</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:11:06]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 33s] fetches=13, changeTarget=4, move=13</c>"
+Error: Invalid text fixup [Stats over 33s hash 1274255899 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:11:06]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 33s] fetches=13, changeTarget=4, move=13</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:11:32] hash 9555278 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:11:32]</c> <c=#64BEFF>[PyQuishAI ]</c> <c=#FFFFFF>Bot Paused</c>"
+Error: Invalid text fixup [PyQuishAI ] hash 1179359630 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:11:32]</c> <c=#64BEFF>[PyQuishAI ]</c> <c=#FFFFFF>Bot Paused</c>"
+Error: Invalid text fixup [00:11:33] hash 1803462779 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:11:33]</c> <c=#64BEFF>[Messaging]</c> <c=#FFFFFF>Starting PickUpLoot routine</c>"
+Error: Invalid text fixup [Messaging] hash 2655714474 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:11:33]</c> <c=#64BEFF>[Messaging]</c> <c=#FFFFFF>Starting PickUpLoot routine</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:12:02] hash 3791582848 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:12:02]</c> <c=#64BEFF>[PyQuishAI ]</c> <c=#FFFFFF>Bot Resumed</c>"
+Error: Invalid text fixup [PyQuishAI ] hash 1179359630 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:12:02]</c> <c=#64BEFF>[PyQuishAI ]</c> <c=#FFFFFF>Bot Resumed</c>"
+Error: Invalid text fixup [00:12:02] hash 3791582848 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:12:02]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 55s] fetches=51, changeTarget=5, move=40</c>"
+Error: Invalid text fixup [FollowPathAndA hash 2622887773 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:12:02]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 55s] fetches=51, changeTarget=5, move=40</c>"
+Error: Invalid text fixup [Stats over 55s hash 2434597284 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:12:02]</c> <c=#64BEFF>[FollowPathAndAggro]</c> <c=#FFFFFF>[Stats over 55s] fetches=51, changeTarget=5, move=40</c>"
+Error: Invalid text fixup [00:12:02] hash 3791582848 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:12:02]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:12:02]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [00:12:03] hash 45394889 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:12:03]</c> <c=#64BEFF>[PyQuishAI ]</c> <c=#FFFFFF>Bot Paused</c>"
+Error: Invalid text fixup [PyQuishAI ] hash 1179359630 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:12:03]</c> <c=#64BEFF>[PyQuishAI ]</c> <c=#FFFFFF>Bot Paused</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:12:55] hash 4270465803 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:12:55]</c> <c=#64BEFF>[PyQuishAI ]</c> <c=#FFFFFF>Bot Resumed</c>"
+Error: Invalid text fixup [PyQuishAI ] hash 1179359630 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:12:55]</c> <c=#64BEFF>[PyQuishAI ]</c> <c=#FFFFFF>Bot Resumed</c>"
+Error: Invalid text fixup [00:12:55] hash 4270465803 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:12:55]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [FSM] hash 747155875 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:12:55]</c> <c=#64BEFF>[FSM]</c> <c=#FFFFFF>Interruptible Combat: Starting FSM with initial state: Combat: Wait Safe</c>"
+Error: Invalid text fixup [00:12:56] hash 928378027 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:12:56]</c> <c=#64BEFF>[PyQuishAI ]</c> <c=#FFFFFF>Bot Paused</c>"
+Error: Invalid text fixup [PyQuishAI ] hash 1179359630 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:12:56]</c> <c=#64BEFF>[PyQuishAI ]</c> <c=#FFFFFF>Bot Paused</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:13:52] hash 3633697172 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:13:52]</c> <c=#64BEFF>[PickUp Loot]</c> <c=#FFFFFF>Timeout reached while picking up loot, halting.</c>"
+Error: Invalid text fixup [PickUp Loot] hash 614309746 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:13:52]</c> <c=#64BEFF>[PickUp Loot]</c> <c=#FFFFFF>Timeout reached while picking up loot, halting.</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [00:17:12] hash 795993140 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:17:12]</c> <c=#64BEFF>[Py4GW]</c> <c=#99FF99>Script paused.</c>"
+Error: Invalid text fixup [Py4GW] hash 2070429553 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:17:12]</c> <c=#64BEFF>[Py4GW]</c> <c=#99FF99>Script paused.</c>"
+Error: Invalid text fixup [00:17:13] hash 117643555 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:17:13]</c> <c=#64BEFF>[Py4GW]</c> <c=#99FF99>Python environment reset.</c>"
+Error: Invalid text fixup [Py4GW] hash 2070429553 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:17:13]</c> <c=#64BEFF>[Py4GW]</c> <c=#99FF99>Python environment reset.</c>"
+Error: Invalid text fixup [00:17:13] hash 117643555 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:17:13]</c> <c=#64BEFF>[Py4GW]</c> <c=#99FF99>Script stopped.</c>"
+Error: Invalid text fixup [Py4GW] hash 2070429553 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:17:13]</c> <c=#64BEFF>[Py4GW]</c> <c=#99FF99>Script stopped.</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "[null]<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "[null]<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "[null]<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Client pathing data out of sync with server.  You may observe your character 'warping' during movement.
+Error: Invalid text fixup [00:17:19] hash 2723907994 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:17:19]</c> <c=#64BEFF>[Enemy Data Capture]</c> <c=#FFFFFF>[Data] Ended run. Total written: 246</c>"
+Error: Invalid text fixup [Enemy Data Cap hash 1147024950 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:17:19]</c> <c=#64BEFF>[Enemy Data Capture]</c> <c=#FFFFFF>[Data] Ended run. Total written: 246</c>"
+Error: Invalid text fixup [Data] hash 2845401598 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:17:19]</c> <c=#64BEFF>[Enemy Data Capture]</c> <c=#FFFFFF>[Data] Ended run. Total written: 246</c>"
+Error: Invalid text fixup [00:17:19] hash 2723907994 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:17:19]</c> <c=#64BEFF>[Enemy Data Capture]</c> <c=#FFFFFF>[Data] Started run capture -> .../House zu Heltzer/run-20250926-001719-map77.ndjson</c>"
+Error: Invalid text fixup [Enemy Data Cap hash 1147024950 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:17:19]</c> <c=#64BEFF>[Enemy Data Capture]</c> <c=#FFFFFF>[Data] Started run capture -> .../House zu Heltzer/run-20250926-001719-map77.ndjson</c>"
+Error: Invalid text fixup [Data] hash 2845401598 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:17:19]</c> <c=#64BEFF>[Enemy Data Capture]</c> <c=#FFFFFF>[Data] Started run capture -> .../House zu Heltzer/run-20250926-001719-map77.ndjson</c>"
+Error: Invalid text fixup [00:17:19] hash 2723907994 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:17:19]</c> <c=#64BEFF>[AutoInventoryHandler]</c> <c=#FFFFFF>Starting ID, Salvage and Deposit routine</c>"
+Error: Invalid text fixup [AutoInventoryH hash 186660417 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:17:19]</c> <c=#64BEFF>[AutoInventoryHandler]</c> <c=#FFFFFF>Starting ID, Salvage and Deposit routine</c>"
+Error: Invalid text fixup [00:17:19] hash 2723907994 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:17:19]</c> <c=#64BEFF>[AutoInventoryHandler]</c> <c=#FFFFFF>ID, Salvage and Deposit routine completed</c>"
+Error: Invalid text fixup [AutoInventoryH hash 186660417 language 0 position 1
+Error: in text string "[null]<c=#B4B4B4>[00:17:19]</c> <c=#64BEFF>[AutoInventoryHandler]</c> <c=#FFFFFF>ID, Salvage and Deposit routine completed</c>"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [d1 bridge] hash 3143102088 language 0 position 1
+Error: in text string "[null]<a=1>Mira Pol Tu Si Aha</a>: <c=#f96677><quote>WTB GOTT 4e/ea, 5=20e [d1 bridge] // WTS 42e/ea arms (x84 left)"
+Error: Invalid text fixup [d1 bridge] hash 3143102088 language 0 position 1
+Error: in text string "[null]<a=1>Mira Pol Tu Si Aha</a>: <c=#f96677><quote>WTB GOTT 4e/ea, 5=20e [d1 bridge] // WTS 42e/ea arms (x84 left)"
+Error: Invalid text fixup [d1 bridge] hash 3143102088 language 0 position 1
+Error: in text string "[null]<a=1>Mira Pol Tu Si Aha</a>: <c=#f96677><quote>WTB GOTT 4e/ea, 5=20e [d1 bridge] // WTS 42e/ea arms (x84 left)"
+Error: Invalid text fixup [d1 bridge] hash 3143102088 language 0 position 1
+Error: in text string "[null]<a=1>Mira Pol Tu Si Aha</a>: <c=#f96677><quote>WTB GOTT 4e/ea, 5=20e [d1 bridge] // WTS 42e/ea arms (x84 left)"
+Error: Invalid text fixup [20e] hash 884503769 language 0 position 1
+Error: in text string "<a=1>Jorn The Quick</a>: <c=#f96677><quote>WTS Unded Miniature Celestial Dragon [20e]"
+Error: Invalid text fixup [d1 bridge] hash 3143102088 language 0 position 1
+Error: in text string "<a=1>Mira Pol Tu Si Aha</a>: <c=#f96677><quote>WTB GOTT 4e/ea, 5=20e [d1 bridge] // WTS 42e/ea arms (x84 left)"
+Error: Invalid text fixup [d1 bridge] hash 3143102088 language 0 position 1
+Error: in text string "<a=1>Mira Pol Tu Si Aha</a>: <c=#f96677><quote>WTB GOTT 4e/ea, 5=20e [d1 bridge] // WTS 42e/ea arms (x84 left)"
+Error: Invalid text fixup [d1 bridge] hash 3143102088 language 0 position 1
+Error: in text string "<a=1>Mira Pol Tu Si Aha</a>: <c=#f96677><quote>WTB GOTT 4e/ea, 5=20e [d1 bridge] // WTS 42e/ea arms (x84 left)"
+Error: Invalid text fixup [d1 bridge] hash 3143102088 language 0 position 1
+Error: in text string "<a=1>Mira Pol Tu Si Aha</a>: <c=#f96677><quote>WTB GOTT 4e/ea, 5=20e [d1 bridge] // WTS 42e/ea arms (x84 left)"
