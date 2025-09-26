@@ -39,6 +39,248 @@ def add_modifier(modifier):
     next_key = len(modifiers)  # Get the next available key
     modifiers[next_key] = modifier
 
+
+ARMOR_MODIFIERS_HEX_DATA = [
+    # region warrior
+    (9224, 505, 1, 249, "Knight's Insignia"),  # 240801F9
+    (9224, 520, 2, 8, "Lieutenant's Insignia"),  # 24080208
+    (9224, 521, 2, 9, "Stonefist Insignia"),  # 24080209
+    (9224, 506, 1, 250, "Dreadnought Insignia"),  # 240801FA
+    (9224, 507, 1, 251, "Sentinel's Insignia"),  # 240801FB
+    (9224, 252, 0, 252, "Rune of Minor Absorption"),  # 240800FC
+    (8680, 5377, 21, 1, "Rune of Minor Tactics"),  # 21E81501
+    (8680, 4353, 17, 1, "Rune of Minor Strength"),  # 21E81101
+    (8680, 4609, 18, 1, "Rune of Minor Axe Mastery"),  # 21E81201
+    (8680, 4865, 19, 1, "Rune of Minor Hammer Mastery"),  # 21E81301
+    (8680, 5121, 20, 1, "Rune of Minor Swordsmanship"),  # 21E81401
+    (9224, 253, 0, 253, "Rune of Major Absorption"),  # 240800FD
+    (8680, 5378, 21, 2, "Rune of Major Tactics"),  # 21E81502
+    (8680, 4354, 17, 2, "Rune of Major Strength"),  # 21E81102
+    (8680, 4610, 18, 2, "Rune of Major Axe Mastery"),  # 21E81202
+    (8680, 4866, 19, 2, "Rune of Major Hammer Mastery"),  # 21E81302
+    (8680, 5122, 20, 2, "Rune of Major Swordsmanship"),  # 21E81402
+    (9224, 254, 0, 254, "Rune of Superior Absorption"),  # 240800FE
+    (8680, 5379, 21, 3, "Rune of Superior Tactics"),  # 21E81503
+    (8680, 4355, 17, 3, "Rune of Superior Strength"),  # 21E81103
+    (8680, 4611, 18, 3, "Rune of Superior Axe Mastery"),  # 21E81203
+    (8680, 4867, 19, 3, "Rune of Superior Hammer Mastery"),  # 21E81303
+    (8680, 5123, 20, 3, "Rune of Superior Swordsmanship"),  # 21E81403
+    # endregion
+    # region ranger
+    (9224, 508, 1, 252, "Frostbound Insignia"),  # 240801FC
+    (9224, 510, 1, 254, "Pyrebound Insignia"),  # 240801FE
+    (9224, 511, 1, 255, "Stormbound Insignia"),  # 240801FF
+    (9224, 513, 2, 1, "Scout's Insignia"),  # 24080201
+    (9224, 509, 1, 253, "Earthbound Insignia"),  # 240801FD
+    (9224, 512, 2, 0, "Beastmaster's Insignia"),  # 24080200
+    (8680, 6145, 24, 1, "Rune of Minor Wilderness Survival"),  # 21E81801
+    (8680, 5889, 23, 1, "Rune of Minor Expertise"),  # 21E81701
+    (8680, 5633, 22, 1, "Rune of Minor Beast Mastery"),  # 21E81601
+    (8680, 6401, 25, 1, "Rune of Minor Marksmanship"),  # 21E81901
+    (8680, 6146, 24, 2, "Rune of Major Wilderness Survival"),  # 21E81802
+    (8680, 5890, 23, 2, "Rune of Major Expertise"),  # 21E81702
+    (8680, 5634, 22, 2, "Rune of Major Beast Mastery"),  # 21E81602
+    (8680, 6402, 25, 2, "Rune of Major Marksmanship"),  # 21E81902
+    (8680, 6147, 24, 3, "Rune of Superior Wilderness Survival"),  # 21E81803
+    (8680, 5891, 23, 3, "Rune of Superior Expertise"),  # 21E81703
+    (8680, 5635, 22, 3, "Rune of Superior Beast Mastery"),  # 21E81603
+    (8680, 6403, 25, 3, "Rune of Superior Marksmanship"),  # 21E81903
+    # endregion
+    # region monk
+    (9224, 502, 1, 246, "Wanderer's Insignia"),  # 240801F6
+    (9224, 503, 1, 247, "Disciple's Insignia"),  # 240801F7
+    (9224, 504, 1, 248, "Anchorite's Insignia"),  # 240801F8
+    (8680, 3329, 13, 1, "Rune of Minor Healing Prayers"),  # 21E80D01
+    (8680, 3585, 14, 1, "Rune of Minor Smiting Prayers"),  # 21E80E01
+    (8680, 3841, 15, 1, "Rune of Minor Protection Prayers"),  # 21E80F01
+    (8680, 4097, 16, 1, "Rune of Minor Divine Favor"),  # 21E81001
+    (8680, 3330, 13, 2, "Rune of Major Healing Prayers"),  # 21E80D02
+    (8680, 3586, 14, 2, "Rune of Major Smiting Prayers"),  # 21E80E02
+    (8680, 3842, 15, 2, "Rune of Major Protection Prayers"),  # 21E80F02
+    (8680, 4098, 16, 2, "Rune of Major Divine Favor"),  # 21E81002
+    (8680, 3331, 13, 3, "Rune of Superior Healing Prayers"),  # 21E80D03
+    (8680, 3587, 14, 3, "Rune of Superior Smiting Prayers"),  # 21E80E03
+    (8680, 3843, 15, 3, "Rune of Superior Protection Prayers"),  # 21E80F03
+    (8680, 4099, 16, 3, "Rune of Superior Divine Favor"),  # 21E81003
+    # endregion
+    # region necromancer
+    (9224, 522, 2, 10, "Bloodstained Insignia"),  # 2408020A
+    (9224, 492, 1, 236, "Tormentor's Insignia"),  # 240801EC
+    (9224, 494, 1, 238, "Bonelace Insignia"),  # 240801EE
+    (9224, 495, 1, 239, "Minion Master's Insignia"),  # 240801EF
+    (9224, 496, 1, 240, "Blighter's Insignia"),  # 240801F0
+    (9224, 493, 1, 237, "Undertaker's Insignia"),  # 240801ED
+    (8680, 1025, 4, 1, "Rune of Minor Blood Magic"),  # 21E80401
+    (8680, 1281, 5, 1, "Rune of Minor Death Magic"),  # 21E80501
+    (8680, 1793, 7, 1, "Rune of Minor Curses"),  # 21E80701
+    (8680, 1537, 6, 1, "Rune of Minor Soul Reaping"),  # 21E80601
+    (8680, 1026, 4, 2, "Rune of Major Blood Magic"),  # 21E80402
+    (8680, 1282, 5, 2, "Rune of Major Death Magic"),  # 21E80502
+    (8680, 1794, 7, 2, "Rune of Major Curses"),  # 21E80702
+    (8680, 1538, 6, 2, "Rune of Major Soul Reaping"),  # 21E80602
+    (8680, 1027, 4, 3, "Rune of Superior Blood Magic"),  # 21E80403
+    (8680, 1283, 5, 3, "Rune of Superior Death Magic"),  # 21E80503
+    (8680, 1795, 7, 3, "Rune of Superior Curses"),  # 21E80703
+    (8680, 1539, 6, 3, "Rune of Superior Soul Reaping"),  # 21E80603
+    # endregion
+    # region mesmer
+    (9224, 484, 1, 228, "Virtuoso's Insignia"),  # 240801E4
+    (9224, 482, 1, 226, "Artificer's Insignia"),  # 240801E2
+    (9224, 483, 1, 227, "Prodigy's Insignia"),  # 240801E3
+    (8680, 1, 0, 1, "Rune of Minor Fast Casting"),  # 21E80001
+    (8680, 513, 2, 1, "Rune of Minor Domination Magic"),  # 21E80201
+    (8680, 257, 1, 1, "Rune of Minor Illusion Magic"),  # 21E80101
+    (8680, 769, 3, 1, "Rune of Minor Inspiration Magic"),  # 21E80301
+    (8680, 2, 0, 2, "Rune of Major Fast Casting"),  # 21E80002
+    (8680, 514, 2, 2, "Rune of Major Domination Magic"),  # 21E80202
+    (8680, 258, 1, 2, "Rune of Major Illusion Magic"),  # 21E80102
+    (8680, 770, 3, 2, "Rune of Major Inspiration Magic"),  # 21E80302
+    (8680, 3, 0, 3, "Rune of Superior Fast Casting"),  # 21E80003
+    (8680, 515, 2, 3, "Rune of Superior Domination Magic"),  # 21E80203
+    (8680, 259, 1, 3, "Rune of Superior Illusion Magic"),  # 21E80103
+    (8680, 771, 3, 3, "Rune of Superior Inspiration Magic"),  # 21E80303
+    # endregion
+    # region elementalist
+    (9224, 498, 1, 242, "Hydromancer Insignia"),  # 240801F2
+    (9224, 499, 1, 243, "Geomancer Insignia"),  # 240801F3
+    (9224, 500, 1, 244, "Pyromancer Insignia"),  # 240801F4
+    (9224, 501, 1, 245, "Aeromancer Insignia"),  # 240801F5
+    (9224, 497, 1, 241, "Prismatic Insignia"),  # 240801F1
+    (8680, 3073, 12, 1, "Rune of Minor Energy Storage"),  # 21E80C01
+    (8680, 2561, 10, 1, "Rune of Minor Fire Magic"),  # 21E80A01
+    (8680, 2049, 8, 1, "Rune of Minor Air Magic"),  # 21E80801
+    (8680, 2305, 9, 1, "Rune of Minor Earth Magic"),  # 21E80901
+    (8680, 2817, 11, 1, "Rune of Minor Water Magic"),  # 21E80B01
+    (8680, 3074, 12, 2, "Rune of Major Energy Storage"),  # 21E80C02
+    (8680, 2562, 10, 2, "Rune of Major Fire Magic"),  # 21E80A02
+    (8680, 2050, 8, 2, "Rune of Major Air Magic"),  # 21E80802
+    (8680, 2306, 9, 2, "Rune of Major Earth Magic"),  # 21E80902
+    (8680, 2818, 11, 2, "Rune of Major Water Magic"),  # 21E80B02
+    (8680, 3075, 12, 3, "Rune of Superior Energy Storage"),  # 21E80C03
+    (8680, 2563, 10, 3, "Rune of Superior Fire Magic"),  # 21E80A03
+    (8680, 2051, 8, 3, "Rune of Superior Air Magic"),  # 21E80803
+    (8680, 2307, 9, 3, "Rune of Superior Earth Magic"),  # 21E80903
+    (8680, 2819, 11, 3, "Rune of Superior Water Magic"),  # 21E80B03
+    # endregion
+    # region assassin
+    (9224, 478, 1, 222, "Vanguard's Insignia"),  # 240801DE
+    (9224, 479, 1, 223, "Infiltrator's Insignia"),  # 240801DF
+    (9224, 480, 1, 224, "Saboteur's Insignia"),  # 240801E0
+    (9224, 481, 1, 225, "Nightstalker's Insignia"),  # 240801E1
+    (8680, 8961, 35, 1, "Rune of Minor Critical Strikes"),  # 21E82301
+    (8680, 7425, 29, 1, "Rune of Minor Dagger Mastery"),  # 21E81D01
+    (8680, 7681, 30, 1, "Rune of Minor Deadly Arts"),  # 21E81E01
+    (8680, 7937, 31, 1, "Rune of Minor Shadow Arts"),  # 21E81F01
+    (8680, 8962, 35, 2, "Rune of Major Critical Strikes"),  # 21E82302
+    (8680, 7426, 29, 2, "Rune of Major Dagger Mastery"),  # 21E81D02
+    (8680, 7682, 30, 2, "Rune of Major Deadly Arts"),  # 21E81E02
+    (8680, 7938, 31, 2, "Rune of Major Shadow Arts"),  # 21E81F02
+    (8680, 8963, 35, 3, "Rune of Superior Critical Strikes"),  # 21E82303
+    (8680, 7427, 29, 3, "Rune of Superior Dagger Mastery"),  # 21E81D03
+    (8680, 7683, 30, 3, "Rune of Superior Deadly Arts"),  # 21E81E03
+    (8680, 7939, 31, 3, "Rune of Superior Shadow Arts"),  # 21E81F03
+    # endregion
+    # region ritualist
+    (9224, 516, 2, 4, "Shaman's Insignia"),  # 24080204
+    (9224, 517, 2, 5, "Ghost Forge Insignia"),  # 24080205
+    (9224, 518, 2, 6, "Mystic's Insignia"),  # 24080206
+    (8680, 8705, 34, 1, "Rune of Minor Channeling Magic"),  # 21E82201
+    (8680, 8449, 33, 1, "Rune of Minor Restoration Magic"),  # 21E82101
+    (8680, 8193, 32, 1, "Rune of Minor Communing"),  # 21E82001
+    (8680, 9217, 36, 1, "Rune of Minor Spawning Power"),  # 21E82401
+    (8680, 8706, 34, 2, "Rune of Major Channeling Magic"),  # 21E82202
+    (8680, 8450, 33, 2, "Rune of Major Restoration Magic"),  # 21E82102
+    (8680, 8194, 32, 2, "Rune of Major Communing"),  # 21E82002
+    (8680, 9218, 36, 2, "Rune of Major Spawning Power"),  # 21E82402
+    (8680, 8707, 34, 3, "Rune of Superior Channeling Magic"),  # 21E82203
+    (8680, 8451, 33, 3, "Rune of Superior Restoration Magic"),  # 21E82103
+    (8680, 8195, 32, 3, "Rune of Superior Communing"),  # 21E82003
+    (8680, 9219, 36, 3, "Rune of Superior Spawning Power"),  # 21E82403
+    # endregion
+    # region dervish
+    (9224, 514, 2, 2, "Windwalker Insignia"),  # 24080202
+    (9224, 515, 2, 3, "Forsaken Insignia"),  # 24080203
+    (8680, 11265, 44, 1, "Rune of Minor Mysticism"),  # 21E82C01
+    (8680, 11009, 43, 1, "Rune of Minor Earth Prayers"),  # 21E82B01
+    (8680, 10497, 41, 1, "Rune of Minor Scythe Mastery"),  # 21E82901
+    (8680, 10753, 42, 1, "Rune of Minor Wind Prayers"),  # 21E82A01
+    (8680, 11266, 44, 2, "Rune of Major Mysticism"),  # 21E82C02
+    (8680, 11010, 43, 2, "Rune of Major Earth Prayers"),  # 21E82B02
+    (8680, 10498, 41, 2, "Rune of Major Scythe Mastery"),  # 21E82902
+    (8680, 10754, 42, 2, "Rune of Major Wind Prayers"),  # 21E82A02
+    (8680, 11267, 44, 3, "Rune of Superior Mysticism"),  # 21E82C03
+    (8680, 11011, 43, 3, "Rune of Superior Earth Prayers"),  # 21E82B03
+    (8680, 10499, 41, 3, "Rune of Superior Scythe Mastery"),  # 21E82903
+    (8680, 10755, 42, 3, "Rune of Superior Wind Prayers"),  # 21E82A03
+    # endregion
+    # region paragon
+    (9224, 519, 2, 7, "Centurion's Insignia"),  # 24080207
+    (8680, 10241, 40, 1, "Rune of Minor Leadership"),  # 21E82801
+    (8680, 9985, 39, 1, "Rune of Minor Motivation"),  # 21E82701
+    (8680, 9729, 38, 1, "Rune of Minor Command"),  # 21E82601
+    (8680, 9473, 37, 1, "Rune of Minor Spear Mastery"),  # 21E82501
+    (8680, 10242, 40, 2, "Rune of Major Leadership"),  # 21E82802
+    (8680, 9986, 39, 2, "Rune of Major Motivation"),  # 21E82702
+    (8680, 9730, 38, 2, "Rune of Major Command"),  # 21E82602
+    (8680, 9474, 37, 2, "Rune of Major Spear Mastery"),  # 21E82502
+    (8680, 10243, 40, 3, "Rune of Superior Leadership"),  # 21E82803
+    (8680, 9987, 39, 3, "Rune of Superior Motivation"),  # 21E82703
+    (8680, 9731, 38, 3, "Rune of Superior Command"),  # 21E82603
+    (8680, 9475, 37, 3, "Rune of Superior Spear Mastery"),  # 21E82503
+    # endregion
+    # region common
+    (9224, 486, 1, 230, "Survivor Insignia"),  # 240801E6
+    (9224, 485, 1, 229, "Radiant Insignia"),  # 240801E5
+    (9224, 487, 1, 231, "Stalwart Insignia"),  # 240801E7
+    (9224, 488, 1, 232, "Brawler's Insignia"),  # 240801E8
+    (9224, 489, 1, 233, "Blessed Insignia"),  # 240801E9
+    (9224, 490, 1, 234, "Herald's Insignia"),  # 240801EA
+    (9224, 491, 1, 235, "Sentry's Insignia"),  # 240801EB
+    (9224, 529, 2, 17, "Rune of Attunement"),  # 24080211
+    (9224, 531, 2, 19, "Rune of Recovery"),  # 24080213
+    (9224, 532, 2, 20, "Rune of Restoration"),  # 24080214
+    (9224, 533, 2, 21, "Rune of Clarity"),  # 24080215
+    (9224, 534, 2, 22, "Rune of Purity"),  # 24080216
+    (9224, 255, 0, 255, "Rune of Minor Vigor"),  # 240800FF
+    (9224, 194, 0, 194, "Rune of Minor Vigor"),  # 240800C2
+    (9224, 257, 1, 1, "Rune of Superior Vigor"),  # 24080101
+    (9224, 256, 1, 0, "Rune of Major Vigor"),  # 24080100
+    (9224, 530, 2, 18, "Rune of Vitae"),  # 24080212
+    # endregion
+]
+
+
+def _build_armor_modifier_lookup():
+    lookup = {}
+    for identifier, arg, arg1, arg2, label in ARMOR_MODIFIERS_HEX_DATA:
+        lookup.setdefault(identifier, {})[arg] = {
+            "name": label,
+            "arg1": arg1,
+            "arg2": arg2,
+        }
+    return lookup
+
+
+_ARMOR_MODIFIER_LOOKUP = _build_armor_modifier_lookup()
+
+
+def _get_modifier_entry(identifier: int, arg_value: int):
+    if not isinstance(arg_value, int):
+        return None
+    identifier_lookup = _ARMOR_MODIFIER_LOOKUP.get(identifier)
+    if not identifier_lookup:
+        return None
+    return identifier_lookup.get(arg_value)
+
+
+def GetArmorModifierName(arg_value: int, *, identifier: int = 0x2408) -> str:
+    if not isinstance(arg_value, int):
+        return str(arg_value)
+    entry = _get_modifier_entry(identifier, arg_value)
+    if entry:
+        return entry["name"]
+    return f"Unknown armor modifier (0x{arg_value:04X})"
+
 def find_modifier(identifier: int) -> Optional[ModifierInfo]:
     for mod in modifiers.values():
         if mod.identifier == identifier:
@@ -329,6 +571,19 @@ add_modifier(ModifierInfo(
 ))
 
 add_modifier(ModifierInfo(
+    identifier=8680,
+
+    name='Rune Modifier',
+    arg="Modifier",
+    arg_eval_fn=lambda value: GetArmorModifierName(value, identifier=0x21E8),
+    arg1="Attribute",
+    arg1_eval_fn=lambda attribute_id: GetAttributeName(attribute_id),
+    arg2="Tier",
+    arg2_eval_fn=lambda value: Value(value),
+    representation=lambda arg, arg1, arg2: arg if isinstance(arg, str) and not arg.startswith("Unknown") else f"{arg1} rune (tier {arg2})"
+))
+
+add_modifier(ModifierInfo(
     identifier=8712,
      
     name='Inscription: "Don\'t Think Twice"', 
@@ -616,16 +871,16 @@ add_modifier(ModifierInfo(
 ))
 
 add_modifier(ModifierInfo(
-    identifier=9224,
-     
-    name='Unknown 9224', 
-    arg="Value", 
-    arg_eval_fn=None, 
-    arg1="Value", 
-    arg1_eval_fn=None, 
-    arg2="Value",
+    identifier=0x2408,
+
+    name='Armor Modifier',
+    arg="Modifier",
+    arg_eval_fn=lambda value: GetArmorModifierName(value, identifier=0x2408),
+    arg1="High Byte",
+    arg1_eval_fn=lambda value: Value(value),
+    arg2="Low Byte",
     arg2_eval_fn=lambda value: Value(value),
-    representation=lambda arg, arg1, arg2: f"{arg} , {arg1} , {arg2}"
+    representation=lambda arg, arg1, arg2: arg if isinstance(arg, str) else f"Armor modifier 0x{((arg1 << 8) | (arg2 & 0xFF)):04X}"
 ))
 
 add_modifier(ModifierInfo(
