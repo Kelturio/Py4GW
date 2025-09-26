@@ -574,13 +574,13 @@ add_modifier(ModifierInfo(
     identifier=8680,
 
     name='Rune Modifier',
-    arg="Modifier",
-    arg_eval_fn=lambda value: GetArmorModifierName(value, identifier=0x21E8),
+    arg="Rune",
+    arg_eval_fn=lambda value: GetArmorModifierName(value, identifier=8680),
     arg1="Attribute",
     arg1_eval_fn=lambda attribute_id: GetAttributeName(attribute_id),
     arg2="Tier",
     arg2_eval_fn=lambda value: Value(value),
-    representation=lambda arg, arg1, arg2: arg if isinstance(arg, str) and not arg.startswith("Unknown") else f"{arg1} rune (tier {arg2})"
+    representation=lambda arg, arg1, arg2: f"{arg1} +{arg2} (Non-stacking)"
 ))
 
 add_modifier(ModifierInfo(
@@ -871,11 +871,11 @@ add_modifier(ModifierInfo(
 ))
 
 add_modifier(ModifierInfo(
-    identifier=0x2408,
+    identifier=9224,
 
     name='Armor Modifier',
     arg="Modifier",
-    arg_eval_fn=lambda value: GetArmorModifierName(value, identifier=0x2408),
+    arg_eval_fn=lambda value: GetArmorModifierName(value, identifier=9224),
     arg1="High Byte",
     arg1_eval_fn=lambda value: Value(value),
     arg2="Low Byte",
