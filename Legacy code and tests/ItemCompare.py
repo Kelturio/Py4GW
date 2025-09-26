@@ -1,6 +1,6 @@
 from Py4GWCoreLib import *
 
-from typing import Optional
+from typing import Optional, List
 from collections import defaultdict
 
 
@@ -1283,6 +1283,8 @@ input_item2 = 0
 item1_id = 0
 item2_id = 0
 hovered_item = 0
+compare_item_ids: List[int] = []
+compare_item_count = 2
 
 def ShowOffhandItemdescription():
     try:
@@ -1506,9 +1508,10 @@ def ShowItemComparisonWindow():
         global item1_id, item2_id, hovered_item
         global item_show, input_item1, input_item2
         global modifiers, window_module
+        global compare_item_ids, compare_item_count
 
         if window_module.first_run:
-            PyImGui.set_next_window_size(window_module.window_size[0], window_module.window_size[1])     
+            PyImGui.set_next_window_size(window_module.window_size[0], window_module.window_size[1])
             PyImGui.set_next_window_pos(window_module.window_pos[0], window_module.window_pos[1])
             window_module.first_run = False
 
@@ -1518,141 +1521,141 @@ def ShowItemComparisonWindow():
             PyImGui.text(f"Hovered Item: {hovered_item}")
             PyImGui.separator()
 
-            bags_to_check = ItemArray.CreateBagList(1,2,3,4)
+            bags_to_check = ItemArray.CreateBagList(1, 2, 3, 4)
             item_array = ItemArray.GetItemArray(bags_to_check)
 
-            input_item1 = item_array[0]
-            input_item2 = item_array[1]
-            # Input fields for item IDs
-            #input_item1 = PyImGui.input_int("Item 1 ID", input_item1)
-            #input_item2 = PyImGui.input_int("Item 2 ID", input_item2)
+            if not item_array:
+                PyImGui.text("No items available for comparison.")
+                PyImGui.end()
+                return
 
+            max_items = len(item_array)
+            min_items = 1 if max_items == 1 else 2
+            compare_item_count = PyImGui.input_int("Items to compare", compare_item_count)
+            compare_item_count = max(min_items, min(compare_item_count, max_items))
 
-            #if PyImGui.button("Compare Items"):
-            item1_id = input_item1
-            item2_id = input_item2
+            compare_item_ids = list(item_array[:compare_item_count])
+
+            # Maintain backwards compatibility with other windows relying on item1_id/item2_id
+            item1_id = compare_item_ids[0] if compare_item_ids else 0
+            item2_id = compare_item_ids[1] if len(compare_item_ids) > 1 else 0
+            input_item1 = item1_id
+            input_item2 = item2_id
 
             PyImGui.separator()
 
-            headers = ["Property", "Item 1", "Item 2"]
-            
-            # Common Item Info
-            item1_type_id, item1_type_name = Item.GetItemType(item1_id)
-            item2_type_id, item2_type_name = Item.GetItemType(item2_id)
-            
-            data = [
-                ("Item Type:", f"{item1_type_id} - {item1_type_name}", f"{item2_type_id} - {item2_type_name}"),
-                ("Model Id:", Item.GetModelID(item1_id), Item.GetModelID(item2_id)),
-                ("Slot:", Item.GetSlot(item1_id), Item.GetSlot(item2_id)),
-                ("AgentId:", Item.GetAgentID(item1_id), Item.GetAgentID(item2_id)),
-                ("AgentItemID:", Item.GetAgentItemID(item1_id), Item.GetAgentItemID(item2_id)),
+            headers = ["Property"] + [f"Item {idx + 1}" for idx in range(compare_item_count)]
+
+            item_type_info = [Item.GetItemType(item_id) for item_id in compare_item_ids]
+            item_type_strings = [f"{type_id} - {type_name}" for type_id, type_name in item_type_info]
+
+            common_data = [
+                tuple(["Item Type:"] + item_type_strings),
+                tuple(["Model Id:"] + [Item.GetModelID(item_id) for item_id in compare_item_ids]),
+                tuple(["Slot:"] + [Item.GetSlot(item_id) for item_id in compare_item_ids]),
+                tuple(["AgentId:"] + [Item.GetAgentID(item_id) for item_id in compare_item_ids]),
+                tuple(["AgentItemID:"] + [Item.GetAgentItemID(item_id) for item_id in compare_item_ids]),
             ]
-            ImGui.table("Item comparison common info", headers, data)
+            ImGui.table("Item comparison common info", headers, common_data)
 
-            # Modifier comparison
             if PyImGui.collapsing_header("Modifiers"):
-                # Retrieve modifiers for both items
-                modifiers1 = Item.Customization.Modifiers.GetModifiers(item1_id)
-                modifiers2 = Item.Customization.Modifiers.GetModifiers(item2_id)
+                modifiers_per_item = [Item.Customization.Modifiers.GetModifiers(item_id) for item_id in compare_item_ids]
+                grouped_modifiers = [group_modifiers_by_identifier(modifiers or []) for modifiers in modifiers_per_item]
 
-                grouped_modifiers1 = group_modifiers_by_identifier(modifiers1)
-                grouped_modifiers2 = group_modifiers_by_identifier(modifiers2)
-
-                all_identifiers = sorted(set(grouped_modifiers1.keys()).union(grouped_modifiers2.keys()))
+                all_identifiers = sorted({identifier for groups in grouped_modifiers for identifier in groups.keys()})
 
                 for identifier in all_identifiers:
-                    mods1 = grouped_modifiers1.get(identifier, [])
-                    mods2 = grouped_modifiers2.get(identifier, [])
+                    modifiers_for_identifier = [groups.get(identifier, []) for groups in grouped_modifiers]
+                    max_count = max(len(mods) for mods in modifiers_for_identifier)
 
-                    max_count = max(len(mods1), len(mods2))
+                    if max_count == 0:
+                        continue
 
                     for idx in range(max_count):
-                        mod1 = mods1[idx] if idx < len(mods1) else None
-                        mod2 = mods2[idx] if idx < len(mods2) else None
+                        entries = [mods[idx] if idx < len(mods) else None for mods in modifiers_for_identifier]
 
-                        identifier1 = mod1.GetIdentifier() if mod1 else " "
-                        identifier2 = mod2.GetIdentifier() if mod2 else " "
+                        identifier_values = [entry.GetIdentifier() if entry else " " for entry in entries]
+                        arg_values = [entry.GetArg() if entry else " " for entry in entries]
+                        arg1_values = [entry.GetArg1() if entry else " " for entry in entries]
+                        arg2_values = [entry.GetArg2() if entry else " " for entry in entries]
 
-                        item1_arg = mod1.GetArg() if mod1 else " "
-                        item2_arg = mod2.GetArg() if mod2 else " "
+                        lookup_identifier = next((value for value in identifier_values if isinstance(value, int)), None)
+                        mod_data = find_modifier(lookup_identifier) if lookup_identifier is not None else None
 
-                        item1_arg1 = mod1.GetArg1() if mod1 else " "
-                        item2_arg1 = mod2.GetArg1() if mod2 else " "
-
-                        item1_arg2 = mod1.GetArg2() if mod1 else " "
-                        item2_arg2 = mod2.GetArg2() if mod2 else " "
-
-                        ident = identifier1 if mod1 else identifier2
-                        mod_data = find_modifier(ident) if isinstance(ident, int) else None
-
-                        header_1, header_2 = "Item 1", "Item 2"
-                        arg_name, arg1_name, arg2_name = "", "", ""
-
-                        representation_1, representation_2 = "", ""
+                        suffix = f" #{idx + 1}" if max_count > 1 else ""
 
                         if mod_data:
-                            suffix = f" #{idx + 1}" if max_count > 1 else ""
-                            header_1 = f"{mod_data.name}{suffix} (1)"
-                            header_2 = f"{mod_data.name}{suffix} (2)"
+                            header_labels = [f"{mod_data.name}{suffix} ({item_index + 1})" for item_index in range(compare_item_count)]
                             arg_name = mod_data.arg
                             arg1_name = mod_data.arg1
                             arg2_name = mod_data.arg2
 
-                            if mod1:
-                                evaluated_arg = mod_data.arg_eval_fn(item1_arg) if mod_data.arg_eval_fn else item1_arg
-                                evaluated_arg1 = mod_data.arg1_eval_fn(item1_arg1) if mod_data.arg1_eval_fn else item1_arg1
-                                evaluated_arg2 = mod_data.arg2_eval_fn(item1_arg2) if mod_data.arg2_eval_fn else item1_arg2
-                                representation_1 = mod_data.representation(evaluated_arg, evaluated_arg1, evaluated_arg2)
-                            else:
-                                evaluated_arg = evaluated_arg1 = evaluated_arg2 = " "
+                            evaluated_args = []
+                            evaluated_arg1 = []
+                            evaluated_arg2 = []
+                            representations = []
 
-                            if mod2:
-                                evaluated_arg_b = mod_data.arg_eval_fn(item2_arg) if mod_data.arg_eval_fn else item2_arg
-                                evaluated_arg1_b = mod_data.arg1_eval_fn(item2_arg1) if mod_data.arg1_eval_fn else item2_arg1
-                                evaluated_arg2_b = mod_data.arg2_eval_fn(item2_arg2) if mod_data.arg2_eval_fn else item2_arg2
-                                representation_2 = mod_data.representation(evaluated_arg_b, evaluated_arg1_b, evaluated_arg2_b)
-                            else:
-                                evaluated_arg_b = evaluated_arg1_b = evaluated_arg2_b = " "
+                            for entry, arg, arg1, arg2 in zip(entries, arg_values, arg1_values, arg2_values):
+                                if entry:
+                                    eval_arg = mod_data.arg_eval_fn(arg) if mod_data.arg_eval_fn else arg
+                                    eval_arg1 = mod_data.arg1_eval_fn(arg1) if mod_data.arg1_eval_fn else arg1
+                                    eval_arg2 = mod_data.arg2_eval_fn(arg2) if mod_data.arg2_eval_fn else arg2
+                                    representation = mod_data.representation(eval_arg, eval_arg1, eval_arg2)
+                                else:
+                                    eval_arg = eval_arg1 = eval_arg2 = " "
+                                    representation = ""
+
+                                evaluated_args.append(eval_arg)
+                                evaluated_arg1.append(eval_arg1)
+                                evaluated_arg2.append(eval_arg2)
+                                representations.append(representation)
                         else:
-                            suffix = f" #{idx + 1}" if max_count > 1 else ""
-                            header_1 = f"Identifier {identifier}{suffix} (1)"
-                            header_2 = f"Identifier {identifier}{suffix} (2)"
-                            evaluated_arg = item1_arg
-                            evaluated_arg1 = item1_arg1
-                            evaluated_arg2 = item1_arg2
-                            evaluated_arg_b = item2_arg
-                            evaluated_arg1_b = item2_arg1
-                            evaluated_arg2_b = item2_arg2
+                            header_labels = [f"Identifier {identifier}{suffix} ({item_index + 1})" for item_index in range(compare_item_count)]
+                            arg_name = arg1_name = arg2_name = ""
+                            evaluated_args = arg_values
+                            evaluated_arg1 = arg1_values
+                            evaluated_arg2 = arg2_values
+                            representations = []
 
-                        headers = ["Value", header_1, header_2]
-                        data = [
-                            ("Identifier:", identifier1, identifier2)
+                        headers = ["Value"] + header_labels
+
+                        data_rows = [
+                            tuple(["Identifier:"] + identifier_values),
+                            tuple(["Item Type:"] + item_type_strings),
                         ]
-                        data.append(("Item Type:", f"{item1_type_id} - {item1_type_name}", f"{item2_type_id} - {item2_type_name}"))
 
                         if mod_data:
-                            data.append(("Representation:", representation_1 if representation_1 else " ", representation_2 if representation_2 else " "))
+                            representation_row = ["Representation:"] + [rep if rep else " " for rep in representations]
+                            if any(rep for rep in representations):
+                                data_rows.append(tuple(representation_row))
 
-                        if mod_data and arg_name != "INVALID":
-                            data.append((f"Arg: {arg_name}", evaluated_arg if evaluated_arg != "" else " ", evaluated_arg_b if evaluated_arg_b != "" else " "))
-                        elif not mod_data:
-                            data.append(("Arg:", evaluated_arg if evaluated_arg != "" else " ", evaluated_arg_b if evaluated_arg_b != "" else " "))
+                        def _has_visible_value(values):
+                            return any(str(value).strip() not in ("", " ") for value in values)
 
-                        if mod_data and arg1_name != "INVALID":
-                            data.append((f"Arg1: {arg1_name}", evaluated_arg1 if evaluated_arg1 != "" else " ", evaluated_arg1_b if evaluated_arg1_b != "" else " "))
-                        elif not mod_data and (item1_arg1 != " " or item2_arg1 != " "):
-                            data.append(("Arg1:", evaluated_arg1 if evaluated_arg1 != "" else " ", evaluated_arg1_b if evaluated_arg1_b != "" else " "))
+                        if mod_data:
+                            if arg_name != "INVALID":
+                                data_rows.append(tuple([f"Arg: {arg_name}"] + [value if value != "" else " " for value in evaluated_args]))
+                            if arg1_name != "INVALID":
+                                data_rows.append(tuple([f"Arg1: {arg1_name}"] + [value if value != "" else " " for value in evaluated_arg1]))
+                            if arg2_name != "INVALID":
+                                data_rows.append(tuple([f"Arg2: {arg2_name}"] + [value if value != "" else " " for value in evaluated_arg2]))
+                        else:
+                            if _has_visible_value(arg_values):
+                                data_rows.append(tuple(["Arg:"] + [value if value != "" else " " for value in evaluated_args]))
+                            if _has_visible_value(arg1_values):
+                                data_rows.append(tuple(["Arg1:"] + [value if value != "" else " " for value in evaluated_arg1]))
+                            if _has_visible_value(arg2_values):
+                                data_rows.append(tuple(["Arg2:"] + [value if value != "" else " " for value in evaluated_arg2]))
 
-                        if mod_data and arg2_name != "INVALID":
-                            data.append((f"Arg2: {arg2_name}", evaluated_arg2 if evaluated_arg2 != "" else " ", evaluated_arg2_b if evaluated_arg2_b != "" else " "))
-                        elif not mod_data and (item1_arg2 != " " or item2_arg2 != " "):
-                            data.append(("Arg2:", evaluated_arg2 if evaluated_arg2 != "" else " ", evaluated_arg2_b if evaluated_arg2_b != "" else " "))
+                        def _all_equal(values):
+                            normalized = [str(value).strip() for value in values]
+                            return len(set(normalized)) <= 1
 
                         identical_values = (
-                            identifier1 == identifier2 and
-                            item1_arg == item2_arg and
-                            item1_arg1 == item2_arg1 and
-                            item1_arg2 == item2_arg2
+                            _all_equal(identifier_values) and
+                            _all_equal(arg_values) and
+                            _all_equal(arg1_values) and
+                            _all_equal(arg2_values)
                         )
 
                         if mod_data:
@@ -1663,13 +1666,11 @@ def ShowItemComparisonWindow():
                             PyImGui.push_style_color(PyImGui.ImGuiCol.Text, (1.0, 0.0, 0.0, 1.0))
 
                         table_identifier = f"Item Modifiers Comparison {identifier}-{idx}"
-                        ImGui.table(table_identifier, headers, data)
+                        ImGui.table(table_identifier, headers, data_rows)
                         PyImGui.pop_style_color(1)
 
-            # Close window
             PyImGui.end()
     except Exception as e:
-        # Log and handle the exception
         Py4GW.Console.Log(module_name, f"Error in ShowItemComparisonWindow: {str(e)}", Py4GW.Console.MessageType.Error)
         raise
 
