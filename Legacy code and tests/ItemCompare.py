@@ -247,6 +247,10 @@ ARMOR_MODIFIERS_HEX_DATA = [
     (9224, 256, 1, 0, "Rune of Major Vigor"),  # 24080100
     (9224, 530, 2, 18, "Rune of Vitae"),  # 24080212
     # endregion
+    # region staff head
+    (9224, 156, 0, 156, "Insightful Staff Head?"),  # 2408009C
+    (9224, 157, 0, 157, "Hale Staff Head?"),  # 2408009D
+    # endregion
 ]
 
 
@@ -599,7 +603,7 @@ add_modifier(ModifierInfo(
 add_modifier(ModifierInfo(
     identifier=8760,
      
-    name='Damage"', 
+    name='Damage', 
     arg="INVALID", 
     arg_eval_fn=None, 
     arg1="INVALID", 
@@ -703,7 +707,7 @@ add_modifier(ModifierInfo(
 add_modifier(ModifierInfo(
     identifier=8920,
      
-    name='Insightful"', 
+    name='Insightful', 
     arg="INVALID", 
     arg_eval_fn=None, 
     arg1="Above", 
@@ -795,7 +799,7 @@ add_modifier(ModifierInfo(
 add_modifier(ModifierInfo(
     identifier=9080,
      
-    name='Health while Hexed"', 
+    name='Health while Hexed', 
     arg="INVALID", 
     arg_eval_fn=None, 
     arg1="Value", 
@@ -808,7 +812,7 @@ add_modifier(ModifierInfo(
 add_modifier(ModifierInfo(
     identifier=9096,
      
-    name='Health wile in a stance"', 
+    name='Health wile in a stance', 
     arg="INVALID", 
     arg_eval_fn=None, 
     arg1="INVALID", 
