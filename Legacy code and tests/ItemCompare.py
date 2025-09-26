@@ -871,16 +871,16 @@ add_modifier(ModifierInfo(
 ))
 
 add_modifier(ModifierInfo(
-    identifier=9224,
+    identifier=0x2408,
 
     name='Armor Modifier',
     arg="Modifier",
-    arg_eval_fn=lambda value: GetArmorModifierName(value),
-    arg1="INVALID",
-    arg1_eval_fn=None,
-    arg2="INVALID",
-    arg2_eval_fn=None,
-    representation=lambda arg, arg1, arg2: f"{arg}"
+    arg_eval_fn=lambda value: GetArmorModifierName(value, identifier=0x2408),
+    arg1="High Byte",
+    arg1_eval_fn=lambda value: Value(value),
+    arg2="Low Byte",
+    arg2_eval_fn=lambda value: Value(value),
+    representation=lambda arg, arg1, arg2: arg if isinstance(arg, str) else f"Armor modifier 0x{((arg1 << 8) | (arg2 & 0xFF)):04X}"
 ))
 
 add_modifier(ModifierInfo(
