@@ -262,16 +262,23 @@ def _build_armor_modifier_lookup():
 
 
 _ARMOR_MODIFIER_LOOKUP = _build_armor_modifier_lookup()
-ARMOR_MODIFIER_NAMES = {
-    arg: data["name"] for arg, data in _ARMOR_MODIFIER_LOOKUP.get(0x2408, {}).items()
-}
 
 
-def GetArmorModifierName(arg_value: int) -> str:
+def _get_modifier_entry(identifier: int, arg_value: int):
+    if not isinstance(arg_value, int):
+        return None
+    identifier_lookup = _ARMOR_MODIFIER_LOOKUP.get(identifier)
+    if not identifier_lookup:
+        return None
+    return identifier_lookup.get(arg_value)
+
+
+def GetArmorModifierName(arg_value: int, *, identifier: int = 0x2408) -> str:
     if not isinstance(arg_value, int):
         return str(arg_value)
-    if arg_value in ARMOR_MODIFIER_NAMES:
-        return ARMOR_MODIFIER_NAMES[arg_value]
+    entry = _get_modifier_entry(identifier, arg_value)
+    if entry:
+        return entry["name"]
     return f"Unknown armor modifier (0x{arg_value:04X})"
 
 def find_modifier(identifier: int) -> Optional[ModifierInfo]:
@@ -561,6 +568,19 @@ add_modifier(ModifierInfo(
     arg2="Value",
     arg2_eval_fn=lambda value: Value(value),
     representation=lambda arg, arg1, arg2: f"Armor +{arg2} (while Hexed)"
+))
+
+add_modifier(ModifierInfo(
+    identifier=8680,
+
+    name='Rune Modifier',
+    arg="Modifier",
+    arg_eval_fn=lambda value: GetArmorModifierName(value, identifier=0x21E8),
+    arg1="Attribute",
+    arg1_eval_fn=lambda attribute_id: GetAttributeName(attribute_id),
+    arg2="Tier",
+    arg2_eval_fn=lambda value: Value(value),
+    representation=lambda arg, arg1, arg2: arg if isinstance(arg, str) and not arg.startswith("Unknown") else f"{arg1} rune (tier {arg2})"
 ))
 
 add_modifier(ModifierInfo(
