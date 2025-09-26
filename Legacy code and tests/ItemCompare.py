@@ -2,6 +2,8 @@ from Py4GWCoreLib import *
 
 from typing import Optional
 from collections import defaultdict
+from pathlib import Path
+import importlib.util
 
 
 module_name = "Mod Handler"
@@ -38,6 +40,45 @@ def add_modifier(modifier):
     global modifiers
     next_key = len(modifiers)  # Get the next available key
     modifiers[next_key] = modifier
+
+
+def _load_armor_modifier_names():
+    try:
+        mods_path = Path(__file__).with_name("mods.py")
+    except NameError:
+        return {}
+    if not mods_path.exists():
+        return {}
+
+    try:
+        spec = importlib.util.spec_from_file_location("_legacy_mods", mods_path)
+        if spec is None or spec.loader is None:
+            return {}
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+    except Exception:
+        return {}
+
+    armor_mods_dict = getattr(module, "armor_mods", {})
+    armor_modifiers = {}
+    for key, value in armor_mods_dict.items():
+        if isinstance(key, str) and key.startswith("2408"):
+            try:
+                armor_modifiers[int(key[4:], 16)] = value
+            except ValueError:
+                continue
+    return armor_modifiers
+
+
+ARMOR_MODIFIER_NAMES = _load_armor_modifier_names()
+
+
+def GetArmorModifierName(arg_value: int) -> str:
+    if not isinstance(arg_value, int):
+        return str(arg_value)
+    if arg_value in ARMOR_MODIFIER_NAMES:
+        return ARMOR_MODIFIER_NAMES[arg_value]
+    return f"Unknown armor modifier (0x{arg_value:04X})"
 
 def find_modifier(identifier: int) -> Optional[ModifierInfo]:
     for mod in modifiers.values():
@@ -617,15 +658,15 @@ add_modifier(ModifierInfo(
 
 add_modifier(ModifierInfo(
     identifier=9224,
-     
-    name='Unknown 9224', 
-    arg="Value", 
-    arg_eval_fn=None, 
-    arg1="Value", 
-    arg1_eval_fn=None, 
-    arg2="Value",
-    arg2_eval_fn=lambda value: Value(value),
-    representation=lambda arg, arg1, arg2: f"{arg} , {arg1} , {arg2}"
+
+    name='Armor Modifier',
+    arg="Modifier",
+    arg_eval_fn=lambda value: GetArmorModifierName(value),
+    arg1="INVALID",
+    arg1_eval_fn=None,
+    arg2="INVALID",
+    arg2_eval_fn=None,
+    representation=lambda arg, arg1, arg2: f"{arg}"
 ))
 
 add_modifier(ModifierInfo(
