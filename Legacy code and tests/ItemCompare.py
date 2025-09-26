@@ -4,6 +4,7 @@ from typing import Optional
 from collections import defaultdict
 from pathlib import Path
 import importlib.util
+import sys
 
 
 module_name = "Mod Handler"
@@ -42,12 +43,33 @@ def add_modifier(modifier):
     modifiers[next_key] = modifier
 
 
-def _load_armor_modifier_names():
+def _resolve_mods_path() -> Optional[Path]:
+    candidates = []
+
     try:
-        mods_path = Path(__file__).with_name("mods.py")
+        this_file = Path(__file__)
+        candidates.append(this_file.parent / "mods.py")
+        candidates.append(this_file.resolve().parent / "mods.py")
     except NameError:
-        return {}
-    if not mods_path.exists():
+        pass
+
+    if sys.argv:
+        candidates.append(Path(sys.argv[0]).resolve().parent / "mods.py")
+
+    for candidate in candidates:
+        try:
+            resolved = candidate.resolve()
+        except (FileNotFoundError, RuntimeError):
+            continue
+        if resolved.exists():
+            return resolved
+
+    return None
+
+
+def _load_armor_modifier_names():
+    mods_path = _resolve_mods_path()
+    if not mods_path:
         return {}
 
     try:
