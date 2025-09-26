@@ -121,7 +121,7 @@ class EnemyObservationCollector:
       right after zoning when names are still loading.
     """
     def __init__(self):
-        self.enabled = False
+        self.enabled = True
         self.sample_interval_ms = 1000
         self.min_move_delta = 500              # don't re-log if agent hasn't moved ~>500 units
         self.max_buffer = 200                  # flush to disk every N records
