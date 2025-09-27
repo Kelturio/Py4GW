@@ -109,7 +109,7 @@ def _draw_controls(window_pos: Tuple[float, float]) -> None:
         ini_window.write_key(MODULE_NAME, SPEED_KEY, f"{progress_speed:.4f}")
 
     _update_progress()
-    PyImGui.progress_bar(progress_value, (0.0, 0.0), f"{progress_value * 100:5.1f}%")
+    PyImGui.progress_bar(progress_value, 0.0, f"{progress_value * 100:5.1f}%")
 
     PyImGui.spacing()
     PyImGui.text_wrapped(
