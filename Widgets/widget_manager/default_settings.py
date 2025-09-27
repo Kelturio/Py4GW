@@ -138,6 +138,13 @@ global_widget_defaults = {
         "icon": "ICON_HANDS",
         "quickdock": "True",
     },
+    "Second Screen Panel": {
+        "enabled": "True",
+        "category": "Interface",
+        "subcategory": "Multi-Monitor",
+        "icon": "ICON_DESKTOP",
+        "quickdock": "True",
+    },
     "Dialog Sync": {
         "enabled": "True",
         "category": "Gameplay",
