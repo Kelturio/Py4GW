@@ -124,7 +124,7 @@ def draw_widget():
         PyImGui.set_next_window_collapsed(window_collapsed, 0)
         first_run = False
 
-    window_flags = PyImGui.WindowFlags.NoDocking
+    window_flags = getattr(PyImGui.WindowFlags, "NoDocking", PyImGui.WindowFlags.NoFlag)
     if lock_window:
         window_flags |= PyImGui.WindowFlags.NoMove
 
