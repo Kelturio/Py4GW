@@ -4,7 +4,7 @@ import traceback
 from typing import Tuple
 
 import Py4GW  # type: ignore
-from Py4GWCoreLib import IniHandler, PyImGui, Routines, Timer
+from Py4GWCoreLib import IniHandler, PyImGui, Routines, Timer, ImGuiStyleVar
 
 MODULE_NAME = "Second Screen Panel"
 
@@ -32,6 +32,8 @@ window_collapsed = ini_window.read_bool(MODULE_NAME, COLLAPSED, False)
 lock_window = ini_window.read_bool(MODULE_NAME, LOCK_KEY, False)
 second_screen_offset = max(0, ini_window.read_int(MODULE_NAME, SNAP_OFFSET_KEY, 40))
 progress_speed = max(0.05, ini_window.read_float(MODULE_NAME, SPEED_KEY, 0.25))
+
+style_var_enum = PyImGui.ImGuiStyleVar if hasattr(PyImGui, "ImGuiStyleVar") else ImGuiStyleVar
 
 first_run = True
 
@@ -128,8 +130,8 @@ def draw_widget():
     if lock_window:
         window_flags |= PyImGui.WindowFlags.NoMove
 
-    PyImGui.push_style_var(PyImGui.ImGuiStyleVar.WindowRounding, 6.0)
-    PyImGui.push_style_var(PyImGui.ImGuiStyleVar.WindowBorderSize, 1.0)
+    PyImGui.push_style_var(style_var_enum.WindowRounding, 6.0)
+    PyImGui.push_style_var(style_var_enum.WindowBorderSize, 1.0)
 
     is_open = PyImGui.begin(MODULE_NAME, window_flags)
     new_collapsed = PyImGui.is_window_collapsed()
