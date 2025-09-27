@@ -4,7 +4,7 @@ from __future__ import annotations
 import random
 import threading
 import time
-from typing import Dict
+from typing import Dict, Optional
 
 from Py4GWCoreLib.ExternalImGuiWindow import ExternalImGuiWindow
 
@@ -52,14 +52,66 @@ def telemetry_worker(window: ExternalImGuiWindow) -> None:
         time.sleep(0.5)
 
 
-if __name__ == "__main__":
-    window = ExternalImGuiWindow(draw_callback=draw_callback)
-    worker = threading.Thread(target=telemetry_worker, args=(window,), daemon=True)
-    worker.start()
+_WINDOW: Optional[ExternalImGuiWindow] = None
+_WORKER: Optional[threading.Thread] = None
+_LOCK = threading.Lock()
+
+
+def _start_demo_if_needed() -> ExternalImGuiWindow:
+    """Ensure the external window and telemetry worker are running."""
+
+    global _WINDOW, _WORKER
+
+    with _LOCK:
+        if _WINDOW is None:
+            window = ExternalImGuiWindow(draw_callback=draw_callback)
+            worker = threading.Thread(target=telemetry_worker, args=(window,), daemon=True)
+            worker.start()
+            _WINDOW = window
+            _WORKER = worker
+
+        window = _WINDOW
+
+    if window is None:  # pragma: no cover - defensive
+        raise RuntimeError("Failed to create the external ImGui demo window.")
+
+    return window
+
+
+def _stop_demo() -> None:
+    """Terminate the external window and worker thread if they are running."""
+
+    global _WINDOW, _WORKER
+
+    with _LOCK:
+        if _WINDOW is not None:
+            _WINDOW.stop()
+            _WINDOW = None
+
+        if _WORKER is not None:
+            _WORKER.join(timeout=0.5)
+            _WORKER = None
+
+
+def main() -> None:
+    """Entry point expected by the Py4GW runtime."""
+
+    window = _start_demo_if_needed()
+    if not window.is_running():
+        _stop_demo()
+
+
+def run_demo_blocking() -> None:
+    """Start the demo and block until the window is closed."""
 
     try:
+        window = _start_demo_if_needed()
         window.join()
     except KeyboardInterrupt:
         pass
     finally:
-        window.stop()
+        _stop_demo()
+
+
+if __name__ == "__main__":
+    run_demo_blocking()
