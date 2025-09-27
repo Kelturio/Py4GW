@@ -90,7 +90,7 @@ def _draw_controls(window_pos: Tuple[float, float]) -> None:
         session_timer.Reset()
 
     offset_label = "Second screen offset" if io.display_size_x > 0 else "Offset"
-    new_offset = PyImGui.input_int(offset_label, second_screen_offset, 5, 25)
+    new_offset = PyImGui.input_int(offset_label, second_screen_offset, 5, 25, 0)
     if new_offset != second_screen_offset:
         second_screen_offset = max(0, new_offset)
         ini_window.write_key(MODULE_NAME, SNAP_OFFSET_KEY, str(second_screen_offset))
@@ -167,7 +167,7 @@ def configure():
             lock_window = new_lock
             ini_window.write_key(MODULE_NAME, LOCK_KEY, str(lock_window))
 
-        new_offset = PyImGui.input_int("Default snap offset", second_screen_offset, 5, 25)
+        new_offset = PyImGui.input_int("Default snap offset", second_screen_offset, 5, 25, 0)
         if new_offset != second_screen_offset:
             second_screen_offset = max(0, new_offset)
             ini_window.write_key(MODULE_NAME, SNAP_OFFSET_KEY, str(second_screen_offset))
