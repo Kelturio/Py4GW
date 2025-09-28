@@ -392,16 +392,16 @@ def main() -> None:
                 _combined_error = ""
             else:
                 _status_message = "Cannot read player position right now."
-        PyImGui.same_line()
+        PyImGui.same_line(0.0, -1.0)
         if PyImGui.button("Plan path"):
             _start_plan(auto_follow=False)
-        PyImGui.same_line()
+        PyImGui.same_line(0.0, -1.0)
         if PyImGui.button("Plan && follow"):
             _start_plan(auto_follow=True)
 
         if PyImGui.button("Follow saved path"):
             _start_follow()
-        PyImGui.same_line()
+        PyImGui.same_line(0.0, -1.0)
         if PyImGui.button("Clear path"):
             _clear_path()
 
