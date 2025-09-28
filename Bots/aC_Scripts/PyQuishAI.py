@@ -91,6 +91,7 @@ class BotVars:
         self.selected_region = ""
         self.selected_map = ""
         self.map_data = {}  # stores map_path, outpost_path, ids, etc.
+        self.aggro_range = 2500
 
         # UI collapse state
         self.show_controls = True
@@ -98,6 +99,7 @@ class BotVars:
         self.show_state = True
         self.show_stats = True
         self.show_titles = True
+        self.force_close_map_select = False
 
         # Segment detail toggles (per loaded map)
         self.segment_open = {}           # {seg_index: bool}
@@ -231,7 +233,6 @@ class FollowPathAndAggro:
     def __init__(self, path_handler, follow_handler, aggro_range=2500, log_actions=False, waypoints=None):
         self.path_handler       = path_handler
         self.follow_handler     = follow_handler
-        self.aggro_range        = aggro_range
         self.log_actions        = log_actions
         self._last_scanned_enemy = None
         # ── THROTTLING STATE ───────────────────────────────────────────
@@ -247,6 +248,8 @@ class FollowPathAndAggro:
         self.move_calls             = 0
         self._stats_interval_secs   = 30.0
 
+        self.set_aggro_range(aggro_range)
+
         self._last_enemy_check      = Timer()
         self._current_target_enemy  = None
         self._mode                  = 'path'
@@ -257,6 +260,15 @@ class FollowPathAndAggro:
         self._external_waypoints = list(waypoints) if waypoints else []
         self._forced_index = None        # one-shot command target
         self._debug_hold   = False       # if True, do not auto-advance
+
+    def set_aggro_range(self, aggro_range):
+        try:
+            aggro_range = int(aggro_range)
+        except Exception:
+            aggro_range = 0
+        aggro_range = max(0, aggro_range)
+        self.aggro_range = aggro_range
+        self._scan_move_thresh = self.aggro_range * 0.75
 
     # --- Debug control API ---
     def enable_hold(self): self._debug_hold = True
@@ -581,7 +593,7 @@ def load_map_script():
     FSM_vars.path_and_aggro = FollowPathAndAggro(
         FSM_vars.explorable_pathing,
         FSM_vars.movement_handler,
-        aggro_range=2500,
+        aggro_range=bot_vars.aggro_range,
         log_actions=True,
         waypoints=FSM_vars.explorable_waypoints
     )
@@ -775,14 +787,19 @@ def DrawWindow():
 
     # ====== Run Controls (compact) ======
     PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
-    run_controls_open = PyImGui.collapsing_header("Run Controls", PyImGui.TreeNodeFlags.DefaultOpen)
+    run_controls_open = PyImGui.collapsing_header(
+        f"{IconsFontAwesome5.ICON_ROBOT} Run Controls",
+        PyImGui.TreeNodeFlags.DefaultOpen
+    )
     PyImGui.pop_style_color(1)
     if run_controls_open:
         # Start/Stop (compact)
-        btn_label = ">" if not bot_vars.is_running else "X"
-        if PyImGui.button(btn_label, width=24):
+        btn_icon = IconsFontAwesome5.ICON_PLAY if not bot_vars.is_running else IconsFontAwesome5.ICON_STOP
+        if PyImGui.button(f"{btn_icon}##run_toggle", width=28):
             if not bot_vars.is_running:
                 StartBot()
+                bot_vars.force_close_map_select = True
+                bot_vars.show_map_select = False
             else:
                 StopBot()
 
@@ -790,22 +807,32 @@ def DrawWindow():
         PyImGui.same_line(0, 4)
         if not bot_vars.is_running:
             PyImGui.push_style_color(PyImGui.ImGuiCol.Text, disabled_text_color)
-            PyImGui.button("||", width=24)
+            PyImGui.button(f"{IconsFontAwesome5.ICON_PAUSE}##pause", width=28)
             PyImGui.pop_style_color(1)
         else:
-            if PyImGui.button("||", width=24):
+            if PyImGui.button(f"{IconsFontAwesome5.ICON_PAUSE}##pause", width=28):
                 TogglePause()
 
         # Hold toggle (compact)
         PyImGui.same_line(0, 4)
         hold_on = bool(FSM_vars.path_and_aggro and FSM_vars.path_and_aggro._debug_hold)
-        hold_label = "R" if hold_on else "H"  # R=resume auto, H=hold
-        if PyImGui.button(hold_label, width=24):
+        hold_icon = IconsFontAwesome5.ICON_RUNNING if hold_on else IconsFontAwesome5.ICON_HAND
+        if PyImGui.button(f"{hold_icon}##hold_toggle", width=28):
             if FSM_vars.path_and_aggro:
                 if hold_on:
                     FSM_vars.path_and_aggro.release_hold()
                 else:
                     FSM_vars.path_and_aggro.enable_hold()
+
+        PyImGui.separator()
+
+        PyImGui.push_item_width(200)
+        new_aggro = PyImGui.slider_int("Aggro Range", bot_vars.aggro_range, 500, 6000)
+        PyImGui.pop_item_width()
+        if new_aggro != bot_vars.aggro_range:
+            bot_vars.aggro_range = new_aggro
+            if FSM_vars.path_and_aggro:
+                FSM_vars.path_and_aggro.set_aggro_range(new_aggro)
 
         PyImGui.separator()
 
@@ -842,11 +869,17 @@ def DrawWindow():
 
     # ====== Map Selection ======
     PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
+    if bot_vars.force_close_map_select:
+        PyImGui.set_next_item_open(False, PyImGui.ImGuiCond.Always)
+    else:
+        PyImGui.set_next_item_open(bot_vars.show_map_select, PyImGui.ImGuiCond.Once)
     map_select_open = PyImGui.collapsing_header(
         f"{IconsFontAwesome5.ICON_GLOBE_EUROPE} Select Region / Map",
         PyImGui.TreeNodeFlags.DefaultOpen
     )
     PyImGui.pop_style_color(1)
+    bot_vars.show_map_select = map_select_open
+    bot_vars.force_close_map_select = False
     if map_select_open:
         regions = []
         if os.path.isdir(MAPS_DIR):
@@ -893,7 +926,10 @@ def DrawWindow():
 
     # ====== Current State ======
     PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
-    current_state_open = PyImGui.collapsing_header("Current State", PyImGui.TreeNodeFlags.DefaultOpen)
+    current_state_open = PyImGui.collapsing_header(
+        f"{IconsFontAwesome5.ICON_INFO_CIRCLE} Current State",
+        PyImGui.TreeNodeFlags.DefaultOpen
+    )
     PyImGui.pop_style_color(1)
     if current_state_open:
         current_state = FSM_vars.state_machine.get_current_step_name()
@@ -910,8 +946,9 @@ def DrawWindow():
     PyImGui.pop_style_color(1)
     if metrics_open:
         if bot_vars.is_running:
-            PyImGui.text(f"Total Time: {FormatTime(bot_vars.global_timer.GetElapsedTime(), 'hh:mm:ss')}")
-            PyImGui.text(f"Current Run: {FormatTime(bot_vars.lap_timer.GetElapsedTime(), 'mm:ss')}")
+            total_time = FormatTime(bot_vars.global_timer.GetElapsedTime(), 'hh:mm:ss')
+            run_time = FormatTime(bot_vars.lap_timer.GetElapsedTime(), 'mm:ss')
+            PyImGui.text(f"Total: {total_time} | Run: {run_time}")
             draw_vanquish_status("Vanquish Progress")
 
         if bot_vars.runs_attempted > 0:
@@ -945,7 +982,10 @@ def DrawWindow():
 
     # ====== Loaded Script Info ======
     PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
-    loaded_info_open = PyImGui.collapsing_header("Loaded Script Info", 0)
+    loaded_info_open = PyImGui.collapsing_header(
+        f"{IconsFontAwesome5.ICON_FILE_CODE} Loaded Script Info",
+        0
+    )
     PyImGui.pop_style_color(1)
     if loaded_info_open:
         stats = _compute_map_stats()
