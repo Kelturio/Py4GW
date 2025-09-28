@@ -109,8 +109,8 @@ class BotVars:
         self.show_merged_list = False    # toggle listing merged explorable WPs
 
         # Movement behaviour tweaks
-        self.use_waypoint_jitter = False
-        self.waypoint_jitter_amount = 50
+        self.use_waypoint_jitter = True
+        self.waypoint_jitter_amount = 100
 
 def trigger_blessing_at(point):
     if point in FSM_vars.blessing_triggered:
@@ -888,6 +888,9 @@ def DrawWindow():
                 bot_vars.force_close_map_select = True
             else:
                 StopBot()
+        if PyImGui.is_item_hovered():
+            tooltip = "Start bot" if not bot_vars.is_running else "Stop bot"
+            PyImGui.set_tooltip(tooltip)
 
         # Pause (compact)
         PyImGui.same_line(0, 4)
@@ -896,9 +899,14 @@ def DrawWindow():
             PyImGui.push_style_color(PyImGui.ImGuiCol.Text, disabled_text_color)
             PyImGui.button(pause_icon, width=26)
             PyImGui.pop_style_color(1)
+            if PyImGui.is_item_hovered():
+                PyImGui.set_tooltip("Pause/Resume bot (unavailable while stopped)")
         else:
             if PyImGui.button(pause_icon, width=26):
                 TogglePause()
+            if PyImGui.is_item_hovered():
+                tooltip = "Resume bot" if bot_vars.is_paused else "Pause bot"
+                PyImGui.set_tooltip(tooltip)
 
         # Hold toggle (compact)
         PyImGui.same_line(0, 4)
@@ -910,6 +918,24 @@ def DrawWindow():
                     FSM_vars.path_and_aggro.release_hold()
                 else:
                     FSM_vars.path_and_aggro.enable_hold()
+        if PyImGui.is_item_hovered():
+            tooltip = "Release hold" if hold_on else "Hold current waypoint"
+            PyImGui.set_tooltip(tooltip)
+
+        # Waypoint navigation controls (compact)
+        PyImGui.same_line(0, 4)
+        if PyImGui.button(IconsFontAwesome5.ICON_ARROW_LEFT, width=22):
+            if FSM_vars.path_and_aggro:
+                FSM_vars.path_and_aggro.seek_relative(-1, sticky=True)
+        if PyImGui.is_item_hovered():
+            PyImGui.set_tooltip("Previous waypoint")
+
+        PyImGui.same_line(0, 2)
+        if PyImGui.button(IconsFontAwesome5.ICON_ARROW_RIGHT, width=22):
+            if FSM_vars.path_and_aggro:
+                FSM_vars.path_and_aggro.seek_relative(+1, sticky=True)
+        if PyImGui.is_item_hovered():
+            PyImGui.set_tooltip("Next waypoint")
 
         PyImGui.separator()
 
@@ -923,22 +949,15 @@ def DrawWindow():
         PyImGui.pop_style_color(1)
 
         PyImGui.same_line(0, 6)
-        if PyImGui.button(IconsFontAwesome5.ICON_ARROW_LEFT, width=22):
-            if FSM_vars.path_and_aggro:
-                FSM_vars.path_and_aggro.seek_relative(-1, sticky=True)
-        PyImGui.same_line(0, 2)
-        if PyImGui.button(IconsFontAwesome5.ICON_ARROW_RIGHT, width=22):
-            if FSM_vars.path_and_aggro:
-                FSM_vars.path_and_aggro.seek_relative(+1, sticky=True)
-
-        PyImGui.same_line(0, 6)
         PyImGui.push_item_width(200)
         new_aggro = PyImGui.slider_int("##aggro_range_slider", bot_vars.aggro_range, 500, MAX_COMPASS_RANGE)
         PyImGui.pop_item_width()
-        if new_aggro != bot_vars.aggro_range:
-            bot_vars.aggro_range = new_aggro
+        rounded_aggro = int(((new_aggro + 50) // 100) * 100)
+        rounded_aggro = max(500, min(MAX_COMPASS_RANGE, rounded_aggro))
+        if rounded_aggro != bot_vars.aggro_range:
+            bot_vars.aggro_range = rounded_aggro
             if FSM_vars.path_and_aggro:
-                FSM_vars.path_and_aggro.set_aggro_range(new_aggro)
+                FSM_vars.path_and_aggro.set_aggro_range(rounded_aggro)
 
         PyImGui.separator()
 
@@ -961,15 +980,23 @@ def DrawWindow():
 
         PyImGui.separator()
         PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
-        PyImGui.text("Movement Tweaks")
+        movement_tweaks_open = PyImGui.collapsing_header(
+            f"{IconsFontAwesome5.ICON_SLIDERS_H} Movement Tweaks",
+            PyImGui.TreeNodeFlags.DefaultOpen
+        )
         PyImGui.pop_style_color(1)
-        bot_vars.use_waypoint_jitter = PyImGui.checkbox("Randomize waypoint targets", bot_vars.use_waypoint_jitter)
-        bot_vars.waypoint_jitter_amount = int(PyImGui.slider_int(
-            "Jitter radius (units)",
-            int(bot_vars.waypoint_jitter_amount),
-            0,
-            200
-        ))
+        if movement_tweaks_open:
+            bot_vars.use_waypoint_jitter = PyImGui.checkbox("Randomize waypoint targets", bot_vars.use_waypoint_jitter)
+            jitter_value = int(PyImGui.slider_int(
+                "Jitter radius (units)",
+                int(bot_vars.waypoint_jitter_amount),
+                0,
+                200
+            ))
+            rounded_jitter = int(((jitter_value + 5) // 10) * 10)
+            rounded_jitter = max(0, min(200, rounded_jitter))
+            if rounded_jitter != bot_vars.waypoint_jitter_amount:
+                bot_vars.waypoint_jitter_amount = rounded_jitter
 
     # ====== Map Selection ======
     if bot_vars.force_close_map_select:
