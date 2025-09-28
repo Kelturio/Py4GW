@@ -5,6 +5,7 @@ from HeroAI.cache_data import *
 import time
 import math
 import os
+import random
 import importlib.util
 from aC_api.Blessing_Core import get_blessing_npc
 from aC_api.Titles import (
@@ -103,6 +104,10 @@ class BotVars:
         self.segment_open = {}           # {seg_index: bool}
         self.show_outpost_list = False   # toggle listing outpost waypoints
         self.show_merged_list = False    # toggle listing merged explorable WPs
+
+        # Waypoint jitter controls
+        self.use_waypoint_jitter = False
+        self.waypoint_jitter_range = 150.0
 
 def trigger_blessing_at(point):
     if point in FSM_vars.blessing_triggered:
@@ -251,6 +256,7 @@ class FollowPathAndAggro:
         self._current_target_enemy  = None
         self._mode                  = 'path'
         self._current_path_point    = None
+        self._current_move_target   = None
         self.status_message         = "Waiting to begin..."
 
         # Waypoint cache + debug controls
@@ -276,6 +282,7 @@ class FollowPathAndAggro:
         self._forced_index = None
         self.release_hold()
         self._current_path_point = None
+        self._current_move_target = None
         self.follow_handler._following = False
         self.follow_handler.arrived = False
         self.status_message = f"[DEBUG] Set active index to {idx+1}/{len(wps)}"
@@ -330,6 +337,60 @@ class FollowPathAndAggro:
                 pass
         return None
 
+    def _issue_move_command(self, point):
+        """Apply optional jitter and forward the move command to the follow handler."""
+        jittered = self._apply_waypoint_jitter(point)
+        coords = self._extract_xy(jittered)
+        if coords is None:
+            coords = self._extract_xy(point)
+        if coords is None:
+            return None
+        self._current_move_target = coords
+        self.follow_handler.move_to_waypoint(coords[0], coords[1])
+        return coords
+
+    @staticmethod
+    def _extract_xy(point):
+        if isinstance(point, (list, tuple)) and len(point) >= 2:
+            try:
+                return float(point[0]), float(point[1])
+            except (TypeError, ValueError):
+                return None
+        return None
+
+    def _apply_waypoint_jitter(self, point):
+        try:
+            if not getattr(bot_vars, "use_waypoint_jitter", False):
+                return point
+            jitter_range = float(getattr(bot_vars, "waypoint_jitter_range", 0.0) or 0.0)
+        except (NameError, TypeError, ValueError):
+            return point
+
+        jitter_range = max(0.0, jitter_range)
+        if jitter_range <= 0.0:
+            return point
+
+        coords = self._extract_xy(point)
+        if coords is None:
+            return point
+
+        jx = random.uniform(-jitter_range, jitter_range)
+        jy = random.uniform(-jitter_range, jitter_range)
+
+        return coords[0] + jx, coords[1] + jy
+
+    @staticmethod
+    def _format_jitter_note(requested, actual):
+        req_coords = FollowPathAndAggro._extract_xy(requested)
+        act_coords = FollowPathAndAggro._extract_xy(actual)
+        if not req_coords or not act_coords:
+            return ""
+        rx, ry = req_coords
+        ax, ay = act_coords
+        if abs(ax - rx) < 1e-3 and abs(ay - ry) < 1e-3:
+            return ""
+        return f" (offset -> ({ax:.0f},{ay:.0f}))"
+
     def force_move_to_index(self, idx, sticky=True):
         """Jump to a waypoint index for debugging. If sticky=True, enter HOLD mode."""
         wps = self.get_waypoints()
@@ -346,8 +407,12 @@ class FollowPathAndAggro:
         self.follow_handler._following = False
         self.follow_handler.arrived = False
         self._current_path_point = pt
-        self.follow_handler.move_to_waypoint(*pt)
-        self.status_message = f"[DEBUG] Forced move -> wp {idx+1}/{len(wps)} {pt}" + (" [HOLD]" if self._debug_hold else "")
+        actual = self._issue_move_command(pt)
+        offset_note = self._format_jitter_note(pt, actual)
+        self.status_message = (
+            f"[DEBUG] Forced move -> wp {idx+1}/{len(wps)} {pt}{offset_note}"
+            + (" [HOLD]" if self._debug_hold else "")
+        )
         if self.log_actions:
             ConsoleLog("FollowPathAndAggro", self.status_message, Console.MessageType.Warning)
         return True
@@ -399,8 +464,9 @@ class FollowPathAndAggro:
                 next_point = wps[idx]
                 _set_index_on_handler(self.path_handler, idx)
                 self._current_path_point = next_point
-                self.follow_handler.move_to_waypoint(*next_point)
-                self.status_message = f"[DEBUG] Holding at wp {idx+1}/{len(wps)} {next_point} [HOLD]"
+                actual = self._issue_move_command(next_point)
+                offset_note = self._format_jitter_note(next_point, actual)
+                self.status_message = f"[DEBUG] Holding at wp {idx+1}/{len(wps)} {next_point}{offset_note} [HOLD]"
                 self._forced_index = None
             return
 
@@ -410,8 +476,9 @@ class FollowPathAndAggro:
             next_point = wps[idx]
             _set_index_on_handler(self.path_handler, idx)
             self._current_path_point = next_point
-            self.follow_handler.move_to_waypoint(*next_point)
-            self.status_message = f"[DEBUG] Moving to wp {idx+1}/{len(wps)} {next_point}"
+            actual = self._issue_move_command(next_point)
+            offset_note = self._format_jitter_note(next_point, actual)
+            self.status_message = f"[DEBUG] Moving to wp {idx+1}/{len(wps)} {next_point}{offset_note}"
             self._forced_index = None
             return
 
@@ -426,26 +493,36 @@ class FollowPathAndAggro:
                     retry_point = self.path_handler.advance()
                     if retry_point:
                         self._current_path_point = retry_point
-                        self.follow_handler.move_to_waypoint(*retry_point)
-                        self.status_message = f"Path reset -> moving to {retry_point}"
+                        actual = self._issue_move_command(retry_point)
+                        offset_note = self._format_jitter_note(retry_point, actual)
+                        self.status_message = f"Path reset -> moving to {retry_point}{offset_note}"
                         ConsoleLog("FollowPathAndAggro", f"Path reset after failure, moving to {retry_point}", Console.MessageType.Warning)
                 return
 
             self._current_path_point = next_point
-            self.follow_handler.move_to_waypoint(*next_point)
-            self.status_message = f"Moving to {next_point}"
+            actual = self._issue_move_command(next_point)
+            offset_note = self._format_jitter_note(next_point, actual)
+            self.status_message = f"Moving to {next_point}{offset_note}"
             if self.log_actions:
                 ConsoleLog("FollowPathAndAggro", f"Moving to {next_point}", Console.MessageType.Info)
         else:
             if not self._current_path_point:
                 self.status_message = "Lost current path point, hang on a second"
                 self.follow_handler._following = False
+                self._current_move_target = None
                 return
             px, py = Player.GetXY()
-            tx, ty = self._current_path_point
+            target_pt = self._current_move_target or self._current_path_point
+            if not target_pt:
+                self.status_message = "No waypoint target, waiting..."
+                self.follow_handler._following = False
+                self._current_move_target = None
+                return
+            tx, ty = target_pt[:2]
             if Utils.Distance((px, py), (tx, ty)) <= ARRIVAL_TOLERANCE:
                 self.follow_handler._following = False
                 self.follow_handler.arrived    = True
+                self._current_move_target      = None
                 self.status_message            = "Arrived at waypoint."
 
     def _maybe_log_stats(self):
@@ -839,6 +916,24 @@ def DrawWindow():
                 PyImGui.text(f"{idx_display}/{total} {cur_pt}{' [HOLD]' if hold_on else ''}")
         else:
             PyImGui.text("(none)")
+
+        PyImGui.separator()
+
+        changed, use_jitter = PyImGui.checkbox("Waypoint jitter", bot_vars.use_waypoint_jitter)
+        if changed:
+            bot_vars.use_waypoint_jitter = use_jitter
+
+        PyImGui.same_line(0, 8)
+        PyImGui.text("Offset radius:")
+        PyImGui.same_line(0, 4)
+        PyImGui.set_next_item_width(110)
+        changed_range, new_range = PyImGui.drag_float(
+            "##wp_jitter_range", bot_vars.waypoint_jitter_range, 5.0, 0.0, 2000.0, "%.0f"
+        )
+        if changed_range:
+            bot_vars.waypoint_jitter_range = max(0.0, new_range)
+        PyImGui.same_line(0, 4)
+        PyImGui.text("units")
 
     # ====== Map Selection ======
     PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
