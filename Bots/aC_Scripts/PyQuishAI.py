@@ -26,6 +26,7 @@ MAPS_DIR = "PyQuishAI_maps"
 # Default placeholders (used if no dynamic script is selected)
 OUTPOST_ID = 389
 MAP_ID = 200
+MAX_COMPASS_RANGE = int(Range.Compass.value)
 outpost_path = []
 map_path = []
 
@@ -828,12 +829,27 @@ def DrawWindow():
 
         PyImGui.separator()
 
+        # Waypoint bar + aggro controls
+        wps = FSM_vars.path_and_aggro.get_waypoints() if FSM_vars.path_and_aggro else []
+        cur_pt = FSM_vars.path_and_aggro.get_current_waypoint() if FSM_vars.path_and_aggro else None
+        cur_idx = FSM_vars.path_and_aggro.get_current_index() if FSM_vars.path_and_aggro else None
+
         PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
         PyImGui.text(f"{IconsFontAwesome5.ICON_BULLSEYE} Aggro Range")
         PyImGui.pop_style_color(1)
+
+        PyImGui.same_line(0, 6)
+        if PyImGui.button(IconsFontAwesome5.ICON_ARROW_LEFT, width=22):
+            if FSM_vars.path_and_aggro:
+                FSM_vars.path_and_aggro.seek_relative(-1, sticky=True)
+        PyImGui.same_line(0, 2)
+        if PyImGui.button(IconsFontAwesome5.ICON_ARROW_RIGHT, width=22):
+            if FSM_vars.path_and_aggro:
+                FSM_vars.path_and_aggro.seek_relative(+1, sticky=True)
+
         PyImGui.same_line(0, 6)
         PyImGui.push_item_width(200)
-        new_aggro = PyImGui.slider_int("##aggro_range_slider", bot_vars.aggro_range, 500, 7500)
+        new_aggro = PyImGui.slider_int("##aggro_range_slider", bot_vars.aggro_range, 500, MAX_COMPASS_RANGE)
         PyImGui.pop_item_width()
         if new_aggro != bot_vars.aggro_range:
             bot_vars.aggro_range = new_aggro
@@ -842,20 +858,6 @@ def DrawWindow():
 
         PyImGui.separator()
 
-        # Waypoint bar + compact prev/next
-        wps = FSM_vars.path_and_aggro.get_waypoints() if FSM_vars.path_and_aggro else []
-        cur_pt = FSM_vars.path_and_aggro.get_current_waypoint() if FSM_vars.path_and_aggro else None
-        cur_idx = FSM_vars.path_and_aggro.get_current_index() if FSM_vars.path_and_aggro else None
-        
-        if PyImGui.button("<", width=22):
-            if FSM_vars.path_and_aggro:
-                FSM_vars.path_and_aggro.seek_relative(-1, sticky=True)
-        PyImGui.same_line(0, 2)
-        if PyImGui.button(">", width=22):
-            if FSM_vars.path_and_aggro:
-                FSM_vars.path_and_aggro.seek_relative(+1, sticky=True)
-        
-        PyImGui.same_line(0, 6)
         PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
         PyImGui.text("Active WP:")
         PyImGui.pop_style_color(1)
