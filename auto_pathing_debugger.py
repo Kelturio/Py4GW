@@ -28,6 +28,7 @@ from Py4GWCoreLib import (
     PyImGui,
     Routines,
 )
+from HeroAI.cache_data import CacheData
 
 MODULE_NAME = "Auto Pathing Debugger"
 
@@ -51,6 +52,7 @@ _is_planning: bool = False
 _is_following: bool = False
 _follow_progress: float = 0.0
 _status_message: str = "Idle"
+_pause_reason: str | None = None
 
 # Smoothing + movement options
 _smooth_by_los: bool = True
@@ -65,6 +67,8 @@ _log_follow_steps: bool = False
 _PATH_COLOR = Color(32, 200, 255, 255)
 _ERROR_COLOR = Color(255, 96, 96, 255)
 auto_pathing = AutoPathing()
+_heroai_cache = CacheData()
+_manual_pause_requested: bool = False
 
 
 # --- Helper utilities ---------------------------------------------------------------
@@ -88,6 +92,53 @@ def _calculate_path_distance(points: Sequence[Tuple[float, float, float]]) -> fl
     return distance
 
 
+def _toggle_manual_pause() -> None:
+    global _manual_pause_requested, _status_message
+
+    _manual_pause_requested = not _manual_pause_requested
+    if _manual_pause_requested:
+        _status_message = "Manual pause enabled."
+    else:
+        _status_message = "Manual pause disabled."
+
+
+def _determine_pause_reason() -> str | None:
+    if _manual_pause_requested:
+        return "manual"
+
+    if getattr(_heroai_cache.data, "in_aggro", False):
+        return "combat"
+
+    if getattr(_heroai_cache, "in_looting_routine", False):
+        return "looting"
+
+    return None
+
+
+def _should_pause_following() -> bool:
+    global _pause_reason, _status_message
+
+    reason = _determine_pause_reason()
+    if reason:
+        if reason != _pause_reason:
+            _pause_reason = reason
+            if reason == "manual":
+                _status_message = "Paused manually."
+            elif reason == "combat":
+                _status_message = "Pausing for combat..."
+            elif reason == "looting":
+                _status_message = "Waiting for loot pickup..."
+            else:
+                _status_message = "Pausing follow..."
+        return True
+
+    if _pause_reason is not None:
+        _pause_reason = None
+        _status_message = "Resuming path..."
+
+    return False
+
+
 def _draw_path(points: Sequence[Tuple[float, float, float]]) -> None:
     if len(points) < 2:
         return
@@ -104,15 +155,19 @@ def _draw_path(points: Sequence[Tuple[float, float, float]]) -> None:
 
 def _clear_path() -> None:
     global _path_points, _path_distance, _follow_progress, _status_message
+    global _manual_pause_requested, _pause_reason
     _path_points = []
     _path_distance = 0.0
     _follow_progress = 0.0
     _status_message = "Path cleared."
+    _manual_pause_requested = False
+    _pause_reason = None
 
 
 def _start_plan(auto_follow: bool) -> None:
     global _is_planning, _plan_started_at, _status_message, _path_points
     global _path_distance, _combined_error, _follow_progress
+    global _manual_pause_requested, _pause_reason
 
     if _is_planning:
         _status_message = "Already planning a path."
@@ -136,6 +191,8 @@ def _start_plan(auto_follow: bool) -> None:
     _combined_error = ""
     _status_message = "Planning path..."
     _plan_started_at = time.time()
+    _manual_pause_requested = False
+    _pause_reason = None
 
     smoothing_kwargs = dict(
         smooth_by_los=_smooth_by_los,
@@ -208,7 +265,7 @@ def _follow_path_coroutine(
     tolerance: float,
     log_steps: bool,
 ):
-    global _is_following, _status_message, _follow_progress
+    global _is_following, _status_message, _follow_progress, _pause_reason
 
     path_copy = list(points)
     if len(path_copy) < 2:
@@ -218,6 +275,7 @@ def _follow_path_coroutine(
     _is_following = True
     _follow_progress = 0.0
     _status_message = "Following path..."
+    _pause_reason = None
 
     path_2d = [(x, y) for x, y, _ in path_copy]
 
@@ -228,6 +286,7 @@ def _follow_path_coroutine(
 
     def runner():
         global _is_following, _status_message, _follow_progress
+        global _manual_pause_requested, _pause_reason
         try:
             ConsoleLog(
                 MODULE_NAME,
@@ -239,6 +298,7 @@ def _follow_path_coroutine(
                 tolerance=tolerance,
                 log=log_steps,
                 progress_callback=on_progress,
+                custom_pause_fn=_should_pause_following,
             )
             _follow_progress = 1.0 if result else _follow_progress
             if result:
@@ -264,13 +324,15 @@ def _follow_path_coroutine(
             )
         finally:
             _is_following = False
+            _manual_pause_requested = False
+            _pause_reason = None
             yield
 
     return runner()
 
 
 def _start_follow() -> None:
-    global _is_following, _status_message
+    global _is_following, _status_message, _manual_pause_requested, _pause_reason
 
     if _is_following:
         _status_message = "Already following a path."
@@ -282,6 +344,8 @@ def _start_follow() -> None:
         _status_message = "Plan a path before following it."
         return
 
+    _manual_pause_requested = False
+    _pause_reason = None
     GLOBAL_CACHE.Coroutines.append(
         _follow_path_coroutine(_path_points, _follow_tolerance, _log_follow_steps)
     )
@@ -341,6 +405,8 @@ def _render_path_details() -> None:
         PyImGui.text("Planning in progress...")
     if _is_following:
         PyImGui.text("Following path...")
+    if _manual_pause_requested:
+        PyImGui.text("Manual pause is active.")
     if _follow_progress > 0.0 and _follow_progress < 1.0:
         PyImGui.progress_bar(_follow_progress, 200.0, f"{_follow_progress * 100:.1f}%")
     elif _follow_progress >= 1.0:
@@ -401,6 +467,10 @@ def main() -> None:
 
         if PyImGui.button("Follow saved path"):
             _start_follow()
+        PyImGui.same_line(0.0, -1.0)
+        pause_label = "Resume follow" if _manual_pause_requested else "Pause follow"
+        if PyImGui.button(pause_label):
+            _toggle_manual_pause()
         PyImGui.same_line(0.0, -1.0)
         if PyImGui.button("Clear path"):
             _clear_path()
