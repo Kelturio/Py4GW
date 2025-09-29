@@ -220,17 +220,17 @@ class AutoPathingDebugUI:
                 self.target_x, self.target_y = player_xy
                 self.coordinate_input = f"{self.target_x:.0f}, {self.target_y:.0f}"
                 self._push_status("Target set to current player position.")
-            PyImGui.same_line()
+            PyImGui.same_line(0.0, -1.0)
             if PyImGui.button("Plan Path"):
                 self._queue_path_search(follow_after=False)
-            PyImGui.same_line()
+            PyImGui.same_line(0.0, -1.0)
             if PyImGui.button("Plan & Move"):
                 self._queue_path_search(follow_after=True)
 
             combined_value = PyImGui.input_text("Target (x, y)", self.coordinate_input)
             if combined_value != self.coordinate_input:
                 self.coordinate_input = combined_value
-            PyImGui.same_line()
+            PyImGui.same_line(0.0, -1.0)
             if PyImGui.button("Apply"):
                 parsed = self._parse_combined_input(self.coordinate_input)
                 if parsed:
@@ -270,13 +270,13 @@ class AutoPathingDebugUI:
             if self.path_points:
                 if PyImGui.button("Follow Cached Path"):
                     self._queue_follow(self.path_points)
-                PyImGui.same_line()
+                PyImGui.same_line(0.0, -1.0)
                 if PyImGui.button("Clear Path"):
                     self.path_points.clear()
                     self._push_status("Cached path cleared.")
 
             if self.follow_in_progress:
-                PyImGui.same_line()
+                PyImGui.same_line(0.0, -1.0)
                 if PyImGui.button("Stop Movement"):
                     self.stop_following()
 
