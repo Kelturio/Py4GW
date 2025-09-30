@@ -6,6 +6,7 @@ import time
 import math
 import os
 import importlib.util
+import random
 from aC_api.Blessing_Core import get_blessing_npc
 from aC_api.Titles import (
     display_title_track, display_faction, display_title_progress,
@@ -106,6 +107,10 @@ class BotVars:
         self.segment_open = {}           # {seg_index: bool}
         self.show_outpost_list = False   # toggle listing outpost waypoints
         self.show_merged_list = False    # toggle listing merged explorable WPs
+
+        # Movement behaviour tweaks
+        self.use_waypoint_jitter = True
+        self.waypoint_jitter_amount = 100
 
 def trigger_blessing_at(point):
     if point in FSM_vars.blessing_triggered:
@@ -254,6 +259,7 @@ class FollowPathAndAggro:
         self._current_target_enemy  = None
         self._mode                  = 'path'
         self._current_path_point    = None
+        self._current_command_point = None
         self.status_message         = "Waiting to begin..."
 
         # Waypoint cache + debug controls
@@ -279,6 +285,7 @@ class FollowPathAndAggro:
         self._forced_index = None
         self.release_hold()
         self._current_path_point = None
+        self._current_command_point = None
         self.follow_handler._following = False
         self.follow_handler.arrived = False
         self.status_message = f"[DEBUG] Set active index to {idx+1}/{len(wps)}"
@@ -349,8 +356,12 @@ class FollowPathAndAggro:
         self.follow_handler._following = False
         self.follow_handler.arrived = False
         self._current_path_point = pt
-        self.follow_handler.move_to_waypoint(*pt)
-        self.status_message = f"[DEBUG] Forced move -> wp {idx+1}/{len(wps)} {pt}" + (" [HOLD]" if self._debug_hold else "")
+        issued = self._issue_move_command(pt)
+        target_label = self._format_move_target(pt, issued)
+        self.status_message = (
+            f"[DEBUG] Forced move -> wp {idx+1}/{len(wps)} {target_label}"
+            + (" [HOLD]" if self._debug_hold else "")
+        )
         if self.log_actions:
             ConsoleLog("FollowPathAndAggro", self.status_message, Console.MessageType.Warning)
         return True
@@ -377,6 +388,68 @@ class FollowPathAndAggro:
             return
         self.aggro_range = aggro_range
         self._scan_move_thresh = max(0, aggro_range * 0.75)
+
+    # --------------------------------------------------------
+
+    def _apply_waypoint_jitter(self, point):
+        """Return a potentially offset version of the supplied waypoint."""
+        if not point:
+            return point
+        if not getattr(bot_vars, "use_waypoint_jitter", False):
+            return (int(point[0]), int(point[1])) if isinstance(point, (tuple, list)) else point
+
+        jitter_radius = max(0, int(getattr(bot_vars, "waypoint_jitter_amount", 0)))
+        if jitter_radius <= 0:
+            return (int(point[0]), int(point[1])) if isinstance(point, (tuple, list)) else point
+
+        try:
+            x, y = point
+        except (TypeError, ValueError):
+            return point
+
+        offset_x = random.randint(-jitter_radius, jitter_radius)
+        offset_y = random.randint(-jitter_radius, jitter_radius)
+        return (int(x) + offset_x, int(y) + offset_y)
+
+    def _issue_move_command(self, waypoint):
+        """Apply jitter (if enabled) and send the move command to the handler."""
+        if waypoint is None:
+            self._current_command_point = None
+            return None
+
+        if isinstance(waypoint, (tuple, list)) and len(waypoint) >= 2:
+            target = self._apply_waypoint_jitter(waypoint)
+        else:
+            target = waypoint
+
+        if isinstance(target, (tuple, list)) and len(target) >= 2:
+            target = (int(target[0]), int(target[1]))
+
+        self._current_command_point = target
+        try:
+            self.follow_handler.move_to_waypoint(*target)
+        except TypeError:
+            # Fallback if the handler expects a tuple/list only
+            self.follow_handler.move_to_waypoint(target)
+        self.move_calls += 1
+        return target
+
+    # --------------------------------------------------------
+
+    def _format_move_target(self, original, issued):
+        """Format a status label showing the original waypoint and any applied jitter."""
+        try:
+            orig_tuple = (int(original[0]), int(original[1]))
+        except Exception:
+            return str(issued if issued is not None else original)
+
+        if isinstance(issued, (tuple, list)) and len(issued) >= 2:
+            issued_tuple = (int(issued[0]), int(issued[1]))
+            if issued_tuple != orig_tuple:
+                return f"{orig_tuple} -> {issued_tuple}"
+            return str(orig_tuple)
+
+        return str(orig_tuple)
 
     # --------------------------------------------------------
 
@@ -413,8 +486,9 @@ class FollowPathAndAggro:
                 next_point = wps[idx]
                 _set_index_on_handler(self.path_handler, idx)
                 self._current_path_point = next_point
-                self.follow_handler.move_to_waypoint(*next_point)
-                self.status_message = f"[DEBUG] Holding at wp {idx+1}/{len(wps)} {next_point} [HOLD]"
+                issued = self._issue_move_command(next_point)
+                target_label = self._format_move_target(next_point, issued)
+                self.status_message = f"[DEBUG] Holding at wp {idx+1}/{len(wps)} {target_label} [HOLD]"
                 self._forced_index = None
             return
 
@@ -424,8 +498,9 @@ class FollowPathAndAggro:
             next_point = wps[idx]
             _set_index_on_handler(self.path_handler, idx)
             self._current_path_point = next_point
-            self.follow_handler.move_to_waypoint(*next_point)
-            self.status_message = f"[DEBUG] Moving to wp {idx+1}/{len(wps)} {next_point}"
+            issued = self._issue_move_command(next_point)
+            target_label = self._format_move_target(next_point, issued)
+            self.status_message = f"[DEBUG] Moving to wp {idx+1}/{len(wps)} {target_label}"
             self._forced_index = None
             return
 
@@ -435,32 +510,41 @@ class FollowPathAndAggro:
                 self.status_message = "No valid next waypoint! Stopping pathing."
                 if self.log_actions:
                     ConsoleLog("FollowPathAndAggro", "PathHandler returned None – halting movement.", Console.MessageType.Warning)
+                self._current_command_point = None
                 if hasattr(self.path_handler, "reset"):
                     self.path_handler.reset()
                     retry_point = self.path_handler.advance()
                     if retry_point:
                         self._current_path_point = retry_point
-                        self.follow_handler.move_to_waypoint(*retry_point)
-                        self.status_message = f"Path reset -> moving to {retry_point}"
-                        ConsoleLog("FollowPathAndAggro", f"Path reset after failure, moving to {retry_point}", Console.MessageType.Warning)
+                        issued = self._issue_move_command(retry_point)
+                        target_label = self._format_move_target(retry_point, issued)
+                        self.status_message = f"Path reset -> moving to {target_label}"
+                        ConsoleLog("FollowPathAndAggro", f"Path reset after failure, moving to {target_label}", Console.MessageType.Warning)
                 return
 
             self._current_path_point = next_point
-            self.follow_handler.move_to_waypoint(*next_point)
-            self.status_message = f"Moving to {next_point}"
+            issued = self._issue_move_command(next_point)
+            target_label = self._format_move_target(next_point, issued)
+            self.status_message = f"Moving to {target_label}"
             if self.log_actions:
-                ConsoleLog("FollowPathAndAggro", f"Moving to {next_point}", Console.MessageType.Info)
+                ConsoleLog("FollowPathAndAggro", f"Moving to {target_label}", Console.MessageType.Info)
         else:
             if not self._current_path_point:
                 self.status_message = "Lost current path point, hang on a second"
                 self.follow_handler._following = False
+                self._current_command_point = None
                 return
             px, py = Player.GetXY()
-            tx, ty = self._current_path_point
+            target_point = self._current_command_point or self._current_path_point
+            if target_point:
+                tx, ty = target_point
+            else:
+                tx, ty = self._current_path_point
             if Utils.Distance((px, py), (tx, ty)) <= ARRIVAL_TOLERANCE:
                 self.follow_handler._following = False
                 self.follow_handler.arrived    = True
                 self.status_message            = "Arrived at waypoint."
+                self._current_command_point    = None
 
     def _maybe_log_stats(self):
         elapsed = time.time() - self._stats_start_time
@@ -804,6 +888,9 @@ def DrawWindow():
                 bot_vars.force_close_map_select = True
             else:
                 StopBot()
+        if PyImGui.is_item_hovered():
+            tooltip = "Start bot" if not bot_vars.is_running else "Stop bot"
+            PyImGui.set_tooltip(tooltip)
 
         # Pause (compact)
         PyImGui.same_line(0, 4)
@@ -812,9 +899,14 @@ def DrawWindow():
             PyImGui.push_style_color(PyImGui.ImGuiCol.Text, disabled_text_color)
             PyImGui.button(pause_icon, width=26)
             PyImGui.pop_style_color(1)
+            if PyImGui.is_item_hovered():
+                PyImGui.set_tooltip("Pause/Resume bot (unavailable while stopped)")
         else:
             if PyImGui.button(pause_icon, width=26):
                 TogglePause()
+            if PyImGui.is_item_hovered():
+                tooltip = "Resume bot" if bot_vars.is_paused else "Pause bot"
+                PyImGui.set_tooltip(tooltip)
 
         # Hold toggle (compact)
         PyImGui.same_line(0, 4)
@@ -826,6 +918,24 @@ def DrawWindow():
                     FSM_vars.path_and_aggro.release_hold()
                 else:
                     FSM_vars.path_and_aggro.enable_hold()
+        if PyImGui.is_item_hovered():
+            tooltip = "Release hold" if hold_on else "Hold current waypoint"
+            PyImGui.set_tooltip(tooltip)
+
+        # Waypoint navigation controls (compact)
+        PyImGui.same_line(0, 4)
+        if PyImGui.button(IconsFontAwesome5.ICON_ARROW_LEFT, width=22):
+            if FSM_vars.path_and_aggro:
+                FSM_vars.path_and_aggro.seek_relative(-1, sticky=True)
+        if PyImGui.is_item_hovered():
+            PyImGui.set_tooltip("Previous waypoint")
+
+        PyImGui.same_line(0, 2)
+        if PyImGui.button(IconsFontAwesome5.ICON_ARROW_RIGHT, width=22):
+            if FSM_vars.path_and_aggro:
+                FSM_vars.path_and_aggro.seek_relative(+1, sticky=True)
+        if PyImGui.is_item_hovered():
+            PyImGui.set_tooltip("Next waypoint")
 
         PyImGui.separator()
 
@@ -839,22 +949,15 @@ def DrawWindow():
         PyImGui.pop_style_color(1)
 
         PyImGui.same_line(0, 6)
-        if PyImGui.button(IconsFontAwesome5.ICON_ARROW_LEFT, width=22):
-            if FSM_vars.path_and_aggro:
-                FSM_vars.path_and_aggro.seek_relative(-1, sticky=True)
-        PyImGui.same_line(0, 2)
-        if PyImGui.button(IconsFontAwesome5.ICON_ARROW_RIGHT, width=22):
-            if FSM_vars.path_and_aggro:
-                FSM_vars.path_and_aggro.seek_relative(+1, sticky=True)
-
-        PyImGui.same_line(0, 6)
         PyImGui.push_item_width(200)
         new_aggro = PyImGui.slider_int("##aggro_range_slider", bot_vars.aggro_range, 500, MAX_COMPASS_RANGE)
         PyImGui.pop_item_width()
-        if new_aggro != bot_vars.aggro_range:
-            bot_vars.aggro_range = new_aggro
+        rounded_aggro = int(((new_aggro + 50) // 100) * 100)
+        rounded_aggro = max(500, min(MAX_COMPASS_RANGE, rounded_aggro))
+        if rounded_aggro != bot_vars.aggro_range:
+            bot_vars.aggro_range = rounded_aggro
             if FSM_vars.path_and_aggro:
-                FSM_vars.path_and_aggro.set_aggro_range(new_aggro)
+                FSM_vars.path_and_aggro.set_aggro_range(rounded_aggro)
 
         PyImGui.separator()
 
@@ -874,6 +977,26 @@ def DrawWindow():
                 PyImGui.text(f"{idx_display}/{total} {cur_pt}{' [HOLD]' if hold_on else ''}")
         else:
             PyImGui.text("(none)")
+
+        PyImGui.separator()
+        PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
+        movement_tweaks_open = PyImGui.collapsing_header(
+            f"{IconsFontAwesome5.ICON_SLIDERS_H} Movement Tweaks",
+            PyImGui.TreeNodeFlags.DefaultOpen
+        )
+        PyImGui.pop_style_color(1)
+        if movement_tweaks_open:
+            bot_vars.use_waypoint_jitter = PyImGui.checkbox("Randomize waypoint targets", bot_vars.use_waypoint_jitter)
+            jitter_value = int(PyImGui.slider_int(
+                "Jitter radius (units)",
+                int(bot_vars.waypoint_jitter_amount),
+                0,
+                200
+            ))
+            rounded_jitter = int(((jitter_value + 5) // 10) * 10)
+            rounded_jitter = max(0, min(200, rounded_jitter))
+            if rounded_jitter != bot_vars.waypoint_jitter_amount:
+                bot_vars.waypoint_jitter_amount = rounded_jitter
 
     # ====== Map Selection ======
     if bot_vars.force_close_map_select:

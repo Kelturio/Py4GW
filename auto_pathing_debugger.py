@@ -123,7 +123,9 @@ def _clear_path() -> None:
     _status_message = "Path cleared."
 
 
-def _normalize_marker_coordinate(value: float | int | None) -> float | None:
+def _coerce_quest_coordinate(value: object) -> float | None:
+    """Return a sane quest coordinate or ``None`` if it is unusable."""
+
     if value is None:
         return None
 
@@ -135,12 +137,14 @@ def _normalize_marker_coordinate(value: float | int | None) -> float | None:
     if not math.isfinite(numeric):
         return None
 
-    # Quest marker coordinates are stored as unsigned ints in some scenarios.
-    # When we see a value with no fractional part we convert it through a
-    # signed 32-bit view so wrapped negatives become real negatives again.
-    int_value = int(numeric)
-    if numeric == int_value:
-        numeric = float(ctypes.c_int32(int_value).value)
+    # Quest data sometimes arrives as unsigned 32-bit integers even though the
+    # coordinates are meant to be signed.  Normalise those values so negative
+    # positions are reported correctly.
+    if numeric >= 2**31 or numeric <= -2**31:
+        try:
+            numeric = float(ctypes.c_int32(int(numeric) & 0xFFFFFFFF).value)
+        except (OverflowError, ValueError):
+            return None
 
     return numeric
 
@@ -161,7 +165,7 @@ def _use_active_quest_marker() -> None:
     try:
         GLOBAL_CACHE.Quest.RequestQuestInfo(active_quest_id, True)
     except Exception as exc:  # noqa: BLE001 - surface everything
-        _status_message = f"Failed to request quest data: {exc}"
+        _status_message = f"Failed to request quest info: {exc}"
         return
 
     try:
@@ -170,21 +174,27 @@ def _use_active_quest_marker() -> None:
         _status_message = f"Failed to load quest data: {exc}"
         return
 
-    marker_x = _normalize_marker_coordinate(getattr(quest_data, "marker_x", None))
-    marker_y = _normalize_marker_coordinate(getattr(quest_data, "marker_y", None))
+    marker_x = _coerce_quest_coordinate(getattr(quest_data, "marker_x", None))
+    marker_y = _coerce_quest_coordinate(getattr(quest_data, "marker_y", None))
 
     if marker_x is None or marker_y is None:
-        _status_message = "Quest marker coordinates unavailable."
-        GLOBAL_CACHE.Quest.RequestQuestInfo(active_quest_id, True)
+        _status_message = "Quest marker coordinates unavailable; requested refresh."
+        try:
+            GLOBAL_CACHE.Quest.RequestQuestInfo(active_quest_id, True)
+        except Exception:
+            pass
         return
 
     if marker_x == 0.0 and marker_y == 0.0:
-        _status_message = "Quest marker not set; requested update."
-        GLOBAL_CACHE.Quest.RequestQuestInfo(active_quest_id, True)
+        _status_message = "Quest marker not set; awaiting update."
+        try:
+            GLOBAL_CACHE.Quest.RequestQuestInfo(active_quest_id, True)
+        except Exception:
+            pass
         return
 
-    _destination_x = float(marker_x)
-    _destination_y = float(marker_y)
+    _destination_x = marker_x
+    _destination_y = marker_y
     _combined_input = _format_destination()
     _combined_error = ""
     _status_message = "Quest marker destination loaded."
@@ -514,8 +524,7 @@ def _render_destination_inputs() -> None:
         _combined_input = _format_destination()
         _combined_error = ""
 
-    combined_width = min(280.0, max(160.0, PyImGui.get_content_region_avail()[0]))
-    PyImGui.set_next_item_width(combined_width)
+    PyImGui.set_next_item_width(248.0)
     combined = PyImGui.input_text("Combined (x,y)", _combined_input, 64)
     if combined != _combined_input:
         _combined_input = combined
@@ -608,22 +617,22 @@ def main() -> None:
                 _combined_error = ""
             else:
                 _status_message = "Cannot read player position right now."
-        PyImGui.same_line(0.0, 6.0)
+        PyImGui.same_line(0.0, -1.0)
         if PyImGui.button("Use quest marker"):
             _use_active_quest_marker()
-        PyImGui.same_line(0.0, 6.0)
+        PyImGui.same_line(0.0, -1.0)
         if PyImGui.button("Plan path"):
             _start_plan(auto_follow=False)
-        PyImGui.same_line(0.0, 6.0)
+        PyImGui.same_line(0.0, -1.0)
         if PyImGui.button("Plan && follow"):
             _start_plan(auto_follow=True)
 
         if PyImGui.button("Follow saved path"):
             _start_follow()
-        PyImGui.same_line(0.0, 6.0)
+        PyImGui.same_line(0.0, -1.0)
         if PyImGui.button("Stop follow"):
             _stop_following()
-        PyImGui.same_line(0.0, 6.0)
+        PyImGui.same_line(0.0, -1.0)
         pause_label = "Resume follow" if _manual_pause else "Pause follow"
         if PyImGui.button(pause_label):
             _manual_pause = not _manual_pause
@@ -633,7 +642,7 @@ def main() -> None:
                 _set_pause_reason(None)
                 if not _is_following and not _is_planning:
                     _status_message = "Idle"
-        PyImGui.same_line(0.0, 6.0)
+        PyImGui.same_line(0.0, -1.0)
         if PyImGui.button("Clear path"):
             _clear_path()
 
