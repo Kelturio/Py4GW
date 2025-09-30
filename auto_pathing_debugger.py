@@ -408,7 +408,6 @@ def _start_plan(auto_follow: bool) -> None:
             )
         finally:
             _is_planning = False
-            yield
 
     GLOBAL_CACHE.Coroutines.append(
         plan_coroutine(smoothing=dict(smoothing_kwargs))
@@ -484,7 +483,6 @@ def _follow_path_coroutine(
             _is_following = False
             _set_pause_reason(None)
             _active_follow_coroutine = None
-            yield
 
     return runner()
 
