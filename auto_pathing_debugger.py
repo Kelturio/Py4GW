@@ -618,7 +618,7 @@ def _render_path_details() -> None:
 
 def main() -> None:
     global _destination_initialized, _destination_x, _destination_y, _combined_input
-    global _combined_error, _status_message, _manual_pause
+    global _combined_error, _status_message, _manual_pause, _pending_auto_follow
 
     player_agent_id = GLOBAL_CACHE.Player.GetAgentID()
     if not _destination_initialized and player_agent_id != 0:
