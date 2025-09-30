@@ -13,10 +13,11 @@ player along it while drawing the route in the 3D overlay.
 
 from __future__ import annotations
 
+import ctypes
 import math
 import re
 import time
-from typing import Iterable, List, Sequence, Tuple
+from typing import Generator, Iterable, List, Sequence, Tuple
 
 import Py4GW
 from Py4GWCoreLib import (
@@ -25,6 +26,7 @@ from Py4GWCoreLib import (
     ConsoleLog,
     DXOverlay,
     GLOBAL_CACHE,
+    LootConfig,
     PyImGui,
     Range,
     Routines,
@@ -56,6 +58,12 @@ _status_message: str = "Idle"
 
 _manual_pause: bool = False
 _pause_reason: str | None = None
+
+_active_follow_coroutine: Generator | None = None
+
+# Loot detection helpers
+_loot_detected_at: float = 0.0
+_LOOT_GRACE_PERIOD: float = 1.5
 
 # Smoothing + movement options
 _smooth_by_los: bool = True
@@ -115,6 +123,83 @@ def _clear_path() -> None:
     _status_message = "Path cleared."
 
 
+def _coerce_quest_coordinate(value: object) -> float | None:
+    """Return a sane quest coordinate or ``None`` if it is unusable."""
+
+    if value is None:
+        return None
+
+    try:
+        numeric = float(value)
+    except (TypeError, ValueError):
+        return None
+
+    if not math.isfinite(numeric):
+        return None
+
+    # Quest data sometimes arrives as unsigned 32-bit integers even though the
+    # coordinates are meant to be signed.  Normalise those values so negative
+    # positions are reported correctly.
+    if numeric >= 2**31 or numeric <= -2**31:
+        try:
+            numeric = float(ctypes.c_int32(int(numeric) & 0xFFFFFFFF).value)
+        except (OverflowError, ValueError):
+            return None
+
+    return numeric
+
+
+def _use_active_quest_marker() -> None:
+    global _destination_x, _destination_y, _combined_input, _combined_error, _status_message
+
+    try:
+        active_quest_id = GLOBAL_CACHE.Quest.GetActiveQuest()
+    except Exception as exc:  # noqa: BLE001 - surface everything
+        _status_message = f"Unable to read active quest: {exc}"
+        return
+
+    if not active_quest_id:
+        _status_message = "No active quest to reference."
+        return
+
+    try:
+        GLOBAL_CACHE.Quest.RequestQuestInfo(active_quest_id, True)
+    except Exception as exc:  # noqa: BLE001 - surface everything
+        _status_message = f"Failed to request quest info: {exc}"
+        return
+
+    try:
+        quest_data = GLOBAL_CACHE.Quest.GetQuestData(active_quest_id)
+    except Exception as exc:  # noqa: BLE001 - surface everything
+        _status_message = f"Failed to load quest data: {exc}"
+        return
+
+    marker_x = _coerce_quest_coordinate(getattr(quest_data, "marker_x", None))
+    marker_y = _coerce_quest_coordinate(getattr(quest_data, "marker_y", None))
+
+    if marker_x is None or marker_y is None:
+        _status_message = "Quest marker coordinates unavailable; requested refresh."
+        try:
+            GLOBAL_CACHE.Quest.RequestQuestInfo(active_quest_id, True)
+        except Exception:
+            pass
+        return
+
+    if marker_x == 0.0 and marker_y == 0.0:
+        _status_message = "Quest marker not set; awaiting update."
+        try:
+            GLOBAL_CACHE.Quest.RequestQuestInfo(active_quest_id, True)
+        except Exception:
+            pass
+        return
+
+    _destination_x = marker_x
+    _destination_y = marker_y
+    _combined_input = _format_destination()
+    _combined_error = ""
+    _status_message = "Quest marker destination loaded."
+
+
 def _follow_status_text() -> str:
     return f"Following path ({_follow_progress * 100:.0f}%)."
 
@@ -159,6 +244,29 @@ def _is_pickup_loot_active() -> bool:
         return False
 
 
+def _has_pending_loot() -> bool:
+    global _loot_detected_at
+
+    try:
+        loot_array = LootConfig().GetfilteredLootArray(
+            Range.Earshot.value,
+            multibox_loot=True,
+        )
+    except Exception:
+        return False
+
+    current_time = time.time()
+    if loot_array:
+        _loot_detected_at = current_time
+        return True
+
+    if _loot_detected_at and (current_time - _loot_detected_at) < _LOOT_GRACE_PERIOD:
+        return True
+
+    _loot_detected_at = 0.0
+    return False
+
+
 def _should_pause_following() -> bool:
     if _manual_pause:
         _set_pause_reason("Follow paused (manual).")
@@ -172,8 +280,48 @@ def _should_pause_following() -> bool:
         _set_pause_reason("Pausing for loot pickup.")
         return True
 
+    if _has_pending_loot():
+        _set_pause_reason("Waiting for HeroAI to loot.")
+        return True
+
     _set_pause_reason(None)
     return False
+
+
+def _queue_follow(points: Iterable[Tuple[float, float, float]], tolerance: float, log_steps: bool) -> None:
+    global _active_follow_coroutine
+
+    _stop_following(set_status=False, reset_manual_pause=False)
+
+    follow_coroutine = _follow_path_coroutine(points, tolerance, log_steps)
+    _active_follow_coroutine = follow_coroutine
+    GLOBAL_CACHE.Coroutines.append(follow_coroutine)
+
+
+def _stop_following(set_status: bool = True, reset_manual_pause: bool = True) -> None:
+    global _active_follow_coroutine, _is_following, _manual_pause, _follow_progress
+
+    if _active_follow_coroutine in GLOBAL_CACHE.Coroutines:
+        try:
+            GLOBAL_CACHE.Coroutines.remove(_active_follow_coroutine)
+        except ValueError:
+            pass
+
+    _active_follow_coroutine = None
+    _is_following = False
+    if reset_manual_pause:
+        _manual_pause = False
+    _follow_progress = 0.0
+    if not _manual_pause:
+        _set_pause_reason(None)
+    try:
+        GLOBAL_CACHE.Player.CancelMove()
+    except Exception:
+        pass
+
+    if set_status:
+        global _status_message
+        _status_message = "Follow stopped."
 
 
 def _start_plan(auto_follow: bool) -> None:
@@ -242,9 +390,7 @@ def _start_plan(auto_follow: bool) -> None:
                     Py4GW.Console.MessageType.Info,
                 )
                 if auto_follow_after_plan:
-                    GLOBAL_CACHE.Coroutines.append(
-                        _follow_path_coroutine(_path_points, _follow_tolerance, _log_follow_steps)
-                    )
+                    _queue_follow(_path_points, _follow_tolerance, _log_follow_steps)
             else:
                 _status_message = f"No path found ({_last_plan_duration:.2f}s)."
                 ConsoleLog(
@@ -296,7 +442,7 @@ def _follow_path_coroutine(
             _status_message = _follow_status_text()
 
     def runner():
-        global _is_following, _status_message, _follow_progress
+        global _is_following, _status_message, _follow_progress, _active_follow_coroutine
         try:
             ConsoleLog(
                 MODULE_NAME,
@@ -337,6 +483,7 @@ def _follow_path_coroutine(
         finally:
             _is_following = False
             _set_pause_reason(None)
+            _active_follow_coroutine = None
             yield
 
     return runner()
@@ -355,27 +502,29 @@ def _start_follow() -> None:
         _status_message = "Plan a path before following it."
         return
 
-    GLOBAL_CACHE.Coroutines.append(
-        _follow_path_coroutine(_path_points, _follow_tolerance, _log_follow_steps)
-    )
+    _queue_follow(_path_points, _follow_tolerance, _log_follow_steps)
 
 
 # --- UI rendering -------------------------------------------------------------------
 def _render_destination_inputs() -> None:
     global _destination_x, _destination_y, _combined_input, _combined_error
 
+    PyImGui.set_next_item_width(120.0)
     changed_x = PyImGui.input_float("Destination X", _destination_x)
     if changed_x != _destination_x:
         _destination_x = changed_x
         _combined_input = _format_destination()
         _combined_error = ""
 
+    PyImGui.same_line(0.0, 8.0)
+    PyImGui.set_next_item_width(120.0)
     changed_y = PyImGui.input_float("Destination Y", _destination_y)
     if changed_y != _destination_y:
         _destination_y = changed_y
         _combined_input = _format_destination()
         _combined_error = ""
 
+    PyImGui.set_next_item_width(248.0)
     combined = PyImGui.input_text("Combined (x,y)", _combined_input, 64)
     if combined != _combined_input:
         _combined_input = combined
@@ -469,6 +618,9 @@ def main() -> None:
             else:
                 _status_message = "Cannot read player position right now."
         PyImGui.same_line(0.0, -1.0)
+        if PyImGui.button("Use quest marker"):
+            _use_active_quest_marker()
+        PyImGui.same_line(0.0, -1.0)
         if PyImGui.button("Plan path"):
             _start_plan(auto_follow=False)
         PyImGui.same_line(0.0, -1.0)
@@ -477,6 +629,9 @@ def main() -> None:
 
         if PyImGui.button("Follow saved path"):
             _start_follow()
+        PyImGui.same_line(0.0, -1.0)
+        if PyImGui.button("Stop follow"):
+            _stop_following()
         PyImGui.same_line(0.0, -1.0)
         pause_label = "Resume follow" if _manual_pause else "Pause follow"
         if PyImGui.button(pause_label):
