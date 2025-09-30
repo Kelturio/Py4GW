@@ -17,6 +17,7 @@ import ctypes
 import math
 import re
 import time
+from concurrent.futures import Future, ThreadPoolExecutor
 from typing import Generator, Iterable, List, Sequence, Tuple
 
 import Py4GW
@@ -78,6 +79,8 @@ _log_follow_steps: bool = False
 _PATH_COLOR = Color(32, 200, 255, 255)
 _ERROR_COLOR = Color(255, 96, 96, 255)
 auto_pathing = AutoPathing()
+_PATH_EXECUTOR = ThreadPoolExecutor(max_workers=1)
+_pending_plan: Future | None = None
 
 
 # --- Helper utilities ---------------------------------------------------------------
@@ -113,6 +116,25 @@ def _draw_path(points: Sequence[Tuple[float, float, float]]) -> None:
         z1 = DXOverlay.FindZ(x1, y1) - 125
         z2 = DXOverlay.FindZ(x2, y2) - 125
         overlay.DrawLine3D(x1, y1, z1, x2, y2, z2, dx_color, False)
+
+
+def _execute_path_plan(
+    start: Tuple[float, float, float],
+    goal: Tuple[float, float, float],
+    smoothing: dict | None,
+    started_at: float,
+) -> Tuple[List[Tuple[float, float, float]], float, float]:
+    generator = auto_pathing.get_path(start, goal, **(smoothing or {}))
+    path_points: List[Tuple[float, float, float]] = []
+    try:
+        while True:
+            next(generator)
+    except StopIteration as stop:
+        if stop.value:
+            path_points = list(stop.value)
+    duration = max(0.0, time.time() - started_at)
+    path_distance = _calculate_path_distance(path_points)
+    return path_points, path_distance, duration
 
 
 def _clear_path() -> None:
@@ -298,6 +320,60 @@ def _queue_follow(points: Iterable[Tuple[float, float, float]], tolerance: float
     GLOBAL_CACHE.Coroutines.append(follow_coroutine)
 
 
+def _wait_for_plan(
+    future: Future,
+    auto_follow_after_plan: bool,
+    started_at: float,
+) -> Generator:
+    global _is_planning, _path_points, _status_message, _last_plan_duration
+    global _path_distance, _pending_plan
+
+    try:
+        while not future.done():
+            yield
+
+        try:
+            path_points, path_distance, duration = future.result()
+        except Exception as exc:  # noqa: BLE001 - propagate full context
+            _path_points = []
+            _path_distance = 0.0
+            _last_plan_duration = max(0.0, time.time() - started_at)
+            _status_message = f"Path planning error: {exc}"
+            ConsoleLog(
+                MODULE_NAME,
+                f"Path planning error: {exc}",
+                Py4GW.Console.MessageType.Error,
+            )
+        else:
+            _last_plan_duration = duration
+            if path_points:
+                _path_points = list(path_points)
+                _path_distance = path_distance
+                _status_message = (
+                    f"Path ready: {len(_path_points)} points, "
+                    f"{_path_distance:.0f}u ({_last_plan_duration:.2f}s)"
+                )
+                ConsoleLog(
+                    MODULE_NAME,
+                    f"Path planned with {len(_path_points)} waypoints.",
+                    Py4GW.Console.MessageType.Info,
+                )
+                if auto_follow_after_plan:
+                    _queue_follow(_path_points, _follow_tolerance, _log_follow_steps)
+            else:
+                _path_points = []
+                _path_distance = 0.0
+                _status_message = f"No path found ({_last_plan_duration:.2f}s)."
+                ConsoleLog(
+                    MODULE_NAME,
+                    "Auto pathing returned no path.",
+                    Py4GW.Console.MessageType.Warning,
+                )
+    finally:
+        _is_planning = False
+        _pending_plan = None
+
+
 def _stop_following(set_status: bool = True, reset_manual_pause: bool = True) -> None:
     global _active_follow_coroutine, _is_following, _manual_pause, _follow_progress
 
@@ -326,9 +402,9 @@ def _stop_following(set_status: bool = True, reset_manual_pause: bool = True) ->
 
 def _start_plan(auto_follow: bool) -> None:
     global _is_planning, _plan_started_at, _status_message, _path_points
-    global _path_distance, _combined_error, _follow_progress
+    global _path_distance, _combined_error, _follow_progress, _pending_plan
 
-    if _is_planning:
+    if _pending_plan and not _pending_plan.done():
         _status_message = "Already planning a path."
         return
 
@@ -359,58 +435,27 @@ def _start_plan(auto_follow: bool) -> None:
         chaikin_iterations=_chaikin_iterations,
     )
 
-    def plan_coroutine(
-        start: Tuple[float, float, float] = start_point,
-        goal: Tuple[float, float, float] = goal_point,
-        smoothing: dict | None = None,
-        auto_follow_after_plan: bool = auto_follow,
-        started_at: float = _plan_started_at,
-    ):
-        global _is_planning, _path_points, _status_message, _last_plan_duration
-        global _path_distance
-
-        try:
-            path_result = yield from auto_pathing.get_path(
-                start,
-                goal,
-                **(smoothing or {}),
-            )
-            _last_plan_duration = max(0.0, time.time() - started_at)
-
-            if path_result:
-                _path_points = list(path_result)
-                _path_distance = _calculate_path_distance(_path_points)
-                _status_message = (
-                    f"Path ready: {len(_path_points)} points, "
-                    f"{_path_distance:.0f}u ({_last_plan_duration:.2f}s)"
-                )
-                ConsoleLog(
-                    MODULE_NAME,
-                    f"Path planned with {len(_path_points)} waypoints.",
-                    Py4GW.Console.MessageType.Info,
-                )
-                if auto_follow_after_plan:
-                    _queue_follow(_path_points, _follow_tolerance, _log_follow_steps)
-            else:
-                _status_message = f"No path found ({_last_plan_duration:.2f}s)."
-                ConsoleLog(
-                    MODULE_NAME,
-                    "Auto pathing returned no path.",
-                    Py4GW.Console.MessageType.Warning,
-                )
-        except Exception as exc:  # noqa: BLE001 - we want to surface everything
-            _path_points = []
-            _status_message = f"Path planning error: {exc}"
-            ConsoleLog(
-                MODULE_NAME,
-                f"Path planning error: {exc}",
-                Py4GW.Console.MessageType.Error,
-            )
-        finally:
-            _is_planning = False
-
+    started_at = _plan_started_at
+    try:
+        future = _PATH_EXECUTOR.submit(
+            _execute_path_plan,
+            start_point,
+            goal_point,
+            dict(smoothing_kwargs),
+            started_at,
+        )
+    except Exception as exc:  # noqa: BLE001 - executor setup issues should surface
+        _is_planning = False
+        _status_message = f"Failed to submit path plan: {exc}"
+        ConsoleLog(
+            MODULE_NAME,
+            f"Failed to submit path plan: {exc}",
+            Py4GW.Console.MessageType.Error,
+        )
+        return
+    _pending_plan = future
     GLOBAL_CACHE.Coroutines.append(
-        plan_coroutine(smoothing=dict(smoothing_kwargs))
+        _wait_for_plan(future, auto_follow, started_at)
     )
 
 
