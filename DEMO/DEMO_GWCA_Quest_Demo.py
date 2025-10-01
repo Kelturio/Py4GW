@@ -14,13 +14,14 @@ import ctypes
 import Py4GW
 import PyImGui
 
-from Py4GWCoreLib import GWCALibrary
+from Py4GWCoreLib import EncodedStringDecoder, GWCALibrary
 from Py4GWCoreLib.Quest import Quest
 
 MODULE_NAME = "GWCA Quest Demo"
 
 _gwca = GWCALibrary()
 _gwca.initialize()
+_string_decoder = EncodedStringDecoder(_gwca, timeout=0.5)
 
 
 class _GamePos(Structure):
@@ -115,15 +116,19 @@ def _call_bool(name: str, func, *args) -> None:
         _log(f"{name} raised {exc!r}")
 
 
-def _wstring_from_ptr(pointer: int | None) -> str | None:
-    """Decode a pointer to a wide-character buffer returned by GWCA."""
+def _decode_encoded_fields(*pointers: int | None) -> List[str | None]:
+    """Resolve encoded quest strings through ``GW::UI::AsyncDecodeStr``."""
 
-    if not pointer:
-        return None
-    try:
-        return ctypes.wstring_at(pointer)
-    except (ValueError, OSError):  # pragma: no cover - defensive path
-        return None
+    decoded_values = _string_decoder.decode_many(list(pointers))
+    results: List[str | None] = []
+    for pointer, decoded in zip(pointers, decoded_values):
+        if decoded is None and pointer:
+            try:
+                decoded = ctypes.wstring_at(pointer)
+            except (ValueError, OSError):  # pragma: no cover - defensive path
+                decoded = None
+        results.append(decoded)
+    return results
 
 
 def _describe_log_state(log_state: int) -> str:
@@ -146,11 +151,18 @@ def _describe_log_state(log_state: int) -> str:
 def _log_quest_details(quest: _QuestStruct) -> None:
     """Pretty-print quest details obtained from ``GWCA::QuestMgr::GetQuest``."""
 
-    name = _wstring_from_ptr(quest.name) or "<unnamed>"
-    location = _wstring_from_ptr(quest.location) or "<unknown category>"
-    npc = _wstring_from_ptr(quest.npc) or "<no giver>"
-    description = _wstring_from_ptr(quest.description) or "<no description>"
-    objectives = _wstring_from_ptr(quest.objectives) or "<no objectives>"
+    name, location, npc, description, objectives = _decode_encoded_fields(
+        int(quest.name) if quest.name else None,
+        int(quest.location) if quest.location else None,
+        int(quest.npc) if quest.npc else None,
+        int(quest.description) if quest.description else None,
+        int(quest.objectives) if quest.objectives else None,
+    )
+    name = name or "<unnamed>"
+    location = location or "<unknown category>"
+    npc = npc or "<no giver>"
+    description = description or "<no description>"
+    objectives = objectives or "<no objectives>"
     _log(f"Quest {quest.quest_id} – {name}")
     _log(f"  Flags: {_describe_log_state(quest.log_state)}")
     _log(f"  Category: {location}")

@@ -9,10 +9,11 @@ arguments and return types to matching ``ctypes`` declarations.
 from __future__ import annotations
 
 import ctypes
-from ctypes import c_bool, wintypes
+from ctypes import c_bool, c_uint32, wintypes
+import threading
 from typing import Optional, Sequence, Union
 
-__all__ = ["GWCALibrary", "load_gwca_function"]
+__all__ = ["GWCALibrary", "EncodedStringDecoder", "load_gwca_function"]
 
 
 class GWCALibrary:
@@ -136,6 +137,124 @@ class GWCALibrary:
         if restype is not None:
             func.restype = restype
         return func
+
+
+class EncodedStringDecoder:
+    """Decode Guild Wars encoded strings via ``GW::UI::AsyncDecodeStr``.
+
+    Guild Wars stores many localized strings in an encoded wide-character
+    format.  ``GWCA.dll`` exposes ``AsyncDecodeStr`` which resolves those
+    strings asynchronously on the game thread.  This helper mirrors the
+    behaviour of GWToolbox's ``GuiUtils::EncString`` so Python scripts can
+    synchronously obtain decoded text for quest names, item descriptions and
+    similar fields.
+
+    Parameters
+    ----------
+    library:
+        Active :class:`GWCALibrary` instance used to look up ``AsyncDecodeStr``.
+    timeout:
+        Maximum time in seconds to wait for each string to decode before
+        falling back to the raw encoded value.
+    language:
+        Optional ``GW::Constants::Language`` override.  The default (``0xFF``)
+        lets the client pick the currently active language.
+    """
+
+    _DecodeCallback = ctypes.CFUNCTYPE(None, ctypes.py_object, ctypes.c_wchar_p)
+
+    class _DecodeState:
+        __slots__ = ("event", "result", "encoded")
+
+        def __init__(self, encoded: ctypes.c_wchar_p) -> None:
+            self.event = threading.Event()
+            self.result: str | None = None
+            # Keep a reference to the encoded pointer object alive until the
+            # asynchronous decode finishes.
+            self.encoded = encoded
+
+    def __init__(
+        self,
+        library: GWCALibrary,
+        *,
+        timeout: float = 0.5,
+        language: int = 0xFF,
+    ) -> None:
+        self._timeout = timeout
+        self._language = language
+        self._callback = self._DecodeCallback(self._on_decoded)
+        self._decode = library.get_function(
+            "?AsyncDecodeStr@UI@GW@@YAXPB_WP6AXPAX0@Z1W4Language@Constants@2@@Z",
+            restype=None,
+            argtypes=(
+                ctypes.c_wchar_p,
+                self._DecodeCallback,
+                ctypes.py_object,
+                c_uint32,
+            ),
+        )
+        self._lock = threading.Lock()
+        self._pending: set[EncodedStringDecoder._DecodeState] = set()
+
+    def _start_decode(self, encoded: ctypes.c_wchar_p) -> _DecodeState:
+        state = self._DecodeState(encoded)
+        with self._lock:
+            self._pending.add(state)
+        try:
+            self._decode(encoded, self._callback, state, self._language)
+        except Exception:
+            with self._lock:
+                self._pending.discard(state)
+            raise
+        return state
+
+    def _on_decoded(self, state: _DecodeState, decoded: str | None) -> None:
+        state.result = decoded or ""
+        state.event.set()
+        with self._lock:
+            self._pending.discard(state)
+
+    def decode_many(self, pointers: Sequence[int | None]) -> list[str | None]:
+        """Decode multiple encoded string pointers at once."""
+
+        states: list[tuple[EncodedStringDecoder._DecodeState | None, str | None]] = []
+        for pointer in pointers:
+            if not pointer:
+                states.append((None, None))
+                continue
+            try:
+                address = int(pointer)
+            except (TypeError, ValueError):
+                address = pointer
+            encoded = ctypes.cast(ctypes.c_void_p(address), ctypes.c_wchar_p)
+            try:
+                raw_value = encoded.value
+            except (ValueError, OSError):
+                states.append((None, None))
+                continue
+            if raw_value in (None, ""):
+                states.append((None, raw_value or ""))
+                continue
+            state = self._start_decode(encoded)
+            states.append((state, raw_value))
+
+        results: list[str | None] = []
+        for state, fallback in states:
+            if state is None:
+                results.append(fallback)
+                continue
+            if state.event.wait(self._timeout) and state.result is not None:
+                results.append(state.result)
+            elif state.event.is_set() and state.result is not None:
+                results.append(state.result)
+            else:
+                results.append(fallback)
+        return results
+
+    def decode_pointer(self, pointer: int | None) -> str | None:
+        """Decode a single encoded string pointer."""
+
+        return self.decode_many([pointer])[0]
 
 
 def load_gwca_function(

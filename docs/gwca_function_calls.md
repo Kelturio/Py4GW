@@ -109,6 +109,32 @@ if quest_ptr:
     quest_name = ctypes.wstring_at(quest.name) if quest.name else None
 ```
 
+## 4. Decode encoded strings returned by Guild Wars
+
+Many fields exposed by GWCA (quest names, item descriptions, agent names,
+etc.) are stored as encoded ``wchar_t`` buffers inside the client.  Toolbox
+wraps them in ``GuiUtils::EncString`` so the Guild Wars UI thread can decode
+the localized text asynchronously.  ``Py4GWCoreLib.GWCA`` now provides a
+matching :class:`EncodedStringDecoder` helper that mirrors this behaviour:
+
+```python
+from Py4GWCoreLib import EncodedStringDecoder, GWCALibrary
+
+gwca = GWCALibrary()
+decoder = EncodedStringDecoder(gwca)
+
+quest = get_quest(quest_id).contents
+name, description = decoder.decode_many([
+    int(quest.name) if quest.name else None,
+    int(quest.description) if quest.description else None,
+])
+```
+
+The helper queues ``GW::UI::AsyncDecodeStr`` calls and waits briefly for the
+callback so scripts receive human-readable strings inside the same frame.
+Fallback logic keeps the encoded text available if decoding takes longer than
+expected.【F:Py4GWCoreLib/GWCA.py†L142-L257】
+
 ## Tips
 
 * Keep using the Py4GW helper APIs (agents, inventory, etc.) whenever they
