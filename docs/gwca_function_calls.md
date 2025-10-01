@@ -65,7 +65,49 @@ use_skill(skill_id, current_target)
 
 Because the return value and parameter types are backed by `ctypes`, Python
 will automatically marshal integral values for you. For pointers or structures
-create the corresponding `ctypes` definitions before binding the function.
+create the corresponding `ctypes` definitions before binding the function. For
+example, the quest demo maps `GW::Quest` and its nested `GW::GamePos` before
+calling `GW::QuestMgr::GetQuest`:
+
+```python
+import ctypes
+from ctypes import POINTER, Structure, c_float, c_uint32, c_void_p
+
+
+class GamePos(Structure):
+    _fields_ = [
+        ("x", c_float),
+        ("y", c_float),
+        ("plane", c_float),
+    ]
+
+
+class QuestStruct(Structure):
+    _fields_ = [
+        ("quest_id", c_uint32),
+        ("log_state", c_uint32),
+        ("location", c_void_p),
+        ("name", c_void_p),
+        ("npc", c_void_p),
+        ("map_from", c_uint32),
+        ("marker", GamePos),
+        ("_unknown_0x24", c_uint32),
+        ("map_to", c_uint32),
+        ("description", c_void_p),
+        ("objectives", c_void_p),
+    ]
+
+
+get_quest = gwca.get_function(
+    "?GetQuest@QuestMgr@GW@@YAPAUQuest@2@W4QuestID@Constants@2@@Z",
+    restype=POINTER(QuestStruct),
+    argtypes=(c_uint32,),
+)
+quest_ptr = get_quest(quest_id)
+if quest_ptr:
+    quest = quest_ptr.contents
+    quest_name = ctypes.wstring_at(quest.name) if quest.name else None
+```
 
 ## Tips
 

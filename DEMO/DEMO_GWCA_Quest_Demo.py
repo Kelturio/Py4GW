@@ -7,9 +7,10 @@ with setting, requesting and abandoning quests directly from the DLL.
 """
 from __future__ import annotations
 
-from ctypes import c_bool, c_uint32
+from ctypes import POINTER, Structure, c_bool, c_float, c_uint32, c_void_p
 from typing import List
 
+import ctypes
 import Py4GW
 import PyImGui
 
@@ -20,6 +21,36 @@ MODULE_NAME = "GWCA Quest Demo"
 
 _gwca = GWCALibrary()
 _gwca.initialize()
+
+
+class _GamePos(Structure):
+    """Representation of ``GW::GamePos`` used inside ``GW::Quest``."""
+
+    _fields_ = [
+        ("x", c_float),
+        ("y", c_float),
+        ("plane", c_float),
+    ]
+
+
+class _QuestStruct(Structure):
+    """Mirror of the ``GW::Quest`` structure returned by ``GetQuest``."""
+
+    _fields_ = [
+        ("quest_id", c_uint32),
+        ("log_state", c_uint32),
+        ("location", c_void_p),
+        ("name", c_void_p),
+        ("npc", c_void_p),
+        ("map_from", c_uint32),
+        ("marker", _GamePos),
+        ("_unknown_0x24", c_uint32),
+        ("map_to", c_uint32),
+        ("description", c_void_p),
+        ("objectives", c_void_p),
+    ]
+
+
 _get_active_quest_id = _gwca.get_function(
     "?GetActiveQuestId@QuestMgr@GW@@YA?AW4QuestID@Constants@2@XZ",
     restype=c_uint32,
@@ -38,6 +69,11 @@ _request_quest_info = _gwca.get_function(
     "?RequestQuestInfoId@QuestMgr@GW@@YA_NW4QuestID@Constants@2@_N@Z",
     restype=c_bool,
     argtypes=(c_uint32, c_bool),
+)
+_get_quest = _gwca.get_function(
+    "?GetQuest@QuestMgr@GW@@YAPAUQuest@2@W4QuestID@Constants@2@@Z",
+    restype=POINTER(_QuestStruct),
+    argtypes=(c_uint32,),
 )
 
 _quest_id_input = 0
@@ -63,6 +99,55 @@ def _call_bool(name: str, func, *args) -> None:
         _log(f"{name} {status}")
     except Exception as exc:  # pragma: no cover - runtime feedback
         _log(f"{name} raised {exc!r}")
+
+
+def _wstring_from_ptr(pointer: int | None) -> str | None:
+    """Decode a pointer to a wide-character buffer returned by GWCA."""
+
+    if not pointer:
+        return None
+    try:
+        return ctypes.wstring_at(pointer)
+    except (ValueError, OSError):  # pragma: no cover - defensive path
+        return None
+
+
+def _describe_log_state(log_state: int) -> str:
+    """Return a readable summary of quest flags stored in ``log_state``."""
+
+    flags: List[str] = []
+    if log_state & 0x2:
+        flags.append("completed")
+    if log_state & 0x10:
+        flags.append("mission quest")
+    if log_state & 0x40:
+        flags.append("area primary")
+    if log_state & 0x20:
+        flags.append("primary")
+    if not flags:
+        flags.append("active")
+    return ", ".join(flags)
+
+
+def _log_quest_details(quest: _QuestStruct) -> None:
+    """Pretty-print quest details obtained from ``GWCA::QuestMgr::GetQuest``."""
+
+    name = _wstring_from_ptr(quest.name) or "<unnamed>"
+    location = _wstring_from_ptr(quest.location) or "<unknown category>"
+    npc = _wstring_from_ptr(quest.npc) or "<no giver>"
+    description = _wstring_from_ptr(quest.description) or "<no description>"
+    objectives = _wstring_from_ptr(quest.objectives) or "<no objectives>"
+    _log(f"Quest {quest.quest_id} – {name}")
+    _log(f"  Flags: {_describe_log_state(quest.log_state)}")
+    _log(f"  Category: {location}")
+    _log(f"  NPC: {npc}")
+    _log(
+        "  Marker: x={:.1f}, y={:.1f}, plane={:.1f}".format(
+            quest.marker.x, quest.marker.y, quest.marker.plane
+        )
+    )
+    _log(f"  Description: {description}")
+    _log(f"  Objectives: {objectives}")
 
 
 def draw_window() -> None:
@@ -105,6 +190,17 @@ def draw_window() -> None:
                 _log(f"PyQuest.SetActiveQuest raised {exc!r}")
             else:
                 _log("PyQuest.SetActiveQuest completed")
+
+        if PyImGui.button("Get quest details (GWCA)"):
+            try:
+                quest_ptr = _get_quest(_quest_id_input)
+            except Exception as exc:  # pragma: no cover - runtime feedback
+                _log(f"GetQuest raised {exc!r}")
+            else:
+                if not quest_ptr:
+                    _log("GetQuest returned NULL")
+                else:
+                    _log_quest_details(quest_ptr.contents)
 
         if PyImGui.button("Request quest info (GWCA)"):
             _call_bool(
