@@ -43,6 +43,13 @@ def _record_quest_details(quest_id):
     }
 
 
+def _get_export_directory():
+    if "__file__" in globals():
+        return os.path.dirname(os.path.abspath(__file__))
+
+    return os.getcwd()
+
+
 def _export_quests(path):
     export_payload = {
         str(quest_id): details for quest_id, details in quest_details.items() if details
@@ -69,7 +76,7 @@ def main():
         if PyImGui.button("export quest data"):
             if quest_details:
                 export_path = os.path.join(
-                    os.path.dirname(__file__), "quest_data_export.json"
+                    _get_export_directory(), "quest_data_export.json"
                 )
 
                 try:
