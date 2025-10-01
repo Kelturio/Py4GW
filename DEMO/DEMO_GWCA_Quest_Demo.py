@@ -81,11 +81,25 @@ _update_marker = False
 _logs: List[str] = []
 
 
+def _sanitize_console_text(text: str) -> str:
+    """Replace unsupported surrogate code points before logging."""
+
+    sanitized_chars = []
+    for char in text:
+        codepoint = ord(char)
+        if 0xD800 <= codepoint <= 0xDFFF:
+            sanitized_chars.append("?")
+        else:
+            sanitized_chars.append(char)
+    return "".join(sanitized_chars)
+
+
 def _log(message: str) -> None:
     """Send a message to both the Py4GW console and the ImGui log view."""
 
-    Py4GW.Console.Log(MODULE_NAME, message)
-    _logs.append(message)
+    safe_message = _sanitize_console_text(message)
+    Py4GW.Console.Log(MODULE_NAME, safe_message)
+    _logs.append(safe_message)
     if len(_logs) > 12:
         del _logs[0]
 
