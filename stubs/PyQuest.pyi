@@ -2,16 +2,16 @@
 class QuestData:
     quest_id: int
     log_state : int
-    #location :str
-    #name : str
-    #npc : str
+    location: str
+    name: str
+    npc: str
     map_from : int
     map_to : int
     marker_x : float
     marker_y : float
     h0024 : int
-    #description : str
-    #objectives : str
+    description: str
+    objectives: str
     
     is_completed : bool
     is_current_mission_quest : bool

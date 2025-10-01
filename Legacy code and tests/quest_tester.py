@@ -12,6 +12,11 @@ export_message = ""
 
 QUEST_FIELDS = (
     ("quest_id", "Quest ID"),
+    ("name", "Name"),
+    ("description", "Description"),
+    ("objectives", "Objectives"),
+    ("location", "Location"),
+    ("npc", "NPC"),
     ("log_state", "Log State"),
     ("map_from", "Map From"),
     ("map_to", "Map To"),
