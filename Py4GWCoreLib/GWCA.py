@@ -56,8 +56,9 @@ class GWCALibrary:
             handle = wintypes.HMODULE(self._cdecl._handle)
         else:
             # Wrap the existing handle without reloading the DLL.
-            self._cdecl = ctypes.CDLL(None, handle=handle.value)
-            self._stdcall = ctypes.WinDLL(None, handle=handle.value)
+            wrapped_handle = int(handle.value)
+            self._cdecl = ctypes.CDLL(module_name, handle=wrapped_handle)
+            self._stdcall = ctypes.WinDLL(module_name, handle=wrapped_handle)
         self._handle = handle
         self._default_call_conv = default_call_conv.lower()
 
