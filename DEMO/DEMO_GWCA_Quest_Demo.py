@@ -84,7 +84,7 @@ def draw_window() -> None:
                 quest_id = int(_get_active_quest_id())
             _log(f"GWCA reports active quest ID: {quest_id}")
 
-        PyImGui.same_line()
+        PyImGui.same_line(0.0, -1.0)
         if PyImGui.button("Get active quest (PyQuest)"):
             try:
                 quest_id = Quest.GetActiveQuest()
@@ -96,7 +96,7 @@ def draw_window() -> None:
         if PyImGui.button("Set active quest (GWCA)"):
             _call_bool("SetActiveQuestId", _set_active_quest_id, _quest_id_input)
 
-        PyImGui.same_line()
+        PyImGui.same_line(0.0, -1.0)
         if PyImGui.button("Set active quest (PyQuest)"):
             try:
                 Quest.SetActiveQuest(_quest_id_input)
@@ -113,7 +113,7 @@ def draw_window() -> None:
                 _update_marker,
             )
 
-        PyImGui.same_line()
+        PyImGui.same_line(0.0, -1.0)
         if PyImGui.button("Request quest info (PyQuest)"):
             try:
                 Quest.RequestQuestInfo(_quest_id_input, _update_marker)
@@ -125,7 +125,7 @@ def draw_window() -> None:
         if PyImGui.button("Abandon quest (GWCA)"):
             _call_bool("AbandonQuestId", _abandon_quest_id, _quest_id_input)
 
-        PyImGui.same_line()
+        PyImGui.same_line(0.0, -1.0)
         if PyImGui.button("Abandon quest (PyQuest)"):
             try:
                 Quest.AbandonQuest(_quest_id_input)
