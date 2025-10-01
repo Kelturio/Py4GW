@@ -19,6 +19,7 @@ from Py4GWCoreLib.Quest import Quest
 MODULE_NAME = "GWCA Quest Demo"
 
 _gwca = GWCALibrary()
+_gwca.initialize()
 _get_active_quest_id = _gwca.get_function(
     "?GetActiveQuestId@QuestMgr@GW@@YA?AW4QuestID@Constants@2@XZ",
     restype=c_uint32,

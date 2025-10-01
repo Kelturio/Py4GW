@@ -9,7 +9,7 @@ arguments and return types to matching ``ctypes`` declarations.
 from __future__ import annotations
 
 import ctypes
-from ctypes import wintypes
+from ctypes import c_bool, wintypes
 from typing import Optional, Sequence, Union
 
 __all__ = ["GWCALibrary", "load_gwca_function"]
@@ -61,12 +61,26 @@ class GWCALibrary:
             self._stdcall = ctypes.WinDLL(module_name, handle=wrapped_handle)
         self._handle = handle
         self._default_call_conv = default_call_conv.lower()
+        self._initialized = False
+
+        if not self.initialize():
+            raise RuntimeError("GWCA::Initialize() failed")
 
     @property
     def handle(self) -> int:
         """Return the raw ``HMODULE`` handle."""
 
         return self._handle.value
+
+    def initialize(self) -> bool:
+        """Ensure ``GWCA::Initialize`` ran successfully."""
+
+        if not self._initialized:
+            initialize = self.get_function(
+                "?Initialize@GW@@YA_NXZ", restype=c_bool
+            )
+            self._initialized = bool(initialize())
+        return self._initialized
 
     def get_function(
         self,

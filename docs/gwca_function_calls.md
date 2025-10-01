@@ -4,17 +4,21 @@ When the Guild Wars client has `GWCA.dll` injected you can call any of its
 exports from a Py4GW script.  The new `Py4GWCoreLib.GWCA` helper removes the
 boilerplate usually required to bind decorated C++ exports with `ctypes`.
 
-## 1. Load the library once
+## 1. Load the library and call `Initialize`
 
 ```python
 from Py4GWCoreLib import GWCALibrary
 
 gwca = GWCALibrary()  # reuses the already-injected module inside Guild Wars
+gwca.initialize()     # ensures GWCA scanned memory and installed its hooks
 ```
 
 `GWCALibrary` looks for an existing copy of the DLL inside the game process
 and reuses that handle so you are always talking to the injected module rather
-than loading a new copy.【F:Py4GWCoreLib/GWCA.py†L41-L57】
+than loading a new copy.【F:Py4GWCoreLib/GWCA.py†L41-L57】  During construction it
+invokes `GWCA::Initialize` and raises an error if the call fails, but invoking
+`initialize()` explicitly at the start of your script makes the dependency
+obvious and lets you retry in custom workflows.【F:Py4GWCoreLib/GWCA.py†L59-L80】
 
 If you only need a single function you can skip the explicit instance and call
 `load_gwca_function(...)` instead, which internally constructs a
