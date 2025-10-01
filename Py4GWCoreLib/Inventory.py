@@ -540,6 +540,8 @@ class Inventory:
 
             return storage_bags
     
+        from . import ModelID
+
         MAX_STACK_SIZE = 250
 
         is_stackable = Item.Customization.IsStackable(item_id)
@@ -548,44 +550,69 @@ class Inventory:
         if quantity == 0:
             return False  # Nothing to move
 
-        # Gather target bags
+        model_id = Item.GetModelID(item_id)
+        is_dye = (model_id == ModelID.Vial_Of_Dye.value)
+        dye1_to_match = None
+        if is_dye:
+            dye_info = Item.Customization.GetDyeInfo(item_id)
+            dye1_to_match = dye_info.dye1.ToInt()
+
         storage_bags = GetBags()
-    
+
         remaining_quantity = quantity
         moved_any = False
+
+        partial_stack_targets = []
+        empty_slot_targets = []
 
         for bag_enum in storage_bags:
             bag = PyInventory.Bag(bag_enum.value, bag_enum.name)
             size = bag.GetSize()
             items = bag.GetItems()
 
-            # Fill existing partial stacks (only if stackable)
             if is_stackable:
                 for item in items:
-                    if item.model_id == Item.GetModelID(item_id):
-                        item_qty = Item.Properties.GetQuantity(item.item_id)
-                        if item_qty < MAX_STACK_SIZE:
-                            space_left = MAX_STACK_SIZE - item_qty
-                            to_move = min(space_left, remaining_quantity)
-                            if to_move > 0:
-                                Inventory.MoveItem(item_id, bag_enum.value, item.slot, to_move)
-                                remaining_quantity -= to_move
-                                moved_any = True
-                                if remaining_quantity == 0:
-                                    return True
+                    if item.model_id != model_id:
+                        continue
 
-            # Fill empty slots
+                    if is_dye:
+                        item_dye_info = Item.Customization.GetDyeInfo(item.item_id)
+                        if item_dye_info.dye1.ToInt() != dye1_to_match:
+                            continue
+
+                    item_qty = Item.Properties.GetQuantity(item.item_id)
+                    if item_qty >= MAX_STACK_SIZE:
+                        continue
+
+                    space_left = MAX_STACK_SIZE - item_qty
+                    if space_left > 0:
+                        partial_stack_targets.append((bag_enum, item.slot, space_left))
+
             occupied_slots = {item.slot for item in items}
             for slot in range(size):
                 if slot in occupied_slots:
                     continue
+                empty_slot_targets.append((bag_enum, slot))
 
-                to_move = remaining_quantity if not is_stackable else min(remaining_quantity, MAX_STACK_SIZE)
-                Inventory.MoveItem(item_id, bag_enum.value, slot, to_move)
-                remaining_quantity -= to_move
-                moved_any = True
-                if remaining_quantity == 0:
-                    return True
+        for bag_enum, slot, space_left in partial_stack_targets:
+            if remaining_quantity <= 0:
+                break
+            to_move = min(space_left, remaining_quantity)
+            Inventory.MoveItem(item_id, bag_enum.value, slot, to_move)
+            remaining_quantity -= to_move
+            moved_any = True
+
+        if remaining_quantity <= 0:
+            return moved_any
+
+        for bag_enum, slot in empty_slot_targets:
+            if remaining_quantity <= 0:
+                break
+
+            to_move = remaining_quantity if not is_stackable else min(remaining_quantity, MAX_STACK_SIZE)
+            Inventory.MoveItem(item_id, bag_enum.value, slot, to_move)
+            remaining_quantity -= to_move
+            moved_any = True
 
         return moved_any
 
