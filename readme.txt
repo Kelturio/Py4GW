@@ -22,9 +22,13 @@
 - Guild Wars client
 
 ### **Installation**
-1. Clone the repository:
+1. Clone the repository (including the required submodules):
    ```bash
-   git clone https://github.com/apoguita/Py4GW.git
+   git clone --recurse-submodules https://github.com/apoguita/Py4GW.git
+   ```
+   If you have already cloned the repository without the flag above, initialize the submodules manually:
+   ```bash
+   python scripts/init_submodules.py
    ```
 2. Navigate to the project directory:
    ```bash
