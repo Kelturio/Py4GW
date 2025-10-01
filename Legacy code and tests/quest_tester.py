@@ -10,6 +10,9 @@ quest_details = {}
 requested_quests = set()
 export_message = ""
 
+UNDECODABLE_TEMPLATE = "<unable to decode ({})>"
+
+
 QUEST_FIELDS = (
     ("quest_id", "Quest ID"),
     ("name", "Name"),
@@ -38,13 +41,17 @@ def _coerce_text_field(value):
     """Return a JSON/UI friendly representation for quest data fields."""
 
     if isinstance(value, (bytes, bytearray)):
-        for encoding in ("utf-8", "latin-1"):
-            try:
-                return value.decode(encoding)
-            except UnicodeDecodeError:
-                continue
+        raw_value = bytes(value)
+        last_error = None
 
-        return value.decode("latin-1", errors="replace")
+        for encoding in ("utf-8", "cp1252"):
+            try:
+                return raw_value.decode(encoding)
+            except UnicodeDecodeError as decode_error:
+                last_error = decode_error
+
+        if last_error is not None:
+            return UNDECODABLE_TEMPLATE.format(last_error)
 
     return value
 
@@ -66,7 +73,7 @@ def _record_quest_details(quest_id):
             # Some quest strings include bytes that cannot be decoded using the
             # UTF-8 codec that backs the binding. Preserve the remaining
             # fields and surface the issue instead of terminating the tester.
-            value = f"<unable to decode ({decode_error})>"
+            value = getattr(decode_error, "object", b"") or b""
 
         quest_snapshot[field] = _coerce_text_field(value)
 
