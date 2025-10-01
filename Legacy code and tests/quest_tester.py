@@ -34,6 +34,21 @@ def _get_quest_id(entry):
     return getattr(entry, "quest_id", entry)
 
 
+def _coerce_text_field(value):
+    """Return a JSON/UI friendly representation for quest data fields."""
+
+    if isinstance(value, (bytes, bytearray)):
+        for encoding in ("utf-8", "latin-1"):
+            try:
+                return value.decode(encoding)
+            except UnicodeDecodeError:
+                continue
+
+        return value.decode("latin-1", errors="replace")
+
+    return value
+
+
 def _record_quest_details(quest_id):
     Quest.RequestQuestInfo(quest_id, update_marker=True)
     quest = Quest.GetQuestData(quest_id)
@@ -42,10 +57,20 @@ def _record_quest_details(quest_id):
         quest_details[quest_id] = None
         return
 
-    quest_details[quest_id] = {
-        field: getattr(quest, field, None)
-        for field, _ in QUEST_FIELDS
-    }
+    quest_snapshot = {}
+
+    for field, _ in QUEST_FIELDS:
+        try:
+            value = getattr(quest, field, None)
+        except UnicodeDecodeError as decode_error:
+            # Some quest strings include bytes that cannot be decoded using the
+            # UTF-8 codec that backs the binding. Preserve the remaining
+            # fields and surface the issue instead of terminating the tester.
+            value = f"<unable to decode ({decode_error})>"
+
+        quest_snapshot[field] = _coerce_text_field(value)
+
+    quest_details[quest_id] = quest_snapshot
 
 
 def _get_export_directory():
