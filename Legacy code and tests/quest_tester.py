@@ -10,50 +10,70 @@ quest_details = {}
 requested_quests = set()
 export_message = ""
 
-UNDECODABLE_TEMPLATE = "<unable to decode ({})>"
-
-
-QUEST_FIELDS = (
-    ("quest_id", "Quest ID"),
-    ("name", "Name"),
-    ("description", "Description"),
-    ("objectives", "Objectives"),
-    ("location", "Location"),
-    ("npc", "NPC"),
-    ("log_state", "Log State"),
-    ("map_from", "Map From"),
-    ("map_to", "Map To"),
-    ("marker_x", "Marker X"),
-    ("marker_y", "Marker Y"),
-    ("h0024", "H0024"),
-    ("is_completed", "Is Completed"),
-    ("is_current_mission_quest", "Is Current Mission Quest"),
-    ("is_area_primary", "Is Area Primary"),
-    ("is_primary", "Is Primary"),
-)
-
 
 def _get_quest_id(entry):
     return getattr(entry, "quest_id", entry)
 
 
-def _coerce_text_field(value):
-    """Return a JSON/UI friendly representation for quest data fields."""
+def _to_json_compatible(value, _visited=None):
+    """Convert quest data values into a JSON serialisable structure."""
 
-    if isinstance(value, (bytes, bytearray)):
-        raw_value = bytes(value)
-        last_error = None
+    if _visited is None:
+        _visited = set()
 
-        for encoding in ("utf-8", "cp1252"):
-            try:
-                return raw_value.decode(encoding)
-            except UnicodeDecodeError as decode_error:
-                last_error = decode_error
+    if isinstance(value, (str, int, float, bool)) or value is None:
+        return value
 
-        if last_error is not None:
-            return UNDECODABLE_TEMPLATE.format(last_error)
+    if isinstance(value, (bytes, bytearray, memoryview)):
+        return {"__type__": "bytes", "data": list(value)}
 
-    return value
+    if isinstance(value, dict):
+        return {
+            str(key): _to_json_compatible(sub_value, _visited)
+            for key, sub_value in value.items()
+        }
+
+    if isinstance(value, (list, tuple, set)):
+        return [_to_json_compatible(item, _visited) for item in value]
+
+    if hasattr(value, "__dict__"):
+        return _extract_object_snapshot(value, _visited)
+
+    return repr(value)
+
+
+def _extract_object_snapshot(obj, _visited=None):
+    if _visited is None:
+        _visited = set()
+
+    obj_id = id(obj)
+
+    if obj_id in _visited:
+        return "<recursive reference>"
+
+    _visited.add(obj_id)
+    snapshot = {}
+
+    for attribute in dir(obj):
+        if attribute.startswith("_"):
+            continue
+
+        try:
+            value = getattr(obj, attribute)
+        except UnicodeDecodeError as decode_error:
+            raw_buffer = getattr(decode_error, "object", b"") or b""
+            snapshot[attribute] = _to_json_compatible(raw_buffer, _visited)
+            continue
+        except Exception:
+            continue
+
+        if callable(value):
+            continue
+
+        snapshot[attribute] = _to_json_compatible(value, _visited)
+
+    _visited.remove(obj_id)
+    return snapshot
 
 
 def _record_quest_details(quest_id):
@@ -64,20 +84,7 @@ def _record_quest_details(quest_id):
         quest_details[quest_id] = None
         return
 
-    quest_snapshot = {}
-
-    for field, _ in QUEST_FIELDS:
-        try:
-            value = getattr(quest, field, None)
-        except UnicodeDecodeError as decode_error:
-            # Some quest strings include bytes that cannot be decoded using the
-            # UTF-8 codec that backs the binding. Preserve the remaining
-            # fields and surface the issue instead of terminating the tester.
-            value = getattr(decode_error, "object", b"") or b""
-
-        quest_snapshot[field] = _coerce_text_field(value)
-
-    quest_details[quest_id] = quest_snapshot
+    quest_details[quest_id] = _extract_object_snapshot(quest)
 
 
 def _get_export_directory():
@@ -142,8 +149,8 @@ def main():
                 PyImGui.text("Quest data unavailable.")
                 continue
 
-            for field, label in QUEST_FIELDS:
-                PyImGui.text(f"{label}: {quest.get(field)}")
+            for attribute in sorted(quest):
+                PyImGui.text(f"{attribute}: {quest.get(attribute)}")
 
 
     PyImGui.end()
