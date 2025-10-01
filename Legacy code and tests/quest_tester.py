@@ -30,7 +30,7 @@ def _get_quest_id(entry):
 
 
 def _record_quest_details(quest_id):
-    Quest.RequestQuestInfo(quest_id, update_markers=True)
+    Quest.RequestQuestInfo(quest_id, update_marker=True)
     quest = Quest.GetQuestData(quest_id)
 
     if quest is None:
