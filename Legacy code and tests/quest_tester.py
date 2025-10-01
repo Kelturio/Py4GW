@@ -62,7 +62,9 @@ def main():
             requested_quests.clear()
             export_message = ""
 
-        PyImGui.same_line()
+        # PyImGui.same_line requires both an x_offset and spacing argument in this build,
+        # so provide defaults that preserve the standard immediate-mode behaviour.
+        PyImGui.same_line(0.0, -1.0)
 
         if PyImGui.button("export quest data"):
             if quest_details:
