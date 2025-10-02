@@ -1,3 +1,4 @@
+import math
 from dataclasses import dataclass
 
 from .constants import SHARED_MEMORY_FILE_NAME, STAY_ALERT_TIME, MAX_NUM_PLAYERS, NUMBER_OF_SKILLS
@@ -30,11 +31,15 @@ class GameData:
         self.expertise_exists = False
         self.expertise_level = 0
 
-        
+
         #combat field data
         self.in_aggro = False
         self.weapon_type = 0
-        
+
+        # party data
+        self.party_size = 0
+        self.party_leader_rotation_angle = 0.0
+
         #control status vars
         self.is_following_enabled = True
         self.is_avoidance_enabled = True
@@ -42,10 +47,13 @@ class GameData:
         self.is_targeting_enabled = True
         self.is_combat_enabled = True
         self.is_skill_enabled = [True for _ in range(NUMBER_OF_SKILLS)]
+
+        # state flags
+        self.angle_changed = False
       
         
     def update(self):
-        
+
         #Player data
         attributes = GLOBAL_CACHE.Agent.GetAttributes(GLOBAL_CACHE.Player.GetAgentID())
         self.fast_casting_exists = False
@@ -61,7 +69,21 @@ class GameData:
             if attribute.GetName() == "Expertise":
                 self.expertise_exists = True
                 self.expertise_level = attribute.level
-            
+
+
+        # Party data
+        self.party_size = GLOBAL_CACHE.Party.GetPartySize()
+        party_leader_id = GLOBAL_CACHE.Party.GetPartyLeaderID()
+        party_leader_angle = 0.0
+        if party_leader_id:
+            party_leader_angle = GLOBAL_CACHE.Agent.GetRotationAngle(party_leader_id)
+
+        if not math.isclose(party_leader_angle, self.old_angle):
+            self.angle_changed = True
+            self.old_angle = party_leader_angle
+
+        self.party_leader_rotation_angle = party_leader_angle
+
 
 
 
