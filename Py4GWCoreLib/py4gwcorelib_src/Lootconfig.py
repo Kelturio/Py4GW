@@ -30,6 +30,7 @@ class LootConfig:
         self.item_id_whitelist = set()  # For items that are whitelisted by ID
         self.dye_whitelist = set()
         self.dye_blacklist = set()
+        self._pickup_radius = Range.Earshot.value
 
     def SetProperties(self, loot_whites=False, loot_blues=False, loot_purples=False, loot_golds=False, loot_greens=False, loot_gold_coins=False):
         self.loot_gold_coins = loot_gold_coins
@@ -132,6 +133,21 @@ class LootConfig:
 
     def GetDyeBlacklist(self):
         return list(self.dye_blacklist)
+
+    # ------- Pickup radius management -------
+    def GetPickupRadius(self) -> float:
+        return self._pickup_radius
+
+    def SetPickupRadius(self, radius: float) -> None:
+        try:
+            radius = float(radius)
+        except (TypeError, ValueError):
+            return
+
+        if radius < 0:
+            radius = 0.0
+
+        self._pickup_radius = radius
 
     def GetfilteredLootArray(self, distance: float = Range.SafeCompass.value, multibox_loot: bool = False, allow_unasigned_loot=False) -> list[int]:
         from ..AgentArray import AgentArray
