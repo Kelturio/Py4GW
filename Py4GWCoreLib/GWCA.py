@@ -1,7 +1,7 @@
-"""Helpers for calling exported functions from GWCA.dll.
+"""Helpers for calling exported functions from gwca.dll.
 
 This module offers a thin wrapper around :mod:`ctypes` so Py4GW scripts can
-bind decorated exports from ``GWCA.dll`` (the Guild Wars Client API library).
+bind decorated exports from ``gwca.dll`` (the Guild Wars Client API library).
 The helpers only deal with obtaining the function pointer and applying the
 correct calling convention; scripts are still responsible for mapping the
 arguments and return types to matching ``ctypes`` declarations.
@@ -11,18 +11,38 @@ from __future__ import annotations
 import ctypes
 from ctypes import c_bool, c_uint32, wintypes
 import threading
+import weakref
 from typing import Optional, Sequence, Union
 
-__all__ = ["GWCALibrary", "EncodedStringDecoder", "load_gwca_function"]
+__all__ = [
+    "GWCALibrary",
+    "EncodedStringDecoder",
+    "get_shared_gwca_library",
+    "load_gwca_function",
+]
+
+
+class _CDLLNoFree(ctypes.CDLL):
+    """``ctypes.CDLL`` variant that skips ``FreeLibrary`` on GC."""
+
+    def __del__(self) -> None:  # pragma: no cover - behaviour depends on GC
+        pass
+
+
+class _WinDLLNoFree(ctypes.WinDLL):
+    """``ctypes.WinDLL`` variant that skips ``FreeLibrary`` on GC."""
+
+    def __del__(self) -> None:  # pragma: no cover - behaviour depends on GC
+        pass
 
 
 class GWCALibrary:
-    """Lightweight loader for ``GWCA.dll`` exports.
+    """Lightweight loader for ``gwca.dll`` exports.
 
     Parameters
     ----------
     module_name:
-        Name of the DLL to load. Defaults to ``"GWCA.dll"`` which is the
+        Name of the DLL to load. Defaults to ``"gwca.dll"`` which is the
         canonical name shipped with GWToolbox/Py4GW setups.
     prefer_loaded:
         If ``True`` (the default) and the module is already loaded inside the
@@ -36,31 +56,45 @@ class GWCALibrary:
         hooks or third-party exports.
     """
 
+    _init_lock = threading.Lock()
+    _global_init_result: Optional[bool] = None
+
     def __init__(
         self,
-        module_name: str = "GWCA.dll",
+        module_name: str = "gwca.dll",
         *,
         prefer_loaded: bool = True,
         default_call_conv: str = "cdecl",
     ) -> None:
         self._module_name = module_name
         self._kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
-        handle = wintypes.HMODULE()
+        self._finalizer: Optional[weakref.Finalize] = None
+
+        handle_value: Optional[int] = None
+
         if prefer_loaded:
             existing = self._kernel32.GetModuleHandleW(module_name)
             if existing:
-                handle = wintypes.HMODULE(existing)
-        if not handle.value:
-            # ``CDLL``/``WinDLL`` load the module if it is not already present.
+                duplicate = self._kernel32.LoadLibraryW(module_name)
+                if not duplicate:  # pragma: no cover - defensive path
+                    raise ctypes.WinError(ctypes.get_last_error())
+                handle_value = int(duplicate)
+                self._cdecl = _CDLLNoFree(None, handle=handle_value)
+                self._stdcall = _WinDLLNoFree(None, handle=handle_value)
+                self._finalizer = weakref.finalize(
+                    self,
+                    self._kernel32.FreeLibrary,
+                    wintypes.HMODULE(handle_value),
+                )
+
+        if handle_value is None:
+            # ``CDLL``/``WinDLL`` load the module if it is not already present and
+            # keep their own reference counts, so we can rely on their finalizers.
             self._cdecl = ctypes.CDLL(module_name)
             self._stdcall = ctypes.WinDLL(module_name)
-            handle = wintypes.HMODULE(self._cdecl._handle)
-        else:
-            # Wrap the existing handle without reloading the DLL.
-            wrapped_handle = int(handle.value)
-            self._cdecl = ctypes.CDLL(module_name, handle=wrapped_handle)
-            self._stdcall = ctypes.WinDLL(module_name, handle=wrapped_handle)
-        self._handle = handle
+            handle_value = int(self._cdecl._handle)
+
+        self._handle = wintypes.HMODULE(handle_value)
         self._default_call_conv = default_call_conv.lower()
         self._initialized = False
 
@@ -76,11 +110,20 @@ class GWCALibrary:
     def initialize(self) -> bool:
         """Ensure ``GWCA::Initialize`` ran successfully."""
 
-        if not self._initialized:
-            initialize = self.get_function(
-                "?Initialize@GW@@YA_NXZ", restype=c_bool
-            )
-            self._initialized = bool(initialize())
+        if self._initialized:
+            return True
+
+        if GWCALibrary._global_init_result is not None:
+            self._initialized = GWCALibrary._global_init_result
+            return self._initialized
+
+        with GWCALibrary._init_lock:
+            if GWCALibrary._global_init_result is None:
+                initialize = self.get_function(
+                    "?Initialize@GW@@YA_NXZ", restype=c_bool
+                )
+                GWCALibrary._global_init_result = bool(initialize())
+            self._initialized = GWCALibrary._global_init_result
         return self._initialized
 
     def get_function(
@@ -143,7 +186,7 @@ class EncodedStringDecoder:
     """Decode Guild Wars encoded strings via ``GW::UI::AsyncDecodeStr``.
 
     Guild Wars stores many localized strings in an encoded wide-character
-    format.  ``GWCA.dll`` exposes ``AsyncDecodeStr`` which resolves those
+    format.  ``gwca.dll`` exposes ``AsyncDecodeStr`` which resolves those
     strings asynchronously on the game thread.  This helper mirrors the
     behaviour of GWToolbox's ``GuiUtils::EncString`` so Python scripts can
     synchronously obtain decoded text for quest names, item descriptions and
@@ -257,21 +300,50 @@ class EncodedStringDecoder:
         return self.decode_many([pointer])[0]
 
 
+_shared_library: Optional[GWCALibrary] = None
+_shared_library_lock = threading.Lock()
+
+
+def get_shared_gwca_library(
+    *,
+    module_name: str = "gwca.dll",
+    prefer_loaded: bool = True,
+    default_call_conv: str = "cdecl",
+) -> GWCALibrary:
+    """Return the process-wide ``GWCALibrary`` instance."""
+
+    global _shared_library
+    with _shared_library_lock:
+        if _shared_library is None:
+            _shared_library = GWCALibrary(
+                module_name=module_name,
+                prefer_loaded=prefer_loaded,
+                default_call_conv=default_call_conv,
+            )
+        else:
+            if module_name != _shared_library._module_name:
+                raise ValueError(
+                    "GWCA is already loaded for module "
+                    f"{_shared_library._module_name}, cannot switch to {module_name}"
+                )
+        return _shared_library
+
+
 def load_gwca_function(
     symbol: Union[str, int],
     *,
     restype: Optional[ctypes._CData] = None,
     argtypes: Sequence[ctypes._CData] | None = None,
     call_conv: str = "cdecl",
-    module_name: str = "GWCA.dll",
+    module_name: str = "gwca.dll",
     prefer_loaded: bool = True,
 ) -> ctypes._CFuncPtr:
     """Convenience wrapper that instantiates :class:`GWCALibrary` on demand."""
 
-    library = GWCALibrary(
+    library = get_shared_gwca_library(
         module_name=module_name,
         prefer_loaded=prefer_loaded,
-        default_call_conv=call_conv,
+        default_call_conv="cdecl",
     )
     return library.get_function(
         symbol,

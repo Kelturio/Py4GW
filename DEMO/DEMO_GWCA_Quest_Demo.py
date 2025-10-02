@@ -1,6 +1,5 @@
 """Interactive demo for quest-related GWCA exports.
-
-This script showcases how to call quest functions exposed by ``GWCA.dll``
+This script showcases how to call quest functions exposed by ``gwca.dll``
 through the :class:`Py4GWCoreLib.GWCA.GWCALibrary` helper.  Launch it from
 Py4GW while the Guild Wars client is running with GWCA injected to experiment
 with setting, requesting and abandoning quests directly from the DLL.
@@ -14,12 +13,12 @@ import ctypes
 import Py4GW
 import PyImGui
 
-from Py4GWCoreLib import EncodedStringDecoder, GWCALibrary
+from Py4GWCoreLib import EncodedStringDecoder, get_shared_gwca_library
 from Py4GWCoreLib.Quest import Quest
 
 MODULE_NAME = "GWCA Quest Demo"
 
-_gwca = GWCALibrary()
+_gwca = get_shared_gwca_library()
 _gwca.initialize()
 _string_decoder = EncodedStringDecoder(_gwca, timeout=0.5)
 
@@ -183,7 +182,7 @@ def draw_window() -> None:
     global _update_marker
 
     if PyImGui.begin(MODULE_NAME):
-        PyImGui.text("Interact with quest exports provided by GWCA.dll")
+        PyImGui.text("Interact with quest exports provided by gwca.dll")
         PyImGui.separator()
 
         _quest_id_input = PyImGui.input_int("Quest ID", _quest_id_input)
@@ -274,3 +273,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+    

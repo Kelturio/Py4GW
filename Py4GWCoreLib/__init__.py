@@ -46,7 +46,12 @@ from .Effect import *
 from .Merchant import *
 from .Quest import *
 from .Camera import *
-from .GWCA import EncodedStringDecoder, GWCALibrary, load_gwca_function
+from .GWCA import (
+    EncodedStringDecoder,
+    GWCALibrary,
+    get_shared_gwca_library,
+    load_gwca_function,
+)
 
 from .Py4GWcorelib import *
 from .Overlay import *

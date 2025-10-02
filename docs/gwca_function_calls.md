@@ -1,28 +1,28 @@
-# Calling functions exported by `GWCA.dll`
+# Calling functions exported by `gwca.dll`
 
-When the Guild Wars client has `GWCA.dll` injected you can call any of its
+When the Guild Wars client has `gwca.dll` injected you can call any of its
 exports from a Py4GW script.  The new `Py4GWCoreLib.GWCA` helper removes the
 boilerplate usually required to bind decorated C++ exports with `ctypes`.
 
 ## 1. Load the library and call `Initialize`
 
 ```python
-from Py4GWCoreLib import GWCALibrary
+from Py4GWCoreLib import get_shared_gwca_library
 
-gwca = GWCALibrary()  # reuses the already-injected module inside Guild Wars
-gwca.initialize()     # ensures GWCA scanned memory and installed its hooks
+gwca = get_shared_gwca_library()  # shared singleton used by every widget/script
+gwca.initialize()                 # runs GWCA::Initialize only once per process
 ```
 
-`GWCALibrary` looks for an existing copy of the DLL inside the game process
-and reuses that handle so you are always talking to the injected module rather
-than loading a new copy.【F:Py4GWCoreLib/GWCA.py†L41-L57】  During construction it
-invokes `GWCA::Initialize` and raises an error if the call fails, but invoking
-`initialize()` explicitly at the start of your script makes the dependency
-obvious and lets you retry in custom workflows.【F:Py4GWCoreLib/GWCA.py†L59-L80】
+`get_shared_gwca_library()` returns a process-wide singleton so every Py4GW
+widget and script talks to the same `GWCALibrary` instance. The helper acquires
+its own reference to the already injected module to keep it loaded and protects
+against accidentally calling `FreeLibrary` on Guild Wars’ copy.【F:Py4GWCoreLib/GWCA.py†L21-L118】
+During construction the loader wires up `GWCA::Initialize`; the first caller
+triggers the scan while subsequent ones simply reuse the cached result.【F:Py4GWCoreLib/GWCA.py†L120-L160】
 
-If you only need a single function you can skip the explicit instance and call
-`load_gwca_function(...)` instead, which internally constructs a
-`GWCALibrary` and returns the bound callable.【F:Py4GWCoreLib/GWCA.py†L102-L118】
+If you only need a single function you can call `load_gwca_function(...)`
+instead. It reuses the shared instance under the hood and returns the bound
+callable.【F:Py4GWCoreLib/GWCA.py†L205-L235】
 
 ## 2. Bind the function you need
 
@@ -48,7 +48,7 @@ use_skill = gwca.get_function(
 ```
 
 The helper accepts either `cdecl` (GWCA’s default) or `stdcall` bindings and
-exposes them via the `call_conv` parameter when needed.【F:Py4GWCoreLib/GWCA.py†L59-L100】
+exposes them via the `call_conv` parameter when needed.【F:Py4GWCoreLib/GWCA.py†L162-L204】
 
 ## 3. Call the function inside your script
 
@@ -138,7 +138,7 @@ expected.【F:Py4GWCoreLib/GWCA.py†L142-L257】
 ## Tips
 
 * Keep using the Py4GW helper APIs (agents, inventory, etc.) whenever they
-  already expose the behaviour you need. Drop down to `GWCA.dll` only for
+  already expose the behaviour you need. Drop down to `gwca.dll` only for
   features that have not been wrapped yet.
 * Many GWCA exports expect to be executed on the Guild Wars game thread. Use
   the existing `GameThread` utilities from Py4GW when you need to enqueue work
