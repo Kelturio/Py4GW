@@ -10,8 +10,8 @@ from __future__ import annotations
 
 import ctypes
 from ctypes import c_bool, c_uint32, wintypes
+from pathlib import Path
 import threading
-import weakref
 from typing import Optional, Sequence, Union
 
 __all__ = [
@@ -68,30 +68,49 @@ class GWCALibrary:
     ) -> None:
         self._module_name = module_name
         self._kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
-        self._finalizer: Optional[weakref.Finalize] = None
+        self._kernel32.GetModuleHandleW.argtypes = [wintypes.LPCWSTR]
+        self._kernel32.GetModuleHandleW.restype = wintypes.HMODULE
+        self._kernel32.LoadLibraryW.argtypes = [wintypes.LPCWSTR]
+        self._kernel32.LoadLibraryW.restype = wintypes.HMODULE
+        self._kernel32.FreeLibrary.argtypes = [wintypes.HMODULE]
+        self._kernel32.FreeLibrary.restype = wintypes.BOOL
+        self._kernel32.GetModuleFileNameW.argtypes = [
+            wintypes.HMODULE,
+            wintypes.LPWSTR,
+            wintypes.DWORD,
+        ]
+        self._kernel32.GetModuleFileNameW.restype = wintypes.DWORD
 
         handle_value: Optional[int] = None
 
         if prefer_loaded:
-            existing = self._kernel32.GetModuleHandleW(module_name)
-            if existing:
-                duplicate = self._kernel32.LoadLibraryW(module_name)
-                if not duplicate:  # pragma: no cover - defensive path
-                    raise ctypes.WinError(ctypes.get_last_error())
-                handle_value = int(duplicate)
-                self._cdecl = _CDLLNoFree(None, handle=handle_value)
-                self._stdcall = _WinDLLNoFree(None, handle=handle_value)
-                self._finalizer = weakref.finalize(
-                    self,
-                    self._kernel32.FreeLibrary,
-                    wintypes.HMODULE(handle_value),
-                )
+            existing_handle, module_path = self._find_loaded_module(module_name)
+            if existing_handle:
+                if module_path:
+                    try:
+                        cdecl = ctypes.CDLL(module_path)
+                        stdcall = ctypes.WinDLL(module_path)
+                    except OSError:
+                        pass
+                    else:
+                        self._cdecl = cdecl
+                        self._stdcall = stdcall
+                        handle_value = int(cdecl._handle)
+                if handle_value is None:
+                    handle_value = existing_handle
+                    self._cdecl = _CDLLNoFree(None, handle=handle_value)
+                    self._stdcall = _WinDLLNoFree(None, handle=handle_value)
 
         if handle_value is None:
             # ``CDLL``/``WinDLL`` load the module if it is not already present and
             # keep their own reference counts, so we can rely on their finalizers.
-            self._cdecl = ctypes.CDLL(module_name)
-            self._stdcall = ctypes.WinDLL(module_name)
+            try:
+                self._cdecl = ctypes.CDLL(module_name)
+                self._stdcall = ctypes.WinDLL(module_name)
+            except OSError as exc:
+                raise FileNotFoundError(
+                    f"Could not locate {module_name}. Inject gwca.dll or provide an absolute path."
+                ) from exc
             handle_value = int(self._cdecl._handle)
 
         self._handle = wintypes.HMODULE(handle_value)
@@ -180,6 +199,36 @@ class GWCALibrary:
         if restype is not None:
             func.restype = restype
         return func
+
+    def _find_loaded_module(self, module_name: str) -> tuple[Optional[int], Optional[str]]:
+        """Return an existing module handle and its on-disk path if available."""
+
+        candidates: list[str] = []
+        base = Path(module_name).name
+        for name in (module_name, base, base.lower(), base.upper()):
+            if name and name not in candidates:
+                candidates.append(name)
+
+        for candidate in candidates:
+            handle = self._kernel32.GetModuleHandleW(candidate)
+            if handle:
+                win_handle = wintypes.HMODULE(handle)
+                path = self._get_module_path(win_handle)
+                return int(win_handle.value), path
+        return None, None
+
+    def _get_module_path(self, handle: wintypes.HMODULE) -> Optional[str]:
+        """Resolve the filesystem path for a loaded module handle."""
+
+        buffer_length = 260
+        while True:
+            buffer = ctypes.create_unicode_buffer(buffer_length)
+            written = self._kernel32.GetModuleFileNameW(handle, buffer, buffer_length)
+            if written == 0:
+                return None
+            if written < buffer_length - 1:
+                return buffer.value
+            buffer_length *= 2
 
 
 class EncodedStringDecoder:
