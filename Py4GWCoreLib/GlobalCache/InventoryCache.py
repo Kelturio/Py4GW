@@ -1,4 +1,5 @@
 import PyInventory
+from typing import List
 from Py4GWCoreLib.Py4GWcorelib import ActionQueueManager
 from Py4GWCoreLib import ConsoleLog
 from Py4GWCoreLib.UIManager import UIManager
@@ -548,46 +549,58 @@ class InventoryCache:
             dye1_to_match = dye_info.dye1.ToInt()
 
         storage_bags = GetStorageBags()
-        remaining_quantity = quantity
+        target_quantity = min(quantity, ammount) if ammount > 0 else quantity
+        remaining_quantity = target_quantity
         moved_any = False
         model_id = self.item_cache.GetModelID(item_id)
+
+        partial_slots: List[tuple] = []
+        empty_slots: List[tuple] = []
 
         for bag_enum, bag in storage_bags:
             items = bag.GetItems()
 
-            # === Fill partial stacks ===
             if is_stackable:
                 for item in items:
-                    if item.model_id == model_id:
-                        
-                        if is_dye:
-                            item_dye_info = self.item_cache.Customization.GetDyeInfo(item.item_id)
-                            if item_dye_info.dye1.ToInt() != dye1_to_match:
-                                continue
-                    
-                        current_qty = self.item_cache.Properties.GetQuantity(item.item_id)
-                        if current_qty < MAX_STACK_SIZE:
-                            space_left = MAX_STACK_SIZE - current_qty
-                            to_move = min(space_left, remaining_quantity)
-                            to_move = min(to_move, ammount) if ammount > 0 else to_move
-                            if to_move > 0:
-                                self.MoveItem(item_id, bag_enum.value, item.slot, to_move)
-                                remaining_quantity -= to_move
-                                moved_any = True
-                                if remaining_quantity == 0:
-                                    return True
+                    if item.model_id != model_id:
+                        continue
 
-            # === Fill empty slots ===
+                    if is_dye:
+                        item_dye_info = self.item_cache.Customization.GetDyeInfo(item.item_id)
+                        if item_dye_info.dye1.ToInt() != dye1_to_match:
+                            continue
+
+                    current_qty = self.item_cache.Properties.GetQuantity(item.item_id)
+                    if current_qty < MAX_STACK_SIZE:
+                        space_left = MAX_STACK_SIZE - current_qty
+                        partial_slots.append((bag_enum, item.slot, space_left))
+
             occupied_slots = {item.slot for item in items}
             for slot in range(bag.GetSize()):
                 if slot in occupied_slots:
                     continue
-                to_move = remaining_quantity if not is_stackable else min(remaining_quantity, MAX_STACK_SIZE)
+                empty_slots.append((bag_enum, slot))
+
+        if is_stackable:
+            for bag_enum, slot, space_left in partial_slots:
+                if remaining_quantity <= 0:
+                    break
+                to_move = min(space_left, remaining_quantity)
+                if to_move <= 0:
+                    continue
                 self.MoveItem(item_id, bag_enum.value, slot, to_move)
                 remaining_quantity -= to_move
                 moved_any = True
-                if remaining_quantity == 0:
-                    return True
+
+        for bag_enum, slot in empty_slots:
+            if remaining_quantity <= 0:
+                break
+            to_move = remaining_quantity if not is_stackable else min(remaining_quantity, MAX_STACK_SIZE)
+            if to_move <= 0:
+                continue
+            self.MoveItem(item_id, bag_enum.value, slot, to_move)
+            remaining_quantity -= to_move
+            moved_any = True
 
         return moved_any
     
