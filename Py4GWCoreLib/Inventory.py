@@ -519,24 +519,48 @@ class Inventory:
         """
         from .enums import Bags
         
-        def GetBags():
-            possible_bags = ItemArray.CreateBagList(Bags.Storage1, Bags.Storage2, Bags.Storage3, Bags.Storage4,
-                                                    *([Bags.Storage5] if Anniversary_panel else []),
-                                                    Bags.Storage6,Bags.Storage7,Bags.Storage8,Bags.Storage9,Bags.Storage10,
-                                                    Bags.Storage11,Bags.Storage12,Bags.Storage13,Bags.Storage14)
-        
-            # Dynamically calculate the total capacity using PyInventory.Bag
-            total_capacity = sum(
-                PyInventory.Bag(bag_enum.value, bag_enum.name).GetSize() for bag_enum in possible_bags
-            )
+        is_material = Item.Type.IsMaterial(item_id)
 
-            bags = total_capacity // 25
+        def GetBags():
+            bag_order = [
+                Bags.Storage1,
+                Bags.Storage2,
+                Bags.Storage3,
+                Bags.Storage4,
+            ]
+
+            if Anniversary_panel:
+                bag_order.append(Bags.Storage5)
+
+            bag_order.extend([
+                Bags.Storage6,
+                Bags.Storage7,
+                Bags.Storage8,
+                Bags.Storage9,
+                Bags.Storage10,
+                Bags.Storage11,
+                Bags.Storage12,
+                Bags.Storage13,
+                Bags.Storage14,
+            ])
+
+            if is_material:
+                bag_order = [Bags.MaterialStorage] + bag_order
 
             storage_bags = []
+            seen = set()
 
-            for i in range(1, bags + 1):
-                    bag = getattr(Bags, f"Storage{i}")
-                    storage_bags.append(bag)
+            for bag_enum in bag_order:
+                if bag_enum in seen:
+                    continue
+
+                try:
+                    bag = PyInventory.Bag(bag_enum.value, bag_enum.name)
+                    if bag.GetSize() > 0:
+                        storage_bags.append(bag_enum)
+                        seen.add(bag_enum)
+                except Exception:
+                    continue
 
             return storage_bags
     
@@ -575,6 +599,9 @@ class Inventory:
                                     return True
 
             # Fill empty slots
+            if is_material and bag_enum == Bags.MaterialStorage:
+                continue
+
             occupied_slots = {item.slot for item in items}
             for slot in range(size):
                 if slot in occupied_slots:

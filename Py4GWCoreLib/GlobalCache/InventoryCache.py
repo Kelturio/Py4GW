@@ -548,6 +548,16 @@ class InventoryCache:
             dye1_to_match = dye_info.dye1.ToInt()
 
         storage_bags = GetStorageBags()
+        is_material = Item.Type.IsMaterial(item_id)
+
+        if is_material:
+            try:
+                material_bag_enum = Bags.MaterialStorage
+                material_bag = PyInventory.Bag(material_bag_enum.value, material_bag_enum.name)
+                if material_bag.GetSize() > 0:
+                    storage_bags = [(material_bag_enum, material_bag)] + storage_bags
+            except Exception:
+                pass
         remaining_quantity = quantity
         moved_any = False
         model_id = self.item_cache.GetModelID(item_id)
@@ -578,6 +588,9 @@ class InventoryCache:
                                     return True
 
             # === Fill empty slots ===
+            if is_material and bag_enum == Bags.MaterialStorage:
+                continue
+
             occupied_slots = {item.slot for item in items}
             for slot in range(bag.GetSize()):
                 if slot in occupied_slots:
