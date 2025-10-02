@@ -277,9 +277,14 @@ class GWCALibrary:
                 if module_base:
                     candidate_names.append(module_base)
 
-                normalized = [name.lower() for name in candidate_names if name]
-                if not normalized:
-                    continue
+                normalized: list[str] = []
+                for name in candidate_names:
+                    if not name:
+                        continue
+                    try:
+                        normalized.append(str(name).lower())
+                    except Exception:  # pragma: no cover - defensive
+                        continue
 
                 for name in normalized:
                     for target in targets:
@@ -292,10 +297,20 @@ class GWCALibrary:
                         if not name:
                             continue
                         try:
-                            if Path(name).stem.lower() == stem_lower:
+                            if Path(str(name)).stem.lower() == stem_lower:
                                 return int(handle), module_path
                         except Exception:  # pragma: no cover - defensive
                             continue
+
+                # As a final fallback, probe for a well-known export on the
+                # module handle in case the DLL was renamed during injection.
+                try:
+                    probe = _WinDLLNoFree(None, handle=int(handle))
+                    getattr(probe, "GWCAVersion")
+                except (AttributeError, OSError, ValueError):
+                    continue
+                else:
+                    return int(handle), module_path
         return None, None
 
     def _get_module_path(
