@@ -93,6 +93,13 @@ class GWCALibrary:
                 ctypes.POINTER(wintypes.DWORD),
             ]
             self._psapi.EnumProcessModules.restype = wintypes.BOOL
+            self._psapi.GetModuleBaseNameW.argtypes = [
+                wintypes.HANDLE,
+                wintypes.HMODULE,
+                wintypes.LPWSTR,
+                wintypes.DWORD,
+            ]
+            self._psapi.GetModuleBaseNameW.restype = wintypes.DWORD
 
         handle_value: Optional[int] = None
 
@@ -241,11 +248,24 @@ class GWCALibrary:
 
         enumerated = self._enumerate_process_modules()
         if enumerated:
-            target = base.lower()
-            for handle, module_path in enumerated:
-                if not module_path:
-                    continue
-                if Path(module_path).name.lower() == target:
+            targets = {base.lower()}
+            if stem:
+                targets.add(stem.lower())
+
+            for handle, module_path, module_base in enumerated:
+                candidate_names: list[str] = []
+                if module_path:
+                    candidate_names.append(Path(module_path).name)
+                    candidate_names.append(module_path)
+                if module_base:
+                    candidate_names.append(module_base)
+
+                normalized = {
+                    name.lower()
+                    for name in candidate_names
+                    if name
+                }
+                if normalized & targets:
                     return int(handle), module_path
         return None, None
 
@@ -267,7 +287,7 @@ class GWCALibrary:
                 return buffer.value
             buffer_length *= 2
 
-    def _enumerate_process_modules(self) -> list[tuple[int, Optional[str]]]:
+    def _enumerate_process_modules(self) -> list[tuple[int, Optional[str], Optional[str]]]:
         """Return a list of modules loaded in the current process."""
 
         if self._psapi is None:
@@ -276,7 +296,7 @@ class GWCALibrary:
         capacity = 32
         process = self._kernel32.GetCurrentProcess()
         needed = wintypes.DWORD()
-        modules: list[tuple[int, Optional[str]]] = []
+        modules: list[tuple[int, Optional[str], Optional[str]]] = []
         module_size = ctypes.sizeof(wintypes.HMODULE)
 
         while True:
@@ -300,11 +320,42 @@ class GWCALibrary:
                     if handle_value == 0:
                         continue
                     modules.append(
-                        (handle_value, self._get_module_path(handle_value))
+                        (
+                            handle_value,
+                            self._get_module_path(handle_value),
+                            self._get_module_base_name(handle_value),
+                        )
                     )
                 return modules
 
             capacity = module_count + 8
+
+    def _get_module_base_name(
+        self, handle: Union[int, wintypes.HMODULE]
+    ) -> Optional[str]:
+        """Return the base filename for a module handle."""
+
+        if self._psapi is None:
+            return None
+
+        if isinstance(handle, int):
+            handle = wintypes.HMODULE(handle)
+
+        process = self._kernel32.GetCurrentProcess()
+        buffer_length = 260
+        while True:
+            buffer = ctypes.create_unicode_buffer(buffer_length)
+            written = self._psapi.GetModuleBaseNameW(
+                process,
+                handle,
+                buffer,
+                buffer_length,
+            )
+            if written == 0:
+                return None
+            if written < buffer_length - 1:
+                return buffer.value
+            buffer_length *= 2
 
 
 class EncodedStringDecoder:
