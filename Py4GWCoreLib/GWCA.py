@@ -80,6 +80,19 @@ class GWCALibrary:
             wintypes.DWORD,
         ]
         self._kernel32.GetModuleFileNameW.restype = wintypes.DWORD
+        self._kernel32.GetCurrentProcess.restype = wintypes.HANDLE
+        try:
+            self._psapi = ctypes.WinDLL("psapi", use_last_error=True)
+        except OSError:  # pragma: no cover - psapi should always be present on Windows
+            self._psapi = None
+        else:
+            self._psapi.EnumProcessModules.argtypes = [
+                wintypes.HANDLE,
+                ctypes.POINTER(wintypes.HMODULE),
+                wintypes.DWORD,
+                ctypes.POINTER(wintypes.DWORD),
+            ]
+            self._psapi.EnumProcessModules.restype = wintypes.BOOL
 
         handle_value: Optional[int] = None
 
@@ -204,8 +217,18 @@ class GWCALibrary:
         """Return an existing module handle and its on-disk path if available."""
 
         candidates: list[str] = []
-        base = Path(module_name).name
-        for name in (module_name, base, base.lower(), base.upper()):
+        path = Path(module_name)
+        base = path.name
+        stem = path.stem or base
+        for name in (
+            module_name,
+            base,
+            base.lower(),
+            base.upper(),
+            stem,
+            stem.lower(),
+            stem.upper(),
+        ):
             if name and name not in candidates:
                 candidates.append(name)
 
@@ -215,6 +238,15 @@ class GWCALibrary:
                 win_handle = wintypes.HMODULE(handle)
                 path = self._get_module_path(win_handle)
                 return int(win_handle.value), path
+
+        enumerated = self._enumerate_process_modules()
+        if enumerated:
+            target = base.lower()
+            for handle, module_path in enumerated:
+                if not module_path:
+                    continue
+                if Path(module_path).name.lower() == target:
+                    return int(handle.value), module_path
         return None, None
 
     def _get_module_path(self, handle: wintypes.HMODULE) -> Optional[str]:
@@ -229,6 +261,44 @@ class GWCALibrary:
             if written < buffer_length - 1:
                 return buffer.value
             buffer_length *= 2
+
+    def _enumerate_process_modules(self) -> list[tuple[wintypes.HMODULE, Optional[str]]]:
+        """Return a list of modules loaded in the current process."""
+
+        if self._psapi is None:
+            return []
+
+        capacity = 32
+        process = self._kernel32.GetCurrentProcess()
+        needed = wintypes.DWORD()
+        modules: list[tuple[wintypes.HMODULE, Optional[str]]] = []
+        module_size = ctypes.sizeof(wintypes.HMODULE)
+
+        while True:
+            array_type = wintypes.HMODULE * capacity
+            module_array = array_type()
+            buffer_size = ctypes.sizeof(module_array)
+            if not self._psapi.EnumProcessModules(
+                process,
+                module_array,
+                buffer_size,
+                ctypes.byref(needed),
+            ):
+                return []
+
+            module_count = needed.value // module_size
+            if module_count <= capacity:
+                for index in range(module_count):
+                    handle_value = module_array[index].value
+                    if not handle_value:
+                        continue
+                    module_handle = wintypes.HMODULE(handle_value)
+                    modules.append(
+                        (module_handle, self._get_module_path(module_handle))
+                    )
+                return modules
+
+            capacity = module_count + 8
 
 
 class EncodedStringDecoder:
