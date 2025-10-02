@@ -619,7 +619,7 @@ def DrawWindow():
                 "Pickup Radius",
                 radius,
                 0.0,
-                Range.Spirit.value,
+                Range.Compass.value,
             )
 
             if (new_rw, new_rb, new_rp, new_rg, new_re, new_gc) != (rw, rb, rp, rg, re, gc):
