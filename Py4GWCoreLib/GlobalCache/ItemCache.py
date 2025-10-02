@@ -603,8 +603,8 @@ class ItemCache:
         def IsStackable(self, item_id):
             item = self._parent.raw_item_array.get_item_by_id(item_id)
             if item is None:
-                return False
-            return (item.interaction & 0x80000) != 0
+                item = PyItem.PyItem(item_id)
+            return item.is_stackable
         
         def IsSparkly(self, item_id):
             item = self._parent.raw_item_array.get_item_by_id(item_id)

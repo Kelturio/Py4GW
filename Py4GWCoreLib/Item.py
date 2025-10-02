@@ -365,9 +365,7 @@ class Item:
             @staticmethod
             def IsStackable(item_id):
                 """Purpose: Check if an item is stackable by its ID."""
-                #return Item.item_instance(item_id).is_stackable
-                interaction = Item.Properties.GetInteraction(item_id)
-                return (interaction & 0x80000) != 0
+                return Item.item_instance(item_id).is_stackable
 
             @staticmethod
             def IsSparkly(item_id):
