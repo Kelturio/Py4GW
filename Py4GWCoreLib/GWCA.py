@@ -81,6 +81,14 @@ class GWCALibrary:
         ]
         self._kernel32.GetModuleFileNameW.restype = wintypes.DWORD
         self._kernel32.GetCurrentProcess.restype = wintypes.HANDLE
+        self._kernel32.GetCurrentProcessId.restype = wintypes.DWORD
+        self._kernel32.CloseHandle.argtypes = [wintypes.HANDLE]
+        self._kernel32.CloseHandle.restype = wintypes.BOOL
+        self._kernel32.CreateToolhelp32Snapshot.argtypes = [
+            wintypes.DWORD,
+            wintypes.DWORD,
+        ]
+        self._kernel32.CreateToolhelp32Snapshot.restype = wintypes.HANDLE
         try:
             self._psapi = ctypes.WinDLL("psapi", use_last_error=True)
         except OSError:  # pragma: no cover - psapi should always be present on Windows
@@ -93,6 +101,15 @@ class GWCALibrary:
                 ctypes.POINTER(wintypes.DWORD),
             ]
             self._psapi.EnumProcessModules.restype = wintypes.BOOL
+            if hasattr(self._psapi, "EnumProcessModulesEx"):
+                self._psapi.EnumProcessModulesEx.argtypes = [
+                    wintypes.HANDLE,
+                    ctypes.POINTER(wintypes.HMODULE),
+                    wintypes.DWORD,
+                    ctypes.POINTER(wintypes.DWORD),
+                    wintypes.DWORD,
+                ]
+                self._psapi.EnumProcessModulesEx.restype = wintypes.BOOL
             self._psapi.GetModuleBaseNameW.argtypes = [
                 wintypes.HANDLE,
                 wintypes.HMODULE,
@@ -302,6 +319,14 @@ class GWCALibrary:
     def _enumerate_process_modules(self) -> list[tuple[int, Optional[str], Optional[str]]]:
         """Return a list of modules loaded in the current process."""
 
+        modules = self._enumerate_process_modules_psapi()
+        if modules:
+            return modules
+        return self._enumerate_process_modules_toolhelp()
+
+    def _enumerate_process_modules_psapi(
+        self,
+    ) -> list[tuple[int, Optional[str], Optional[str]]]:
         if self._psapi is None:
             return []
 
@@ -311,16 +336,28 @@ class GWCALibrary:
         modules: list[tuple[int, Optional[str], Optional[str]]] = []
         module_size = ctypes.sizeof(wintypes.HMODULE)
 
+        enum_func = getattr(self._psapi, "EnumProcessModulesEx", None)
+        enum_flags = 0x03  # LIST_MODULES_ALL
         while True:
             array_type = wintypes.HMODULE * capacity
             module_array = array_type()
             buffer_size = ctypes.sizeof(module_array)
-            if not self._psapi.EnumProcessModules(
-                process,
-                module_array,
-                buffer_size,
-                ctypes.byref(needed),
-            ):
+            if enum_func is None:
+                ok = self._psapi.EnumProcessModules(
+                    process,
+                    module_array,
+                    buffer_size,
+                    ctypes.byref(needed),
+                )
+            else:
+                ok = enum_func(
+                    process,
+                    module_array,
+                    buffer_size,
+                    ctypes.byref(needed),
+                    enum_flags,
+                )
+            if not ok:
                 return []
 
             required_bytes = needed.value
@@ -341,6 +378,65 @@ class GWCALibrary:
                 return modules
 
             capacity = module_count + 8
+
+    def _enumerate_process_modules_toolhelp(
+        self,
+    ) -> list[tuple[int, Optional[str], Optional[str]]]:
+        TH32CS_SNAPMODULE = 0x00000008
+        TH32CS_SNAPMODULE32 = 0x00000010
+        INVALID_HANDLE_VALUE = wintypes.HANDLE(-1).value
+
+        class MODULEENTRY32W(ctypes.Structure):
+            _fields_ = [
+                ("dwSize", wintypes.DWORD),
+                ("th32ModuleID", wintypes.DWORD),
+                ("th32ProcessID", wintypes.DWORD),
+                ("GlblcntUsage", wintypes.DWORD),
+                ("ProccntUsage", wintypes.DWORD),
+                ("modBaseAddr", ctypes.POINTER(ctypes.c_byte)),
+                ("modBaseSize", wintypes.DWORD),
+                ("hModule", wintypes.HMODULE),
+                ("szModule", wintypes.WCHAR * 256),
+                ("szExePath", wintypes.WCHAR * 260),
+            ]
+
+        self._kernel32.Module32FirstW.argtypes = [
+            wintypes.HANDLE,
+            ctypes.POINTER(MODULEENTRY32W),
+        ]
+        self._kernel32.Module32FirstW.restype = wintypes.BOOL
+        self._kernel32.Module32NextW.argtypes = [
+            wintypes.HANDLE,
+            ctypes.POINTER(MODULEENTRY32W),
+        ]
+        self._kernel32.Module32NextW.restype = wintypes.BOOL
+
+        snapshot = self._kernel32.CreateToolhelp32Snapshot(
+            TH32CS_SNAPMODULE | TH32CS_SNAPMODULE32,
+            self._kernel32.GetCurrentProcessId(),
+        )
+        if snapshot == INVALID_HANDLE_VALUE:
+            return []
+
+        modules: list[tuple[int, Optional[str], Optional[str]]] = []
+        entry = MODULEENTRY32W()
+        entry.dwSize = ctypes.sizeof(MODULEENTRY32W)
+
+        try:
+            if not self._kernel32.Module32FirstW(snapshot, ctypes.byref(entry)):
+                return []
+            while True:
+                handle_value = int(entry.hModule)
+                if handle_value:
+                    path = entry.szExePath or None
+                    base = entry.szModule or None
+                    modules.append((handle_value, path, base))
+                if not self._kernel32.Module32NextW(snapshot, ctypes.byref(entry)):
+                    break
+        finally:
+            self._kernel32.CloseHandle(snapshot)
+
+        return modules
 
     def _get_module_base_name(
         self, handle: Union[int, wintypes.HMODULE]
