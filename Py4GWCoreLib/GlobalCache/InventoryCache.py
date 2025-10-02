@@ -1,5 +1,5 @@
 import PyInventory
-from typing import List
+from typing import List, Tuple, Optional
 from Py4GWCoreLib.Py4GWcorelib import ActionQueueManager
 from Py4GWCoreLib import ConsoleLog
 from Py4GWCoreLib.UIManager import UIManager
@@ -549,13 +549,27 @@ class InventoryCache:
             dye1_to_match = dye_info.dye1.ToInt()
 
         storage_bags = GetStorageBags()
+        material_bag_entry: Optional[Tuple[int, PyInventory.Bag]] = None
+        is_material = self.item_cache.Type.IsMaterial(item_id) or self.item_cache.Type.IsRareMaterial(item_id)
+        if is_material:
+            try:
+                material_bag = PyInventory.Bag(Bags.MaterialStorage.value, Bags.MaterialStorage.name)
+                if material_bag.GetSize() > 0:
+                    material_bag_entry = (Bags.MaterialStorage, material_bag)
+            except Exception:
+                material_bag_entry = None
+
+        if material_bag_entry:
+            storage_bags = [material_bag_entry, *storage_bags]
         target_quantity = min(quantity, ammount) if ammount > 0 else quantity
         remaining_quantity = target_quantity
         moved_any = False
         model_id = self.item_cache.GetModelID(item_id)
 
-        partial_slots: List[tuple] = []
-        empty_slots: List[tuple] = []
+        material_partial_slots: List[Tuple[int, int, int]] = []
+        general_partial_slots: List[Tuple[int, int, int]] = []
+        material_empty_slots: List[Tuple[int, int]] = []
+        general_empty_slots: List[Tuple[int, int]] = []
 
         for bag_enum, bag in storage_bags:
             items = bag.GetItems()
@@ -573,16 +587,21 @@ class InventoryCache:
                     current_qty = self.item_cache.Properties.GetQuantity(item.item_id)
                     if current_qty < MAX_STACK_SIZE:
                         space_left = MAX_STACK_SIZE - current_qty
-                        partial_slots.append((bag_enum, item.slot, space_left))
+                        target_partial_slots = material_partial_slots if (is_material and bag_enum == Bags.MaterialStorage) else general_partial_slots
+                        target_partial_slots.append((bag_enum, item.slot, space_left))
 
             occupied_slots = {item.slot for item in items}
             for slot in range(bag.GetSize()):
                 if slot in occupied_slots:
                     continue
-                empty_slots.append((bag_enum, slot))
+                target_empty_slots = material_empty_slots if (is_material and bag_enum == Bags.MaterialStorage) else general_empty_slots
+                target_empty_slots.append((bag_enum, slot))
 
-        if is_stackable:
-            for bag_enum, slot, space_left in partial_slots:
+        def fill_partial_slots(slots: List[Tuple[int, int, int]]):
+            nonlocal remaining_quantity, moved_any
+            if not is_stackable:
+                return
+            for bag_enum, slot, space_left in slots:
                 if remaining_quantity <= 0:
                     break
                 to_move = min(space_left, remaining_quantity)
@@ -592,15 +611,24 @@ class InventoryCache:
                 remaining_quantity -= to_move
                 moved_any = True
 
-        for bag_enum, slot in empty_slots:
-            if remaining_quantity <= 0:
-                break
-            to_move = remaining_quantity if not is_stackable else min(remaining_quantity, MAX_STACK_SIZE)
-            if to_move <= 0:
-                continue
-            self.MoveItem(item_id, bag_enum.value, slot, to_move)
-            remaining_quantity -= to_move
-            moved_any = True
+        def fill_empty_slots(slots: List[Tuple[int, int]]):
+            nonlocal remaining_quantity, moved_any
+            for bag_enum, slot in slots:
+                if remaining_quantity <= 0:
+                    break
+                to_move = remaining_quantity if not is_stackable else min(remaining_quantity, MAX_STACK_SIZE)
+                if to_move <= 0:
+                    continue
+                self.MoveItem(item_id, bag_enum.value, slot, to_move)
+                remaining_quantity -= to_move
+                moved_any = True
+
+        if is_material:
+            fill_partial_slots(material_partial_slots)
+            fill_empty_slots(material_empty_slots)
+
+        fill_partial_slots(general_partial_slots)
+        fill_empty_slots(general_empty_slots)
 
         return moved_any
     
