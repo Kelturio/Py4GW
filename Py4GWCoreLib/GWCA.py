@@ -13,13 +13,35 @@ from ctypes import c_bool, c_uint32, wintypes
 import threading
 import weakref
 from typing import Optional, Sequence, Union
+from pathlib import Path
 
 __all__ = [
+    "DEFAULT_GWCA_MODULE",
     "GWCALibrary",
     "EncodedStringDecoder",
     "get_shared_gwca_library",
     "load_gwca_function",
 ]
+
+
+_REPO_GWCA_PATH = (
+    Path(__file__).resolve().parent.parent / "Addons" / "GWToolboxpp" / "gwca.dll"
+)
+DEFAULT_GWCA_MODULE = (
+    str(_REPO_GWCA_PATH) if _REPO_GWCA_PATH.exists() else "gwca.dll"
+)
+
+
+def _module_identity(module_name: str) -> tuple[str | None, str]:
+    """Return a normalized identity tuple for a module name."""
+
+    path = Path(module_name)
+    try:
+        resolved = path.resolve(strict=True)
+    except OSError:
+        resolved = None
+    resolved_str = str(resolved).lower() if resolved is not None else None
+    return (resolved_str, path.name.lower())
 
 
 class _CDLLNoFree(ctypes.CDLL):
@@ -42,8 +64,9 @@ class GWCALibrary:
     Parameters
     ----------
     module_name:
-        Name of the DLL to load. Defaults to ``"gwca.dll"`` which is the
-        canonical name shipped with GWToolbox/Py4GW setups.
+        Name of the DLL to load. Defaults to the repository's bundled
+        ``gwca.dll`` (``Addons/GWToolboxpp/gwca.dll``). If that file is not
+        present the loader falls back to ``"gwca.dll"``.
     prefer_loaded:
         If ``True`` (the default) and the module is already loaded inside the
         current process the existing handle is reused. Reusing the handle avoids
@@ -61,12 +84,13 @@ class GWCALibrary:
 
     def __init__(
         self,
-        module_name: str = "gwca.dll",
+        module_name: str = DEFAULT_GWCA_MODULE,
         *,
         prefer_loaded: bool = True,
         default_call_conv: str = "cdecl",
     ) -> None:
         self._module_name = module_name
+        self._module_identity = _module_identity(module_name)
         self._kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
         self._finalizer: Optional[weakref.Finalize] = None
 
@@ -306,7 +330,7 @@ _shared_library_lock = threading.Lock()
 
 def get_shared_gwca_library(
     *,
-    module_name: str = "gwca.dll",
+    module_name: str = DEFAULT_GWCA_MODULE,
     prefer_loaded: bool = True,
     default_call_conv: str = "cdecl",
 ) -> GWCALibrary:
@@ -321,7 +345,7 @@ def get_shared_gwca_library(
                 default_call_conv=default_call_conv,
             )
         else:
-            if module_name != _shared_library._module_name:
+            if _module_identity(module_name) != _shared_library._module_identity:
                 raise ValueError(
                     "GWCA is already loaded for module "
                     f"{_shared_library._module_name}, cannot switch to {module_name}"
@@ -335,7 +359,7 @@ def load_gwca_function(
     restype: Optional[ctypes._CData] = None,
     argtypes: Sequence[ctypes._CData] | None = None,
     call_conv: str = "cdecl",
-    module_name: str = "gwca.dll",
+    module_name: str = DEFAULT_GWCA_MODULE,
     prefer_loaded: bool = True,
 ) -> ctypes._CFuncPtr:
     """Convenience wrapper that instantiates :class:`GWCALibrary` on demand."""
