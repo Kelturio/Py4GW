@@ -1,0 +1,529 @@
+EOTN_Charr_Homelands/Dalada_Uplands
+  map_path: 83 waypoints, 82 segments, total distance 330,674.30
+    avg segment 4,032.61, max 4,078.56, min 4,000.77
+  outpost_path: 2 waypoints, 1 segments, total distance 3,889.09
+    avg segment 3,889.09, max 3,889.09, min 3,889.09
+EOTN_Far_Silverpeaks/Ice_Cliff_Chasms
+  map_path: 51 waypoints, 50 segments, total distance 207,362.55
+    avg segment 4,147.25, max 7,557.73, min 691.76
+  outpost_path: 2 waypoints, 1 segments, total distance 1,000.72
+    avg segment 1,000.72, max 1,000.72, min 1,000.72
+EOTN_Far_Silverpeaks/Norrhart_Domains
+  map_path: 68 waypoints, 67 segments, total distance 268,842.35
+    avg segment 4,012.57, max 4,658.64, min 2,499.06
+  outpost_path: 2 waypoints, 1 segments, total distance 2,925.12
+    avg segment 2,925.12, max 2,925.12, min 2,925.12
+EOTN_Far_Silverpeaks/Varajar_Fells
+  map_path: 90 waypoints, 89 segments, total distance 364,387.79
+    avg segment 4,094.24, max 6,697.58, min 2,866.89
+  outpost_path: 2 waypoints, 1 segments, total distance 1,172.04
+    avg segment 1,172.04, max 1,172.04, min 1,172.04
+EOTN_Tarnished_Coast/AlcaziaTangle
+  map_path: 175 waypoints, 174 segments, total distance 564,925.96
+    avg segment 3,246.70, max 6,743.59, min 1,302.31
+  outpost_path: 2 waypoints, 1 segments, total distance 1,593.67
+    avg segment 1,593.67, max 1,593.67, min 1,593.67
+EOTN_Tarnished_Coast/ArborBay
+  map_path: 239 waypoints, 238 segments, total distance 874,516.28
+    avg segment 3,674.44, max 19,433.35, min 1,290.26
+  outpost_path: 2 waypoints, 1 segments, total distance 1,595.70
+    avg segment 1,595.70, max 1,595.70, min 1,595.70
+EOTN_Tarnished_Coast/MagusStones
+  map_path: 85 waypoints, 84 segments, total distance 302,298.12
+    avg segment 3,598.79, max 23,990.31, min 534.73
+  outpost_path: 2 waypoints, 1 segments, total distance 628.12
+    avg segment 628.12, max 628.12, min 628.12
+EOTN_Tarnished_Coast/RivenEarth
+  map_path: 93 waypoints, 92 segments, total distance 423,116.73
+    avg segment 4,599.09, max 38,126.38, min 260.30
+  outpost_path: 2 waypoints, 1 segments, total distance 677.00
+    avg segment 677.00, max 677.00, min 677.00
+EOTN_Unlock_Outposts/_1_Eotn_To_Gunnars
+  map_path: 14 waypoints, 13 segments, total distance 74,585.93
+    avg segment 5,737.38, max 42,965.52, min 511.00
+  outpost_path: 2 waypoints, 1 segments, total distance 1,053.10
+    avg segment 1,053.10, max 1,053.10, min 1,053.10
+EOTN_Unlock_Outposts/_2_Gunnars_To_Longeyes
+  map_path: 22 waypoints, 21 segments, total distance 107,882.62
+    avg segment 5,137.27, max 43,414.71, min 410.93
+  outpost_path: 2 waypoints, 1 segments, total distance 766.66
+    avg segment 766.66, max 766.66, min 766.66
+EOTN_Unlock_Outposts/_3_Longeyes_To_Doomlore
+  map_path: 23 waypoints, 22 segments, total distance 109,207.68
+    avg segment 4,963.99, max 44,439.98, min 834.70
+  outpost_path: 2 waypoints, 1 segments, total distance 997.70
+    avg segment 997.70, max 997.70, min 997.70
+EOTN_Unlock_Outposts/_4_Gunnars_To_Sifhalla
+  map_path: 24 waypoints, 23 segments, total distance 132,162.06
+    avg segment 5,746.18, max 49,544.68, min 482.57
+  outpost_path: 2 waypoints, 1 segments, total distance 825.87
+    avg segment 825.87, max 825.87, min 825.87
+EOTN_Unlock_Outposts/_5_Sifhalla_To_Olafstead
+  map_path: 25 waypoints, 24 segments, total distance 119,477.11
+    avg segment 4,978.21, max 40,121.74, min 474.66
+  outpost_path: 2 waypoints, 1 segments, total distance 443.17
+    avg segment 443.17, max 443.17, min 443.17
+EOTN_Unlock_Outposts/_6_Olafstead_To_UmbralGrotto
+  map_path: 32 waypoints, 31 segments, total distance 149,327.34
+    avg segment 4,817.01, max 55,021.42, min 787.38
+  outpost_path: 2 waypoints, 1 segments, total distance 569.90
+    avg segment 569.90, max 569.90, min 569.90
+EOTN_Unlock_Outposts/_7_Umbral_Grotto_To_Vlox
+  map_path: 14 waypoints, 13 segments, total distance 32,114.67
+    avg segment 2,470.36, max 3,979.15, min 0.00
+  outpost_path: 2 waypoints, 1 segments, total distance 1,885.70
+    avg segment 1,885.70, max 1,885.70, min 1,885.70
+EOTN_Unlock_Outposts/_8_Vlox_To_Gadds
+  map_path: 22 waypoints, 21 segments, total distance 107,062.85
+    avg segment 5,098.23, max 37,076.89, min 0.00
+  outpost_path: 2 waypoints, 1 segments, total distance 584.63
+    avg segment 584.63, max 584.63, min 584.63
+EOTN_Unlock_Outposts/_9_Vlox_To_Tarnished
+  map_path: 29 waypoints, 28 segments, total distance 143,247.71
+    avg segment 5,115.99, max 54,980.26, min 755.28
+  outpost_path: 2 waypoints, 1 segments, total distance 1,513.08
+    avg segment 1,513.08, max 1,513.08, min 1,513.08
+EOTN_Unlock_Outposts/_X_Tarnished_To_Rata
+  map_path: 22 waypoints, 21 segments, total distance 90,021.63
+    avg segment 4,286.74, max 29,086.18, min 625.96
+  outpost_path: 2 waypoints, 1 segments, total distance 4,961.56
+    avg segment 4,961.56, max 4,961.56, min 4,961.56
+Factions_EchovaldForest/Arborstone
+  map_path: 80 waypoints, 79 segments, total distance 303,415.69
+    avg segment 3,840.70, max 6,464.24, min 1,425.67
+  outpost_path: 2 waypoints, 1 segments, total distance 825.99
+    avg segment 825.99, max 825.99, min 825.99
+Factions_EchovaldForest/DrazachThicket
+  map_path: 60 waypoints, 59 segments, total distance 169,389.38
+    avg segment 2,871.01, max 16,743.95, min 531.51
+  outpost_path: 2 waypoints, 1 segments, total distance 1,869.86
+    avg segment 1,869.86, max 1,869.86, min 1,869.86
+Factions_EchovaldForest/Ferndale
+  map_path: 165 waypoints, 164 segments, total distance 335,026.99
+    avg segment 2,042.85, max 8,349.20, min 229.44
+  outpost_path: 3 waypoints, 2 segments, total distance 2,681.16
+    avg segment 1,340.58, max 2,276.32, min 404.84
+Factions_EchovaldForest/MelandrusHope
+  map_path: 62 waypoints, 61 segments, total distance 216,816.39
+    avg segment 3,554.37, max 5,617.80, min 1,508.48
+Factions_EchovaldForest/MorostavTrail
+  map_path: 68 waypoints, 67 segments, total distance 170,333.24
+    avg segment 2,542.29, max 4,109.67, min 1,171.10
+  outpost_path: 5 waypoints, 4 segments, total distance 7,047.57
+    avg segment 1,761.89, max 2,624.83, min 357.53
+Factions_EchovaldForest/MourningVeilFalls
+  map_path: 51 waypoints, 50 segments, total distance 169,285.61
+    avg segment 3,385.71, max 6,122.16, min 1,282.10
+  outpost_path: 5 waypoints, 4 segments, total distance 7,047.57
+    avg segment 1,761.89, max 2,624.83, min 357.53
+Factions_EchovaldForest/TheEternalGrove
+  map_path: 42 waypoints, 41 segments, total distance 173,316.78
+    avg segment 4,227.24, max 10,515.36, min 1,109.22
+  outpost_path: 3 waypoints, 2 segments, total distance 3,985.60
+    avg segment 1,992.80, max 3,475.78, min 509.82
+Factions_KainengCity/BukdekByway
+  map_path: 33 waypoints, 32 segments, total distance 151,340.02
+    avg segment 4,729.38, max 10,035.34, min 1,712.22
+  outpost_path: 2 waypoints, 1 segments, total distance 273.73
+    avg segment 273.73, max 273.73, min 273.73
+Factions_KainengCity/NahpuiQuarter
+  map_path: 46 waypoints, 45 segments, total distance 123,993.11
+    avg segment 2,755.40, max 6,136.33, min 991.73
+  outpost_path: 2 waypoints, 1 segments, total distance 910.78
+    avg segment 910.78, max 910.78, min 910.78
+Factions_KainengCity/PongmeiValley
+  map_path: 69 waypoints, 68 segments, total distance 199,133.20
+    avg segment 2,928.43, max 9,349.73, min 0.00
+  outpost_path: 3 waypoints, 2 segments, total distance 2,058.40
+    avg segment 1,029.20, max 1,447.30, min 611.10
+Factions_KainengCity/RaisuPalace
+  map_path: 67 waypoints, 66 segments, total distance 193,607.55
+    avg segment 2,933.45, max 6,163.90, min 1,106.03
+  outpost_path: 4 waypoints, 3 segments, total distance 4,469.95
+    avg segment 1,489.98, max 2,743.42, min 300.00
+Factions_KainengCity/ShadowsPassage
+  map_path: 6 waypoints, 5 segments, total distance 14,627.96
+    avg segment 2,925.59, max 5,205.30, min 1,676.86
+  outpost_path: 3 waypoints, 2 segments, total distance 1,158.31
+    avg segment 579.16, max 767.16, min 391.15
+Factions_KainengCity/ShenzunTunnels
+  map_path: 66 waypoints, 65 segments, total distance 228,418.60
+    avg segment 3,514.13, max 7,347.21, min 380.22
+Factions_KainengCity/SunjiangDistrict
+  map_path: 61 waypoints, 60 segments, total distance 145,435.58
+    avg segment 2,423.93, max 5,231.78, min 434.14
+  outpost_path: 3 waypoints, 2 segments, total distance 1,711.71
+    avg segment 855.86, max 1,162.71, min 549.00
+Factions_KainengCity/TahnnakiTemple
+  map_path: 43 waypoints, 42 segments, total distance 156,023.63
+    avg segment 3,714.85, max 5,717.65, min 998.71
+  outpost_path: 2 waypoints, 1 segments, total distance 439.27
+    avg segment 439.27, max 439.27, min 439.27
+Factions_KainengCity/WajjunBazaar
+  map_path: 92 waypoints, 91 segments, total distance 263,923.72
+    avg segment 2,900.26, max 5,391.03, min 382.00
+  outpost_path: 4 waypoints, 3 segments, total distance 1,701.86
+    avg segment 567.29, max 1,488.32, min 72.12
+Factions_KainengCity/XaquangSkyway
+  map_path: 66 waypoints, 65 segments, total distance 170,519.21
+    avg segment 2,623.37, max 5,904.74, min 909.22
+  outpost_path: 3 waypoints, 2 segments, total distance 737.72
+    avg segment 368.86, max 422.65, min 315.07
+Factions_ShingJeaIsland/HaijuLagoon
+  map_path: 55 waypoints, 54 segments, total distance 205,986.79
+    avg segment 3,814.57, max 8,255.29, min 1,488.17
+  outpost_path: 2 waypoints, 1 segments, total distance 504.72
+    avg segment 504.72, max 504.72, min 504.72
+Factions_ShingJeaIsland/JayaBluffs
+  map_path: 140 waypoints, 139 segments, total distance 136,928.80
+    avg segment 985.10, max 1,022.10, min 0.00
+  outpost_path: 5 waypoints, 4 segments, total distance 7,089.94
+    avg segment 1,772.48, max 2,404.85, min 681.16
+Factions_ShingJeaIsland/KinyaProvince
+  map_path: 72 waypoints, 71 segments, total distance 201,232.07
+    avg segment 2,834.25, max 6,114.70, min 0.00
+  outpost_path: 2 waypoints, 1 segments, total distance 891.75
+    avg segment 891.75, max 891.75, min 891.75
+Factions_ShingJeaIsland/MinisterChosEstate
+  map_path: 91 waypoints, 90 segments, total distance 195,325.85
+    avg segment 2,170.29, max 9,210.24, min 360.28
+  outpost_path: 2 waypoints, 1 segments, total distance 430.26
+    avg segment 430.26, max 430.26, min 430.26
+Factions_ShingJeaIsland/PanjiangPeninsula
+  map_path: 89 waypoints, 88 segments, total distance 277,720.94
+    avg segment 3,155.92, max 7,069.46, min 372.54
+  outpost_path: 2 waypoints, 1 segments, total distance 1,118.03
+    avg segment 1,118.03, max 1,118.03, min 1,118.03
+Factions_ShingJeaIsland/SaoshangTrail
+  map_path: 9 waypoints, 8 segments, total distance 15,733.75
+    avg segment 1,966.72, max 4,293.34, min 1,045.86
+  outpost_path: 2 waypoints, 1 segments, total distance 560.84
+    avg segment 560.84, max 560.84, min 560.84
+Factions_ShingJeaIsland/SunquaVale
+  map_path: 90 waypoints, 89 segments, total distance 283,336.78
+    avg segment 3,183.56, max 6,910.09, min 0.00
+  outpost_path: 3 waypoints, 2 segments, total distance 4,519.92
+    avg segment 2,259.96, max 2,786.25, min 1,733.67
+Factions_ShingJeaIsland/ZenDaijun
+  map_path: 76 waypoints, 75 segments, total distance 233,021.94
+    avg segment 3,106.96, max 5,777.41, min 927.42
+  outpost_path: 2 waypoints, 1 segments, total distance 1,110.84
+    avg segment 1,110.84, max 1,110.84, min 1,110.84
+Factions_TheJadeSea/Archipelagos
+  map_path: 51 waypoints, 50 segments, total distance 163,048.95
+    avg segment 3,260.98, max 5,648.27, min 1,438.18
+  outpost_path: 3 waypoints, 2 segments, total distance 3,501.50
+    avg segment 1,750.75, max 2,315.96, min 1,185.55
+Factions_TheJadeSea/BoreasSeabed
+  map_path: 45 waypoints, 44 segments, total distance 146,031.66
+    avg segment 3,318.90, max 6,651.68, min 697.87
+  outpost_path: 2 waypoints, 1 segments, total distance 801.72
+    avg segment 801.72, max 801.72, min 801.72
+Factions_TheJadeSea/GyalaHatchery
+  map_path: 58 waypoints, 57 segments, total distance 225,914.72
+    avg segment 3,963.42, max 8,553.73, min 578.68
+  outpost_path: 2 waypoints, 1 segments, total distance 1,245.13
+    avg segment 1,245.13, max 1,245.13, min 1,245.13
+Factions_TheJadeSea/MaishangHills
+  map_path: 80 waypoints, 79 segments, total distance 232,638.89
+    avg segment 2,944.80, max 5,283.87, min 903.43
+  outpost_path: 3 waypoints, 2 segments, total distance 3,946.03
+    avg segment 1,973.01, max 2,060.87, min 1,885.16
+Factions_TheJadeSea/MountQinkai
+  map_path: 32 waypoints, 31 segments, total distance 138,630.02
+    avg segment 4,471.94, max 9,922.72, min 708.23
+  outpost_path: 2 waypoints, 1 segments, total distance 2,381.43
+    avg segment 2,381.43, max 2,381.43, min 2,381.43
+Factions_TheJadeSea/RheasCrater
+  map_path: 55 waypoints, 54 segments, total distance 197,824.10
+    avg segment 3,663.41, max 6,789.37, min 1,177.88
+  outpost_path: 3 waypoints, 2 segments, total distance 4,931.34
+    avg segment 2,465.67, max 3,366.37, min 1,564.97
+Factions_TheJadeSea/SilentSurf
+  map_path: 65 waypoints, 64 segments, total distance 507,837.80
+    avg segment 7,934.97, max 149,725.21, min 261.31
+  outpost_path: 2 waypoints, 1 segments, total distance 933.11
+    avg segment 933.11, max 933.11, min 933.11
+Factions_TheJadeSea/UnwakingWaters
+  map_path: 23 waypoints, 22 segments, total distance 76,452.72
+    avg segment 3,475.12, max 5,039.01, min 257.56
+  outpost_path: 2 waypoints, 1 segments, total distance 754.00
+    avg segment 754.00, max 754.00, min 754.00
+NF_Istan/CliffsOfDohjok
+  map_path: 81 waypoints, 80 segments, total distance 306,915.03
+    avg segment 3,836.44, max 7,616.09, min 68.24
+  outpost_path: 3 waypoints, 2 segments, total distance 3,516.13
+    avg segment 1,758.06, max 3,412.80, min 103.32
+NF_Istan/FahranurTheFirstCity
+  map_path: 107 waypoints, 106 segments, total distance 350,843.39
+    avg segment 3,309.84, max 7,604.68, min 510.00
+  outpost_path: 5 waypoints, 4 segments, total distance 1,915.84
+    avg segment 478.96, max 1,487.76, min 52.35
+NF_Istan/IssnurIsles
+  map_path: 115 waypoints, 114 segments, total distance 334,874.36
+    avg segment 2,937.49, max 6,363.30, min 294.52
+  outpost_path: 3 waypoints, 2 segments, total distance 4,634.50
+    avg segment 2,317.25, max 4,323.50, min 311.00
+NF_Istan/LahtendaBog
+  map_path: 118 waypoints, 117 segments, total distance 358,896.59
+    avg segment 3,067.49, max 6,761.41, min 694.76
+  outpost_path: 4 waypoints, 3 segments, total distance 4,472.69
+    avg segment 1,490.90, max 3,371.15, min 386.00
+NF_Istan/MehtaniKeys
+  map_path: 82 waypoints, 81 segments, total distance 291,407.51
+    avg segment 3,597.62, max 7,469.34, min 603.83
+  outpost_path: 4 waypoints, 3 segments, total distance 4,975.45
+    avg segment 1,658.48, max 4,349.13, min 214.00
+NF_Istan/PlainsofJarin
+  map_path: 104 waypoints, 103 segments, total distance 308,872.75
+    avg segment 2,998.76, max 7,343.41, min 121.67
+  outpost_path: 2 waypoints, 1 segments, total distance 278.04
+    avg segment 278.04, max 278.04, min 278.04
+NF_Istan/ZehlonReach
+  map_path: 60 waypoints, 59 segments, total distance 170,186.67
+    avg segment 2,884.52, max 7,676.65, min 368.14
+  outpost_path: 4 waypoints, 3 segments, total distance 3,004.05
+    avg segment 1,001.35, max 2,676.98, min 95.00
+NF_Kourna/ArkjokWard
+  map_path: 91 waypoints, 90 segments, total distance 288,874.63
+    avg segment 3,209.72, max 7,121.72, min 383.69
+  outpost_path: 5 waypoints, 4 segments, total distance 8,113.66
+    avg segment 2,028.41, max 3,605.59, min 87.93
+NF_Kourna/BahdokCaverns
+  map_path: 107 waypoints, 106 segments, total distance 331,031.09
+    avg segment 3,122.93, max 7,984.80, min 626.91
+  outpost_path: 2 waypoints, 1 segments, total distance 755.90
+    avg segment 755.90, max 755.90, min 755.90
+NF_Kourna/BarbarousShore
+  map_path: 88 waypoints, 87 segments, total distance 285,788.30
+    avg segment 3,284.92, max 6,614.63, min 226.93
+  outpost_path: 2 waypoints, 1 segments, total distance 294.52
+    avg segment 294.52, max 294.52, min 294.52
+NF_Kourna/DejarinEstate
+  map_path: 102 waypoints, 101 segments, total distance 352,208.65
+    avg segment 3,487.21, max 7,748.18, min 169.29
+  outpost_path: 3 waypoints, 2 segments, total distance 1,742.71
+    avg segment 871.35, max 1,560.47, min 182.24
+NF_Kourna/GandaraTheMoonFortress
+  map_path: 43 waypoints, 42 segments, total distance 148,707.92
+    avg segment 3,540.66, max 6,846.06, min 423.04
+  outpost_path: 3 waypoints, 2 segments, total distance 3,476.87
+    avg segment 1,738.44, max 3,204.03, min 272.84
+NF_Kourna/JahaiBluffs
+  map_path: 114 waypoints, 113 segments, total distance 351,023.30
+    avg segment 3,106.40, max 9,192.48, min 922.45
+  outpost_path: 3 waypoints, 2 segments, total distance 3,171.07
+    avg segment 1,585.54, max 2,947.39, min 223.68
+NF_Kourna/MargaCoast
+  map_path: 92 waypoints, 91 segments, total distance 326,639.71
+    avg segment 3,589.45, max 7,803.31, min 680.31
+  outpost_path: 4 waypoints, 3 segments, total distance 1,856.01
+    avg segment 618.67, max 1,734.40, min 39.00
+NF_Kourna/SunwardMarches
+  map_path: 102 waypoints, 101 segments, total distance 354,377.02
+    avg segment 3,508.68, max 6,974.39, min 839.57
+  outpost_path: 2 waypoints, 1 segments, total distance 364.66
+    avg segment 364.66, max 364.66, min 364.66
+NF_Kourna/TheFloodplainOfMahnkelon
+  map_path: 82 waypoints, 81 segments, total distance 251,568.73
+    avg segment 3,105.79, max 7,376.05, min 1,027.61
+  outpost_path: 3 waypoints, 2 segments, total distance 2,832.58
+    avg segment 1,416.29, max 2,162.51, min 670.07
+NF_Kourna/TuraisProcession
+  map_path: 110 waypoints, 109 segments, total distance 459,700.35
+    avg segment 4,217.43, max 9,989.08, min 150.80
+  outpost_path: 2 waypoints, 1 segments, total distance 292.86
+    avg segment 292.86, max 292.86, min 292.86
+NF_Vabbi/ForumHighlands
+  map_path: 100 waypoints, 99 segments, total distance 325,247.22
+    avg segment 3,285.33, max 9,071.77, min 29.15
+  outpost_path: 2 waypoints, 1 segments, total distance 200.00
+    avg segment 200.00, max 200.00, min 200.00
+NF_Vabbi/GardenOfSeborhin
+  map_path: 92 waypoints, 91 segments, total distance 247,598.04
+    avg segment 2,720.86, max 6,979.99, min 228.98
+  outpost_path: 3 waypoints, 2 segments, total distance 213.09
+    avg segment 106.54, max 142.09, min 71.00
+NF_Vabbi/HoldingsOfChokhin
+  map_path: 117 waypoints, 116 segments, total distance 364,707.56
+    avg segment 3,144.03, max 20,219.41, min 436.09
+  outpost_path: 3 waypoints, 2 segments, total distance 1,917.57
+    avg segment 958.78, max 1,853.50, min 64.07
+NF_Vabbi/ResplendentMakuun
+  map_path: 93 waypoints, 92 segments, total distance 310,449.40
+    avg segment 3,374.45, max 6,035.54, min 307.90
+  outpost_path: 4 waypoints, 3 segments, total distance 3,314.24
+    avg segment 1,104.75, max 2,083.82, min 45.00
+NF_Vabbi/TheHiddenCityOfAhdashim
+  map_path: 111 waypoints, 110 segments, total distance 308,129.46
+    avg segment 2,801.18, max 5,522.75, min 211.62
+  outpost_path: 2 waypoints, 1 segments, total distance 468.47
+    avg segment 468.47, max 468.47, min 468.47
+NF_Vabbi/TheMirrorOfLyss
+  map_path: 87 waypoints, 86 segments, total distance 298,541.61
+    avg segment 3,471.41, max 8,582.09, min 997.06
+  outpost_path: 4 waypoints, 3 segments, total distance 4,396.71
+    avg segment 1,465.57, max 4,136.05, min 71.34
+NF_Vabbi/VehjinMines
+  map_path: 72 waypoints, 71 segments, total distance 236,627.39
+    avg segment 3,332.78, max 8,440.72, min 549.59
+  outpost_path: 4 waypoints, 3 segments, total distance 3,578.87
+    avg segment 1,192.96, max 3,278.82, min 140.00
+NF_Vabbi/VehtendiValley
+  map_path: 111 waypoints, 110 segments, total distance 349,249.12
+    avg segment 3,174.99, max 6,866.74, min 90.14
+  outpost_path: 5 waypoints, 4 segments, total distance 8,118.21
+    avg segment 2,029.55, max 4,028.40, min 213.00
+NF_Vabbi/WildernessOfBahdza
+  map_path: 94 waypoints, 93 segments, total distance 294,506.33
+    avg segment 3,166.73, max 6,630.76, min 1,024.46
+  outpost_path: 3 waypoints, 2 segments, total distance 485.55
+    avg segment 242.78, max 285.55, min 200.00
+NF_Vabbi/YatendiCanyons
+  map_path: 71 waypoints, 70 segments, total distance 229,446.37
+    avg segment 3,277.81, max 7,372.83, min 712.40
+  outpost_path: 3 waypoints, 2 segments, total distance 3,835.76
+    avg segment 1,917.88, max 3,601.68, min 234.08
+Proph_Ascalon/RegentValley
+  map_path: 99 waypoints, 98 segments, total distance 288,009.59
+    avg segment 2,938.87, max 6,537.55, min 0.00
+  outpost_path: 4 waypoints, 3 segments, total distance 4,553.16
+    avg segment 1,517.72, max 2,748.07, min 700.00
+Proph_CrystalDesert/DivinersAscent
+  map_path: 408 waypoints, 407 segments, total distance 718,586.23
+    avg segment 1,765.57, max 20,913.94, min 0.00
+  outpost_path: 2 waypoints, 1 segments, total distance 2,477.30
+    avg segment 2,477.30, max 2,477.30, min 2,477.30
+Proph_CrystalDesert/SaltFlats
+  map_path: 314 waypoints, 313 segments, total distance 419,358.83
+    avg segment 1,339.80, max 19,747.74, min 0.00
+  outpost_path: 2 waypoints, 1 segments, total distance 793.97
+    avg segment 793.97, max 793.97, min 793.97
+Proph_CrystalDesert/SkywardReach
+  map_path: 8 waypoints, 7 segments, total distance 30,716.01
+    avg segment 4,388.00, max 6,086.66, min 3,044.32
+  outpost_path: 2 waypoints, 1 segments, total distance 385.79
+    avg segment 385.79, max 385.79, min 385.79
+Proph_CrystalDesert/TheAridSea
+  map_path: 68 waypoints, 67 segments, total distance 286,284.92
+    avg segment 4,272.91, max 39,641.93, min 0.00
+  outpost_path: 2 waypoints, 1 segments, total distance 385.79
+    avg segment 385.79, max 385.79, min 385.79
+Proph_CrystalDesert/TheScar
+  map_path: 0 waypoints, 0 segments, total distance 0.00
+Proph_CrystalDesert/VultureDrifts
+  map_path: 191 waypoints, 190 segments, total distance 368,323.66
+    avg segment 1,938.55, max 14,243.13, min 0.00
+  outpost_path: 1 waypoints, 0 segments, total distance 0.00
+Proph_Kryta/CursedLands
+  map_path: 40 waypoints, 39 segments, total distance 77,680.18
+    avg segment 1,991.80, max 21,409.84, min 282.42
+  outpost_path: 2 waypoints, 1 segments, total distance 26,430.46
+    avg segment 26,430.46, max 26,430.46, min 26,430.46
+Proph_Kryta/ScoundrelsRise
+  map_path: 43 waypoints, 42 segments, total distance 61,990.47
+    avg segment 1,475.96, max 6,351.12, min 101.24
+  outpost_path: 2 waypoints, 1 segments, total distance 3,462.39
+    avg segment 3,462.39, max 3,462.39, min 3,462.39
+Proph_Kryta/TheBlackCurtain
+  map_path: 252 waypoints, 251 segments, total distance 465,483.24
+    avg segment 1,854.51, max 6,455.82, min 140.94
+  outpost_path: 2 waypoints, 1 segments, total distance 1,633.19
+    avg segment 1,633.19, max 1,633.19, min 1,633.19
+Proph_Kryta/TwinSerpentLakes
+  map_path: 58 waypoints, 57 segments, total distance 187,912.23
+    avg segment 3,296.71, max 7,227.09, min 924.08
+  outpost_path: 4 waypoints, 3 segments, total distance 4,883.94
+    avg segment 1,627.98, max 2,402.31, min 200.00
+Proph_Maguuma/DryTop
+  map_path: 45 waypoints, 44 segments, total distance 98,978.63
+    avg segment 2,249.51, max 4,547.49, min 640.05
+  outpost_path: 2 waypoints, 1 segments, total distance 26,430.46
+    avg segment 26,430.46, max 26,430.46, min 26,430.46
+Proph_Maguuma/EttinsBack
+  map_path: 219 waypoints, 218 segments, total distance 337,809.63
+    avg segment 1,549.59, max 5,544.64, min 19.24
+  outpost_path: 2 waypoints, 1 segments, total distance 701.28
+    avg segment 701.28, max 701.28, min 701.28
+Proph_Maguuma/MamnoonLagoon
+  map_path: 67 waypoints, 66 segments, total distance 99,968.33
+    avg segment 1,514.67, max 3,092.83, min 114.02
+  outpost_path: 2 waypoints, 1 segments, total distance 26,430.46
+    avg segment 26,430.46, max 26,430.46, min 26,430.46
+Proph_Maguuma/SageLands
+  map_path: 94 waypoints, 93 segments, total distance 336,689.19
+    avg segment 3,620.31, max 8,870.32, min 724.05
+  outpost_path: 2 waypoints, 1 segments, total distance 594.55
+    avg segment 594.55, max 594.55, min 594.55
+Proph_Maguuma/Silverwood
+  map_path: 95 waypoints, 94 segments, total distance 314,929.38
+    avg segment 3,350.31, max 6,112.81, min 1,023.50
+  outpost_path: 2 waypoints, 1 segments, total distance 708.24
+    avg segment 708.24, max 708.24, min 708.24
+Proph_Maguuma/TangleRoot
+  map_path: 100 waypoints, 99 segments, total distance 321,022.57
+    avg segment 3,242.65, max 8,215.51, min 0.00
+  outpost_path: 4 waypoints, 3 segments, total distance 5,179.08
+    avg segment 1,726.36, max 2,992.53, min 294.29
+Proph_Maguuma/TheFalls
+  map_path: 247 waypoints, 246 segments, total distance 593,148.34
+    avg segment 2,411.17, max 29,487.54, min 393.41
+  outpost_path: 2 waypoints, 1 segments, total distance 26,430.46
+    avg segment 26,430.46, max 26,430.46, min 26,430.46
+Proph_NorthernShiverpeaks/TravelersVale
+  map_path: 49 waypoints, 48 segments, total distance 154,157.20
+    avg segment 3,211.61, max 5,562.59, min 1,181.64
+  outpost_path: 2 waypoints, 1 segments, total distance 209.88
+    avg segment 209.88, max 209.88, min 209.88
+Proph_RingOfFireIsland/PerditionRock
+  map_path: 94 waypoints, 93 segments, total distance 263,818.85
+    avg segment 2,836.76, max 6,722.30, min 1,203.90
+  outpost_path: 2 waypoints, 1 segments, total distance 1,502.97
+    avg segment 1,502.97, max 1,502.97, min 1,502.97
+Proph_SouthernShiverpeaks/DeldrimorBowl
+  map_path: 59 waypoints, 58 segments, total distance 233,951.58
+    avg segment 4,033.65, max 4,066.45, min 4,001.55
+  outpost_path: 2 waypoints, 1 segments, total distance 1,624.57
+    avg segment 1,624.57, max 1,624.57, min 1,624.57
+Proph_SouthernShiverpeaks/DreadnoughtsDrift
+  map_path: 45 waypoints, 44 segments, total distance 83,940.13
+    avg segment 1,907.73, max 5,544.61, min 0.00
+  outpost_path: 2 waypoints, 1 segments, total distance 26,430.46
+    avg segment 26,430.46, max 26,430.46, min 26,430.46
+Proph_SouthernShiverpeaks/GrenthsFootprint
+  map_path: 121 waypoints, 120 segments, total distance 206,747.33
+    avg segment 1,722.89, max 6,047.37, min 0.00
+  outpost_path: 1 waypoints, 0 segments, total distance 0.00
+Proph_SouthernShiverpeaks/IceFloe
+  map_path: 131 waypoints, 130 segments, total distance 254,273.17
+    avg segment 1,955.95, max 7,700.73, min 0.00
+  outpost_path: 1 waypoints, 0 segments, total distance 0.00
+Proph_SouthernShiverpeaks/LornarsPass
+  map_path: 138 waypoints, 137 segments, total distance 294,020.75
+    avg segment 2,146.14, max 9,341.69, min 0.00
+  outpost_path: 2 waypoints, 1 segments, total distance 26,430.46
+    avg segment 26,430.46, max 26,430.46, min 26,430.46
+Proph_SouthernShiverpeaks/SnakeDance
+  map_path: 184 waypoints, 183 segments, total distance 323,614.00
+    avg segment 1,768.38, max 5,935.43, min 0.00
+  outpost_path: 2 waypoints, 1 segments, total distance 2,385.44
+    avg segment 2,385.44, max 2,385.44, min 2,385.44
+Proph_SouthernShiverpeaks/SpearheadPeak
+  map_path: 121 waypoints, 120 segments, total distance 155,926.75
+    avg segment 1,299.39, max 5,601.97, min 65.00
+  outpost_path: 2 waypoints, 1 segments, total distance 1,864.33
+    avg segment 1,864.33, max 1,864.33, min 1,864.33
+Proph_SouthernShiverpeaks/TalusChute
+  map_path: 187 waypoints, 186 segments, total distance 606,091.29
+    avg segment 3,258.56, max 13,129.05, min 869.91
+  outpost_path: 2 waypoints, 1 segments, total distance 172.53
+    avg segment 172.53, max 172.53, min 172.53
+Proph_SouthernShiverpeaks/WitmansFolly
+  map_path: 70 waypoints, 69 segments, total distance 175,297.10
+    avg segment 2,540.54, max 6,150.47, min 853.65
+  outpost_path: 2 waypoints, 1 segments, total distance 2,226.95
+    avg segment 2,226.95, max 2,226.95, min 2,226.95
+
+Wrote detailed report to Bots/aC_Scripts/reports/pyquishai_path_report.json
+
+Analysed 107 map files from Bots/aC_Scripts/PyQuishAI_maps.

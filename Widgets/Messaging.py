@@ -618,7 +618,9 @@ def PickUpLoot(index, message):
 
     GLOBAL_CACHE.ShMem.MarkMessageAsRunning(message.ReceiverEmail, index)
 
-    loot_array = LootConfig().GetfilteredLootArray(Range.Earshot.value, multibox_loot=True)
+    loot_config = LootConfig()
+    pickup_radius = loot_config.GetPickupRadius()
+    loot_array = loot_config.GetfilteredLootArray(pickup_radius, multibox_loot=True)
     if len(loot_array) == 0:
         GLOBAL_CACHE.ShMem.MarkMessageAsFinished(message.ReceiverEmail, index)
         return
@@ -629,7 +631,8 @@ def PickUpLoot(index, message):
     yield from DisableHeroAIOptions(message.ReceiverEmail)
     yield from Routines.Yield.wait(100)
     while True:
-        loot_array = LootConfig().GetfilteredLootArray(Range.Earshot.value, multibox_loot=True)
+        pickup_radius = loot_config.GetPickupRadius()
+        loot_array = loot_config.GetfilteredLootArray(pickup_radius, multibox_loot=True)
         if len(loot_array) == 0:
             break
         item_id = loot_array.pop(0)
@@ -637,7 +640,7 @@ def PickUpLoot(index, message):
             continue
 
         if (yield from _exit_if_not_map_valid()):
-            LootConfig().AddItemIDToBlacklist(item_id)
+            loot_config.AddItemIDToBlacklist(item_id)
             ConsoleLog("PickUp Loot", "Map is not valid, halting.", Console.MessageType.Warning)
             yield from RestoreHeroAISnapshot(message.ReceiverEmail)
             GLOBAL_CACHE.ShMem.MarkMessageAsFinished(message.ReceiverEmail, index)
@@ -651,7 +654,7 @@ def PickUpLoot(index, message):
         pos = GLOBAL_CACHE.Agent.GetXY(item_id)
         follow_success = yield from Routines.Yield.Movement.FollowPath([pos])
         if not follow_success:
-            LootConfig().AddItemIDToBlacklist(item_id)
+            loot_config.AddItemIDToBlacklist(item_id)
             ConsoleLog(
                 "PickUp Loot",
                 "Failed to follow path to loot item, halting.",
@@ -674,7 +677,7 @@ def PickUpLoot(index, message):
 
             delta = current_time - start_time
             if delta > timeout:
-                LootConfig().AddItemIDToBlacklist(item_id)
+                loot_config.AddItemIDToBlacklist(item_id)
                 ConsoleLog(
                     "PickUp Loot",
                     "Timeout reached while picking up loot, halting.",
@@ -686,7 +689,7 @@ def PickUpLoot(index, message):
                 return
 
             if (yield from _exit_if_not_map_valid()):
-                LootConfig().AddItemIDToBlacklist(item_id)
+                loot_config.AddItemIDToBlacklist(item_id)
                 ConsoleLog(
                     "PickUp Loot",
                     "Map is not valid, halting.",
@@ -697,7 +700,8 @@ def PickUpLoot(index, message):
                 ActionQueueManager().ResetAllQueues()
                 return
 
-            loot_array = LootConfig().GetfilteredLootArray(Range.Earshot.value, multibox_loot=True)
+            pickup_radius = loot_config.GetPickupRadius()
+            loot_array = loot_config.GetfilteredLootArray(pickup_radius, multibox_loot=True)
             if item_id not in loot_array or len(loot_array) == 0:
                 yield from Routines.Yield.wait(100)
                 break
