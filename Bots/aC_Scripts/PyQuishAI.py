@@ -112,6 +112,12 @@ class BotVars:
         self.use_waypoint_jitter = True
         self.waypoint_jitter_amount = 100
 
+        # Debug UI helpers (see Debug Tools section in DrawWindow)
+        self.debug_enabled = False
+        self.debug_state_filter = ""
+        self.debug_force_index_input = ""
+        self.debug_recent_error = ""
+
 def trigger_blessing_at(point):
     if point in FSM_vars.blessing_triggered:
         return
@@ -182,6 +188,13 @@ def _set_index_on_handler(ph, idx):
 
 def _clamp(n, low, high):
     return max(low, min(high, n))
+
+def _safe_read(label, supplier, fallback="-"):
+    """Utility for debug UI to swallow access errors without spamming the console."""
+    try:
+        return label, supplier()
+    except Exception:
+        return label, fallback
 
 # -----------------------------------------------
 # Map/segment helpers (for UI and controls)
@@ -998,6 +1011,9 @@ def DrawWindow():
             if rounded_jitter != bot_vars.waypoint_jitter_amount:
                 bot_vars.waypoint_jitter_amount = rounded_jitter
 
+        PyImGui.separator()
+        bot_vars.debug_enabled = PyImGui.checkbox("Show Debug Tools", bot_vars.debug_enabled)
+
     # ====== Map Selection ======
     if bot_vars.force_close_map_select:
         PyImGui.set_next_item_open(False, PyImGui.ImGuiCond.Always)
@@ -1323,6 +1339,253 @@ def DrawWindow():
                             FSM_vars.path_and_aggro.set_active_index(global_idx)
             else:
                 PyImGui.text("- (empty)")
+
+    # ====== Debug Tools ======
+    if bot_vars.debug_enabled:
+        PyImGui.separator()
+        PyImGui.push_style_color(PyImGui.ImGuiCol.Text, header_color)
+        debug_open = PyImGui.collapsing_header(
+            f"{IconsFontAwesome5.ICON_TOOLS} Debug Tools",
+            PyImGui.TreeNodeFlags.DefaultOpen
+        )
+        PyImGui.pop_style_color(1)
+
+        if debug_open:
+            state_machine = FSM_vars.state_machine
+            started = False
+            paused = False
+            current_step = "-"
+            try:
+                started = state_machine.is_started()
+            except Exception:
+                pass
+            try:
+                paused = state_machine.is_paused()
+            except Exception:
+                pass
+            try:
+                current_step = state_machine.get_current_step_name()
+            except Exception:
+                current_step = "-"
+
+            PyImGui.text(f"Main FSM Started: {started} | Paused: {paused}")
+            PyImGui.text(f"Current Step: {current_step}")
+            if bot_vars.debug_recent_error:
+                PyImGui.text_wrapped(f"Last Debug Error: {bot_vars.debug_recent_error}")
+
+            try:
+                state_names = state_machine.get_state_names()
+            except Exception as exc:
+                state_names = []
+                PyImGui.text_wrapped(f"State list error: {exc}")
+
+            if state_names:
+                PyImGui.push_item_width(220)
+                bot_vars.debug_state_filter = PyImGui.input_text(
+                    "Filter States##debug_state_filter",
+                    bot_vars.debug_state_filter
+                )
+                PyImGui.pop_item_width()
+                filter_text = bot_vars.debug_state_filter.lower()
+                filtered_states = [
+                    name for name in state_names
+                    if not filter_text or filter_text in name.lower()
+                ]
+                if not filtered_states:
+                    PyImGui.text("(no matching states)")
+                elif PyImGui.begin_table(
+                    "DebugStateJumpTable",
+                    2,
+                    int(PyImGui.TableFlags.RowBg | PyImGui.TableFlags.BordersOuterH)
+                ):
+                    for idx, name in enumerate(filtered_states):
+                        PyImGui.table_next_row()
+                        PyImGui.table_next_column()
+                        PyImGui.text(name)
+                        PyImGui.table_next_column()
+                        if PyImGui.button(f"Jump##debug_jump_{idx}"):
+                            try:
+                                if not state_machine.is_started():
+                                    msg = "Main FSM not started; start the bot before jumping."
+                                    bot_vars.debug_recent_error = msg
+                                    ConsoleLog(
+                                        "Debug Tools",
+                                        msg,
+                                        Console.MessageType.Warning
+                                    )
+                                elif state_machine.is_paused():
+                                    msg = "Main FSM is paused; resume before jumping."
+                                    bot_vars.debug_recent_error = msg
+                                    ConsoleLog(
+                                        "Debug Tools",
+                                        msg,
+                                        Console.MessageType.Warning
+                                    )
+                                else:
+                                    state_machine.jump_to_state_by_name(name)
+                                    bot_vars.debug_recent_error = ""
+                                    ConsoleLog(
+                                        "Debug Tools",
+                                        f"Jumped to state '{name}'.",
+                                        Console.MessageType.Info
+                                    )
+                            except Exception as exc:
+                                bot_vars.debug_recent_error = str(exc)
+                                ConsoleLog(
+                                    "Debug Tools",
+                                    f"Failed to jump to '{name}': {exc}",
+                                    Console.MessageType.Error
+                                )
+                    PyImGui.end_table()
+
+            PyImGui.separator()
+            PyImGui.text("Waypoint Debug Controls:")
+            path_debugger = FSM_vars.path_and_aggro
+            hold_active = bool(getattr(path_debugger, "_debug_hold", False)) if path_debugger else False
+            if path_debugger:
+                total_wps = len(path_debugger.get_waypoints()) if path_debugger else 0
+                try:
+                    current_idx = path_debugger.get_current_index()
+                except Exception:
+                    current_idx = None
+                if current_idx is not None and total_wps:
+                    PyImGui.text(f"Current Index: {current_idx + 1}/{total_wps}")
+                elif total_wps:
+                    PyImGui.text(f"Current Index: -/{total_wps}")
+                else:
+                    PyImGui.text("Current Index: (no waypoints)")
+
+                if PyImGui.button("Prev##debug_prev_wp"):
+                    try:
+                        path_debugger.seek_relative(-1, sticky=True)
+                        bot_vars.debug_recent_error = ""
+                    except Exception as exc:
+                        bot_vars.debug_recent_error = str(exc)
+                        ConsoleLog("Debug Tools", f"Failed to move to previous waypoint: {exc}", Console.MessageType.Error)
+                PyImGui.same_line(0, 4)
+                if PyImGui.button("Next##debug_next_wp"):
+                    try:
+                        path_debugger.seek_relative(1, sticky=True)
+                        bot_vars.debug_recent_error = ""
+                    except Exception as exc:
+                        bot_vars.debug_recent_error = str(exc)
+                        ConsoleLog("Debug Tools", f"Failed to move to next waypoint: {exc}", Console.MessageType.Error)
+                PyImGui.same_line(0, 4)
+                hold_label = "Release Hold" if hold_active else "Enable Hold"
+                if PyImGui.button(f"{hold_label}##debug_hold_toggle"):
+                    try:
+                        if hold_active:
+                            path_debugger.release_hold()
+                        else:
+                            path_debugger.enable_hold()
+                        bot_vars.debug_recent_error = ""
+                    except Exception as exc:
+                        bot_vars.debug_recent_error = str(exc)
+                        ConsoleLog("Debug Tools", f"Failed to toggle hold: {exc}", Console.MessageType.Error)
+
+                PyImGui.push_item_width(90)
+                bot_vars.debug_force_index_input = PyImGui.input_text(
+                    "Waypoint##debug_force_index",
+                    bot_vars.debug_force_index_input
+                )
+                PyImGui.pop_item_width()
+                PyImGui.same_line(0, 4)
+                if PyImGui.button("Force Move##debug_force_move"):
+                    idx_text = bot_vars.debug_force_index_input.strip()
+                    if not idx_text:
+                        bot_vars.debug_recent_error = "Enter a waypoint index before forcing movement."
+                        ConsoleLog("Debug Tools", bot_vars.debug_recent_error, Console.MessageType.Warning)
+                    else:
+                        try:
+                            idx_value = int(idx_text)
+                            target_index = idx_value - 1 if idx_value > 0 else idx_value
+                            if target_index < 0:
+                                target_index = 0
+                            path_debugger.force_move_to_index(target_index, sticky=True)
+                            bot_vars.debug_recent_error = ""
+                        except ValueError:
+                            bot_vars.debug_recent_error = "Invalid waypoint index"
+                            ConsoleLog(
+                                "Debug Tools",
+                                f"Invalid waypoint index '{idx_text}'.",
+                                Console.MessageType.Warning
+                            )
+                        except Exception as exc:
+                            bot_vars.debug_recent_error = str(exc)
+                            ConsoleLog("Debug Tools", f"Failed to force move: {exc}", Console.MessageType.Error)
+
+                if PyImGui.button("Release Hold##debug_release_hold"):
+                    try:
+                        path_debugger.release_hold()
+                        bot_vars.debug_recent_error = ""
+                    except Exception as exc:
+                        bot_vars.debug_recent_error = str(exc)
+                        ConsoleLog("Debug Tools", f"Failed to release hold: {exc}", Console.MessageType.Error)
+            else:
+                PyImGui.text("Path and aggro handler not available.")
+
+            PyImGui.separator()
+
+            def _fmt_timer(timer, fmt='mm:ss'):
+                try:
+                    return FormatTime(timer.GetElapsedTime(), fmt)
+                except Exception:
+                    return "-"
+
+            def _format_distance(value):
+                if value is None:
+                    return "n/a"
+                try:
+                    return f"{float(value):.0f}"
+                except Exception:
+                    return str(value)
+
+            if PyImGui.begin_tab_bar("DebugToolsTabBar"):
+                if PyImGui.begin_tab_item("Runtime"):
+                    runtime_rows = [
+                        ("Bot Running", bot_vars.is_running),
+                        ("Bot Paused", bot_vars.is_paused),
+                        ("Runs Attempted", bot_vars.runs_attempted),
+                        ("Runs Completed", bot_vars.runs_completed),
+                        ("Success Rate", f"{bot_vars.success_rate * 100:.1f}%" if bot_vars.runs_attempted else "0.0%"),
+                        ("Global Timer", _fmt_timer(bot_vars.global_timer, 'hh:mm:ss')),
+                        ("Current Run", _fmt_timer(bot_vars.lap_timer, 'mm:ss')),
+                        _safe_read("Main FSM Started", lambda: state_machine.is_started(), False),
+                        _safe_read("Main FSM Finished", lambda: state_machine.is_finished(), False),
+                    ]
+                    ImGui.table("DebugRuntimeTable", ["Variable", "Value"], runtime_rows)
+                    PyImGui.end_tab_item()
+
+                if PyImGui.begin_tab_item("Combat"):
+                    combat_rows = [
+                        ("Combat Started", bot_vars.combat_started),
+                        ("Pause Combat Flag", bot_vars.pause_combat_fsm),
+                        _safe_read("Global Combat FSM Started", lambda: FSM_vars.global_combat_fsm.is_started(), False),
+                        _safe_read("Global Combat FSM Paused", lambda: FSM_vars.global_combat_fsm.is_paused(), False),
+                        _safe_read("Combat Handler Started", lambda: FSM_vars.global_combat_handler.is_started(), False),
+                        _safe_read("In Killing Routine", lambda: FSM_vars.in_killing_routine, False),
+                        _safe_read("Last Skill Index", lambda: FSM_vars.current_skill, 0),
+                        ("Last Skill Time", f"{FSM_vars.last_skill_time:.2f}" if FSM_vars.last_skill_time else "0.00"),
+                    ]
+                    ImGui.table("DebugCombatTable", ["Variable", "Value"], combat_rows)
+                    PyImGui.end_tab_item()
+
+                if PyImGui.begin_tab_item("Movement"):
+                    movement_rows = [
+                        _safe_read("FollowXY Following", lambda: FSM_vars.movement_handler.is_following(), False),
+                        _safe_read("FollowXY Arrived", lambda: FSM_vars.movement_handler.has_arrived(), False),
+                        _safe_read("FollowXY Distance", lambda: _format_distance(FSM_vars.movement_handler.get_distance_to_waypoint()), "n/a"),
+                        _safe_read("FollowXY Timer", lambda: _fmt_timer(FSM_vars.movement_handler.wait_timer), "-"),
+                        _safe_read("Movement Handler Paused", lambda: FSM_vars.movement_handler.is_paused(), False),
+                        ("Auto-Stuck Timer", _fmt_timer(FSM_vars.auto_stuck_command_timer)),
+                        ("Non-Movement Timer", _fmt_timer(FSM_vars.non_movement_timer)),
+                        ("Waypoint Hold", hold_active),
+                        ("Forced Index", getattr(path_debugger, "_forced_index", None) if path_debugger else "-"),
+                    ]
+                    ImGui.table("DebugMovementTable", ["Variable", "Value"], movement_rows)
+                    PyImGui.end_tab_item()
+
+                PyImGui.end_tab_bar()
 
     # Pop styles
     PyImGui.pop_style_color(3)
