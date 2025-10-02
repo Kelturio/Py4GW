@@ -534,7 +534,7 @@ class InventoryCache:
                     continue
             return valid_bags
         
-        MAX_STACK_SIZE = 250
+        DEFAULT_STACK_SIZE = 250
         quantity = self.item_cache.Properties.GetQuantity(item_id)
         is_stackable = self.item_cache.Customization.IsStackable(item_id)
 
@@ -561,6 +561,66 @@ class InventoryCache:
 
         if material_bag_entry:
             storage_bags = [material_bag_entry, *storage_bags]
+
+        material_stack_limit_cache: Optional[int] = None
+
+        def determine_material_stack_limit() -> int:
+            nonlocal material_stack_limit_cache
+            if material_stack_limit_cache is not None:
+                return material_stack_limit_cache
+
+            material_stack_limit_cache = DEFAULT_STACK_SIZE
+            if not material_bag_entry or not is_stackable:
+                return material_stack_limit_cache
+
+            bag = material_bag_entry[1]
+            limit_candidates: List[int] = []
+            potential_getters = (
+                "GetMaterialStackSize",
+                "GetMaxStackSize",
+                "GetStackSize",
+                "GetMaxQuantity",
+                "GetCapacity",
+            )
+
+            for attr_name in potential_getters:
+                getter = getattr(bag, attr_name, None)
+                if not callable(getter):
+                    continue
+                try:
+                    value = getter(model_id)
+                except TypeError:
+                    try:
+                        value = getter()
+                    except Exception:
+                        continue
+                except Exception:
+                    continue
+                if isinstance(value, int) and value > 0:
+                    limit_candidates.append(value)
+
+            highest_quantity = 0
+            try:
+                for material_item in bag.GetItems():
+                    qty = self.item_cache.Properties.GetQuantity(material_item.item_id)
+                    if qty > highest_quantity:
+                        highest_quantity = qty
+            except Exception:
+                highest_quantity = 0
+
+            if highest_quantity > 0:
+                limit_candidates.append(highest_quantity)
+
+            positive_limits = [value for value in limit_candidates if isinstance(value, int) and value > 0]
+            if positive_limits:
+                material_stack_limit_cache = max(positive_limits)
+            else:
+                material_stack_limit_cache = DEFAULT_STACK_SIZE
+
+            if material_stack_limit_cache <= 0:
+                material_stack_limit_cache = DEFAULT_STACK_SIZE
+
+            return material_stack_limit_cache
         target_quantity = min(quantity, ammount) if ammount > 0 else quantity
         remaining_quantity = target_quantity
         moved_any = False
@@ -568,11 +628,15 @@ class InventoryCache:
 
         material_partial_slots: List[Tuple[int, int, int]] = []
         general_partial_slots: List[Tuple[int, int, int]] = []
-        material_empty_slots: List[Tuple[int, int]] = []
-        general_empty_slots: List[Tuple[int, int]] = []
+        material_empty_slots: List[Tuple[int, int, int]] = []
+        general_empty_slots: List[Tuple[int, int, int]] = []
 
         for bag_enum, bag in storage_bags:
             items = bag.GetItems()
+
+            bag_stack_limit = DEFAULT_STACK_SIZE
+            if is_stackable and bag_enum == Bags.MaterialStorage:
+                bag_stack_limit = determine_material_stack_limit()
 
             if is_stackable:
                 for item in items:
@@ -585,8 +649,10 @@ class InventoryCache:
                             continue
 
                     current_qty = self.item_cache.Properties.GetQuantity(item.item_id)
-                    if current_qty < MAX_STACK_SIZE:
-                        space_left = MAX_STACK_SIZE - current_qty
+                    if current_qty > bag_stack_limit:
+                        bag_stack_limit = current_qty
+                    if current_qty < bag_stack_limit:
+                        space_left = bag_stack_limit - current_qty
                         target_partial_slots = material_partial_slots if (is_material and bag_enum == Bags.MaterialStorage) else general_partial_slots
                         target_partial_slots.append((bag_enum, item.slot, space_left))
 
@@ -595,7 +661,7 @@ class InventoryCache:
                 if slot in occupied_slots:
                     continue
                 target_empty_slots = material_empty_slots if (is_material and bag_enum == Bags.MaterialStorage) else general_empty_slots
-                target_empty_slots.append((bag_enum, slot))
+                target_empty_slots.append((bag_enum, slot, bag_stack_limit))
 
         def fill_partial_slots(slots: List[Tuple[int, int, int]]):
             nonlocal remaining_quantity, moved_any
@@ -611,12 +677,12 @@ class InventoryCache:
                 remaining_quantity -= to_move
                 moved_any = True
 
-        def fill_empty_slots(slots: List[Tuple[int, int]]):
+        def fill_empty_slots(slots: List[Tuple[int, int, int]]):
             nonlocal remaining_quantity, moved_any
-            for bag_enum, slot in slots:
+            for bag_enum, slot, bag_stack_limit in slots:
                 if remaining_quantity <= 0:
                     break
-                to_move = remaining_quantity if not is_stackable else min(remaining_quantity, MAX_STACK_SIZE)
+                to_move = remaining_quantity if not is_stackable else min(remaining_quantity, bag_stack_limit)
                 if to_move <= 0:
                     continue
                 self.MoveItem(item_id, bag_enum.value, slot, to_move)
