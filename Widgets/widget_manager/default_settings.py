@@ -173,6 +173,13 @@ global_widget_defaults = {
         "icon": "ICON_MAP",
         "quickdock": "True",
     },
+    "Distance Tracker": {
+        "enabled": "True",
+        "category": "Gameplay",
+        "subcategory": "Overlays",
+        "icon": "ICON_PERSON_WALKING",
+        "quickdock": "True",
+    },
     "PCons": {
         "enabled": "False",
         "category": "Gameplay",
@@ -442,6 +449,13 @@ account_widget_defaults = {
         "category": "Gameplay",
         "subcategory": "Overlays",
         "icon": "ICON_MAP",
+        "quickdock": "True",
+    },
+    "Distance Tracker": {
+        "enabled": "True",
+        "category": "Gameplay",
+        "subcategory": "Overlays",
+        "icon": "ICON_PERSON_WALKING",
         "quickdock": "True",
     },
     "PCons": {
