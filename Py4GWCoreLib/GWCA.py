@@ -246,11 +246,16 @@ class GWCALibrary:
                 if not module_path:
                     continue
                 if Path(module_path).name.lower() == target:
-                    return int(handle.value), module_path
+                    return int(handle), module_path
         return None, None
 
-    def _get_module_path(self, handle: wintypes.HMODULE) -> Optional[str]:
+    def _get_module_path(
+        self, handle: Union[int, wintypes.HMODULE]
+    ) -> Optional[str]:
         """Resolve the filesystem path for a loaded module handle."""
+
+        if isinstance(handle, int):
+            handle = wintypes.HMODULE(handle)
 
         buffer_length = 260
         while True:
@@ -262,7 +267,7 @@ class GWCALibrary:
                 return buffer.value
             buffer_length *= 2
 
-    def _enumerate_process_modules(self) -> list[tuple[wintypes.HMODULE, Optional[str]]]:
+    def _enumerate_process_modules(self) -> list[tuple[int, Optional[str]]]:
         """Return a list of modules loaded in the current process."""
 
         if self._psapi is None:
@@ -271,7 +276,7 @@ class GWCALibrary:
         capacity = 32
         process = self._kernel32.GetCurrentProcess()
         needed = wintypes.DWORD()
-        modules: list[tuple[wintypes.HMODULE, Optional[str]]] = []
+        modules: list[tuple[int, Optional[str]]] = []
         module_size = ctypes.sizeof(wintypes.HMODULE)
 
         while True:
@@ -286,15 +291,16 @@ class GWCALibrary:
             ):
                 return []
 
-            module_count = needed.value // module_size
-            if module_count <= capacity:
+            required_bytes = needed.value
+            module_count = required_bytes // module_size
+            if required_bytes <= buffer_size:
                 for index in range(module_count):
-                    handle_value = module_array[index].value
-                    if not handle_value:
+                    raw_handle = module_array[index]
+                    handle_value = int(raw_handle)
+                    if handle_value == 0:
                         continue
-                    module_handle = wintypes.HMODULE(handle_value)
                     modules.append(
-                        (module_handle, self._get_module_path(module_handle))
+                        (handle_value, self._get_module_path(handle_value))
                     )
                 return modules
 
