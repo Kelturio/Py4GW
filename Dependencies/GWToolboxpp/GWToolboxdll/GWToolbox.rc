@@ -1,0 +1,115 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "winres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (Neutral) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_NEUTRAL
+#pragma code_page(1252)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""winres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+#endif    // English (Neutral) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United Kingdom) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENG)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+#include <windows.h>
+#include "Defines.h"
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION     GWTOOLBOX_MODULE_VERSION
+PRODUCTVERSION  GWTOOLBOX_MODULE_VERSION
+BEGIN
+BLOCK "StringFileInfo"
+BEGIN
+BLOCK "040904E4"
+BEGIN
+VALUE "CompanyName", "gwdevhub"
+VALUE "FileDescription", "Tools for Guild Wars"
+VALUE "FileVersion", GWTOOLBOX_MODULE_VERSION
+VALUE "InternalName", "GWToolboxdll"
+VALUE "LegalCopyright", "Guild Wars and all associated logos and designs are trademarks or registered trademarks of NCsoft Corporation. All other trademarks are the property of their respective owners."
+VALUE "LegalTrademarks1", ""
+VALUE "LegalTrademarks2", ""
+VALUE "OriginalFilename", "GWToolboxdll.dll"
+VALUE "ProductName", "GWToolbox++"
+VALUE "ProductVersion", GWTOOLBOXDLL_VERSION
+END
+END
+
+BLOCK "VarFileInfo"
+BEGIN
+VALUE "Translation", LANG_ENGLISH, SUBLANG_NEUTRAL
+END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// RCDATA
+//
+
+IDR_GWCA_DLL            RCDATA                  "..\\Dependencies\\GWCA\\bin\\gwca.dll"
+
+#endif    // English (United Kingdom) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

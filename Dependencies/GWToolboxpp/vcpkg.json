@@ -1,0 +1,23 @@
+{
+  "dependencies": [
+    {
+      "name": "curl",
+      "features": [
+        "wolfssl"
+      ]
+    },
+    "discord-game-sdk",
+    "earcut-hpp",
+    "minhook",
+    "nlohmann-json",
+    "simpleini",
+    "wolfssl",
+    "ctre"
+  ],
+  "overrides": [
+    {
+      "name": "discord-game-sdk",
+      "version": "2.5.6"
+    }
+  ]
+}
