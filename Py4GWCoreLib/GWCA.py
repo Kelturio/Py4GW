@@ -260,13 +260,25 @@ class GWCALibrary:
                 if module_base:
                     candidate_names.append(module_base)
 
-                normalized = {
-                    name.lower()
-                    for name in candidate_names
-                    if name
-                }
-                if normalized & targets:
-                    return int(handle), module_path
+                normalized = [name.lower() for name in candidate_names if name]
+                if not normalized:
+                    continue
+
+                for name in normalized:
+                    for target in targets:
+                        if name == target or name.endswith(target):
+                            return int(handle), module_path
+
+                if stem:
+                    stem_lower = stem.lower()
+                    for name in candidate_names:
+                        if not name:
+                            continue
+                        try:
+                            if Path(name).stem.lower() == stem_lower:
+                                return int(handle), module_path
+                        except Exception:  # pragma: no cover - defensive
+                            continue
         return None, None
 
     def _get_module_path(
