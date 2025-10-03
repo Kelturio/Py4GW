@@ -5,8 +5,50 @@ from Py4GWCoreLib import ConsoleLog
 from Py4GWCoreLib.UIManager import UIManager
 from Py4GWCoreLib import Bags
 from Py4GWCoreLib import ModelID
-from Py4GWCoreLib import Item 
+from Py4GWCoreLib import Item
 from .ItemCache import RawItemCache, Bag_enum, ItemCache
+
+MATERIAL_STORAGE_SLOT_BY_MODEL_ID = {
+    # Material storage uses fixed slots per material; the indices below follow the
+    # in-game layout so we can target the correct pane position even when the stack
+    # is currently empty.
+    ModelID.Bone.value: 0,
+    ModelID.Iron_Ingot.value: 1,
+    ModelID.Tanned_Hide_Square.value: 2,
+    ModelID.Scale.value: 3,
+    ModelID.Chitin_Fragment.value: 4,
+    ModelID.Bolt_Of_Cloth.value: 5,
+    ModelID.Wood_Plank.value: 6,
+    ModelID.Granite_Slab.value: 8,
+    ModelID.Pile_Of_Glittering_Dust.value: 9,
+    ModelID.Plant_Fiber.value: 10,
+    ModelID.Feather.value: 11,
+    ModelID.Fur_Square.value: 12,
+    ModelID.Bolt_Of_Linen.value: 13,
+    ModelID.Bolt_Of_Damask.value: 14,
+    ModelID.Bolt_Of_Silk.value: 15,
+    ModelID.Glob_Of_Ectoplasm.value: 16,
+    ModelID.Steel_Ingot.value: 17,
+    ModelID.Deldrimor_Steel_Ingot.value: 18,
+    ModelID.Monstrous_Claw.value: 19,
+    ModelID.Monstrous_Eye.value: 20,
+    ModelID.Monstrous_Fang.value: 21,
+    ModelID.Diamond.value: 22,
+    ModelID.Sapphire.value: 23,
+    ModelID.Ruby.value: 24,
+    ModelID.Onyx_Gemstone.value: 25,
+    ModelID.Lump_Of_Charcoal.value: 26,
+    ModelID.Obsidian_Shard.value: 27,
+    ModelID.Tempered_Glass_Vial.value: 28,
+    ModelID.Leather_Square.value: 30,
+    ModelID.Elonian_Leather_Square.value: 31,
+    ModelID.Vial_Of_Ink.value: 32,
+    ModelID.Roll_Of_Parchment.value: 33,
+    ModelID.Roll_Of_Vellum.value: 34,
+    ModelID.Spiritwood_Plank.value: 35,
+    ModelID.Amber_Chunk.value: 36,
+    ModelID.Jadeite_Shard.value: 37,
+}
 
 class InventoryCache:
     def __init__(self, action_queue_manager, raw_item_cache, item_cache):
@@ -630,6 +672,7 @@ class InventoryCache:
         general_partial_slots: List[Tuple[int, int, int]] = []
         material_empty_slots: List[Tuple[int, int, int]] = []
         general_empty_slots: List[Tuple[int, int, int]] = []
+        material_target_slot: Optional[int] = None
 
         for bag_enum, bag in storage_bags:
             items = bag.GetItems()
@@ -649,6 +692,8 @@ class InventoryCache:
                             continue
 
                     current_qty = self.item_cache.Properties.GetQuantity(item.item_id)
+                    if bag_enum == Bags.MaterialStorage and is_material:
+                        material_target_slot = item.slot
                     if current_qty > bag_stack_limit:
                         bag_stack_limit = current_qty
                     if current_qty < bag_stack_limit:
@@ -657,11 +702,16 @@ class InventoryCache:
                         target_partial_slots.append((bag_enum, item.slot, space_left))
 
             occupied_slots = {item.slot for item in items}
-            for slot in range(bag.GetSize()):
-                if slot in occupied_slots:
-                    continue
-                target_empty_slots = material_empty_slots if (is_material and bag_enum == Bags.MaterialStorage) else general_empty_slots
-                target_empty_slots.append((bag_enum, slot, bag_stack_limit))
+            if is_material and bag_enum == Bags.MaterialStorage:
+                if material_target_slot is None:
+                    material_target_slot = MATERIAL_STORAGE_SLOT_BY_MODEL_ID.get(model_id)
+                if material_target_slot is not None and material_target_slot not in occupied_slots:
+                    material_empty_slots.append((bag_enum, material_target_slot, bag_stack_limit))
+            else:
+                for slot in range(bag.GetSize()):
+                    if slot in occupied_slots:
+                        continue
+                    general_empty_slots.append((bag_enum, slot, bag_stack_limit))
 
         def fill_partial_slots(slots: List[Tuple[int, int, int]]):
             nonlocal remaining_quantity, moved_any
