@@ -1,11 +1,54 @@
 import PyInventory
+from typing import List, Tuple, Optional
 from Py4GWCoreLib.Py4GWcorelib import ActionQueueManager
 from Py4GWCoreLib import ConsoleLog
 from Py4GWCoreLib.UIManager import UIManager
 from Py4GWCoreLib import Bags
 from Py4GWCoreLib import ModelID
-from Py4GWCoreLib import Item 
+from Py4GWCoreLib import Item
 from .ItemCache import RawItemCache, Bag_enum, ItemCache
+
+MATERIAL_STORAGE_SLOT_BY_MODEL_ID = {
+    # Material storage uses fixed slots per material; the indices below follow the
+    # in-game layout so we can target the correct pane position even when the stack
+    # is currently empty.
+    ModelID.Bone.value: 0,
+    ModelID.Iron_Ingot.value: 1,
+    ModelID.Tanned_Hide_Square.value: 2,
+    ModelID.Scale.value: 3,
+    ModelID.Chitin_Fragment.value: 4,
+    ModelID.Bolt_Of_Cloth.value: 5,
+    ModelID.Wood_Plank.value: 6,
+    ModelID.Granite_Slab.value: 8,
+    ModelID.Pile_Of_Glittering_Dust.value: 9,
+    ModelID.Plant_Fiber.value: 10,
+    ModelID.Feather.value: 11,
+    ModelID.Fur_Square.value: 12,
+    ModelID.Bolt_Of_Linen.value: 13,
+    ModelID.Bolt_Of_Damask.value: 14,
+    ModelID.Bolt_Of_Silk.value: 15,
+    ModelID.Glob_Of_Ectoplasm.value: 16,
+    ModelID.Steel_Ingot.value: 17,
+    ModelID.Deldrimor_Steel_Ingot.value: 18,
+    ModelID.Monstrous_Claw.value: 19,
+    ModelID.Monstrous_Eye.value: 20,
+    ModelID.Monstrous_Fang.value: 21,
+    ModelID.Diamond.value: 22,
+    ModelID.Sapphire.value: 23,
+    ModelID.Ruby.value: 24,
+    ModelID.Onyx_Gemstone.value: 25,
+    ModelID.Lump_Of_Charcoal.value: 26,
+    ModelID.Obsidian_Shard.value: 27,
+    ModelID.Tempered_Glass_Vial.value: 28,
+    ModelID.Leather_Square.value: 30,
+    ModelID.Elonian_Leather_Square.value: 31,
+    ModelID.Vial_Of_Ink.value: 32,
+    ModelID.Roll_Of_Parchment.value: 33,
+    ModelID.Roll_Of_Vellum.value: 34,
+    ModelID.Spiritwood_Plank.value: 35,
+    ModelID.Amber_Chunk.value: 36,
+    ModelID.Jadeite_Shard.value: 37,
+}
 
 class InventoryCache:
     def __init__(self, action_queue_manager, raw_item_cache, item_cache):
@@ -533,7 +576,7 @@ class InventoryCache:
                     continue
             return valid_bags
         
-        MAX_STACK_SIZE = 250
+        DEFAULT_STACK_SIZE = 250
         quantity = self.item_cache.Properties.GetQuantity(item_id)
         is_stackable = self.item_cache.Customization.IsStackable(item_id)
 
@@ -548,46 +591,160 @@ class InventoryCache:
             dye1_to_match = dye_info.dye1.ToInt()
 
         storage_bags = GetStorageBags()
-        remaining_quantity = quantity
+        material_bag_entry: Optional[Tuple[int, PyInventory.Bag]] = None
+        is_material = self.item_cache.Type.IsMaterial(item_id) or self.item_cache.Type.IsRareMaterial(item_id)
+        if is_material:
+            try:
+                material_bag = PyInventory.Bag(Bags.MaterialStorage.value, Bags.MaterialStorage.name)
+                if material_bag.GetSize() > 0:
+                    material_bag_entry = (Bags.MaterialStorage, material_bag)
+            except Exception:
+                material_bag_entry = None
+
+        if material_bag_entry:
+            storage_bags = [material_bag_entry, *storage_bags]
+
+        material_stack_limit_cache: Optional[int] = None
+
+        def determine_material_stack_limit() -> int:
+            nonlocal material_stack_limit_cache
+            if material_stack_limit_cache is not None:
+                return material_stack_limit_cache
+
+            material_stack_limit_cache = DEFAULT_STACK_SIZE
+            if not material_bag_entry or not is_stackable:
+                return material_stack_limit_cache
+
+            bag = material_bag_entry[1]
+            limit_candidates: List[int] = []
+            potential_getters = (
+                "GetMaterialStackSize",
+                "GetMaxStackSize",
+                "GetStackSize",
+                "GetMaxQuantity",
+                "GetCapacity",
+            )
+
+            for attr_name in potential_getters:
+                getter = getattr(bag, attr_name, None)
+                if not callable(getter):
+                    continue
+                try:
+                    value = getter(model_id)
+                except TypeError:
+                    try:
+                        value = getter()
+                    except Exception:
+                        continue
+                except Exception:
+                    continue
+                if isinstance(value, int) and value > 0:
+                    limit_candidates.append(value)
+
+            highest_quantity = 0
+            try:
+                for material_item in bag.GetItems():
+                    qty = self.item_cache.Properties.GetQuantity(material_item.item_id)
+                    if qty > highest_quantity:
+                        highest_quantity = qty
+            except Exception:
+                highest_quantity = 0
+
+            if highest_quantity > 0:
+                limit_candidates.append(highest_quantity)
+
+            positive_limits = [value for value in limit_candidates if isinstance(value, int) and value > 0]
+            if positive_limits:
+                material_stack_limit_cache = max(positive_limits)
+            else:
+                material_stack_limit_cache = DEFAULT_STACK_SIZE
+
+            if material_stack_limit_cache <= 0:
+                material_stack_limit_cache = DEFAULT_STACK_SIZE
+
+            return material_stack_limit_cache
+        target_quantity = min(quantity, ammount) if ammount > 0 else quantity
+        remaining_quantity = target_quantity
         moved_any = False
         model_id = self.item_cache.GetModelID(item_id)
+
+        material_partial_slots: List[Tuple[int, int, int]] = []
+        general_partial_slots: List[Tuple[int, int, int]] = []
+        material_empty_slots: List[Tuple[int, int, int]] = []
+        general_empty_slots: List[Tuple[int, int, int]] = []
+        material_target_slot: Optional[int] = None
 
         for bag_enum, bag in storage_bags:
             items = bag.GetItems()
 
-            # === Fill partial stacks ===
+            bag_stack_limit = DEFAULT_STACK_SIZE
+            if is_stackable and bag_enum == Bags.MaterialStorage:
+                bag_stack_limit = determine_material_stack_limit()
+
             if is_stackable:
                 for item in items:
-                    if item.model_id == model_id:
-                        
-                        if is_dye:
-                            item_dye_info = self.item_cache.Customization.GetDyeInfo(item.item_id)
-                            if item_dye_info.dye1.ToInt() != dye1_to_match:
-                                continue
-                    
-                        current_qty = self.item_cache.Properties.GetQuantity(item.item_id)
-                        if current_qty < MAX_STACK_SIZE:
-                            space_left = MAX_STACK_SIZE - current_qty
-                            to_move = min(space_left, remaining_quantity)
-                            to_move = min(to_move, ammount) if ammount > 0 else to_move
-                            if to_move > 0:
-                                self.MoveItem(item_id, bag_enum.value, item.slot, to_move)
-                                remaining_quantity -= to_move
-                                moved_any = True
-                                if remaining_quantity == 0:
-                                    return True
+                    if item.model_id != model_id:
+                        continue
 
-            # === Fill empty slots ===
+                    if is_dye:
+                        item_dye_info = self.item_cache.Customization.GetDyeInfo(item.item_id)
+                        if item_dye_info.dye1.ToInt() != dye1_to_match:
+                            continue
+
+                    current_qty = self.item_cache.Properties.GetQuantity(item.item_id)
+                    if bag_enum == Bags.MaterialStorage and is_material:
+                        material_target_slot = item.slot
+                    if current_qty > bag_stack_limit:
+                        bag_stack_limit = current_qty
+                    if current_qty < bag_stack_limit:
+                        space_left = bag_stack_limit - current_qty
+                        target_partial_slots = material_partial_slots if (is_material and bag_enum == Bags.MaterialStorage) else general_partial_slots
+                        target_partial_slots.append((bag_enum, item.slot, space_left))
+
             occupied_slots = {item.slot for item in items}
-            for slot in range(bag.GetSize()):
-                if slot in occupied_slots:
+            if is_material and bag_enum == Bags.MaterialStorage:
+                if material_target_slot is None:
+                    material_target_slot = MATERIAL_STORAGE_SLOT_BY_MODEL_ID.get(model_id)
+                if material_target_slot is not None and material_target_slot not in occupied_slots:
+                    material_empty_slots.append((bag_enum, material_target_slot, bag_stack_limit))
+            else:
+                for slot in range(bag.GetSize()):
+                    if slot in occupied_slots:
+                        continue
+                    general_empty_slots.append((bag_enum, slot, bag_stack_limit))
+
+        def fill_partial_slots(slots: List[Tuple[int, int, int]]):
+            nonlocal remaining_quantity, moved_any
+            if not is_stackable:
+                return
+            for bag_enum, slot, space_left in slots:
+                if remaining_quantity <= 0:
+                    break
+                to_move = min(space_left, remaining_quantity)
+                if to_move <= 0:
                     continue
-                to_move = remaining_quantity if not is_stackable else min(remaining_quantity, MAX_STACK_SIZE)
                 self.MoveItem(item_id, bag_enum.value, slot, to_move)
                 remaining_quantity -= to_move
                 moved_any = True
-                if remaining_quantity == 0:
-                    return True
+
+        def fill_empty_slots(slots: List[Tuple[int, int, int]]):
+            nonlocal remaining_quantity, moved_any
+            for bag_enum, slot, bag_stack_limit in slots:
+                if remaining_quantity <= 0:
+                    break
+                to_move = remaining_quantity if not is_stackable else min(remaining_quantity, bag_stack_limit)
+                if to_move <= 0:
+                    continue
+                self.MoveItem(item_id, bag_enum.value, slot, to_move)
+                remaining_quantity -= to_move
+                moved_any = True
+
+        if is_material:
+            fill_partial_slots(material_partial_slots)
+            fill_empty_slots(material_empty_slots)
+
+        fill_partial_slots(general_partial_slots)
+        fill_empty_slots(general_empty_slots)
 
         return moved_any
     
