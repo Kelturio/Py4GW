@@ -2,6 +2,7 @@ from Py4GWCoreLib import *
 from ctypes import Structure, c_uint, c_float, c_bool, c_wchar
 from multiprocessing import shared_memory
 from ctypes import sizeof
+from datetime import datetime
 
 MODULE_NAME = "Py4GWSharedMemoryManager Monitor"
   
