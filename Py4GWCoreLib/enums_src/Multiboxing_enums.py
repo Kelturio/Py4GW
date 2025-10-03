@@ -22,8 +22,11 @@ class SharedCommandType(IntEnum):
     EnableHeroAI = 17
     LeaveParty = 18
     PressKey = 19
-    LootEx = 20  # privately Handled Command, by Frenkey
-    DonateToGuild = 21
+    DonateToGuild = 20
+    SendDialogToTarget = 21
+    BruteForceUnstuck = 22
+    LootEx = 999 # privately Handled Command, by Frenkey
+    
 
 
 class CombatPrepSkillsType(IntEnum):

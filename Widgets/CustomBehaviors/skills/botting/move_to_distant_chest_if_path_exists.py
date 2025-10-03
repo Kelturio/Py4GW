@@ -3,7 +3,9 @@ from typing import Any, Callable, Generator, override
 from Py4GWCoreLib import GLOBAL_CACHE, Routines, Range, Utils
 from Py4GWCoreLib.Pathing import AutoPathing
 from Py4GWCoreLib.Py4GWcorelib import ThrottledTimer
-from Widgets.CustomBehaviors.primitives.bus.event_bus import EVENT_BUS
+from Widgets.CustomBehaviors.primitives import constants
+
+from Widgets.CustomBehaviors.primitives.bus.event_bus import EventBus
 from Widgets.CustomBehaviors.primitives.bus.event_message import EventMessage
 from Widgets.CustomBehaviors.primitives.bus.event_type import EventType
 from Widgets.CustomBehaviors.primitives.helpers import custom_behavior_helpers
@@ -22,14 +24,16 @@ from Widgets.CustomBehaviors.primitives.skills.utility_skill_typology import Uti
 
 class MoveToDistantChestIfPathExistsUtility(CustomSkillUtilityBase):
     def __init__(
-            self, 
-            current_build: list[CustomSkill], 
+            self,
+            event_bus: EventBus,
+            current_build: list[CustomSkill],
             allowed_states: list[BehaviorState] = [BehaviorState.FAR_FROM_AGGRO]
         ) -> None:
-        
+
         super().__init__(
-            skill=CustomSkill("move_to_distant_chest_if_path_exists"), 
-            in_game_build=current_build, 
+            event_bus=event_bus,
+            skill=CustomSkill("move_to_distant_chest_if_path_exists"),
+            in_game_build=current_build,
             score_definition=ScoreStaticDefinition(CommonScore.LOOT.value - 0.0002), # this cannont pass before my own loot
             allowed_states=allowed_states,
             utility_skill_typology=UtilitySkillTypology.BOTTING,
@@ -38,16 +42,18 @@ class MoveToDistantChestIfPathExistsUtility(CustomSkillUtilityBase):
         self.score_definition: ScoreStaticDefinition =ScoreStaticDefinition(CommonScore.LOOT.value - 0.0002)
         self.throttle_timer = ThrottledTimer(5_000)
         self.opened_chest_agent_ids: set[int] = set()
-        EVENT_BUS.subscribe(EventType.MAP_CHANGED, self.area_changed)
-        EVENT_BUS.subscribe(EventType.CHEST_OPENED, self.chest_opened)
+        self.event_bus.subscribe(EventType.MAP_CHANGED, self.area_changed, subscriber_name=self.custom_skill.skill_name)
+        self.event_bus.subscribe(EventType.CHEST_OPENED, self.chest_opened, subscriber_name=self.custom_skill.skill_name)
 
-    def chest_opened(self, message: EventMessage):
+    def chest_opened(self, message: EventMessage)-> Generator[Any, Any, Any]:
         self.opened_chest_agent_ids.add(message.data)
         self.throttle_timer.Reset()
+        yield
 
-    def area_changed(self, message: EventMessage):
+    def area_changed(self, message: EventMessage)-> Generator[Any, Any, Any]:
         self.opened_chest_agent_ids = set()
         self.throttle_timer.Reset()
+        yield
         
     @override
     def are_common_pre_checks_valid(self, current_state: BehaviorState) -> bool:
@@ -112,7 +118,7 @@ class MoveToDistantChestIfPathExistsUtility(CustomSkillUtilityBase):
             tolerance=100, 
             log=True, 
             timeout=5_000, 
-            progress_callback=lambda progress: print(f"xx: progress: {progress}"))
+            progress_callback=lambda progress: print(f"MoveToCloseChestIfPathExistsUtility: progress: {progress}") if constants.DEBUG else None)
 
         if result == False:
             self.throttle_timer.Reset()

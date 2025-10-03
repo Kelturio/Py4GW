@@ -5,6 +5,7 @@ import PyImGui
 from Py4GWCoreLib.GlobalCache import GLOBAL_CACHE
 from Py4GWCoreLib.enums import Profession, Range
 from Widgets.CustomBehaviors.primitives.behavior_state import BehaviorState
+from Widgets.CustomBehaviors.primitives.bus.event_bus import EventBus
 from Widgets.CustomBehaviors.primitives.helpers import custom_behavior_helpers
 from Widgets.CustomBehaviors.primitives.helpers.behavior_result import BehaviorResult
 from Widgets.CustomBehaviors.primitives.helpers.targeting_order import TargetingOrder
@@ -15,16 +16,18 @@ from Widgets.CustomBehaviors.primitives.skills.custom_skill_utility_base import 
 
 class HeroicRefrainUtility(CustomSkillUtilityBase):
     def __init__(
-        self, 
-        current_build: list[CustomSkill], 
+        self,
+        event_bus: EventBus,
+        current_build: list[CustomSkill],
         score_definition: ScoreStaticDefinition = ScoreStaticDefinition(50)
         ) -> None:
 
         super().__init__(
-            skill=CustomSkill("Heroic_Refrain"), 
-            in_game_build=current_build, 
-            score_definition=score_definition, 
-            mana_required_to_cast=0, 
+            event_bus=event_bus,
+            skill=CustomSkill("Heroic_Refrain"),
+            in_game_build=current_build,
+            score_definition=score_definition,
+            mana_required_to_cast=0,
             allowed_states=[BehaviorState.IN_AGGRO, BehaviorState.CLOSE_TO_AGGRO, BehaviorState.FAR_FROM_AGGRO])
         
         self.score_definition: ScoreStaticDefinition = score_definition
@@ -43,11 +46,9 @@ class HeroicRefrainUtility(CustomSkillUtilityBase):
 
         # PHASE 2 - CAST ON PARTY
 
-        from HeroAI.utils import CheckForEffect
-
         targets: list[custom_behavior_helpers.SortableAgentData] = custom_behavior_helpers.Targets.get_all_possible_allies_ordered_by_priority_raw(
                 within_range=Range.Spellcast,
-                condition=lambda agent_id: not CheckForEffect(agent_id, self.custom_skill.skill_id),
+                condition=lambda agent_id: not custom_behavior_helpers.Resources.is_ally_under_specific_effect(agent_id, self.custom_skill.skill_id),
                 sort_key=(TargetingOrder.DISTANCE_ASC, TargetingOrder.CASTER_THEN_MELEE),
                 range_to_count_enemies=None,
                 range_to_count_allies=None)

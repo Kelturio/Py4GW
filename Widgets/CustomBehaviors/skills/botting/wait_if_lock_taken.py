@@ -2,6 +2,7 @@ from typing import Any, Generator, override
 
 from Py4GWCoreLib import GLOBAL_CACHE, Routines, Range
 from Py4GWCoreLib.Py4GWcorelib import ThrottledTimer
+from Widgets.CustomBehaviors.primitives.bus.event_bus import EventBus
 from Widgets.CustomBehaviors.primitives.helpers import custom_behavior_helpers
 from Widgets.CustomBehaviors.primitives.helpers.behavior_result import BehaviorResult
 from Widgets.CustomBehaviors.primitives.behavior_state import BehaviorState
@@ -17,21 +18,23 @@ from Widgets.CustomBehaviors.primitives.skills.utility_skill_typology import Uti
 
 class WaitIfLockTakenUtility(CustomSkillUtilityBase):
     def __init__(
-            self, 
-            current_build: list[CustomSkill], 
+            self,
+            event_bus: EventBus,
+            current_build: list[CustomSkill],
             mana_limit: float = 0.5,
         ) -> None:
-        
+
         super().__init__(
-            skill=CustomSkill("wait_if_lock_taken"), 
-            in_game_build=current_build, 
-            score_definition=ScoreStaticDefinition(0.00001), 
+            event_bus=event_bus,
+            skill=CustomSkill("wait_if_lock_taken"),
+            in_game_build=current_build,
+            score_definition=ScoreStaticDefinition(0.00001),
             allowed_states= [BehaviorState.IDLE, BehaviorState.CLOSE_TO_AGGRO, BehaviorState.FAR_FROM_AGGRO], # no need during aggro
             utility_skill_typology=UtilitySkillTypology.BOTTING)
 
-        self.score_definition: ScoreStaticDefinition = ScoreStaticDefinition(CommonScore.BOTTING.value)
+        self.score_definition: ScoreStaticDefinition = ScoreStaticDefinition(0.00001)
         self.mana_limit = mana_limit
-        self.no_lock_timer = ThrottledTimer(1_500)
+        self.no_lock_timer = ThrottledTimer(3_500)
         
     @override
     def are_common_pre_checks_valid(self, current_state: BehaviorState) -> bool:
@@ -41,17 +44,18 @@ class WaitIfLockTakenUtility(CustomSkillUtilityBase):
 
     @override
     def _evaluate(self, current_state: BehaviorState, previously_attempted_skills: list[CustomSkill]) -> float | None:
-        # nothing fancy but we don't want to continue anything until any party lock is open.
-        # once no more lock detected, wait for 1,5s more to ensure no one is taking a new lock.
+        # Stop executing if no locks are active for 1.5 seconds
+        # This prevents bots from continuing actions when no coordination is needed
 
+        # If locks are active, continue executing (return score)
+        if CustomBehaviorParty().get_shared_lock_manager().is_any_lock_taken():
+            self.no_lock_timer.Reset()  # Reset timer when locks are active
+            return self.score_definition.get_score()
+
+        # If no locks are active, start timer
         if self.no_lock_timer.IsExpired():
-            return self.score_definition.get_score()
-
-        if not CustomBehaviorParty().get_shared_lock_manager().is_any_lock_taken() == True:
-            return self.score_definition.get_score()
-
-        # start timer for 1500
-        self.no_lock_timer.Reset()
+            # Timer expired with no locks - stop executing
+            return None
 
         return None
 

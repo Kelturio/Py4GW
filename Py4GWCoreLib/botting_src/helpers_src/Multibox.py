@@ -185,7 +185,7 @@ class _Multibox:
                 player_data.MapRegion == account.MapRegion and
                 player_data.MapDistrict == account.MapDistrict and
                 player_data.PartyID != account.PartyID):
-
+                GLOBAL_CACHE.Party.Players.InvitePlayer(account.CharacterName)
                 GLOBAL_CACHE.ShMem.SendMessage(player_data.AccountEmail, account.AccountEmail, SharedCommandType.InviteToParty, (0,0,0,0))
                 yield from Routines.Yield.wait(500)
         yield
@@ -203,7 +203,7 @@ class _Multibox:
             player_data.MapRegion == account.MapRegion and
             player_data.MapDistrict == account.MapDistrict and
             player_data.PartyID != account.PartyID):
-
+            GLOBAL_CACHE.Party.Players.InvitePlayer(account.CharacterName)
             GLOBAL_CACHE.ShMem.SendMessage(player_data.AccountEmail, account.AccountEmail, SharedCommandType.InviteToParty, (0,0,0,0))
             yield from Routines.Yield.wait(500)
         yield
@@ -211,31 +211,37 @@ class _Multibox:
     def _kick_account_by_email(self, email: str):
         from ...GlobalCache import GLOBAL_CACHE
         from ...Routines import Routines
-
+        player_data = self._get_player_data()
         account = self._get_account_data_from_email(email)
-        if not account:
+        
+        if not player_data or not account:
             return
         
-        GLOBAL_CACHE.Party.Players.KickPlayer(account.CharacterName)
-        yield from Routines.Yield.wait(500)
-
+        if player_data.PartyID == account.PartyID and player_data.AccountEmail != account.AccountEmail:
+            GLOBAL_CACHE.Party.Players.KickPlayer(account.CharacterName)
+            yield from Routines.Yield.wait(500)
+        yield
         
     def _kick_all_accounts(self):
         from ...GlobalCache import GLOBAL_CACHE
         from ...Routines import Routines
-        accounts = self._get_all_account_data()
-        for account in accounts:
-            if account.IsAccount:
+        player_data = self._get_player_data()
+        all_accounts = self._get_all_account_data()
+        
+        if not player_data:
+            return
+        
+        for account in all_accounts:
+            if player_data.PartyID == account.PartyID and player_data.AccountEmail != account.AccountEmail:
                 GLOBAL_CACHE.Party.Players.KickPlayer(account.CharacterName)
                 yield from Routines.Yield.wait(500)
-        yield
-    
+        
     def _resignParty(self):
         from ...GlobalCache import GLOBAL_CACHE
         accounts = GLOBAL_CACHE.ShMem.GetAllAccountData()
         sender_email = GLOBAL_CACHE.Player.GetAccountEmail()
         for account in accounts:
-            ConsoleLog("Messaging", "Resigning account: " + account.AccountEmail)
+            ConsoleLog("Messaging", "Resigning account: " + account.AccountEmail, log=False)
             GLOBAL_CACHE.ShMem.SendMessage(sender_email, account.AccountEmail, SharedCommandType.Resign, (0,0,0,0))
         yield
         
@@ -244,14 +250,66 @@ class _Multibox:
         sender_email = GLOBAL_CACHE.Player.GetAccountEmail()
         x,y = GLOBAL_CACHE.Player.GetXY()
         
+        players = GLOBAL_CACHE.Party.GetPlayers()
+        current_map = GLOBAL_CACHE.Map.GetMapID()
+        player_names = []
+        
+        for player in players:
+            agent_name = GLOBAL_CACHE.Party.Players.GetPlayerNameByLoginNumber(player.login_number)
+            if agent_name != "":
+                player_names.append(agent_name)
+
+
         accounts = GLOBAL_CACHE.ShMem.GetAllAccountData()
         sender_email = sender_email
         for account in accounts:
             if sender_email == account.AccountEmail:
                 continue
-            ConsoleLog("Messaging", "Pixelstacking account: " + account.AccountEmail)
+            
+            if not current_map == account.MapID:
+                continue
+            
+            account_name = account.CharacterName
+            if account_name not in player_names:
+                continue 
+            
+            ConsoleLog("Messaging", "Pixelstacking account: " + account.AccountEmail, log= False)
             GLOBAL_CACHE.ShMem.SendMessage(sender_email, account.AccountEmail, SharedCommandType.PixelStack, (x,y,0,0))
         yield
+        
+    def _brute_force_unstuck(self):
+        from ...GlobalCache import GLOBAL_CACHE
+
+        sender_email = GLOBAL_CACHE.Player.GetAccountEmail()
+        x, y = GLOBAL_CACHE.Player.GetXY()
+
+        players = GLOBAL_CACHE.Party.GetPlayers()
+        current_map = GLOBAL_CACHE.Map.GetMapID()
+        player_names = []
+
+        for player in players:
+            agent_name = GLOBAL_CACHE.Party.Players.GetPlayerNameByLoginNumber(player.login_number)
+            if agent_name != "":
+                player_names.append(agent_name)
+
+        accounts = GLOBAL_CACHE.ShMem.GetAllAccountData()
+        for account in accounts:
+            if sender_email == account.AccountEmail:
+                continue
+
+            if not current_map == account.MapID:
+                continue
+
+            account_name = account.CharacterName
+            if account_name not in player_names:
+                continue
+
+            ConsoleLog("Messaging", "BruteForcing account: " + account.AccountEmail, log=False)
+            # send same-shaped payload as pixel stack (x, y, 0, 0) — adjust if your handler expects different
+            GLOBAL_CACHE.ShMem.SendMessage(sender_email, account.AccountEmail, SharedCommandType.BruteForceUnstuck, (x, y, 0, 0))
+
+        yield
+
         
     def _interact_with_target(self):
         from ...GlobalCache import GLOBAL_CACHE
@@ -265,7 +323,7 @@ class _Multibox:
         for account in accounts:
             if sender_email == account.AccountEmail:
                 continue
-            ConsoleLog("Messaging", f"Ordering {account.AccountEmail} to interact with target: {target}")
+            ConsoleLog("Messaging", f"Ordering {account.AccountEmail} to interact with target: {target}", log=False)
             GLOBAL_CACHE.ShMem.SendMessage(sender_email, account.AccountEmail, SharedCommandType.InteractWithTarget, (target,0,0,0))
         yield
         
@@ -291,25 +349,59 @@ class _Multibox:
         for account in accounts:
             if self_account.AccountEmail == account.AccountEmail:
                 continue
-            ConsoleLog("Messaging", f"Ordering {account.AccountEmail} to interact with target: {target}")
+            ConsoleLog("Messaging", f"Ordering {account.AccountEmail} to interact with target: {target}", log=False)
             GLOBAL_CACHE.ShMem.SendMessage(sender_email, account.AccountEmail, SharedCommandType.TakeDialogWithTarget, (target,1,0,0))
         yield
         
     def _use_consumable_message(self, params):
         from ...GlobalCache import GLOBAL_CACHE
+        from ...Routines import Routines
         account_email = sender_email = GLOBAL_CACHE.Player.GetAccountEmail()
 
         accounts = GLOBAL_CACHE.ShMem.GetAllAccountData()
         sender_email = account_email
         for account in accounts:
-            ConsoleLog("Messaging", f"Sending Consumable Message to  {account.AccountEmail}")
+            ConsoleLog("Messaging", f"Sending Consumable Message to  {account.AccountEmail}", log= False)
             
             GLOBAL_CACHE.ShMem.SendMessage(sender_email, account.AccountEmail, SharedCommandType.PCon, params)
-        yield   
+        yield from Routines.Yield.wait(500)
+        
+    def _donate_faction(self):
+        from ...GlobalCache import GLOBAL_CACHE
+        accounts = GLOBAL_CACHE.ShMem.GetAllAccountData()
+        sender_email = GLOBAL_CACHE.Player.GetAccountEmail()
+        for account in accounts:
+            ConsoleLog("Messaging", "Donating to guild from account: " + account.AccountEmail, log= False)
+            GLOBAL_CACHE.ShMem.SendMessage(sender_email, account.AccountEmail, SharedCommandType.DonateToGuild, (0,0,0,0))
+        yield
+        
+    def _send_dialog_with_target(self, dialog_id: int, wait_time: int=3000):
+        from ...GlobalCache import GLOBAL_CACHE
+        from ...Routines import Routines
+        target = GLOBAL_CACHE.Player.GetTargetID()
+        if target == 0:
+            ConsoleLog("Messaging", "No target to interact with.")
+            return
+        sender_email = GLOBAL_CACHE.Player.GetAccountEmail()
+        accounts = GLOBAL_CACHE.ShMem.GetAllAccountData()
+
+        for account in accounts:
+            ConsoleLog("Messaging", f"Ordering {account.AccountEmail} to send dialog {dialog_id} to target: {target}", log=False)
+            GLOBAL_CACHE.ShMem.SendMessage(sender_email, account.AccountEmail, SharedCommandType.SendDialogToTarget, (target, dialog_id,0,0))
+        yield from Routines.Yield.wait(wait_time)
+        
     @_yield_step(label="ResignParty", counter_key="RESIGN_PARTY")
     def resign_party(self):
         yield from self._resignParty()
-    
+        
+    @_yield_step(label="DonateFaction", counter_key="DONATE_FACTION")
+    def donate_faction(self):
+        yield from self._donate_faction()
+
+    @_yield_step(label="SendDialogToTarget", counter_key="SEND_DIALOG_TO_TARGET")
+    def send_dialog_to_target(self, dialog_id: int):
+        yield from self._send_dialog_with_target(dialog_id)
+
     @_yield_step(label="PixelStack", counter_key="PIXEL_STACK")
     def pixel_stack(self):
         yield from self._pixel_stack()
@@ -325,3 +417,39 @@ class _Multibox:
     @_yield_step(label="UseConsumable", counter_key="USE_CONSUMABLE")
     def use_consumable(self, params):
         yield from self._use_consumable_message(params)
+        
+    @_yield_step(label="SummonAllAccounts", counter_key="SUMMON_ALL_ACCOUNTS")
+    def summon_all_accounts(self):
+        yield from self._summon_all_accounts()
+        
+    @_yield_step(label="SummonAccountByEmail", counter_key="SUMMON_ACCOUNT_BY_EMAIL")
+    def summon_account_by_email(self, email: str):
+        yield from self._summon_account_by_email(email)
+        
+    @_yield_step(label="InviteAllAccounts", counter_key="INVITE_ALL_ACCOUNTS")
+    def invite_all_accounts(self):
+        yield from self._invite_all_accounts()
+        
+    @_yield_step(label="InviteAccountByEmail", counter_key="INVITE_ACCOUNT_BY_EMAIL")
+    def invite_account_by_email(self, email: str):
+        yield from self._invite_account_by_email(email)
+        
+    @_yield_step(label="KickAllAccounts", counter_key="KICK_ALL_ACCOUNTS")
+    def kick_all_accounts(self):
+        yield from self._kick_all_accounts()
+        
+    @_yield_step(label="KickAccountByEmail", counter_key="KICK_ACCOUNT_BY_EMAIL")
+    def kick_account_by_email(self, email: str):
+        yield from self._kick_account_by_email(email)
+        
+    def get_all_account_data(self) -> List[_AccountData]:
+        return self._get_all_account_data()
+
+    def get_all_account_emails(self) -> List[str]:
+        return self._get_all_account_emails()
+    
+    def get_account_data_from_email(self, email: str) -> Optional[_AccountData]:
+        return self._get_account_data_from_email(email)
+    
+    def get_player_data(self) -> Optional[_AccountData]:
+        return self._get_player_data()

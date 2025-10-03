@@ -9,6 +9,7 @@ AlcoholProc.ini
 alcohol_procs.json
 Widgets/Config/Travel.ini
 Widgets/Config/*
+Bots/marks_coding_corner/Py4GW.ini
 
 !Widgets/Config/textures/
 !Widgets/Config/textures/**
@@ -180,7 +181,9 @@ cython_debug/
 
 /Multiboxer
 .isort.cfg
-Styles/Minimalus.json
-Styles/ImGui.json
-Styles/Guild_Wars.json
-Widgets/Mission Map +.py
+
+# Ignore all json files in Styles
+/Styles/*.json
+
+# # But keep the .default.json ones
+!/Styles/*.default.json

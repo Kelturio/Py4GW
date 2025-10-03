@@ -63,31 +63,86 @@ class _Move:
     @_yield_step(label="FollowModelID", counter_key="FOLLOW_MODEL_ID")
     def follow_model(self, model_id, follow_range, exit_condition: Optional[Callable[[], bool]]=lambda:False) -> Generator[Any, Any, bool]:
         return (yield from self._follow_model(model_id, follow_range, exit_condition))
-
-
-    def _follow_path(self) -> Generator[Any, Any, bool]:
+    
+    @_yield_step(label="ToModelID", counter_key="TO_MODEL_ID")
+    def to_model(self, model_id: int) -> Generator[Any, Any, bool]:
+        from ...GlobalCache import GLOBAL_CACHE
         from ...Routines import Routines
-        path = self._config.path
-        exit_condition = lambda: Routines.Checks.Player.IsDead() or not Routines.Checks.Map.MapValid() if self._config.config_properties.halt_on_death.is_active() else not Routines.Checks.Map.MapValid()
-        pause_condition = self._config.pause_on_danger_fn if self._config.config_properties.pause_on_danger.is_active() else None
+        agent_id = Routines.Agents.GetAgentIDByModelID(model_id)
+        x,y = GLOBAL_CACHE.Agent.GetXY(agent_id)
+        yield from self._get_path_to(x, y)
+        yield from self._follow_path()
+        return True
 
+    def _follow_path(self, forced_timeout = -1) -> Generator[Any, Any, bool]:
+        from ...Routines import Routines
+        from ...py4gwcorelib_src.Lootconfig import LootConfig
+        from ...enums import Range
+        fsm = self.parent.config.FSM
+        path = self._config.path
+
+        exit_condition = (
+            (lambda: Routines.Checks.Player.IsDead() or not Routines.Checks.Map.MapValid())
+            if self._config.config_properties.halt_on_death.is_active()
+            else (lambda: not Routines.Checks.Map.MapValid())
+        )
+
+        # --- pause sources ---
+        danger_pause = (
+            self._config.pause_on_danger_fn
+            if self._config.config_properties.pause_on_danger.is_active()
+            else None
+        )
+
+        loot_config_enabled = self._config.upkeep.auto_loot.is_active()
+        loot_singleton = LootConfig()
+
+        def loot_pause() -> bool:
+            if not loot_config_enabled:
+                return False
+            loot_array = loot_singleton.GetfilteredLootArray(
+                distance=Range.Earshot.value,
+                multibox_loot=True,
+                allow_unasigned_loot=False,
+            )
+            return len(loot_array) > 0
+
+        def fsm_pause() -> bool:
+            return fsm.is_paused()
+
+        # --- merged pause condition ---
+        def pause_condition() -> bool:
+            if danger_pause and danger_pause():
+                return True
+            if loot_config_enabled and loot_pause():
+                return True
+            if fsm_pause():
+                return True
+            return False
+
+        if forced_timeout > 0:
+            f_timeout = forced_timeout
+        else:
+            f_timeout = self._config.config_properties.movement_timeout.get("value")
+            
         success_movement = yield from Routines.Yield.Movement.FollowPath(
             path_points=path,
             custom_exit_condition=exit_condition,
             log=self._config.config_properties.log_actions.is_active(),
             custom_pause_fn=pause_condition,
-            timeout=self._config.config_properties.movement_timeout.get('value'),
-            tolerance=self._config.config_properties.movement_tolerance.get('value')
+            timeout=f_timeout,
+            tolerance=self._config.config_properties.movement_tolerance.get("value"),
         )
 
-        self._config.config_properties.follow_path_succeeded.set_now("value",success_movement)
+        self._config.config_properties.follow_path_succeeded.set_now("value", success_movement)
         if not success_movement:
             if exit_condition:
                 return True
             self._Events.on_unmanaged_fail()
             return False
-        
+
         return True
+
         
     @_yield_step(label="FollowPath", counter_key="FOLLOW_PATH")
     def follow_path(self) -> Generator[Any, Any, bool]:

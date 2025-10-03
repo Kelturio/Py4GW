@@ -70,6 +70,77 @@ class Checks:
             return is_someone_dead
         
         @staticmethod
+        def IsPartyMemberBehind(range_value: int = 3500): #spirit
+            from ..GlobalCache import GLOBAL_CACHE
+            from ..Py4GWcorelib import Utils
+            from ..enums_src.GameData_enums import Range
+            if not Checks.Map.MapValid():
+                return False
+
+            players = GLOBAL_CACHE.Party.GetPlayers()
+            henchmen = GLOBAL_CACHE.Party.GetHenchmen()
+            heroes = GLOBAL_CACHE.Party.GetHeroes()
+            player_pos = GLOBAL_CACHE.Player.GetXY()
+    
+            for player in players:
+                agent_id = GLOBAL_CACHE.Party.Players.GetAgentIDByLoginNumber(player.login_number)
+                if not GLOBAL_CACHE.Agent.IsDead(agent_id):
+                    agent_pos = GLOBAL_CACHE.Agent.GetXY(agent_id)
+                    if Utils.Distance(player_pos, agent_pos) > range_value:
+                        return True
+
+            for henchman in henchmen:
+                if not GLOBAL_CACHE.Agent.IsDead(henchman.agent_id):
+                    agent_pos = GLOBAL_CACHE.Agent.GetXY(henchman.agent_id)
+                    if Utils.Distance(player_pos, agent_pos) > range_value:
+                        return True
+                
+            for hero in heroes:
+                if not GLOBAL_CACHE.Agent.IsDead(hero.agent_id):
+                    agent_pos = GLOBAL_CACHE.Agent.GetXY(hero.agent_id)
+                    if Utils.Distance(player_pos, agent_pos) > range_value:
+                        return True
+
+            return False
+        
+        @staticmethod
+        def IsDeadPartyMemberBehind():
+            from ..GlobalCache import GLOBAL_CACHE
+            from ..Py4GWcorelib import Utils
+            from ..enums_src.GameData_enums import Range
+            from ..Routines import Checks
+
+            if not Checks.Map.MapValid():
+                return False
+
+            players = GLOBAL_CACHE.Party.GetPlayers()
+            henchmen = GLOBAL_CACHE.Party.GetHenchmen()
+            heroes = GLOBAL_CACHE.Party.GetHeroes()
+            player_pos = GLOBAL_CACHE.Player.GetXY()
+
+            for player in players:
+                agent_id = GLOBAL_CACHE.Party.Players.GetAgentIDByLoginNumber(player.login_number)
+                if GLOBAL_CACHE.Agent.IsDead(agent_id):
+                    agent_pos = GLOBAL_CACHE.Agent.GetXY(agent_id)
+                    if Utils.Distance(player_pos, agent_pos) > Range.Earshot.value:
+                        return True
+
+            for henchman in henchmen:
+                if GLOBAL_CACHE.Agent.IsDead(henchman.agent_id):
+                    agent_pos = GLOBAL_CACHE.Agent.GetXY(henchman.agent_id)
+                    if Utils.Distance(player_pos, agent_pos) > Range.Earshot.value:
+                        return True
+
+            for hero in heroes:
+                if GLOBAL_CACHE.Agent.IsDead(hero.agent_id):
+                    agent_pos = GLOBAL_CACHE.Agent.GetXY(hero.agent_id)
+                    if Utils.Distance(player_pos, agent_pos) > Range.Earshot.value:
+                        return True
+
+            return False
+
+        
+        @staticmethod
         def IsPartyWiped():
             from ..GlobalCache import GLOBAL_CACHE
             if not Checks.Map.MapValid():
@@ -104,6 +175,45 @@ class Checks:
             if not Checks.Map.MapValid():
                 return False
             return GLOBAL_CACHE.Party.IsPartyLoaded()
+        
+        @staticmethod
+        def IsAllPartyMembersInRange(range_value):
+            from ..GlobalCache import GLOBAL_CACHE
+            from ..Py4GWcorelib import Utils
+            if not Checks.Map.MapValid():
+                return False
+
+            all_in_range = True
+            players = GLOBAL_CACHE.Party.GetPlayers()
+            henchmen = GLOBAL_CACHE.Party.GetHenchmen()
+            heroes = GLOBAL_CACHE.Party.GetHeroes()
+            player_pos = GLOBAL_CACHE.Player.GetXY()
+    
+            for player in players:
+                agent_id = GLOBAL_CACHE.Party.Players.GetAgentIDByLoginNumber(player.login_number)
+                if not GLOBAL_CACHE.Agent.IsDead(agent_id):
+                    agent_pos = GLOBAL_CACHE.Agent.GetXY(agent_id)
+                    if Utils.Distance(player_pos, agent_pos) > range_value:
+                        all_in_range = False
+                        break
+
+            for henchman in henchmen:
+                if not GLOBAL_CACHE.Agent.IsDead(henchman.agent_id):
+                    agent_pos = GLOBAL_CACHE.Agent.GetXY(henchman.agent_id)
+                    if Utils.Distance(player_pos, agent_pos) > range_value:
+                        all_in_range = False
+                        break
+
+            for hero in heroes:
+                if not GLOBAL_CACHE.Agent.IsDead(hero.agent_id):
+                    agent_pos = GLOBAL_CACHE.Agent.GetXY(hero.agent_id)
+                    if Utils.Distance(player_pos, agent_pos) > range_value:
+                        all_in_range = False
+                        break
+
+            return all_in_range
+        
+        
 
 #region Map
     class Map:

@@ -2,6 +2,7 @@ from typing import Any, Generator, override
 from Py4GWCoreLib.GlobalCache import GLOBAL_CACHE
 from Py4GWCoreLib.enums import Profession, Range
 from Widgets.CustomBehaviors.primitives.behavior_state import BehaviorState
+from Widgets.CustomBehaviors.primitives.bus.event_bus import EventBus
 from Widgets.CustomBehaviors.primitives.helpers import custom_behavior_helpers
 from Widgets.CustomBehaviors.primitives.helpers.behavior_result import BehaviorResult
 from Widgets.CustomBehaviors.primitives.helpers.targeting_order import TargetingOrder
@@ -12,18 +13,20 @@ from Widgets.CustomBehaviors.primitives.skills.custom_skill_utility_base import 
 
 class GreatDwarfWeaponUtility(CustomSkillUtilityBase):
 
-    def __init__(self, 
-        current_build: list[CustomSkill], 
+    def __init__(self,
+        event_bus: EventBus,
+        current_build: list[CustomSkill],
         score_definition: ScoreStaticDefinition = ScoreStaticDefinition(30),
         mana_required_to_cast: int = 10,
         allowed_states: list[BehaviorState] = [BehaviorState.IN_AGGRO, BehaviorState.CLOSE_TO_AGGRO]
         ) -> None:
 
         super().__init__(
-            skill=CustomSkill("Great_Dwarf_Weapon"), 
-            in_game_build=current_build, 
+            event_bus=event_bus,
+            skill=CustomSkill("Great_Dwarf_Weapon"),
+            in_game_build=current_build,
             score_definition=score_definition,
-            mana_required_to_cast=mana_required_to_cast, 
+            mana_required_to_cast=mana_required_to_cast,
             allowed_states=allowed_states)
                 
         self.score_definition: ScoreStaticDefinition = score_definition
@@ -32,8 +35,6 @@ class GreatDwarfWeaponUtility(CustomSkillUtilityBase):
 
     def _get_target(self) -> int | None:
         
-        from HeroAI.utils import CheckForEffect
-
         # Check if we have a valid target
         target = custom_behavior_helpers.Targets.get_first_or_default_from_allies_ordered_by_priority(
                 within_range=Range.Spellcast,

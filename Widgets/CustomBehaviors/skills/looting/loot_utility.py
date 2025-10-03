@@ -2,12 +2,16 @@ import math
 from tkinter.constants import N
 from typing import Any, Generator, override
 
-from HeroAI.types import PlayerStruct
-from Py4GWCoreLib import GLOBAL_CACHE, Party, Routines, Range
+from Py4GWCoreLib import GLOBAL_CACHE, AgentArray, Party, Routines, Range
 from Py4GWCoreLib.Py4GWcorelib import ActionQueueManager, LootConfig, ThrottledTimer, Utils
 from Py4GWCoreLib.enums import SharedCommandType
+from Widgets.CustomBehaviors.primitives import constants
+from Widgets.CustomBehaviors.primitives.bus.event_bus import EventBus
+from Widgets.CustomBehaviors.primitives.bus.event_message import EventMessage
+from Widgets.CustomBehaviors.primitives.bus.event_type import EventType
 from Widgets.CustomBehaviors.primitives.helpers import custom_behavior_helpers
 from Widgets.CustomBehaviors.primitives.helpers.behavior_result import BehaviorResult
+from Widgets.CustomBehaviors.primitives.helpers.cooldown_timer import CooldownTimer
 from Widgets.CustomBehaviors.primitives.behavior_state import BehaviorState
 from Widgets.CustomBehaviors.primitives.scores.comon_score import CommonScore
 from Widgets.CustomBehaviors.primitives.skills.custom_skill import CustomSkill
@@ -22,6 +26,7 @@ class LootUtility(CustomSkillUtilityBase):
 
     def __init__(
             self, 
+            event_bus:EventBus,
             current_build: list[CustomSkill], 
             allowed_states: list[BehaviorState] = [BehaviorState.CLOSE_TO_AGGRO, BehaviorState.FAR_FROM_AGGRO] 
             # CLOSE_TO_AGGRO is required to avoid infinite-loop, if when approching an item to loot, player is aggroing.
@@ -29,6 +34,7 @@ class LootUtility(CustomSkillUtilityBase):
         ) -> None:
         
         super().__init__(
+            event_bus=event_bus,
             skill=CustomSkill("loot"), 
             in_game_build=current_build,
             score_definition=ScoreStaticDefinition(CommonScore.LOOT.value), 
@@ -37,7 +43,16 @@ class LootUtility(CustomSkillUtilityBase):
             execution_strategy=UtilitySkillExecutionStrategy.STOP_EXECUTION_ONCE_SCORE_NOT_HIGHEST)
 
         self.score_definition: ScoreStaticDefinition = ScoreStaticDefinition(CommonScore.LOOT.value)
-        self.throttle_timer = ThrottledTimer(1_000)
+        self.throttle_timer: ThrottledTimer = ThrottledTimer(1_000)
+        self.stuck_cooldown_timer:CooldownTimer = CooldownTimer(20_000)  # 20 second cooldown when player is stuck
+        self.event_bus.subscribe(EventType.PLAYER_STUCK, self.player_stuck, subscriber_name=self.custom_skill.skill_name)
+
+    def player_stuck(self, message: EventMessage)-> Generator[Any, Any, Any]:
+        if not self.are_common_pre_checks_valid(message.current_state): return
+        self.stuck_cooldown_timer.Restart()
+        if constants.DEBUG: print(f"[LootUtility] Player stuck detected - activating 20s loot scoring cooldown")
+        yield
+        return
         
     @override
     def are_common_pre_checks_valid(self, current_state: BehaviorState) -> bool:
@@ -47,18 +62,22 @@ class LootUtility(CustomSkillUtilityBase):
 
     @override
     def _evaluate(self, current_state: BehaviorState, previously_attempted_skills: list[CustomSkill]) -> float | None:
-        
-        if GLOBAL_CACHE.Inventory.GetFreeSlotCount() < 1: 
+
+        # Check if we're in cooldown due to player being stuck
+        if self.stuck_cooldown_timer.IsInCooldown():
             return None
 
-        if custom_behavior_helpers.Targets.is_party_leader_in_aggro(): 
+        if GLOBAL_CACHE.Inventory.GetFreeSlotCount() < 1:
             return None
 
-        if custom_behavior_helpers.Targets.is_party_in_aggro(): 
+        if custom_behavior_helpers.Targets.is_party_leader_in_aggro():
             return None
 
-        loot_config = LootConfig()
-        loot_array = loot_config.GetfilteredLootArray(loot_config.GetPickupRadius(), multibox_loot=True)
+        loot_config = LootConfig().GetPickupRadius()
+        if custom_behavior_helpers.Targets.is_party_in_aggro():
+            return None
+
+        loot_array = LootConfig().GetfilteredLootArray(LootConfig().GetPickupRadius(), multibox_loot=True)
         # print(f"Loot array: {loot_array}")
         if len(loot_array) == 0: return None
 
@@ -78,7 +97,7 @@ class LootUtility(CustomSkillUtilityBase):
             return BehaviorResult.ACTION_SKIPPED
 
         self.throttle_timer.Reset()
-
+        
         while True:
 
             if GLOBAL_CACHE.Inventory.GetFreeSlotCount() < 1: break
@@ -92,28 +111,33 @@ class LootUtility(CustomSkillUtilityBase):
             if not GLOBAL_CACHE.Agent.IsValid(item_id):
                 yield from custom_behavior_helpers.Helpers.wait_for(100)
                 continue
-
+            
+            # 1) try to loot
             pos = GLOBAL_CACHE.Agent.GetXY(item_id)
-            follow_success = yield from Routines.Yield.Movement.FollowPath([pos], timeout=10_000)
+            follow_success = yield from Routines.Yield.Movement.FollowPath([pos], timeout=6_000)
             if not follow_success:
                 print("Failed to follow path to loot item, halting.")
-                loot_config.AddItemIDToBlacklist(item_id)
+                real_item_id = GLOBAL_CACHE.Agent.GetItemAgent(item_id).item_id
+                LootConfig().AddItemIDToBlacklist(real_item_id)
                 yield from custom_behavior_helpers.Helpers.wait_for(100)
                 continue
             
             GLOBAL_CACHE.Player.Interact(item_id, call_target=False)
             yield from custom_behavior_helpers.Helpers.wait_for(100)
 
+            # 2) check if loot has been looted
             pickup_timer = ThrottledTimer(3_000)
             while not pickup_timer.IsExpired():
                 pickup_radius = loot_config.GetPickupRadius()
                 loot_array = loot_config.GetfilteredLootArray(pickup_radius, multibox_loot=True)
                 if item_id not in loot_array or len(loot_array) == 0:
                     break
-                if pickup_timer.IsExpired():
-                    loot_config.AddItemIDToBlacklist(item_id)
-                    break
                 yield from custom_behavior_helpers.Helpers.wait_for(100)
+            
+            # 3) Check if we timed out and add to blacklist if so
+            if pickup_timer.IsExpired():
+                real_item_id = GLOBAL_CACHE.Agent.GetItemAgent(item_id).item_id
+                LootConfig().AddItemIDToBlacklist(real_item_id)
 
         yield from custom_behavior_helpers.Helpers.wait_for(100)
         return BehaviorResult.ACTION_PERFORMED

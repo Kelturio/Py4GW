@@ -1,4 +1,4 @@
-import importlib, typing
+import importlib
 
 class _RProxy:
     def __getattr__(self, name: str):
@@ -6,7 +6,6 @@ class _RProxy:
         return getattr(root_pkg.Routines, name)
 
 Routines = _RProxy()
-
 
 #region Agents
 class Agents:    
@@ -335,6 +334,29 @@ class Agents:
                 return agent_id
             if GLOBAL_CACHE.Agent.GetGadgetID(agent_id) == 8141: #8141 is the ID for a chest
                 return agent_id
+
+        return 0
+
+    @staticmethod
+    def GetNearestDungeonChest(max_distance=5000):
+        from ..AgentArray import AgentArray
+        from ..GlobalCache import GLOBAL_CACHE
+        """
+        Purpose: Get the nearest dungeon chest within the specified range.
+        Args:
+            range (int): The maximum distance to search for chests.
+        Returns: Agent ID or None
+        """
+        gadget_array = AgentArray.GetGadgetArray()
+        gadget_array = AgentArray.Filter.ByDistance(gadget_array, GLOBAL_CACHE.Player.GetXY(), max_distance)
+        gadget_array = AgentArray.Sort.ByDistance(gadget_array,GLOBAL_CACHE.Player.GetXY())
+        for agent_id in gadget_array:
+            if GLOBAL_CACHE.Agent.GetGadgetID(agent_id) == 9274: #Secret Lair of the Snowmen
+                return agent_id
+            if GLOBAL_CACHE.Agent.GetGadgetID(agent_id) == 8932: #Bogroot Growths
+                return agent_id
+
+            # to_be_completed...
 
         return 0
 

@@ -1,4 +1,4 @@
-import importlib, typing
+import importlib
 
 class _RProxy:
     def __getattr__(self, name: str):
@@ -6,7 +6,6 @@ class _RProxy:
         return getattr(root_pkg.Routines, name)
 
 Routines = _RProxy()
-
 
 #region Agents
 class Party:   
@@ -44,3 +43,67 @@ class Party:
                 return True
             
         return False
+    
+    @staticmethod
+    def GetDeadPartyMemberID():
+        from ..GlobalCache import GLOBAL_CACHE
+        from ..Routines import Checks
+        if not Checks.Map.MapValid():
+            return 0
+        players = GLOBAL_CACHE.Party.GetPlayers()
+        henchmen = GLOBAL_CACHE.Party.GetHenchmen()
+        heroes = GLOBAL_CACHE.Party.GetHeroes()
+
+        for player in players:
+            agent_id = GLOBAL_CACHE.Party.Players.GetAgentIDByLoginNumber(player.login_number)
+            if GLOBAL_CACHE.Agent.IsDead(agent_id):
+                return agent_id
+
+        for henchman in henchmen:
+            if GLOBAL_CACHE.Agent.IsDead(henchman.agent_id):
+                return henchman.agent_id
+            
+        for hero in heroes:
+            if GLOBAL_CACHE.Agent.IsDead(hero.agent_id):
+                return hero.agent_id
+
+        return 0
+    
+    @staticmethod
+    def GetBehindPartyMemberID(range_value):
+        from ..GlobalCache import GLOBAL_CACHE
+        from ..Routines import Checks
+        from ..Py4GWcorelib import Utils
+        if not Checks.Map.MapValid():
+            return 0
+
+        player_pos = GLOBAL_CACHE.Player.GetXY()
+        players = GLOBAL_CACHE.Party.GetPlayers()
+        henchmen = GLOBAL_CACHE.Party.GetHenchmen()
+        heroes = GLOBAL_CACHE.Party.GetHeroes()
+
+        # check players
+        for player in players:
+            agent_id = GLOBAL_CACHE.Party.Players.GetAgentIDByLoginNumber(player.login_number)
+            if not GLOBAL_CACHE.Agent.IsDead(agent_id):
+                agent_pos = GLOBAL_CACHE.Agent.GetXY(agent_id)
+                if Utils.Distance(player_pos, agent_pos) > range_value:
+                    return agent_id
+
+        # check henchmen
+        for henchman in henchmen:
+            if not GLOBAL_CACHE.Agent.IsDead(henchman.agent_id):
+                agent_pos = GLOBAL_CACHE.Agent.GetXY(henchman.agent_id)
+                if Utils.Distance(player_pos, agent_pos) > range_value:
+                    return henchman.agent_id
+
+        # check heroes
+        for hero in heroes:
+            if not GLOBAL_CACHE.Agent.IsDead(hero.agent_id):
+                agent_pos = GLOBAL_CACHE.Agent.GetXY(hero.agent_id)
+                if Utils.Distance(player_pos, agent_pos) > range_value:
+                    return hero.agent_id
+
+        return 0
+
+        

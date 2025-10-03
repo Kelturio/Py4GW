@@ -164,29 +164,41 @@ class LootConfig:
             player_agent_id = Player.GetAgentID()
             owner_id = Agent.GetItemAgentOwnerID(item_id)
             return ((owner_id == player_agent_id) or (owner_id == 0))
+        
+        def IsValidLeaderItem(item_id, allow_unasigned_loot: bool):
+            if not Agent.IsValid(item_id):
+                return False
+            
+            player_agent_id = Player.GetAgentID()
+            owner_id = Agent.GetItemAgentOwnerID(item_id)
+
+            # Always pick up own items
+            if owner_id == player_agent_id:
+                return True
+
+            # Always pick up gold coins (if unassigned)
+            agent = Agent.agent_instance(item_id)
+            item_agent_id = agent.item_agent.item_id
+            model_id = Item.GetModelID(item_agent_id)
+            if model_id == ModelID.Gold_Coins.value and owner_id == 0:
+                return True
+
+            # If allowed, pick up other unassigned items
+            if allow_unasigned_loot and owner_id == 0:
+                return True
+
+            return False
 
         def IsValidFollowerItem(item_id):
             if not Agent.IsValid(item_id):
-                return False 
-            party_leader_id = Party.GetPartyLeaderID()
+                return False
+            
             player_agent_id = Player.GetAgentID()
             owner_id = Agent.GetItemAgentOwnerID(item_id)
-            
-            if party_leader_id == player_agent_id:
-                # If the player is the party leader, gold coins are valid
-                agent = Agent.agent_instance(item_id)
-                item_agent_id = agent.item_agent.item_id
-                model_id = Item.GetModelID(item_agent_id)
-                if model_id == ModelID.Gold_Coins.value:
-                    is_gold_coin = True
-                else:
-                    is_gold_coin = allow_unasigned_loot
 
-                return ((owner_id == player_agent_id) or (is_gold_coin))
-            else:
-                # If the player is a follower, only items owned by the player are valid
-                return (owner_id == player_agent_id)
-            
+            # Followers only pick up their own items
+            return owner_id == player_agent_id
+
         
         if not Routines.Checks.Map.MapValid():
             return []
@@ -194,10 +206,18 @@ class LootConfig:
         loot_array = AgentArray.GetItemArray()
         loot_array = AgentArray.Filter.ByDistance(loot_array, Player.GetXY(), distance)
 
-        if multibox_loot:
-            loot_array = AgentArray.Filter.ByCondition(loot_array, lambda item_id: IsValidFollowerItem(item_id))
-        else:
-            loot_array = AgentArray.Filter.ByCondition(loot_array, lambda item_id: IsValidItem(item_id))
+        party_leader_id = Party.GetPartyLeaderID()
+        player_agent_id = Player.GetAgentID()
+
+        if party_leader_id == player_agent_id:  # Leader or solo
+            loot_array = AgentArray.Filter.ByCondition(
+                loot_array, lambda item_id: IsValidLeaderItem(item_id, allow_unasigned_loot)
+            )
+        else:  # Follower
+            loot_array = AgentArray.Filter.ByCondition(
+                loot_array, lambda item_id: IsValidFollowerItem(item_id)
+            )
+
 
 
         for agent_id in loot_array[:]:  # Iterate over a copy to avoid modifying while iterating
@@ -205,19 +225,22 @@ class LootConfig:
             item_id = item_data.item_id
             model_id = Item.GetModelID(item_id)
             
-            if self.IsItemIDWhitelisted(item_id):
-                continue
-            
-            if self.IsItemIDBlacklisted(item_id):
+            # --- Hard block: blacklists ---
+            if self.IsItemIDBlacklisted(agent_id):
                 loot_array.remove(agent_id)
                 continue
-                
-            if self.IsWhitelisted(model_id):
-                continue
-            
+
             if self.IsBlacklisted(model_id):
                 loot_array.remove(agent_id)
                 continue
+
+            # --- Whitelists ---
+            if self.IsItemIDWhitelisted(item_id):
+                continue
+
+            if self.IsWhitelisted(model_id):
+                continue
+
                 
             # Rarity filtering
             if Item.Rarity.IsWhite(item_id):

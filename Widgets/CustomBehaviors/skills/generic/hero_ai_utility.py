@@ -6,28 +6,32 @@ from Widgets.CustomBehaviors.primitives.behavior_state import BehaviorState
 from Widgets.CustomBehaviors.primitives.helpers import custom_behavior_helpers
 from Widgets.CustomBehaviors.primitives.helpers.behavior_result import BehaviorResult
 from Widgets.CustomBehaviors.primitives.scores.comon_score import CommonScore
+from Widgets.CustomBehaviors.primitives.scores.score_definition import ScoreDefinition
 from Widgets.CustomBehaviors.primitives.scores.score_static_definition import ScoreStaticDefinition
 from Widgets.CustomBehaviors.primitives.skills.custom_skill import CustomSkill
 from Widgets.CustomBehaviors.primitives.skills.custom_skill_utility_base import CustomSkillUtilityBase
+from Widgets.CustomBehaviors.primitives.bus.event_bus import EventBus
 
 class HeroAiUtility(CustomSkillUtilityBase):
 
     def __init__(
             self, 
+            event_bus: EventBus,
             skill: CustomSkill, 
             current_build: list[CustomSkill], 
             score_definition: ScoreStaticDefinition = ScoreStaticDefinition(CommonScore.GENERIC_SKILL_HERO_AI.value), 
             mana_required_to_cast: int = 0
         ) -> None:
 
-        super().__init__(
-            skill=skill, 
-            in_game_build=current_build, 
-            score_definition=score_definition, 
-            mana_required_to_cast=mana_required_to_cast, 
-            allowed_states= [BehaviorState.IN_AGGRO, BehaviorState.FAR_FROM_AGGRO, BehaviorState.CLOSE_TO_AGGRO])
-        
-        self.score_definition: ScoreStaticDefinition = score_definition
+            super().__init__(
+                event_bus=event_bus,
+                skill=skill, 
+                in_game_build=current_build, 
+                score_definition=score_definition, 
+                mana_required_to_cast=mana_required_to_cast, 
+                allowed_states= [BehaviorState.IN_AGGRO, BehaviorState.FAR_FROM_AGGRO, BehaviorState.CLOSE_TO_AGGRO])
+            
+            self.score_definition: ScoreStaticDefinition = score_definition
 
     @override
     def _evaluate(self, current_state: BehaviorState, previously_attempted_skills: list[CustomSkill]) -> float | None:
@@ -55,8 +59,14 @@ class HeroAiUtility(CustomSkillUtilityBase):
         order = find_order()
         if order == -1: return None
 
-        is_ooc_skill = cached_data.combat_handler.IsOOCSkill(order)
-        if is_ooc_skill and current_state is BehaviorState.IN_AGGRO: return None
+        is_out_of_combat_skill = cached_data.combat_handler.IsOOCSkill(order) # skills is OK to be caster out_of_combat
+
+        can_be_casted = ((current_state == BehaviorState.IN_AGGRO) 
+                        or (current_state == BehaviorState.CLOSE_TO_AGGRO and is_out_of_combat_skill)
+                        or (current_state == BehaviorState.FAR_FROM_AGGRO and is_out_of_combat_skill)
+                        )
+
+        if not can_be_casted: return None
 
         is_ready_to_cast, target_agent_id = cached_data.combat_handler.IsReadyToCast(order)
 

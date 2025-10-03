@@ -43,16 +43,20 @@ def render():
 
     if CustomBehaviorLoader().custom_combat_behavior is not None:
         PyImGui.text(f"Selected template : {CustomBehaviorLoader().custom_combat_behavior.__class__.__name__}")
-        PyImGui.text(f"Account state:{CustomBehaviorLoader().custom_combat_behavior.get_state()}")
-        PyImGui.text(f"Final state:{CustomBehaviorLoader().custom_combat_behavior.get_final_state()}")
+        PyImGui.text(f"Player state:{CustomBehaviorLoader().custom_combat_behavior.get_state()}")
+        PyImGui.text(f"Final state (with party override):{CustomBehaviorLoader().custom_combat_behavior.get_final_state()}")
 
     if CustomBehaviorLoader().custom_combat_behavior.get_is_enabled():
-        if PyImGui.button(f"{IconsFontAwesome5.ICON_TIMES} Disable"):
+        if PyImGui.button(f"{IconsFontAwesome5.ICON_TIMES} Disable ALL"):
             CustomBehaviorLoader().custom_combat_behavior.disable()
     else:
-        if PyImGui.button(f"{IconsFontAwesome5.ICON_CHECK} Enable"):
+        if PyImGui.button(f"{IconsFontAwesome5.ICON_CHECK} Enable ALL"):
             CustomBehaviorLoader().custom_combat_behavior.enable()
     pass
+
+    PyImGui.same_line(0, 5)
+    PyImGui.same_line(0, -1)
+    WITH_DETAIL = PyImGui.checkbox("with detailled informations", WITH_DETAIL)
     
     # if current_build is not None and type(current_build).mro()[1].__name__ != CustomBehaviorBaseUtility.__name__:
     #     PyImGui.separator()
@@ -79,11 +83,9 @@ def render():
         # for utility in utilities:
         #     PyImGui.text(f"{utility.custom_skill.skill_name} {utility.additive_score_weight}")
 
-        PyImGui.text(f"Utility system : ")
-        PyImGui.same_line(0, -1)
-        WITH_DETAIL = PyImGui.checkbox("with detail", WITH_DETAIL)
 
-        if PyImGui.begin_child("x", size=(400, 600),border=True, flags=PyImGui.WindowFlags.HorizontalScrollbar):
+
+        if PyImGui.begin_child("x", size=(500, 600),border=True, flags=PyImGui.WindowFlags.HorizontalScrollbar):
             scores: list[tuple[CustomSkillUtilityBase, float | None]] = instance.get_all_scores()
             if PyImGui.begin_table("skill", 2, int(PyImGui.TableFlags.SizingStretchProp)):
                 PyImGui.table_setup_column("A")
@@ -97,7 +99,6 @@ def render():
                         return f"HeroAI: "
                     return ""
 
-        
                 score_text = f"{score[1]:06.4f}" if score[1] is not None else "Ø"
                 texture_file = score[0].custom_skill.get_texture(py4gw_root_directory, project_root)
                 
@@ -137,7 +138,7 @@ def render():
                 PyImGui.bullet_text("score")
                 PyImGui.same_line(0, -1)
                 PyImGui.text_colored(f"{label_generic_utility(skill)}{score_text}", UtilitySkillTypologyColor.get_color_from_typology(score[0].utility_skill_typology))
-
+                
                 if WITH_DETAIL:
                     PyImGui.bullet_text("required ressource")
                     PyImGui.same_line(0, -1)
@@ -145,6 +146,7 @@ def render():
                     PyImGui.bullet_text(f"allowed in : {[x.name for x in skill.allowed_states]}")
                     PyImGui.bullet_text(f"pre_check : {skill.are_common_pre_checks_valid(instance.get_final_state())}")
                     PyImGui.bullet_text(f"Slot:{skill.custom_skill.skill_slot}")
+                    PyImGui.bullet_text(f"score max up-to:{skill.score_definition.score_definition_debug_ui()}")
 
                     buff_configuration: BuffConfigurationPerProfession | None = skill.get_buff_configuration()
                     if buff_configuration is not None:

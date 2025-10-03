@@ -535,6 +535,13 @@ account_widget_defaults = {
         "icon": "ICON_PEOPLE_CARRY",
         "quickdock": "True",
     },
+    "EZ Cast": {
+        "enabled": "False",
+        "category": "Bots",
+        "subcategory": "Helpers",
+        "icon": "ICON_BRAIN",
+        "quickdock": "True",
+    },
     "Enemy Data Capture": {
         "enabled": "True",
         "category": "Gameplay",

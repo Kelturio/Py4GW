@@ -3,9 +3,10 @@ from ..GlobalCache import GLOBAL_CACHE
 from ..Py4GWcorelib import ConsoleLog, Console, Utils, ActionQueueManager
 
 from ..enums_src.Model_enums import ModelID
+from ..enums_src.UI_enums import ControlAction
 
 
-import importlib, typing
+import importlib
 
 class _RProxy:
     def __getattr__(self, name: str):
@@ -105,6 +106,35 @@ class Yield:
 #region Movement
     class Movement:
         @staticmethod
+        def StopMovement():
+            yield from Yield.Movement.WalkBackwards(125)
+
+        @staticmethod   
+        def WalkBackwards(duration_ms:int):
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_MoveBackward.value, duration_ms)
+
+        @staticmethod
+        def WalkForwards(duration_ms:int):
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_MoveForward.value, duration_ms)
+
+        @staticmethod
+        def StrafeLeft(duration_ms:int):
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_StrafeLeft.value, duration_ms)
+
+        @staticmethod
+        def StrafeRight(duration_ms:int):
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_StrafeRight.value, duration_ms)
+
+        @staticmethod
+        def TurnLeft(duration_ms:int):
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_TurnLeft.value, duration_ms)
+
+        @staticmethod
+        def TurnRight(duration_ms:int):
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_TurnRight.value, duration_ms)
+        
+        #region FollowPath
+        @staticmethod
         def FollowPath(
             path_points: List[Tuple[float, float]],
             custom_exit_condition: Callable[[], bool] = lambda: False,
@@ -118,6 +148,10 @@ class Yield:
             from .Checks import Checks
             
             total_points = len(path_points)
+            retries = 0
+            max_retries = 30  # after this, send stuck command
+            stuck_count = 0
+            max_stuck_commands = 2  # after this, do PixelStack recovery
 
             for idx, (target_x, target_y) in enumerate(path_points):
                 start_time = Utils.GetBaseTimestamp()
@@ -127,6 +161,7 @@ class Yield:
                     return False
 
                 GLOBAL_CACHE.Player.Move(target_x, target_y)
+                yield from Yield.wait(250)
 
                 current_x, current_y = GLOBAL_CACHE.Player.GetXY()
                 previous_distance = Utils.Distance((current_x, current_y), (target_x, target_y))
@@ -171,6 +206,33 @@ class Yield:
                             ActionQueueManager().ResetAllQueues()
                             return False
                         GLOBAL_CACHE.Player.Move(target_x + offset_x, target_y + offset_y)
+                        retries += 1
+                        if retries >= max_retries:
+                            GLOBAL_CACHE.Player.SendChatCommand("stuck")
+                            ConsoleLog("FollowPath", "No progress made, sending /stuck command.", Console.MessageType.Warning)
+                            retries = 0
+                            stuck_count += 1
+
+                            # --- PixelStack recovery if too many stucks ---
+                            if stuck_count >= max_stuck_commands:
+                                ConsoleLog("FollowPath", "Too many stucks, attempting strafe recovery.", Console.MessageType.Warning)
+                                start_x, start_y = GLOBAL_CACHE.Player.GetXY()
+
+                                # Backwards
+                                yield from Yield.Movement.WalkBackwards(1000)
+
+                                # Strafe left
+                                yield from Yield.Movement.StrafeLeft(1000)
+
+                                # Strafe right if no movement
+                                left_x, left_y = GLOBAL_CACHE.Player.GetXY()
+                                if Utils.Distance((start_x, start_y), (left_x, left_y)) < 50:
+                                    yield from Yield.Movement.StrafeRight(1000)
+
+                                stuck_count = 0  # reset after recovery
+                    else:
+                        retries = 0  # reset retries if making progress
+                        stuck_count = 0  # reset stuck count if making progress
 
                     previous_distance = current_distance
 
@@ -187,6 +249,7 @@ class Yield:
                     progress_callback((idx + 1) / total_points)
 
             return True
+    
 
 #region Skills
     class Skills:
@@ -203,6 +266,22 @@ class Yield:
 
             GLOBAL_CACHE.SkillBar.LoadSkillTemplate(skill_template)
             ConsoleLog("LoadSkillbar", f"Loading skill Template {skill_template}", log=log)
+            yield from Yield.wait(500)
+            
+        @staticmethod
+        def LoadHeroSkillbar(hero_index:int, skill_template:str, log=False):
+            """
+            Purpose: Load the specified hero skillbar.
+            Args:
+                hero_index (int): The index of the hero (1-4).
+                skill_template (str): The name of the skill template to load.
+                log (bool) Optional: Whether to log the action. Default is True.
+            Returns: None
+            """
+            
+
+            GLOBAL_CACHE.SkillBar.LoadHeroSkillTemplate(hero_index, skill_template)
+            ConsoleLog("LoadHeroSkillbar", f"Loading hero {hero_index} skill Template {skill_template}", log=log)
             yield from Yield.wait(500)
         
         @staticmethod    
@@ -242,6 +321,19 @@ class Yield:
             skill_ready = Checks.Skills.IsSkillIDReady(skill_id)
             yield
             return enough_energy and skill_ready
+        
+        @staticmethod
+        def IsSkillSlotUsable(skill_slot: int):
+            from .Checks import Checks
+            if not Checks.Map.IsExplorable():
+                return False
+
+            player_agent_id = GLOBAL_CACHE.Player.GetAgentID()
+            skill = GLOBAL_CACHE.SkillBar.GetSkillData(skill_slot)
+            enough_energy = Checks.Skills.HasEnoughEnergy(player_agent_id, skill.id)
+            skill_ready = Checks.Skills.IsSkillSlotReady(skill_slot)
+            yield
+            return enough_energy and skill_ready
 
         @staticmethod
         def CastSkillSlot(slot:int,extra_condition=True, aftercast_delay=0, log=False):
@@ -256,7 +348,7 @@ class Yield:
             skill_id = GLOBAL_CACHE.SkillBar.GetSkillIDBySlot(slot)
             player_agent_id = GLOBAL_CACHE.Player.GetAgentID()
             enough_energy = Checks.Skills.HasEnoughEnergy(player_agent_id,skill_id)
-            skill_ready = Checks.Skills.IsSkillIDReady(skill_id)
+            skill_ready = Checks.Skills.IsSkillSlotReady(slot)
             
             if not(enough_energy and skill_ready and extra_condition):
                 yield
@@ -347,50 +439,39 @@ class Yield:
 
 
         @staticmethod
-        def WaitforMapLoad(map_id, log=False, timeout:int=10000):
+        def WaitforMapLoad(map_id, log=False, timeout: int = 10000):
             from .Checks import Checks
-            
             from ..Py4GWcorelib import ConsoleLog, Utils
-            """
-            Purpose: Positions yourself safely on the map.
-            Args:
-                outpost_id (int): The ID of the map to travel to.
-                log (bool) Optional: Whether to log the action. Default is True.
-            Returns: None
-            """
+
             yield from Yield.wait(1000)
             start_time = Utils.GetBaseTimestamp()
             waiting_for_map_load = True
+            yield from Yield.wait(1000)
             while waiting_for_map_load:
-                if not Checks.Map.MapValid():
-                    yield from Yield.wait(1000)
-                    ConsoleLog("WaitforMapLoad", "Map not valid, waiting...", log=log)
-                    continue
-                
                 delta = Utils.GetBaseTimestamp() - start_time
                 if delta > timeout and timeout > 0:
                     ConsoleLog("WaitforMapLoad", "Timeout reached, stopping waiting for map load.", log=log)
                     return False
-                    
+
+                if not Checks.Map.MapValid():
+                    ConsoleLog("WaitforMapLoad", "Map not valid, waiting...", log=log)
+                    yield from Yield.wait(1000)
+                    continue
+
                 current_map = GLOBAL_CACHE.Map.GetMapID()
-                
-                if (GLOBAL_CACHE.Map.IsExplorable() or GLOBAL_CACHE.Map.IsOutpost()) and current_map != map_id:
+
+                if current_map != map_id:
                     ConsoleLog("WaitforMapLoad", f"Something went wrong, halting", log=log)
                     yield from Yield.wait(1000)
                     return False
-                
-                if not current_map == map_id:
-                    yield from Yield.wait(1000)
-                    ConsoleLog("WaitforMapLoad", f"Waiting for map load {map_id} (current: {current_map})", log=log)
-                    continue
-            
+
                 waiting_for_map_load = False
 
-            
             ConsoleLog("WaitforMapLoad", f"Arrived at {GLOBAL_CACHE.Map.GetMapName(map_id)}", log=log)
-            yield from Yield.wait(1000)
+            yield from Yield.wait(500)
             return True
-    
+
+
 #region Agents        
     class Agents:
         @staticmethod
@@ -919,49 +1000,63 @@ class Yield:
                 
         @staticmethod
         def DepositGold(gold_amount_to_leave_on_character: int, log=False):
-
-            
-            
             gold_amount_on_character = GLOBAL_CACHE.Inventory.GetGoldOnCharacter()
             gold_amount_on_storage = GLOBAL_CACHE.Inventory.GetGoldInStorage()
             
             max_allowed_gold = 1_000_000  # Max storage limit
-            available_space = max_allowed_gold - gold_amount_on_storage  # How much can be deposited
+            available_space = max_allowed_gold - gold_amount_on_storage
 
-            # Calculate how much gold we need to deposit
-            gold_to_deposit = gold_amount_on_character - gold_amount_to_leave_on_character
+            # Too much gold → deposit
+            if gold_amount_on_character > gold_amount_to_leave_on_character:
+                gold_to_deposit = gold_amount_on_character - gold_amount_to_leave_on_character
+                gold_to_deposit = min(gold_to_deposit, available_space)
 
-            # Ensure we do not deposit more than available storage space
-            gold_to_deposit = min(gold_to_deposit, available_space)
+                if gold_to_deposit > 0:
+                    GLOBAL_CACHE.Inventory.DepositGold(gold_to_deposit)
+                    yield from Yield.wait(350)
+                    if log:
+                        ConsoleLog("DepositGold", f"Deposited {gold_to_deposit} gold.", Console.MessageType.Success)
+                    return True
 
-            # If storage is full or no gold needs to be deposited, exit
-            if available_space <= 0:
                 if log:
                     ConsoleLog("DepositGold", "No gold deposited, storage full.", Console.MessageType.Warning)
                 return False
-            
-            if gold_to_deposit <= 0:
+
+            # Too little gold → withdraw
+            elif gold_amount_on_character < gold_amount_to_leave_on_character:
+                gold_needed = gold_amount_to_leave_on_character - gold_amount_on_character
+                gold_to_withdraw = min(gold_needed, gold_amount_on_storage)
+
+                if gold_to_withdraw > 0:
+                    GLOBAL_CACHE.Inventory.WithdrawGold(gold_to_withdraw)
+                    yield from Yield.wait(350)
+                    if log:
+                        ConsoleLog("DepositGold", f"Withdrew {gold_to_withdraw} gold.", Console.MessageType.Success)
+                    return True
+
                 if log:
-                    ConsoleLog("DepositGold", "No gold deposited, not enough excess gold.", Console.MessageType.Warning)
+                    ConsoleLog("DepositGold", "No gold withdrawn, storage empty.", Console.MessageType.Warning)
                 return False
 
-            # Perform the deposit
-            GLOBAL_CACHE.Inventory.DepositGold(gold_to_deposit)
-            
-            yield from Yield.wait(350)
-            
+            # Already balanced
             if log:
-                ConsoleLog("DepositGold", f"Deposited {gold_to_deposit} gold.", Console.MessageType.Success)
-            
+                ConsoleLog("DepositGold", f"Gold already balanced at {gold_amount_to_leave_on_character}.", Console.MessageType.Info)
             return True
 
+
         @staticmethod
-        def LootItems(item_array:list[int], log=False, progress_callback: Optional[Callable[[float], None]] = None):
+        def LootItems(item_array:list[int], log=False, progress_callback: Optional[Callable[[float], None]] = None, pickup_timeout:int=5000):
             from ..AgentArray import AgentArray
             from .Checks import Checks
             
             if len(item_array) == 0:
                 return True
+            
+            yield from Yield.wait(1000)
+            if not Checks.Map.MapValid():
+                item_array.clear()
+                ActionQueueManager().ResetAllQueues()
+                return False
             
             total_items = len(item_array)
             while len (item_array) > 0:
@@ -985,7 +1080,7 @@ class Yield:
                     continue
                 
                 item_x, item_y = GLOBAL_CACHE.Agent.GetXY(item_id)
-                item_reached = yield from Yield.Movement.FollowPath([(item_x, item_y)], timeout=5000)
+                item_reached = yield from Yield.Movement.FollowPath([(item_x, item_y)], timeout=pickup_timeout)
                 if not item_reached:
                     ConsoleLog("LootItems", "Failed to reach item, stopping loot.", Console.MessageType.Warning)
                     item_array.clear()
@@ -1011,6 +1106,84 @@ class Yield:
                 ConsoleLog("LootItems", f"Looted {len(item_array)} items.", Console.MessageType.Info)
                 
             return True
+
+        @staticmethod
+        def LootItemsWithMaxAttempts(
+            item_array: list[int],
+            log: bool = False,
+            progress_callback: Optional[Callable[[float], None]] = None,
+            pickup_timeout: int = 5000,
+            max_attempts: int = 5,
+            attempts_timeout_seconds: int = 3,
+        ):
+            from ..AgentArray import AgentArray
+            from .Checks import Checks
+
+            if len(item_array) == 0:
+                return []
+
+            failed_items: list[int] = []
+            total_items = len(item_array)
+
+            while len(item_array) > 0:
+                item_id = item_array.pop(0)
+                if item_id == 0:
+                    continue
+
+                free_slots_in_inventory = GLOBAL_CACHE.Inventory.GetFreeSlotCount()
+                if free_slots_in_inventory <= 0:
+                    ConsoleLog("LootItems", "No free slots in inventory, stopping loot.", Console.MessageType.Warning)
+                    ActionQueueManager().ResetAllQueues()
+                    return failed_items + item_array
+
+                if not Checks.Map.MapValid():
+                    ActionQueueManager().ResetAllQueues()
+                    return failed_items + item_array
+
+                if not GLOBAL_CACHE.Agent.IsValid(item_id):
+                    continue
+
+                # Try to walk to item
+                item_x, item_y = GLOBAL_CACHE.Agent.GetXY(item_id)
+                item_reached = yield from Yield.Movement.FollowPath([(item_x, item_y)], timeout=pickup_timeout)
+                if not item_reached:
+                    ConsoleLog("LootItems", f"Failed to reach item {item_id}, skipping.", Console.MessageType.Warning)
+                    failed_items.append(item_id)
+                    continue
+
+                if GLOBAL_CACHE.Agent.IsValid(item_id):
+                    attempts = 0
+                    picked_up = False
+
+                    while attempts < max_attempts and not picked_up:
+                        if GLOBAL_CACHE.Agent.IsValid(item_id):
+                            yield from Yield.Player.InteractAgent(item_id)
+
+                        for _ in range(attempts_timeout_seconds * 10):  # default 3s
+                            yield from Yield.wait(100)
+                            live_items = AgentArray.GetItemArray()
+                            if item_id not in live_items:
+                                picked_up = True
+                                break
+
+                        if not picked_up:
+                            attempts += 1
+
+                    if not picked_up:
+                        ConsoleLog("Loot", f"Failed to pick up item {item_id} after {max_attempts} attempts.")
+                        failed_items.append(item_id)
+
+                if progress_callback and total_items > 0:
+                    progress_callback(1 - len(item_array) / total_items)
+
+            if log:
+                ConsoleLog(
+                    "LootItems",
+                    f"Looted {total_items - len(failed_items)} items. Failed: {len(failed_items)}",
+                    Console.MessageType.Info,
+                )
+
+            return failed_items
 
         @staticmethod
         def WithdrawItems(model_id:int, quantity:int) -> Generator[Any, Any, bool]:
@@ -1064,7 +1237,7 @@ class Yield:
 
         @staticmethod
         def CraftItem(output_model_id: int, 
-                       count: int,
+                       cost: int,
                        trade_model_ids: list[int], 
                        quantity_list: list[int])-> Generator[Any, Any, bool]:
             
@@ -1095,7 +1268,7 @@ class Yield:
                 return False
 
             # Craft, then give a short yield
-            GLOBAL_CACHE.Trading.Crafter.CraftItem(target_item_id, count, trade_item_ids, quantity_list)
+            GLOBAL_CACHE.Trading.Crafter.CraftItem(target_item_id, cost, trade_item_ids, quantity_list)
             yield from Yield.wait(500)
             return True
         
@@ -1105,7 +1278,7 @@ class Yield:
             item_id = GLOBAL_CACHE.Inventory.GetFirstModelID(model_id)
             if item_id:
                 GLOBAL_CACHE.Inventory.EquipItem(item_id, GLOBAL_CACHE.Player.GetAgentID())
-                yield from Yield.wait(500)
+                yield from Yield.wait(750)
             else:
                 return False
             return True
@@ -1115,7 +1288,7 @@ class Yield:
             item_id = GLOBAL_CACHE.Inventory.GetFirstModelID(model_id)
             if item_id:
                 GLOBAL_CACHE.Inventory.DestroyItem(item_id)
-                yield from Yield.wait(500)
+                yield from Yield.wait(600)
             else:
                 return False
             return True
@@ -1412,3 +1585,283 @@ class Yield:
             yield from Yield.wait(period_ms)
 
 #endregion
+
+#region Keybinds
+    class Keybinds:
+        @staticmethod
+        def PressKeybind(keybind_index:int, duration_ms:int=125):
+            from ..UIManager import UIManager
+            UIManager.Keydown(keybind_index, 0)
+            yield from Yield.wait(duration_ms)
+            UIManager.Keyup(keybind_index, 0)
+            yield from Yield.wait(125)
+            
+        @staticmethod
+        def TakeScreenshot():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_Screenshot.value, 125)
+           
+        #Panels
+        @staticmethod
+        def CloseAllPanels():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_CloseAllPanels.value, 125)
+            
+        @staticmethod
+        def ToggleInventory():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_ToggleInventoryWindow.value, 125)
+                
+        @staticmethod
+        def OpenScoreChart():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_OpenScoreChart.value, 125)
+            
+        @staticmethod
+        def OpenTemplateManager():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_OpenTemplateManager.value, 125)
+            
+        @staticmethod
+        def OpenSaveEquipmentTemplate():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_OpenSaveEquipmentTemplate.value, 125)
+            
+        @staticmethod
+        def OpenSaveSkillTemplate():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_OpenSaveSkillTemplate.value, 125)
+            
+        @staticmethod
+        def OpenParty():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_OpenParty.value, 125)
+            
+        @staticmethod
+        def OpenGuild():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_OpenGuild.value, 125)
+            
+        @staticmethod
+        def OpenFriends():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_OpenFriends.value, 125)
+            
+        @staticmethod
+        def ToggleAllBags():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_ToggleAllBags.value, 125)
+            
+        @staticmethod
+        def OpenMissionMap():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_OpenMissionMap.value, 125)
+            
+        @staticmethod
+        def OpenBag2():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_OpenBag2.value, 125)
+            
+        @staticmethod
+        def OpenBag1():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_OpenBag1.value, 125)
+            
+        @staticmethod
+        def OpenBelt():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_OpenBelt.value, 125)
+            
+        @staticmethod
+        def OpenBackpack():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_OpenBackpack.value, 125)
+            
+        @staticmethod
+        def OpenSkillsAndAttributes():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_OpenSkillsAndAttributes.value, 125)
+            
+        @staticmethod
+        def OpenQuestLog():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_OpenQuestLog.value, 125)
+            
+        @staticmethod
+        def OpenWorldMap():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_OpenWorldMap.value, 125)
+            
+        @staticmethod
+        def OpenHeroPanel():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_OpenHero.value, 125)    
+
+        #weapon sets
+        @staticmethod
+        def CycleEquipment():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_CycleEquipment, 125)
+            
+        @staticmethod
+        def ActivateWeaponSet(index:int):
+            if index < 1 or index > 4:
+                return
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_ActivateWeaponSet1.value + (index - 1), 125)
+
+        @staticmethod
+        def DropBundle():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_DropItem, 125)
+            
+        @staticmethod
+        def OpenChat():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_OpenChat, 125)
+            
+        @staticmethod
+        def ReplyToChat():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_ChatReply, 125)
+            
+        @staticmethod
+        def OpenAlliance():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_OpenAlliance, 125)
+            
+        #movement 
+        @staticmethod   
+        def MoveBackwards(duration_ms:int):
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_MoveBackward.value, duration_ms)
+
+        @staticmethod
+        def MoveForwards(duration_ms:int):
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_MoveForward.value, duration_ms)
+
+        @staticmethod
+        def StrafeLeft(duration_ms:int):
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_StrafeLeft.value, duration_ms)
+
+        @staticmethod
+        def StrafeRight(duration_ms:int):
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_StrafeRight.value, duration_ms)
+
+        @staticmethod
+        def TurnLeft(duration_ms:int):
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_TurnLeft.value, duration_ms)
+
+        @staticmethod
+        def TurnRight(duration_ms:int):
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_TurnRight.value, duration_ms)
+            
+        @staticmethod
+        def ReverseCamera():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_ReverseCamera.value, 125)
+            
+        @staticmethod
+        def CancelAction():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_CancelAction.value, 125)
+            
+        @staticmethod
+        def Interact():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_Interact.value, 125)
+            
+        @staticmethod
+        def ReverseDirection():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_ReverseDirection.value, 125)
+            
+        @staticmethod
+        def AutoRun():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_Autorun.value, 125)
+            
+        @staticmethod
+        def Follow():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_Follow.value, 125)
+            
+        #targeting     
+        @staticmethod
+        def TargetPartyMember(index:int):
+            if index < 1 or index > 12:
+                return
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_TargetPartyMember1.value + (index - 1), 125)
+        
+        @staticmethod
+        def TargetNearestItem():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_TargetNearestItem.value, 125)
+            
+        @staticmethod
+        def TargetNextItem():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_TargetNextItem.value, 125)
+            
+        @staticmethod
+        def TargetPreviousItem():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_TargetPreviousItem.value, 125)
+            
+        @staticmethod
+        def TargetPartyMemberNext():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_TargetPartyMemberNext.value, 125)
+            
+        @staticmethod
+        def TargetPartyMemberPrevious():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_TargetPartyMemberPrevious.value, 125)
+            
+        @staticmethod
+        def TargetAllyNearest():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_TargetAllyNearest.value, 125)
+            
+        @staticmethod
+        def ClearTarget():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_ClearTarget.value, 125)
+            
+        @staticmethod
+        def TargetSelf():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_TargetSelf.value, 125)
+            
+        @staticmethod
+        def TargetPriorityTarget():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_TargetPriorityTarget.value, 125)
+            
+        @staticmethod
+        def TargetNearestEnemy():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_TargetNearestEnemy.value, 125)
+            
+        @staticmethod
+        def TargetNextEnemy():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_TargetNextEnemy.value, 125)
+            
+        @staticmethod
+        def TargetPreviousEnemy():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_TargetPreviousEnemy.value, 125)
+            
+        @staticmethod
+        def ShowOthers():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_ShowOthers.value, 125)
+            
+        @staticmethod
+        def ShowTargets():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_ShowTargets.value, 125)
+            
+        @staticmethod
+        def CameraZoomIn():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_CameraZoomIn.value, 125)
+            
+        @staticmethod
+        def CameraZoomOut():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_CameraZoomOut.value, 125)
+            
+        # Party / Hero commands
+        @staticmethod
+        def ClearPartyCommands():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_ClearPartyCommands.value, 125)
+            
+        @staticmethod
+        def CommandParty():
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_CommandParty.value, 125)
+            
+        @staticmethod
+        def CommandHero(hero_index:int):
+            if hero_index < 1 or hero_index > 7:
+                return
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_CommandHero1.value + (hero_index - 1), 125)
+        
+            
+        @staticmethod
+        def OpenHeroPetCommander(hero_index:int):
+            if hero_index < 1 or hero_index > 7:
+                return
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_OpenHero1PetCommander.value + (hero_index - 1), 125)
+
+        @staticmethod
+        def OpenHeroCommander(hero_index:int):
+            if hero_index < 1 or hero_index > 7:
+                return
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_OpenHeroCommander1.value + (hero_index - 1), 125)
+            
+        @staticmethod
+        def HeroSkill(hero_index:int, skill_slot:int):
+            if hero_index < 1 or hero_index > 4:
+                return
+            if skill_slot < 1 or skill_slot > 8:
+                return
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_Hero1Skill1.value + (hero_index - 1) * 8 + (skill_slot - 1), 125)
+            
+        @staticmethod
+        def UseSkill(slot:int):
+            if slot < 1 or slot > 8:
+                return
+            yield from Yield.Keybinds.PressKeybind(ControlAction.ControlAction_UseSkill1.value + (slot - 1), 125)

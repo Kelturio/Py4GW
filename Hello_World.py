@@ -1,22 +1,25 @@
-from Py4GWCoreLib import *
-import PyMap, PyImGui
+from Py4GWCoreLib import GLOBAL_CACHE
+import PyImGui
 
-MODULE_NAME = "destroy item"
 
-model_id = 0
-def main():
-    global model_id
 
-    if PyImGui.begin(MODULE_NAME, PyImGui.WindowFlags.AlwaysAutoResize):
-        model_id = PyImGui.input_int("Item Model ID", model_id)
-        
-        item_id = GLOBAL_CACHE.Inventory.GetFirstModelID(model_id)
-        PyImGui.text(f"Found Item ID: {item_id}")
-        
-        if PyImGui.button("Destroy Item"):
-            GLOBAL_CACHE.Inventory.DestroyItem(item_id)
+def Draw_Window():
+    dialog = 0x85
+    thank_you = 0x86
+    if PyImGui.begin("My Skill Farmer", True, PyImGui.WindowFlags.AlwaysAutoResize):
+        PyImGui.text("This is an example bot that jumps to a step name")
+        if PyImGui.button("dialog 0x85"):
+            GLOBAL_CACHE.Player.SendDialog(dialog)
             
-    PyImGui.end()
+        if PyImGui.button("dialog 0x86"):
+            GLOBAL_CACHE.Player.SendDialog(thank_you)
+
+        PyImGui.end()
+
+def main():
+
+    Draw_Window()
+
 
 
 if __name__ == "__main__":

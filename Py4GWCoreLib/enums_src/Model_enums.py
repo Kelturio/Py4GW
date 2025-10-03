@@ -2,8 +2,14 @@ from enum import IntEnum
 import PySkill
 
 class AgentModelID(IntEnum):
+    CHARR_AXEMASTER = 6630
+    FOG_NIGHTMARE = 1729
     FROST_WURM = 6491
     FROZEN_ELEMENTAL = 6478
+    SENSALI_DARKFEATHER = 3946
+    SENSALI_CLAW = 3944
+    SENSALI_CUTTER = 3948
+    SPINED_ALOE = 1731
     
 class SpiritModelID(IntEnum):
     # SPIRIT_MODEL
@@ -656,6 +662,11 @@ class PetModelID(IntEnum):
 
 # region ItemModels
 class ModelID(IntEnum):
+    
+    Maguuma_Spider_Web = 987654321
+    Roaring_Ether_Heart = 12345678910
+    Charr_Hide = 1234567891
+    Herring = 9876543210
     Umbral_Shell = 98765432111
     Vampiric_Fang = 987654789
     Water_Djinn_Essence = 78965412365
@@ -690,9 +701,6 @@ class ModelID(IntEnum):
         123654789192  # Dummy modelid's to insure no LootManager Crash - will be changed to correct value
     )
     Ghostly_Remains = 123654789193  # Dummy modelid's to insure no LootManager Crash - will be changed to correct value
-    Gold_Crimson_Skull_Coin = (
-        123654789194  # Dummy modelid's to insure no LootManager Crash - will be changed to correct value
-    )
     Igneous_Spider_leg = (
         123654789195  # Dummy modelid's to insure no LootManager Crash - will be changed to correct value
     )
@@ -706,9 +714,6 @@ class ModelID(IntEnum):
     Searing_Ribcage = 123654789187  # Dummy modelid's to insure no LootManager Crash - will be changed to correct value
     Searing_Burrower_Jaw = (
         123654789189  # Dummy modelid's to insure no LootManager Crash - will be changed to correct value
-    )
-    Silver_Crimson_Skull_Coin = (
-        211111356  # Dummy modelid's to insure no LootManager Crash - will be changed to correct value
     )
     Smoking_Remains = 8787899465  # Dummy modelid's to insure no LootManager Crash - will be changed to correct value
     Spiny_Seed = 74966338  # Dummy modelid's to insure no LootManager Crash - will be changed to correct value
@@ -1090,6 +1095,7 @@ class ModelID(IntEnum):
     Gloom_Seed = 523
     Glowing_Heart = 439
     Gold_Coins = 2511
+    Gold_Crimson_Skull_Coin = 807
     Gold_Doubloon = 1578
     Gold_Zaishen_Coin = 31203
     Golden_Egg = 22752
@@ -1210,6 +1216,7 @@ class ModelID(IntEnum):
     Livia_Mini = 35129
     Lockpick = 22751
     Losaru_Mane = 448
+    Luminous_Stone = 1660
     Lump_Of_Charcoal = 922
     Lunar_Fortune_2007_Pig = 29424
     Lunar_Fortune_2008_Rat = 29425
@@ -1350,6 +1357,7 @@ class ModelID(IntEnum):
     Skale_Polymock_Piece = 24373
     Stone_Rain_Polymock_Piece = 24374
     Wind_Rider_Polymock_Piece = 24356
+    Pillaged_Goods = 1663
     Powerstone_Of_Courage = 24862
     Primeval_Armor_Remnant = 19193
     Prince_Rurik_Mini = 13790
@@ -1415,7 +1423,6 @@ class ModelID(IntEnum):
     Sentient_Vine = 27041
     Shadowy_Crest = 520
     Shadowy_Husk = 526
-    Shadowy_Remnant = 441
     Shadowy_Remnants = 441
     Shamrock_Ale = 22190
     Shard_Wolf_Mini = 34389
@@ -1432,6 +1439,7 @@ class ModelID(IntEnum):
     Siege_Devourer = 34387
     Siege_Turtle_Mini = 13795
     Silver_Bullion_Coin = 1579
+    Silver_Crimson_Skull_Coin = 808  
     Silver_Zaishen_Coin = 31204
     Singed_Gargoyle_Skull = 480
     Sinister_Automatonic_Tonic = 4730
