@@ -714,8 +714,7 @@ class MissionMap:
         self.merchant_marker = GLOBAL_CONFIGS.get("Merchant")
 
         self.enable_enemy_tracking = False
-        self.tracked_enemy_positions: dict[int, dict[str, object]] = {}
-        self.tracked_enemy_timeout_ms = 5000
+        self.tracked_enemy_positions: dict[int, dict[str, tuple[float, float]]] = {}
         self.tracked_enemy_click_radius = 18.0
         self.tracked_marker_tooltip_duration = 3.0
         self.tracked_marker_click_info: dict[str, object] | None = None
@@ -731,21 +730,6 @@ class MissionMap:
         if (self.tracked_marker_click_info is not None and
                 self.tracked_marker_click_info.get("agent_id") == agent_id):
             self.tracked_marker_click_info = None
-
-    def _prune_tracked_enemies(self):
-        if not self.tracked_enemy_positions:
-            return
-
-        current_ids = {agent.id for agent in self.agent_array} if self.agent_array else set()
-        for agent_id in [aid for aid in self.tracked_enemy_positions if aid not in current_ids]:
-            self._remove_tracked_enemy(agent_id)
-
-        now = time.perf_counter()
-        timeout_seconds = self.tracked_enemy_timeout_ms / 1000.0
-        for agent_id, data in list(self.tracked_enemy_positions.items()):
-            last_seen = data.get("last_seen", 0.0)
-            if now - last_seen > timeout_seconds:
-                self._remove_tracked_enemy(agent_id)
 
     def render_tracked_marker_tooltip(self):
         if self.tracked_marker_click_info is None:
@@ -776,8 +760,6 @@ class MissionMap:
 
         if not self.enable_enemy_tracking and self.tracked_enemy_positions:
             self._clear_tracked_enemies()
-        else:
-            self._prune_tracked_enemies()
 
         if not self.throttle_timer.IsExpired():
             return
@@ -846,9 +828,24 @@ class MissionMap:
 
                 if self.enable_enemy_tracking and self.tracked_enemy_positions:
                     for agent_id, data in self.tracked_enemy_positions.items():
-                        screen_pos = data.get("screen_pos")
-                        if screen_pos is None:
+                        world_pos = data.get("world_pos")
+                        if world_pos is None:
                             continue
+                        screen_pos = RawGamePosToScreen(
+                            world_pos[0],
+                            world_pos[1],
+                            self.zoom,
+                            self.mega_zoom,
+                            self.left_bound,
+                            self.top_bound,
+                            self.boundaries,
+                            self.pan_offset_x,
+                            self.pan_offset_y,
+                            self.scale_x,
+                            self.scale_y,
+                            self.mission_map_screen_center_x,
+                            self.mission_map_screen_center_y,
+                        )
                         distance = Utils.Distance((mx, my), screen_pos)
                         if distance <= self.tracked_enemy_click_radius:
                             agent_name = GLOBAL_CACHE.Agent.GetName(agent_id)
@@ -984,7 +981,6 @@ def DrawFrame():
             Marker(marker.Marker, marker.Color, alternate_color, x, y, marker.size + size, offset_angle=rotation_angle).draw()
         
     tracking_enabled = mission_map.enable_enemy_tracking
-    tracking_time = time.perf_counter() if tracking_enabled else 0.0
     player_position = (mission_map.player_x, mission_map.player_y)
 
     for agent in enemy_array:
@@ -1025,9 +1021,7 @@ def DrawFrame():
                 distance_to_player = Utils.Distance((agent.x, agent.y), player_position)
                 if distance_to_player > Range.Compass.value:
                     mission_map.tracked_enemy_positions[agent.id] = {
-                        "screen_pos": (x, y),
                         "world_pos": (agent.x, agent.y),
-                        "last_seen": tracking_time,
                     }
                 else:
                     mission_map._remove_tracked_enemy(agent.id)
@@ -1117,9 +1111,24 @@ def DrawFrame():
     if tracking_enabled and mission_map.tracked_enemy_positions:
         tracked_color = mission_map.enemy_marker.Color.shift(mission_map.target_accent_color, 0.5)
         for data in mission_map.tracked_enemy_positions.values():
-            screen_pos = data.get("screen_pos")
-            if screen_pos is None:
+            world_pos = data.get("world_pos")
+            if world_pos is None:
                 continue
+            screen_pos = RawGamePosToScreen(
+                world_pos[0],
+                world_pos[1],
+                mission_map.zoom,
+                mission_map.mega_zoom,
+                mission_map.left_bound,
+                mission_map.top_bound,
+                mission_map.boundaries,
+                mission_map.pan_offset_x,
+                mission_map.pan_offset_y,
+                mission_map.scale_x,
+                mission_map.scale_y,
+                mission_map.mission_map_screen_center_x,
+                mission_map.mission_map_screen_center_y,
+            )
             Marker(
                 mission_map.enemy_marker.Marker,
                 tracked_color,
