@@ -1005,6 +1005,7 @@ def DrawFrame():
                     "name": GLOBAL_CACHE.Agent.GetName(agent.id),
                     "in_range": True,
                     "size": marker.size,
+                    "rotation": rotation_angle,
                 }
                 if mission_map.selected_persistent_marker_id == agent.id:
                     mission_map.selected_persistent_marker_name = mission_map.persistent_enemy_markers[agent.id]["name"]
@@ -1135,6 +1136,8 @@ def DrawFrame():
 
             ghost_color = record.get("ghost_color", mission_map.persistent_enemy_ghost_color)
             size = record.get("size", mission_map.enemy_marker.size)
+            rotation = record.get("rotation", 0.0)
+
             Marker(
                 mission_map.enemy_marker.Marker,
                 ghost_color,
@@ -1142,6 +1145,7 @@ def DrawFrame():
                 screen_x,
                 screen_y,
                 size,
+                offset_angle=rotation,
             ).draw()
 
         if mission_map.selected_persistent_marker_id is not None:
