@@ -975,7 +975,12 @@ def DrawFrame():
             level = agent.living_agent.level
             if level > 1:
                 #agent_name = mission_map.raw_agent_array_handler.get_name(agent.id)  if mission_map.raw_agent_array_handler is not None else ""
-                agent_name = GLOBAL_CACHE.Agent.GetName(agent.id)
+                agent_name = agent.living_agent.name or ""
+                if not agent_name:
+                    if agent.living_agent.IsAgentNameReady():
+                        agent_name = agent.living_agent.GetName() or ""
+                    else:
+                        agent.living_agent.RequestName()
                 if "MERCHANT" in agent_name.upper():
                     marker = mission_map.merchant_marker
                 else:
