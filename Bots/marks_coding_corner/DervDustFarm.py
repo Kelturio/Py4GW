@@ -7,18 +7,12 @@ from Bots.marks_coding_corner.utils.loot_utils import move_all_crafting_material
 from Bots.marks_coding_corner.utils.merch_utils import buy_id_kits
 from Bots.marks_coding_corner.utils.merch_utils import buy_salvage_kits
 from Bots.marks_coding_corner.utils.merch_utils import sell_non_essential_mats
+from Bots.marks_coding_corner.utils.merch_utils import withdraw_gold
 from Bots.marks_coding_corner.utils.town_utils import return_to_outpost
+from Py4GW_widget_manager import get_widget_handler
 from Py4GWCoreLib import *
 from Py4GWCoreLib.Builds.DervDustFarmer import DervBuildFarmStatus
 from Py4GWCoreLib.Builds.DervDustFarmer import DervDustFarmer
-
-try:
-    script_directory = os.path.dirname(os.path.abspath(__file__))
-except NameError:
-    # __file__ is not defined (e.g. running in interactive mode or embedded interpreter)
-    script_directory = os.getcwd()
-project_root = os.path.abspath(os.path.join(script_directory, os.pardir))
-base_dir = os.path.join(project_root, "marks_coding_corner/textures")
 
 DUST_FARMER = "Dust Farmer"
 TOA = "Temple of the Ages"
@@ -27,7 +21,6 @@ THE_BLACK_CURTAIN = "The Black Curtain"
 HANDLE_STUCK = 'handle_stuck'
 HANDLE_LOOT = 'handle_loot'
 HANDLE_FOG_NIGHTMARE_DANGER = 'handle_fog_nightmare_danger'
-TEXTURE_ICON_PATH = os.path.join(base_dir, "dust_art.png")
 KILL_SPOTS = [
     (7725, -2295),
     (7704, -3418),
@@ -433,21 +426,23 @@ def handle_custom_on_unmanaged_fail(bot: Botting):
 
 
 def dust_farm_bot(bot: Botting):
+    widget_handler = get_widget_handler()
+    widget_handler.disable_widget('Return to outpost on defeat')
+
     bot.Events.OnDeathCallback(lambda: on_death(bot))
     bot.helpers.Events.set_on_unmanaged_fail(lambda: handle_custom_on_unmanaged_fail(bot))
     # override condition for halting movement
 
     bot.States.AddHeader('Starting Loop')
     bot.Map.Travel(target_map_name=TOA)
-    bot.Wait.ForTime(2000)
-    bot.Wait.ForMapLoad(target_map_name=TOA)
     bot.States.AddCustomState(lambda: load_skill_bar(bot), "Loading Skillbar")
 
     bot.Move.XY(-5053.52, 19196.66, "Move close to Merch")
     bot.Interact.WithNpcAtXY(-5048.00, 19468.00, "Interact with Merchant")
+    bot.States.AddCustomState(withdraw_gold, "Fill inventory with gold")
     bot.States.AddCustomState(sell_non_essential_mats, "Sell non-essential Materials")
     bot.States.AddCustomState(buy_id_kits, 'Buying ID Kits')
-    bot.States.AddCustomState(buy_salvage_kits, 'Buying Salvage Kits')
+    bot.States.AddCustomState(lambda: buy_salvage_kits(custom_amount=10), 'Buying Salvage Kits')
 
     bot.States.AddCustomState(identify_and_salvage_items, 'Salvaging Items')
     bot.States.AddCustomState(move_all_crafting_materials_to_storage, "Move crafting materials to storage")
@@ -498,7 +493,8 @@ bot.SetMainRoutine(dust_farm_bot)
 
 def main():
     bot.Update()
-    bot.UI.draw_window(icon_path=TEXTURE_ICON_PATH)
+    TEXTURE = os.path.join(Py4GW.Console.get_projects_path(),"Bots", "marks_coding_corner", "textures" , "dust_art.png")
+    bot.UI.draw_window(icon_path=TEXTURE)
 
 
 if __name__ == "__main__":

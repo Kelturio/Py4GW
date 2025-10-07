@@ -1,5 +1,5 @@
 from Py4GWCoreLib import Botting, get_texture_for_model, GLOBAL_CACHE, Routines, ActionQueueManager
-import PyImGui
+import PyImGui, Py4GW
 
 BOT_NAME = "Killroy Stoneskin"
 
@@ -99,10 +99,17 @@ def draw_window(bot: Botting):
             bot.StartAtStep("[H]Unlock Killroy and Skills_2")
     PyImGui.end()
     
+def configure():
+    global bot
+    bot.UI.draw_configure_window()
+    
+    
 def main():
     bot.Update()
     draw_window(bot)
-    bot.UI.draw_window(icon_path="Killroy-Art.png")
+    projects_path = Py4GW.Console.get_projects_path()
+    full_path = projects_path + "\\Widgets\\Config\\textures\\"
+    bot.UI.draw_window(icon_path=full_path + "Killroy-Art.png")
 
 if __name__ == "__main__":
     main()

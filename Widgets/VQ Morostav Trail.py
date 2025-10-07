@@ -7,13 +7,17 @@ UNWAKING_WATERS = 298 #Unwaking Waters
 MOROSTAV_TRAIL = 205
 HZH= 77
 
-Vanquish_Path = [(19283.57, 12803.82), #pack1
+Vanquish_Path = [
+            (19283.57, 12803.82), #pack1
             (20840.22, 8834.50) , #round the corner
             (16449.09, 9398.16),  #hunt pack3
             (17075.29, 11542.65), #boss hole
+            
             (16726.07, 8022.25),  #hunt pack under root
             (14536.42, 7882.84),  #hunt more
             (14301.47, 10907.79), #inner pack
+            (11146.95, 11058.01), #around the fork
+            (9708.27, 10151.21),  #back to fork
             (9584.61, 7463.74),   #fork
 
             (7995.83, 2784.03), #shore pop up
@@ -25,8 +29,10 @@ Vanquish_Path = [(19283.57, 12803.82), #pack1
             (3809.45, -1779.69), #shore pop ups
             (7216.56, -3962.05), #patrol
             (4233.68, -4846.76), #Dredges
+             (624.54, -5716.24), #stone pop ups
             
             (7325.51, -7398.68), #fungus patrols  
+            (6607.77, -7791.77), #fungus sanity chceck
             #res shrine
             (10400.24, -6050.92), #patrol
             (10116.56, -3449.12), #multi patrols danger
@@ -43,10 +49,7 @@ Vanquish_Path = [(19283.57, 12803.82), #pack1
             
             #this was the end, not anymore
       
-            
-            (9708.27, 10151.21), #back to fork
-            (11146.95, 11058.01), #around the fork
-
+            (9708.27, 10151.21),  #back to fork
             (3864.64, 10955.62), #fork 2 rest
             (4661.88, 8195.97), #fork pop up
             (3717.29, 4726.01), #fork 2 shore
@@ -58,27 +61,8 @@ Vanquish_Path = [(19283.57, 12803.82), #pack1
             (1808.52, -210.84), #fork 3 pop up
             (-3830.95, 2980.44), #fork 3
             (-4466.05, -3042.06), #sanity pop ups corridor
-            (-3830.95, 2980.44), #fork 3
-            (-8124.41, 1811.43), #before big area
-
-            #left area
-            (-10910.36, 3394.90), #inner patrol
-            (-12340.56, 1729.70), #patrol 
-            (-11702.48, 392.32), #blooddrinker patrol
-            (-15392.24, 229.49), #boss hole
-            (-13211.56, 5161.36), #Around the patrols
-            (-16117.06, 7344.00), #fungal wallows
-            (-15516.23, 5475.97), #hill base
-            (-20066.16, 5669.60), #around the mountain near res shrine
-            (-17902.03, 10859.59), #Dredges
-            (-9231.53, -559.27), #blood drikers (far)
-            (-8512.78, -6541.18), #stone pop ups
-            (-10520.19, -6615.22), #rounding obtacles
-            (-12755.27, -6003.43),
-            (-11865.10, -2936.87), #blood drinker patrol
-            (-12755.27, -6003.43),
-            (-8437.68, -6600.21), #door
-
+            
+            #inserting center room 
             #center area
             (-6317.80, -7314.83), #patrols
             (-4490.83, -8522.61), #stone pop ups
@@ -90,8 +74,34 @@ Vanquish_Path = [(19283.57, 12803.82), #pack1
             #res shrine
             (-1099.51, -6853.82),
             (624.54, -5716.24), #stone pop ups
-            (4233.68, -4846.76), #Dredges sanity
+            #(4233.68, -4846.76), #Dredges sanity
+            
+            (-4466.05, -3042.06), #sanity pop ups corridor
+            (-3830.95, 2980.44), #fork 3
+            (-8124.41, 1811.43), #before big area
+            
+            (-10910.36, 3394.90), #inner patrol
+            (-12340.56, 1729.70), #patrol 
+            (-11702.48, 392.32), #blooddrinker patrol
+            (-9231.53, -559.27), #blood drikers (far)
+            
+            (-8512.78, -6541.18), #stone pop ups
+            (-10520.19, -6615.22), #rounding obtacles
+            (-12755.27, -6003.43),
+            (-11865.10, -2936.87), #blood drinker patrol
+            #(-12755.27, -6003.43),
+            #(-8437.68, -6600.21), #door
 
+            #left area
+            
+            (-15392.24, 229.49), #boss hole
+            (-13211.56, 5161.36), #Around the patrols
+            (-16117.06, 7344.00), #fungal wallows
+            (-15516.23, 5475.97), #hill base
+            (-20066.16, 5669.60), #around the mountain near res shrine
+            (-17902.03, 10859.59), #Dredges\
+            (-15516.23, 5475.97), #hill base
+            
 
     ]
 
@@ -138,6 +148,10 @@ def _upkeep_multibox_consumables(bot: "Botting"):
         if Routines.Checks.Map.IsOutpost():
             continue
         
+        for _ in range(1, 5): 
+            GLOBAL_CACHE.Inventory.UseItem(ModelID.Honeycomb.value)
+            yield from bot.helpers.Wait._for_time(250)
+            
         yield from bot.helpers.Multibox._use_consumable_message((ModelID.Essence_Of_Celerity.value, 
                                                GLOBAL_CACHE.Skill.GetID("Essence_of_Celerity_item_effect"), 0, 0))  
         yield from bot.helpers.Multibox._use_consumable_message((ModelID.Grail_Of_Might.value, 
@@ -162,27 +176,28 @@ def _upkeep_multibox_consumables(bot: "Botting"):
                                                 GLOBAL_CACHE.Skill.GetID("Pahnai_Salad_item_effect"), 0, 0))  
         yield from bot.helpers.Multibox._use_consumable_message((ModelID.War_Supplies.value, 
                                                                 GLOBAL_CACHE.Skill.GetID("Well_Supplied"), 0, 0))
-        for i in range(1, 5): 
-            GLOBAL_CACHE.Inventory.UseItem(ModelID.Honeycomb.value)
-            yield from bot.helpers.Wait._for_time(250)
             
 
 
-
 def _on_party_wipe(bot: "Botting"):
+    global party_wiped
+    party_wiped = True
     while GLOBAL_CACHE.Agent.IsDead(GLOBAL_CACHE.Player.GetAgentID()):
         yield from bot.helpers.Wait._for_time(1000)
         if not Routines.Checks.Map.MapValid():
-            # Map invalid → release FSM and exit
+            # Map invalid - release FSM and exit
             bot.config.FSM.resume()
             return
 
-    # Player revived on same map → jump to recovery step
-    bot.States.JumpToStepName("[H]Start Combat_3")
+    # Player revived on same map - jump to recovery step
+    print("Player revived, jumping to recovery step")
+    bot.config.FSM.pause()
+    bot.config.FSM.jump_to_state_by_name("[H]Start Combat_3")
     bot.config.FSM.resume()
+    #bot.States.JumpToStepName("[H]Start Combat_3")
+    #bot.config.FSM.resume()
     
 def OnPartyWipe(bot: "Botting"):
-    ConsoleLog("on_party_wipe", "event triggered")
     fsm = bot.config.FSM
     fsm.pause()
     fsm.AddManagedCoroutine("OnWipe_OPD", lambda: _on_party_wipe(bot))
@@ -190,6 +205,12 @@ def OnPartyWipe(bot: "Botting"):
 
 bot.SetMainRoutine(bot_routine)
 
+
+def configure():
+    global bot
+    bot.UI.draw_configure_window()
+    
+    
 def main():
     bot.Update()
     bot.UI.draw_window(icon_path=TEXTURE)
