@@ -558,7 +558,10 @@ class Compass():
                 model_id = agent.living_agent.player_number
                 visible, size, shape, _, range, fill_color = GetSpiritParams(model_id)
 
-                self.DrawAgent(visible, size, shape, self.config.markers['Enemy'].color, range, fill_color, agent.x, agent.y, rot, is_alive, is_target)
+                if visible and size is not None and shape is not None:
+                    self.DrawAgent(visible, size, shape, self.config.markers['Enemy'].color, range, fill_color, agent.x, agent.y, rot, is_alive, is_target)
+                else:
+                    self.DrawAgent(*self.config.markers['Enemy'].values(), agent.x, agent.y, rot, is_alive, is_target) # type: ignore
             else:
                 self.DrawAgent(*self.config.markers['Enemy'].values(), agent.x, agent.y, rot, is_alive, is_target) # type: ignore
 
