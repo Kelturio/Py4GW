@@ -14,6 +14,8 @@ from Py4GWCoreLib import Range
 from Py4GWCoreLib import Rarity
 from Py4GWCoreLib import Routines
 from Py4GWCoreLib import Map
+from Py4GWCoreLib import UIManager
+from Py4GWCoreLib import EnumPreference
 
 from typing import Union
 import math
@@ -29,6 +31,13 @@ PET_MODEL_IDS = set(e.value for e in PetModelID)
 AREA_SPIRIT_MODELS = [SpiritModelID.DESTRUCTION, SpiritModelID.PRESERVATION]
 EARSHOT_SPIRIT_MODELS = [SpiritModelID.AGONY, SpiritModelID.REJUVENATION]
 CHEST_GADGET_IDS = [9,69,4579,8141, 9523, 4582]
+
+INTERFACE_SCALE_MULTIPLIERS = {
+    0xFFFFFFFF: 0.9,      # Small
+    0: 1.0,               # Normal
+    1: 1.166666,          # Large
+    2: 1.3333333,         # Larger
+}
 
 #end region
 
@@ -110,6 +119,10 @@ def get_spirit_name(model_id: int) -> str:
 #endregion
 
 #region HELPERS
+
+def get_interface_scale_multiplier() -> float:
+    ui_size = UIManager.GetEnumPreference(EnumPreference.InterfaceSize)
+    return INTERFACE_SCALE_MULTIPLIERS.get(ui_size, 1.0)
 
 def FloatingSlider(caption, value,x,y,min_value, max_value, color:Color):
     width=20
@@ -677,6 +690,8 @@ class MissionMap:
         
         self.pan_offset_x, self.pan_offset_y = 0.0, 0.0
         self.scale_x, self.scale_y = 1.0, 1.0
+        self.interface_scale_multiplier = 1.0
+        self.effective_scale_x, self.effective_scale_y = 1.0, 1.0
         self.zoom =  0.0
         self.mission_map_screen_center_x, self.mission_map_screen_center_y = 0.0, 0.0
         
@@ -740,18 +755,21 @@ class MissionMap:
         
         self.pan_offset_x, self.pan_offset_y = mission_map.mission_map_instance.pan_offset_x, mission_map.mission_map_instance.pan_offset_y
         self.scale_x, self.scale_y = mission_map.mission_map_instance.scale_x, mission_map.mission_map_instance.scale_y
+        self.interface_scale_multiplier = get_interface_scale_multiplier()
+        self.effective_scale_x = self.scale_x * self.interface_scale_multiplier
+        self.effective_scale_y = self.scale_y * self.interface_scale_multiplier
 
         self.zoom = mission_map.mission_map_instance.zoom
         self.mission_map_screen_center_x, self.mission_map_screen_center_y = mission_map.mission_map_instance.mission_map_screen_center_x, mission_map.mission_map_instance.mission_map_screen_center_y
-        
-        self.left_world, self.top_world = RawScreenToRawGamePos(self.left, self.top, 
+
+        self.left_world, self.top_world = RawScreenToRawGamePos(self.left, self.top,
                                                                 self.zoom, self.mega_zoom,
                                                                 self.left_bound, self.top_bound, self.boundaries,
-                                                                self.pan_offset_x, self.pan_offset_y, self.scale_x, self.scale_y,
+                                                                self.pan_offset_x, self.pan_offset_y, self.effective_scale_x, self.effective_scale_y,
                                                                 self.mission_map_screen_center_x, self.mission_map_screen_center_y)
         self.right_world, self.bottom_world = RawScreenToRawGamePos(self.right, self.bottom, self.zoom, self.mega_zoom,
                                                                 self.left_bound, self.top_bound, self.boundaries,
-                                                                self.pan_offset_x, self.pan_offset_y, self.scale_x, self.scale_y,
+                                                                self.pan_offset_x, self.pan_offset_y, self.effective_scale_x, self.effective_scale_y,
                                                                 self.mission_map_screen_center_x, self.mission_map_screen_center_y)
 
         
@@ -760,10 +778,10 @@ class MissionMap:
         player_object = self.raw_agent_array_handler.get_agent(self.player_agent_id)   
         
         self.player_x, self.player_y = player_object.x, player_object.y
-        self.player_screen_x, self.player_screen_y = RawGamePosToScreen(self.player_x, self.player_y, 
+        self.player_screen_x, self.player_screen_y = RawGamePosToScreen(self.player_x, self.player_y,
                                                     self.zoom, self.mega_zoom,
                                                     self.left_bound, self.top_bound, self.boundaries,
-                                                    self.pan_offset_x, self.pan_offset_y, self.scale_x, self.scale_y,
+                                                    self.pan_offset_x, self.pan_offset_y, self.effective_scale_x, self.effective_scale_y,
                                                     self.mission_map_screen_center_x, self.mission_map_screen_center_y)
         
         # aC  ---
@@ -778,7 +796,7 @@ class MissionMap:
                     self.zoom, self.mega_zoom,
                     self.left_bound, self.top_bound, self.boundaries,
                     self.pan_offset_x, self.pan_offset_y,
-                    self.scale_x, self.scale_y,
+                    self.effective_scale_x, self.effective_scale_y,
                     self.mission_map_screen_center_x, self.mission_map_screen_center_y
                 )
                 self.last_click_x, self.last_click_y = gx, gy
@@ -790,18 +808,18 @@ class MissionMap:
         self.renderer.mask.set_rectangle_mask_bounds(self.left, self.top, self.width, self.height)
         self.mega_zoom_renderer.mask.set_rectangle_mask_bounds(self.left, self.top, self.width, self.height)
         
-        self.map_origin = RawGamePosToScreen(0.0, 0.0, 
+        self.map_origin = RawGamePosToScreen(0.0, 0.0,
                                             self.zoom, self.mega_zoom,
                                             self.left_bound, self.top_bound, self.boundaries,
-                                            self.pan_offset_x, self.pan_offset_y, self.scale_x, self.scale_y,
+                                            self.pan_offset_x, self.pan_offset_y, self.effective_scale_x, self.effective_scale_y,
                                             self.mission_map_screen_center_x, self.mission_map_screen_center_y)
-        
+
         self.renderer.world_space.set_pan(self.map_origin[0], self.map_origin[1])
         self.mega_zoom_renderer.world_space.set_pan(self.map_origin[0], self.map_origin[1])
         zoom = Map.MissionMap.GetAdjustedZoom(self.zoom, zoom_offset=self.mega_zoom)
         self.renderer.world_space.set_zoom(zoom/100.0)
         self.mega_zoom_renderer.world_space.set_zoom(zoom/100.0)
-        self.renderer.world_space.set_scale(self.scale_x)
+        self.renderer.world_space.set_scale(self.effective_scale_x)
         
         
         
@@ -814,12 +832,12 @@ mission_map = MissionMap()
 def DrawFrame():
     global mission_map
     def _get_agent_xy(agent):
-        x,y = RawGamePosToScreen(agent.x, agent.y, 
+        x,y = RawGamePosToScreen(agent.x, agent.y,
                                  mission_map.zoom, mission_map.mega_zoom,
                                  mission_map.left_bound, mission_map.top_bound,
-                                 mission_map.boundaries, 
+                                 mission_map.boundaries,
                                  mission_map.pan_offset_x, mission_map.pan_offset_y,
-                                 mission_map.scale_x, mission_map.scale_y,
+                                 mission_map.effective_scale_x, mission_map.effective_scale_y,
                                  mission_map.mission_map_screen_center_x, mission_map.mission_map_screen_center_y)
         return x,y
     
@@ -831,7 +849,7 @@ def DrawFrame():
         return mission_map.default_marker.AlternateColor, 0.0
     
     def _draw_aggro_bubble():
-        radius = RawGwinchToPixels(Range.Earshot.value,mission_map.zoom, mission_map.mega_zoom, mission_map.scale_x)
+        radius = RawGwinchToPixels(Range.Earshot.value,mission_map.zoom, mission_map.mega_zoom, mission_map.effective_scale_x)
         color = mission_map.aggro_bubble_color
         Overlay().DrawPoly      (mission_map.player_screen_x, mission_map.player_screen_y, radius=radius-2, color=color,numsegments=64,thickness=4.0)
         Overlay().DrawPolyFilled(mission_map.player_screen_x, mission_map.player_screen_y, radius=radius, color=color,numsegments=64)
@@ -844,7 +862,7 @@ def DrawFrame():
             mission_map.renderer.render()
             
     def _draw_compass_range(zoom):
-        radius = RawGwinchToPixels(Range.Compass.value,mission_map.zoom, mission_map.mega_zoom, mission_map.scale_x)
+        radius = RawGwinchToPixels(Range.Compass.value,mission_map.zoom, mission_map.mega_zoom, mission_map.effective_scale_x)
         color = mission_map.aggro_bubble_color
         Overlay().DrawPoly (mission_map.player_screen_x, mission_map.player_screen_y, radius=radius, color=Utils.RGBToColor(0, 0, 0, 255),numsegments=360,thickness=1.0)
         Overlay().DrawPoly (mission_map.player_screen_x, mission_map.player_screen_y, radius=radius-(2.85*zoom), color=color,numsegments=360,thickness=(5.7*zoom))
@@ -897,7 +915,7 @@ def DrawFrame():
                         area = Range.Area.value
                     if agent.living_agent.player_number in EARSHOT_SPIRIT_MODELS:
                         area = Range.Earshot.value
-                    spirit_area = RawGwinchToPixels(area,mission_map.zoom, mission_map.mega_zoom, mission_map.scale_x)
+                    spirit_area = RawGwinchToPixels(area,mission_map.zoom, mission_map.mega_zoom, mission_map.effective_scale_x)
                 
                     Overlay().DrawPoly      (x, y, radius=spirit_area-2, color=marker.AlternateColor.to_color(),numsegments=32,thickness=1.0)
                     Overlay().DrawPolyFilled(x, y, radius=spirit_area, color=marker.AlternateColor.to_color(),numsegments=32)
@@ -931,7 +949,7 @@ def DrawFrame():
                     shifted_color = marker.Color.shift(enemy_marker.Color, 0.55)
                     shifted_color.set_a(int(shifted_color.get_a() * 0.25))
                         
-                    spirit_area = RawGwinchToPixels(area,mission_map.zoom, mission_map.mega_zoom, mission_map.scale_x)
+                    spirit_area = RawGwinchToPixels(area,mission_map.zoom, mission_map.mega_zoom, mission_map.effective_scale_x)
                 
                     Overlay().DrawPoly      (x, y, radius=spirit_area-2, color=shifted_color.to_color(),numsegments=32,thickness=1.0)
                     Overlay().DrawPolyFilled(x, y, radius=spirit_area, color=shifted_color.to_color(),numsegments=32)

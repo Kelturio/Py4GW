@@ -2,10 +2,17 @@ import PyMap
 import PyMissionMap
 import PyPathing
 import PyOverlay
-from .enums import outposts, explorables, explorable_name_to_id, FlagPreference
+from .enums import outposts, explorables, explorable_name_to_id, FlagPreference, EnumPreference
 from .UIManager import *
 from .Overlay import *
 import math
+
+MISSION_MAP_INTERFACE_SCALE_MULTIPLIERS = {
+    0xFFFFFFFF: 0.9,
+    0: 1.0,
+    1: 1.166666,
+    2: 1.3333333,
+}
 
 class Map:
     @staticmethod
@@ -574,7 +581,12 @@ class Map:
         def GetScale():
             """Get the scale of the mission map."""
             return Map.MissionMap._mission_map_instance().scale_x, Map.MissionMap._mission_map_instance().scale_y
-        
+
+        @staticmethod
+        def GetInterfaceScaleMultiplier():
+            ui_size = UIManager.GetEnumPreference(EnumPreference.InterfaceSize)
+            return MISSION_MAP_INTERFACE_SCALE_MULTIPLIERS.get(ui_size, 1.0)
+
         @staticmethod
         def GetZoom():
             """Get the zoom level of the mission map."""
@@ -682,6 +694,9 @@ class Map:
                 offset_y = y - pan_offset_y
 
                 scale_x, scale_y = Map.MissionMap.GetScale()
+                interface_scale = Map.MissionMap.GetInterfaceScaleMultiplier()
+                scale_x *= interface_scale
+                scale_y *= interface_scale
                 scaled_x = offset_x * scale_x
                 scaled_y = offset_y * scale_y
 
@@ -701,6 +716,9 @@ class Map:
 
                 zoom = Map.MissionMap.GetZoom() + zoom_offset
                 scale_x, scale_y = Map.MissionMap.GetScale()
+                interface_scale = Map.MissionMap.GetInterfaceScaleMultiplier()
+                scale_x *= interface_scale
+                scale_y *= interface_scale
                 center_x, center_y = Map.MissionMap.GetMapScreenCenter()
                 pan_offset_x, pan_offset_y = Map.MissionMap.GetPanOffset()
 
