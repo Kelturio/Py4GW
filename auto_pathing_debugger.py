@@ -200,6 +200,44 @@ def _use_active_quest_marker() -> None:
     _status_message = "Quest marker destination loaded."
 
 
+def _use_clipboard_destination() -> None:
+    """Populate the destination using coordinates stored in the clipboard."""
+
+    global _destination_x, _destination_y, _combined_input, _combined_error, _status_message
+
+    try:
+        clipboard_text = PyImGui.get_clipboard_text()
+    except Exception as exc:  # noqa: BLE001 - surface everything
+        _status_message = f"Failed to read clipboard: {exc}"
+        return
+
+    if not clipboard_text:
+        _status_message = "Clipboard does not contain coordinates."
+        return
+
+    clipboard_text = clipboard_text.strip()
+    if not clipboard_text:
+        _status_message = "Clipboard does not contain coordinates."
+        return
+
+    parsed = _parse_combined_destination(clipboard_text)
+    if not parsed:
+        numeric_values = re.findall(r"[-+]?[0-9]*\.?[0-9]+", clipboard_text)
+        if len(numeric_values) >= 2:
+            try:
+                parsed = float(numeric_values[0]), float(numeric_values[1])
+            except ValueError:
+                parsed = None
+        if not parsed:
+            _status_message = "Clipboard contents not recognised as coordinates."
+            return
+
+    _destination_x, _destination_y = parsed
+    _combined_input = _format_destination()
+    _combined_error = ""
+    _status_message = "Destination loaded from clipboard."
+
+
 def _follow_status_text() -> str:
     return f"Following path ({_follow_progress * 100:.0f}%)."
 
@@ -618,6 +656,9 @@ def main() -> None:
         PyImGui.same_line(0.0, -1.0)
         if PyImGui.button("Use quest marker"):
             _use_active_quest_marker()
+        PyImGui.same_line(0.0, -1.0)
+        if PyImGui.button("Use clipboard coords"):
+            _use_clipboard_destination()
         PyImGui.same_line(0.0, -1.0)
         if PyImGui.button("Plan path"):
             _start_plan(auto_follow=False)
