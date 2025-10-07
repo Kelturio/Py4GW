@@ -167,7 +167,7 @@ def RawGamePosToScreen(x:float, y:float, zoom:float, zoom_offset:float, left_bou
     scaled_x = offset_x * scale_x
     scaled_y = offset_y * scale_y
 
-    zoom_total = zoom + zoom_offset
+    zoom_total = Map.MissionMap.GetAdjustedZoom(zoom, zoom_offset)
 
     screen_x = scaled_x * zoom_total + mission_map_screen_center_x
     screen_y = scaled_y * zoom_total + mission_map_screen_center_y
@@ -191,7 +191,7 @@ def RawScreenToRawGamePos(screen_x: float, screen_y: float, zoom: float, zoom_of
     origin_x = left_bound + abs(min_x) / GWINCHES
     origin_y = top_bound + abs(max_y) / GWINCHES
 
-    zoom_total = zoom + zoom_offset
+    zoom_total = Map.MissionMap.GetAdjustedZoom(zoom, zoom_offset)
     if zoom_total == 0:
         zoom_total = 1.0
 
@@ -216,7 +216,8 @@ def RawScreenToRawGamePos(screen_x: float, screen_y: float, zoom: float, zoom_of
 
 def RawGwinchToPixels(gwinch_value: float, zoom:float, zoom_offset:float, scale_x) -> float:
     global GWINCHES
-    pixels_per_gwinch = (scale_x * (zoom + zoom_offset)) / GWINCHES
+    zoom_total = Map.MissionMap.GetAdjustedZoom(zoom, zoom_offset)
+    pixels_per_gwinch = (scale_x * zoom_total) / GWINCHES
     return gwinch_value * pixels_per_gwinch
 
 def FloatingCoordsStrip(x, y, last_x, last_y, color, width=None, margin=8, label="Cords"):
