@@ -167,10 +167,10 @@ def RawGamePosToScreen(x:float, y:float, zoom:float, zoom_offset:float, left_bou
     scaled_x = offset_x * scale_x
     scaled_y = offset_y * scale_y
 
-    zoom_total = zoom + zoom_offset
+    adjusted_zoom = Map.MissionMap.GetAdjustedZoom(zoom, zoom_offset)
 
-    screen_x = scaled_x * zoom_total + mission_map_screen_center_x
-    screen_y = scaled_y * zoom_total + mission_map_screen_center_y
+    screen_x = scaled_x * adjusted_zoom + mission_map_screen_center_x
+    screen_y = scaled_y * adjusted_zoom + mission_map_screen_center_y
 
     return screen_x, screen_y
 
@@ -191,13 +191,13 @@ def RawScreenToRawGamePos(screen_x: float, screen_y: float, zoom: float, zoom_of
     origin_x = left_bound + abs(min_x) / GWINCHES
     origin_y = top_bound + abs(max_y) / GWINCHES
 
-    zoom_total = zoom + zoom_offset
-    if zoom_total == 0:
-        zoom_total = 1.0
+    adjusted_zoom = Map.MissionMap.GetAdjustedZoom(zoom, zoom_offset)
+    if adjusted_zoom == 0:
+        adjusted_zoom = 1.0
 
     # Reverse zoom and center offset
-    scaled_x = (screen_x - mission_map_screen_center_x) / zoom_total
-    scaled_y = (screen_y - mission_map_screen_center_y) / zoom_total
+    scaled_x = (screen_x - mission_map_screen_center_x) / adjusted_zoom
+    scaled_y = (screen_y - mission_map_screen_center_y) / adjusted_zoom
 
     # Reverse scaling
     offset_x = scaled_x / (scale_x if scale_x != 0 else 1)
@@ -216,7 +216,8 @@ def RawScreenToRawGamePos(screen_x: float, screen_y: float, zoom: float, zoom_of
 
 def RawGwinchToPixels(gwinch_value: float, zoom:float, zoom_offset:float, scale_x) -> float:
     global GWINCHES
-    pixels_per_gwinch = (scale_x * (zoom + zoom_offset)) / GWINCHES
+    adjusted_zoom = Map.MissionMap.GetAdjustedZoom(zoom, zoom_offset)
+    pixels_per_gwinch = (scale_x * adjusted_zoom) / GWINCHES
     return gwinch_value * pixels_per_gwinch
 
 def FloatingCoordsStrip(x, y, last_x, last_y, color, width=None, margin=8, label="Cords"):
@@ -836,25 +837,25 @@ def DrawFrame():
         Overlay().DrawPoly      (mission_map.player_screen_x, mission_map.player_screen_y, radius=radius-2, color=color,numsegments=64,thickness=4.0)
         Overlay().DrawPolyFilled(mission_map.player_screen_x, mission_map.player_screen_y, radius=radius, color=color,numsegments=64)
         
-    def _draw_terrain(zoom):
-        if zoom >3.5:
+    def _draw_terrain(adjusted_zoom):
+        if adjusted_zoom > 3.5:
             mission_map.mega_zoom_renderer.DrawQuadFilled(mission_map.left,mission_map.top, mission_map.right,mission_map.top, mission_map.right,mission_map.bottom, mission_map.left,mission_map.bottom, color=Utils.RGBToColor(75,75,75,200))
             mission_map.mega_zoom_renderer.render()
         else:
             mission_map.renderer.render()
-            
-    def _draw_compass_range(zoom):
+
+    def _draw_compass_range(adjusted_zoom):
         radius = RawGwinchToPixels(Range.Compass.value,mission_map.zoom, mission_map.mega_zoom, mission_map.scale_x)
         color = mission_map.aggro_bubble_color
         Overlay().DrawPoly (mission_map.player_screen_x, mission_map.player_screen_y, radius=radius, color=Utils.RGBToColor(0, 0, 0, 255),numsegments=360,thickness=1.0)
-        Overlay().DrawPoly (mission_map.player_screen_x, mission_map.player_screen_y, radius=radius-(2.85*zoom), color=color,numsegments=360,thickness=(5.7*zoom))
-    
+        Overlay().DrawPoly (mission_map.player_screen_x, mission_map.player_screen_y, radius=radius-(2.85*adjusted_zoom), color=color,numsegments=360,thickness=(5.7*adjusted_zoom))
+
     Overlay().BeginDraw("MissionMapOverlay", mission_map.left, mission_map.top, mission_map.width, mission_map.height)
-    #terrain 
-    zoom = mission_map.zoom + mission_map.mega_zoom
-    _draw_terrain(zoom)    
+    #terrain
+    adjusted_zoom = Map.MissionMap.GetAdjustedZoom(mission_map.zoom, mission_map.mega_zoom)
+    _draw_terrain(adjusted_zoom)
     _draw_aggro_bubble()
-    _draw_compass_range(zoom)
+    _draw_compass_range(adjusted_zoom)
     
       
     neutral_array = mission_map.raw_agent_array_handler.get_neutral_array() if mission_map.raw_agent_array_handler is not None else []
