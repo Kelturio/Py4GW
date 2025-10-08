@@ -43,13 +43,13 @@ window_module = ImGui.WindowModule(
     MODULE_NAME,
     window_name="Hero Builds",
     window_size=(300, 250),
-    window_flags=PyImGui.WindowFlags.AlwaysAutoResize,
+    window_flags=PyImGui.WindowFlags.NoFlag,
 )
 config_module = ImGui.WindowModule(
     f"Config {MODULE_NAME}",
     window_name="Hero Builds Settings",
     window_size=(280, 120),
-    window_flags=PyImGui.WindowFlags.AlwaysAutoResize,
+    window_flags=PyImGui.WindowFlags.NoFlag,
 )
 
 window_save_timer = Timer()
@@ -74,6 +74,10 @@ window_module.window_pos = (
     ini_handler.read_int(WINDOW_SECTION, "y", 100),
 )
 window_module.collapse = ini_handler.read_bool(WINDOW_SECTION, "collapsed", False)
+window_module.window_size = (
+    ini_handler.read_int(WINDOW_SECTION, "width", window_module.window_size[0]),
+    ini_handler.read_int(WINDOW_SECTION, "height", window_module.window_size[1]),
+)
 
 config_module.window_pos = (
     ini_handler.read_int(CONFIG_WINDOW_SECTION, "x", 120),
@@ -81,6 +85,10 @@ config_module.window_pos = (
 )
 config_module.collapse = ini_handler.read_bool(
     CONFIG_WINDOW_SECTION, "collapsed", False
+)
+config_module.window_size = (
+    ini_handler.read_int(CONFIG_WINDOW_SECTION, "width", config_module.window_size[0]),
+    ini_handler.read_int(CONFIG_WINDOW_SECTION, "height", config_module.window_size[1]),
 )
 
 last_instance_type = "Loading"
@@ -561,17 +569,23 @@ def _save_to_file(force: bool = False) -> None:
             "x": str(int(window_module.window_pos[0])),
             "y": str(int(window_module.window_pos[1])),
             "collapsed": str(window_module.collapse),
+            "width": str(int(window_module.window_size[0])),
+            "height": str(int(window_module.window_size[1])),
         }
     else:
         config[WINDOW_SECTION] = {
             "x": str(int(window_module.window_pos[0])),
             "y": str(int(window_module.window_pos[1])),
             "collapsed": str(window_module.collapse),
+            "width": str(int(window_module.window_size[0])),
+            "height": str(int(window_module.window_size[1])),
         }
     config[CONFIG_WINDOW_SECTION] = {
         "x": str(int(config_module.window_pos[0])),
         "y": str(int(config_module.window_pos[1])),
         "collapsed": str(config_module.collapse),
+        "width": str(int(config_module.window_size[0])),
+        "height": str(int(config_module.window_size[1])),
     }
     for index, tb in enumerate(teambuilds):
         section = f"builds{index:03d}"
@@ -598,9 +612,13 @@ def _update_window_state() -> None:
         pos = PyImGui.get_window_pos()
         window_module.window_pos = (int(pos[0]), int(pos[1]))
         window_module.collapse = PyImGui.is_window_collapsed()
+        size = PyImGui.get_window_size()
+        window_module.window_size = (int(size[0]), int(size[1]))
         ini_handler.write_key(WINDOW_SECTION, "x", int(window_module.window_pos[0]))
         ini_handler.write_key(WINDOW_SECTION, "y", int(window_module.window_pos[1]))
         ini_handler.write_key(WINDOW_SECTION, "collapsed", window_module.collapse)
+        ini_handler.write_key(WINDOW_SECTION, "width", int(window_module.window_size[0]))
+        ini_handler.write_key(WINDOW_SECTION, "height", int(window_module.window_size[1]))
         window_save_timer.Reset()
 
 
@@ -609,9 +627,13 @@ def _update_config_window_state() -> None:
         pos = PyImGui.get_window_pos()
         config_module.window_pos = (int(pos[0]), int(pos[1]))
         config_module.collapse = PyImGui.is_window_collapsed()
+        size = PyImGui.get_window_size()
+        config_module.window_size = (int(size[0]), int(size[1]))
         ini_handler.write_key(CONFIG_WINDOW_SECTION, "x", int(config_module.window_pos[0]))
         ini_handler.write_key(CONFIG_WINDOW_SECTION, "y", int(config_module.window_pos[1]))
         ini_handler.write_key(CONFIG_WINDOW_SECTION, "collapsed", config_module.collapse)
+        ini_handler.write_key(CONFIG_WINDOW_SECTION, "width", int(config_module.window_size[0]))
+        ini_handler.write_key(CONFIG_WINDOW_SECTION, "height", int(config_module.window_size[1]))
         config_save_timer.Reset()
 
 
@@ -665,6 +687,9 @@ def _update_state() -> None:
 def _draw_main_window() -> bool:
     global collapse_main_window_next_frame, selected_teambuild_for_copy, builds_changed
     if window_module.first_run:
+        PyImGui.set_next_window_size(
+            window_module.window_size[0], window_module.window_size[1]
+        )
         PyImGui.set_next_window_pos(window_module.window_pos[0], window_module.window_pos[1])
         PyImGui.set_next_window_collapsed(window_module.collapse, 0)
         window_module.first_run = False
@@ -740,7 +765,7 @@ def _draw_teambuild_editor(tbuild: TeamHeroBuild, index: int) -> None:
     expanded, tbuild.edit_open = PyImGui.begin_with_close(
         window_name,
         tbuild.edit_open,
-        PyImGui.WindowFlags.AlwaysAutoResize,
+        PyImGui.WindowFlags.NoFlag,
     )
     try:
         if not expanded:
@@ -880,6 +905,9 @@ def draw_widget(_: CacheData) -> None:
 def configure() -> None:
     global hide_when_entering_explorable, one_teambuild_at_a_time, builds_changed
     if config_module.first_run:
+        PyImGui.set_next_window_size(
+            config_module.window_size[0], config_module.window_size[1]
+        )
         PyImGui.set_next_window_pos(config_module.window_pos[0], config_module.window_pos[1])
         PyImGui.set_next_window_collapsed(config_module.collapse, 0)
         config_module.first_run = False
