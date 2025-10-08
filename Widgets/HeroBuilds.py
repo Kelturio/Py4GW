@@ -25,6 +25,7 @@ MODULE_NAME = "Hero Builds"
 
 BUFFER_SIZE = 128
 TEAM_SIZE = 8
+_BASE64_TABLE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
 
 script_directory = os.path.dirname(os.path.abspath(__file__))
 root_directory = os.path.normpath(os.path.join(script_directory, ".."))
@@ -392,6 +393,184 @@ def _hero_selection_options() -> List[tuple[str, int]]:
     return options
 
 
+def _profession_to_int(profession: Any) -> int:
+    if profession is None:
+        return 0
+    for attr in ("ToInt", "value"):
+        if hasattr(profession, attr):
+            try:
+                value = getattr(profession, attr)
+                return int(value() if callable(value) else value)
+            except Exception:
+                continue
+    try:
+        return int(profession)
+    except Exception:
+        return 0
+
+
+def _collect_professions(agent_id: int, hero_member: Any | None = None) -> tuple[int, int]:
+    primary = 0
+    secondary = 0
+    if hero_member is not None:
+        primary = _profession_to_int(getattr(hero_member, "primary", None))
+        secondary = _profession_to_int(getattr(hero_member, "secondary", None))
+    if not primary and not secondary:
+        try:
+            profs = GLOBAL_CACHE.Agent.GetProfessionIDs(agent_id)
+            if isinstance(profs, (tuple, list)) and len(profs) >= 2:
+                primary = _profession_to_int(profs[0])
+                secondary = _profession_to_int(profs[1])
+        except Exception:
+            primary = secondary = 0
+    return max(0, min(primary, 10)), max(0, min(secondary, 10))
+
+
+def _collect_attributes(agent_id: int) -> List[tuple[int, int]]:
+    attributes: List[tuple[int, int]] = []
+    if not agent_id:
+        return attributes
+    try:
+        raw_attributes = GLOBAL_CACHE.Agent.GetAttributes(agent_id) or []
+    except Exception:
+        return attributes
+    for attr in raw_attributes:
+        attr_id = getattr(attr, "attribute_id", getattr(attr, "attribute", 0))
+        try:
+            attr_id_int = int(attr_id)
+        except Exception:
+            continue
+        points = getattr(attr, "level", None)
+        if points in (None, 0):
+            points = getattr(attr, "level_base", 0)
+        try:
+            points_int = int(points)
+        except Exception:
+            continue
+        if attr_id_int <= 0 or points_int <= 0:
+            continue
+        attributes.append((attr_id_int, max(0, min(points_int, 15))))
+        if len(attributes) >= 16:
+            break
+    return attributes
+
+
+def _player_skill_ids() -> List[int]:
+    skills: List[int] = []
+    for slot in range(1, 9):
+        try:
+            skill_id = GLOBAL_CACHE.SkillBar.GetSkillIDBySlot(slot)
+        except Exception:
+            skill_id = 0
+        try:
+            skill_int = int(skill_id)
+        except Exception:
+            skill_int = 0
+        skills.append(max(0, skill_int))
+    return skills
+
+
+def _hero_skill_ids(hero_slot: int) -> List[int]:
+    try:
+        hero_bar = GLOBAL_CACHE.SkillBar.GetHeroSkillbar(hero_slot)
+    except Exception:
+        hero_bar = None
+    skills: List[int] = []
+    for idx in range(8):
+        skill_id = 0
+        if hero_bar is not None and idx < len(hero_bar):
+            skill = hero_bar[idx]
+            value = getattr(skill, "id", 0)
+            if hasattr(value, "id"):
+                value = getattr(value, "id", 0)
+            if not isinstance(value, int):
+                try:
+                    value = int(value)
+                except Exception:
+                    value = 0
+            skill_id = max(0, value)
+        skills.append(skill_id)
+    return skills
+
+
+def _append_bits(buffer: List[int], value: int, count: int) -> None:
+    for bit in range(count):
+        buffer.append((value >> bit) & 1)
+
+
+def _encode_skill_template(primary: int, secondary: int, attributes: List[tuple[int, int]], skills: List[int]) -> str:
+    bitstream: List[int] = []
+    _append_bits(bitstream, 14, 4)
+    _append_bits(bitstream, 0, 4)
+    bits_per_prof = max(4, primary.bit_length(), secondary.bit_length())
+    if bits_per_prof % 2:
+        bits_per_prof += 1
+    bits_per_prof = min(max(bits_per_prof, 4), 10)
+    _append_bits(bitstream, (bits_per_prof - 4) // 2, 2)
+    _append_bits(bitstream, primary, bits_per_prof)
+    _append_bits(bitstream, secondary, bits_per_prof)
+    filtered_attributes = [(attr_id, points) for attr_id, points in attributes if attr_id and points]
+    bits_per_attr = 4
+    for attr_id, _ in filtered_attributes:
+        bits_per_attr = max(bits_per_attr, int(attr_id).bit_length())
+    filtered_attributes = filtered_attributes[:16]
+    _append_bits(bitstream, len(filtered_attributes), 4)
+    _append_bits(bitstream, max(bits_per_attr, 4) - 4, 4)
+    for attr_id, points in filtered_attributes:
+        _append_bits(bitstream, int(attr_id), max(bits_per_attr, 4))
+        _append_bits(bitstream, int(points), 4)
+    padded_skills = (skills + [0] * 8)[:8]
+    bits_per_skill = 8
+    for skill_id in padded_skills:
+        bits_per_skill = max(bits_per_skill, int(skill_id).bit_length())
+    _append_bits(bitstream, max(bits_per_skill, 8) - 8, 4)
+    for skill_id in padded_skills:
+        _append_bits(bitstream, int(skill_id), max(bits_per_skill, 8))
+    while len(bitstream) % 6:
+        bitstream.append(0)
+    encoded_chars: List[str] = []
+    for idx in range(0, len(bitstream), 6):
+        value = 0
+        for bit_offset in range(6):
+            value |= bitstream[idx + bit_offset] << bit_offset
+        encoded_chars.append(_BASE64_TABLE[value])
+    return "".join(encoded_chars)
+
+
+def _encode_agent_template(agent_id: int, hero_slot: Optional[int], hero_member: Any | None) -> str:
+    if not agent_id:
+        return ""
+    primary, secondary = _collect_professions(agent_id, hero_member)
+    skills = _hero_skill_ids(hero_slot) if hero_slot else _player_skill_ids()
+    if not any(skills):
+        return ""
+    attributes = _collect_attributes(agent_id)
+    try:
+        return _encode_skill_template(primary, secondary, attributes, skills)
+    except Exception:
+        return ""
+
+
+def _hero_index_from_id_value(hero_id_value: int) -> int:
+    for idx, hero_type in enumerate(HERO_INDEX_TO_ID):
+        try:
+            if int(hero_type) == int(hero_id_value):
+                return idx
+        except Exception:
+            continue
+    return 0
+
+
+def _hero_behavior_from_member(hero_member: Any) -> int:
+    behavior = getattr(hero_member, "hero_behavior", None)
+    if behavior is None:
+        return 1
+    try:
+        return int(behavior)
+    except Exception:
+        return 1
+
+
 def _format_build_label(tbuild: TeamHeroBuild, slot: int) -> str:
     build = tbuild.builds[slot]
     name = (build.name or "").strip()
@@ -505,6 +684,52 @@ def _copy_teambuild(source: TeamHeroBuild, suffix: str = " (Copy)") -> TeamHeroB
     ]
     clone.edit_open = True
     return clone
+
+
+def _add_teambuild_from_current() -> None:
+    global builds_changed
+    new_tb = TeamHeroBuild()
+    new_tb.edit_open = True
+    builds: List[HeroBuild] = []
+    player_agent = GLOBAL_CACHE.Player.GetAgentID()
+    player_code = _encode_agent_template(player_agent, None, None)
+    builds.append(HeroBuild(hero_index=-2, code=player_code or ""))
+    hero_members = GLOBAL_CACHE.Party.GetHeroes() or []
+    hero_lookup = {idx + 1: member for idx, member in enumerate(hero_members[: TEAM_SIZE - 1])}
+    for slot in range(1, TEAM_SIZE):
+        member = hero_lookup.get(slot)
+        hero_index = 0
+        behavior = 1
+        code = ""
+        agent_id = 0
+        if member is not None:
+            agent_id = getattr(member, "agent_id", 0)
+            hero_id_obj = getattr(member, "hero_id", None)
+            hero_id_value = 0
+            if hero_id_obj is not None:
+                if hasattr(hero_id_obj, "GetID"):
+                    try:
+                        hero_id_value = int(hero_id_obj.GetID())
+                    except Exception:
+                        hero_id_value = 0
+                else:
+                    try:
+                        hero_id_value = int(hero_id_obj)
+                    except Exception:
+                        hero_id_value = 0
+            hero_index = _hero_index_from_id_value(hero_id_value)
+            behavior = _hero_behavior_from_member(member)
+            code = _encode_agent_template(agent_id, slot, member)
+        builds.append(
+            HeroBuild(
+                hero_index=hero_index if hero_index > 0 else 0,
+                behavior=behavior,
+                code=code or "",
+            )
+        )
+    new_tb.builds = builds
+    teambuilds.append(new_tb)
+    builds_changed = True
 
 
 teambuilds: List[TeamHeroBuild] = []
@@ -731,13 +956,11 @@ def _draw_main_window() -> bool:
             new_tb.edit_open = True
             teambuilds.append(new_tb)
             builds_changed = True
-        PyImGui.begin_disabled(True)
         if PyImGui.button(
             "Add Teambuild from Current", PyImGui.get_content_region_avail()[0]
         ):
-            pass
-        PyImGui.end_disabled()
-        PyImGui.show_tooltip("Not available in Py4GW: template encoding APIs are not yet exposed.")
+            _add_teambuild_from_current()
+        PyImGui.show_tooltip("Capture the current player and hero skill bars into a new teambuild.")
         if teambuilds:
             options = [tb.name or f"Teambuild {idx + 1}" for idx, tb in enumerate(teambuilds)]
             if selected_teambuild_for_copy >= len(options):
