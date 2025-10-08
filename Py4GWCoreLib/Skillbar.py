@@ -37,6 +37,14 @@ class SkillBar:
         return skill_ids
 
     @staticmethod
+    def EncodeSkillTemplate(**kwargs) -> str:
+        """Encode the current skill template into a build code string."""
+
+        from Py4GWCoreLib.GlobalCache import GLOBAL_CACHE as _GLOBAL_CACHE
+
+        return _GLOBAL_CACHE.SkillBar.EncodeSkillTemplate(**kwargs)
+
+    @staticmethod
     def GetHeroSkillbar(hero_index):
         """
         Purpose: Retrieve the skill bar of a hero.

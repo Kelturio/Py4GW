@@ -46,6 +46,11 @@ from .Effect import *
 from .Merchant import *
 from .Quest import *
 from .Camera import *
+from .skill_template import SkillAttribute
+from .skill_template import SkillTemplate
+from .skill_template import decode_skill_template
+from .skill_template import encode_skill_template
+from .skill_template import make_skill_template
 from .GWCA import (
     EncodedStringDecoder,
     GWCALibrary,

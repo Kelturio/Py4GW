@@ -47,7 +47,7 @@ class GlobalCache:
         self.Party = PartyCache(self._ActionQueueManager, self.Map, self.Player)
         self.Quest = QuestCache(self._ActionQueueManager)
         self.Skill = SkillCache()
-        self.SkillBar = SkillbarCache(self._ActionQueueManager)
+        self.SkillBar = SkillbarCache(self._ActionQueueManager, self.Agent, self.Player)
         self.ShMem = Py4GWSharedMemoryManager()
         self.Coroutines: List[Generator] = []
         
