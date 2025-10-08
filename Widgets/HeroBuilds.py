@@ -781,21 +781,21 @@ def _draw_teambuild_editor(tbuild: TeamHeroBuild, index: int) -> None:
         label_width = (PyImGui.get_content_region_avail()[0] - (button_width * 2) - icon_width * 3 - item_spacing * 5) / 3
         PyImGui.set_cursor_pos_x(button_width)
         PyImGui.text("Name")
-        PyImGui.same_line(button_width + label_width + item_spacing)
+        PyImGui.same_line(button_width + label_width + item_spacing, 0.0)
         PyImGui.text("Template")
         hero_options = _hero_selection_options()
         for slot, build in enumerate(tbuild.builds):
             PyImGui.push_id(str(slot))
             PyImGui.set_cursor_pos_x(0)
             PyImGui.text("P" if slot == 0 else f"H#{slot}")
-            PyImGui.same_line(button_width)
+            PyImGui.same_line(button_width, 0.0)
             PyImGui.push_item_width(label_width)
             new_name = PyImGui.input_text("##name", build.name, BUFFER_SIZE)
             if new_name != build.name:
                 build.name = new_name
                 builds_changed = True
             PyImGui.pop_item_width()
-            PyImGui.same_line(button_width + label_width + item_spacing)
+            PyImGui.same_line(button_width + label_width + item_spacing, 0.0)
             PyImGui.push_item_width(label_width)
             new_code = PyImGui.input_text("##code", build.code, BUFFER_SIZE)
             if new_code != build.code:
@@ -803,7 +803,9 @@ def _draw_teambuild_editor(tbuild: TeamHeroBuild, index: int) -> None:
                 builds_changed = True
             PyImGui.pop_item_width()
             if slot > 0:
-                PyImGui.same_line(button_width + label_width * 2 + item_spacing * 2)
+                PyImGui.same_line(
+                    button_width + label_width * 2 + item_spacing * 2, 0.0
+                )
                 PyImGui.push_item_width(label_width)
                 option_labels = [label for label, _ in hero_options]
                 current_index = next((i for i, (_, value) in enumerate(hero_options) if value == build.hero_index), 0)
@@ -826,9 +828,14 @@ def _draw_teambuild_editor(tbuild: TeamHeroBuild, index: int) -> None:
                     builds_changed = True
                 PyImGui.show_tooltip(HERO_BEHAVIOR_TOOLTIPS.get(build.behavior, "Hero behaviour"))
             else:
-                PyImGui.same_line(button_width + label_width * 2 + item_spacing * 2)
+                PyImGui.same_line(
+                    button_width + label_width * 2 + item_spacing * 2, 0.0
+                )
                 PyImGui.text_disabled("Player")
-                PyImGui.same_line(0, item_spacing + icon_width * 2 + item_spacing * 2)
+                PyImGui.same_line(
+                    0,
+                    item_spacing + icon_width * 2 + item_spacing * 2,
+                )
             action_label = "Send" if io.key_ctrl else "View"
             if PyImGui.button(action_label, button_width):
                 if io.key_ctrl:
@@ -864,11 +871,12 @@ def _draw_teambuild_editor(tbuild: TeamHeroBuild, index: int) -> None:
         if new_mode != tbuild.mode:
             tbuild.mode = new_mode
             builds_changed = True
-        PyImGui.same_line(
+        close_button_x = (
             PyImGui.get_window_content_region_max()[0]
             - _style_component(PyImGui.get_style(), "WindowPadding")
             - 40
         )
+        PyImGui.same_line(close_button_x, 0.0)
         if PyImGui.button("Close", PyImGui.get_content_region_avail()[0]):
             tbuild.edit_open = False
         PyImGui.show_tooltip("Close this window")
