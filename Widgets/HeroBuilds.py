@@ -470,9 +470,11 @@ def _player_skill_ids() -> List[int]:
     return skills
 
 
-def _hero_skill_ids(hero_slot: int) -> List[int]:
+def _hero_skill_ids(hero_index: int) -> List[int]:
     try:
-        hero_bar = GLOBAL_CACHE.SkillBar.GetHeroSkillbar(hero_slot)
+        if hero_index <= 0:
+            return [0] * 8
+        hero_bar = GLOBAL_CACHE.SkillBar.GetHeroSkillbar(hero_index)
     except Exception:
         hero_bar = None
     skills: List[int] = []
@@ -537,11 +539,16 @@ def _encode_skill_template(primary: int, secondary: int, attributes: List[tuple[
     return "".join(encoded_chars)
 
 
-def _encode_agent_template(agent_id: int, hero_slot: Optional[int], hero_member: Any | None) -> str:
+def _encode_agent_template(
+    agent_id: int, hero_index: Optional[int], hero_member: Any | None
+) -> str:
     if not agent_id:
         return ""
     primary, secondary = _collect_professions(agent_id, hero_member)
-    skills = _hero_skill_ids(hero_slot) if hero_slot else _player_skill_ids()
+    if hero_index:
+        skills = _hero_skill_ids(hero_index)
+    else:
+        skills = _player_skill_ids()
     if not any(skills):
         return ""
     attributes = _collect_attributes(agent_id)
@@ -693,19 +700,25 @@ def _add_teambuild_from_current() -> None:
     builds: List[HeroBuild] = []
     player_agent = GLOBAL_CACHE.Player.GetAgentID()
     player_code = _encode_agent_template(player_agent, None, None)
-    builds.append(HeroBuild(hero_index=-2, code=player_code or ""))
+    builds.append(HeroBuild(hero_index=0, code=player_code or ""))
     hero_members = GLOBAL_CACHE.Party.GetHeroes() or []
-    hero_lookup = {idx + 1: member for idx, member in enumerate(hero_members[: TEAM_SIZE - 1])}
+    hero_lookup = {idx: member for idx, member in enumerate(hero_members[: TEAM_SIZE - 1])}
     for slot in range(1, TEAM_SIZE):
-        member = hero_lookup.get(slot)
+        member = hero_lookup.get(slot - 1)
         hero_index = 0
         behavior = 1
         code = ""
         agent_id = 0
+        hero_id_value = 0
+        try:
+            agent_id = GLOBAL_CACHE.Party.Heroes.GetHeroAgentIDByPartyPosition(slot - 1)
+        except Exception:
+            agent_id = 0
         if member is not None:
-            agent_id = getattr(member, "agent_id", 0)
+            member_agent = getattr(member, "agent_id", 0)
+            if not agent_id and isinstance(member_agent, int):
+                agent_id = member_agent
             hero_id_obj = getattr(member, "hero_id", None)
-            hero_id_value = 0
             if hero_id_obj is not None:
                 if hasattr(hero_id_obj, "GetID"):
                     try:
@@ -717,9 +730,16 @@ def _add_teambuild_from_current() -> None:
                         hero_id_value = int(hero_id_obj)
                     except Exception:
                         hero_id_value = 0
-            hero_index = _hero_index_from_id_value(hero_id_value)
             behavior = _hero_behavior_from_member(member)
-            code = _encode_agent_template(agent_id, slot, member)
+        if not hero_id_value:
+            try:
+                hero_id_value = GLOBAL_CACHE.Party.Heroes.GetHeroIDByPartyPosition(slot - 1) or 0
+            except Exception:
+                hero_id_value = 0
+        hero_index = _hero_index_from_id_value(hero_id_value)
+        template_index: Optional[int] = hero_index if hero_index > 0 else None
+        if agent_id and template_index is not None:
+            code = _encode_agent_template(agent_id, template_index, member)
         builds.append(
             HeroBuild(
                 hero_index=hero_index if hero_index > 0 else 0,
