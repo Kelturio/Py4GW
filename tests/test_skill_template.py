@@ -5,12 +5,50 @@ import json
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+
+def _resolve_root() -> Path:
+    def _candidate_to_dir(candidate: Path) -> Path | None:
+        try:
+            resolved = candidate.resolve()
+        except (FileNotFoundError, RuntimeError):
+            return None
+        return resolved if resolved.is_dir() else resolved.parent
+
+    candidates: list[Path] = []
+
+    if "__file__" in globals() and __file__:
+        candidates.append(Path(__file__))
+
+    if sys.argv:
+        argv0 = sys.argv[0]
+        if argv0:
+            candidates.append(Path(argv0))
+
+    candidates.append(Path.cwd())
+
+    for candidate in candidates:
+        directory = _candidate_to_dir(candidate)
+        if not directory:
+            continue
+        for parent in [directory, *directory.parents]:
+            if (parent / "Py4GWCoreLib").exists():
+                return parent
+
+    return Path.cwd()
+
+
+ROOT = _resolve_root()
 
 
 def load_module(name: str, relative_path: str):
     path = ROOT / relative_path
+    if not path.exists():
+        raise FileNotFoundError(f"Unable to locate {relative_path!r} from root {ROOT!r}")
+
     spec = importlib.util.spec_from_file_location(name, path)
+    if spec is None or spec.loader is None:
+        raise ImportError(f"Unable to load module {name!r} from {path}")
+
     module = importlib.util.module_from_spec(spec)
     sys.modules[name] = module
     spec.loader.exec_module(module)
