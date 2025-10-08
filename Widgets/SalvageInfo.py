@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import ctypes
 import os
-from dataclasses import dataclass
 from datetime import date, datetime, time, timedelta
 from enum import IntEnum
 from typing import List, Optional
@@ -146,19 +145,23 @@ class _ItemFormula(ctypes.Structure):
     ]
 
 
-@dataclass
 class SalvageData:
-    common: List[str]
-    rare: List[str]
+    __slots__ = ("common", "rare")
+
+    def __init__(self, common: List[str], rare: List[str]) -> None:
+        self.common = common
+        self.rare = rare
 
     @property
     def has_entries(self) -> bool:
         return bool(self.common or self.rare)
 
 
-@dataclass
 class DisplayInfo:
-    lines: List[str]
+    __slots__ = ("lines",)
+
+    def __init__(self, lines: List[str]) -> None:
+        self.lines = lines
 
 
 _salvage_cache: dict[int, SalvageData] = {}
