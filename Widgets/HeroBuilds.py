@@ -99,6 +99,42 @@ def _font_scale(io: PyImGui.ImGuiIO) -> float:
     return getattr(io, "FontGlobalScale", getattr(io, "font_global_scale", 1.0))
 
 
+def _style_component(style: Any, attribute: str, component: int = 0, default: float = 0.0) -> float:
+    """Retrieve a style vector component across differing ImGui bindings."""
+
+    value = getattr(style, attribute, None)
+    if value is None:
+        return default
+    if isinstance(value, (tuple, list)):
+        try:
+            return float(value[component])
+        except (IndexError, TypeError, ValueError):
+            return default
+    attr_name = "xy"[component] if component < 2 else ""
+    if attr_name and hasattr(value, attr_name):
+        try:
+            return float(getattr(value, attr_name))
+        except (TypeError, ValueError):
+            return default
+    value_attr = ("value1", "value2")
+    if component < len(value_attr) and hasattr(value, value_attr[component]):
+        component_value = getattr(value, value_attr[component])
+        if component_value is not None:
+            try:
+                return float(component_value)
+            except (TypeError, ValueError):
+                return default
+    if hasattr(value, "__getitem__"):
+        try:
+            return float(value[component])
+        except (IndexError, TypeError, ValueError):
+            return default
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return default
+
+
 def _generate_ui_id() -> int:
     global _next_team_ui_id
     _next_team_ui_id += 1
@@ -641,7 +677,7 @@ def _draw_main_window() -> bool:
             return False
         io = PyImGui.get_io()
         button_width = 60.0 * _font_scale(io)
-        item_spacing = ImGui.get_style().ItemInnerSpacing.x
+        item_spacing = _style_component(ImGui.get_style(), "ItemInnerSpacing")
         for index, tbuild in enumerate(teambuilds):
             PyImGui.push_id(str(tbuild.ui_id))
             display_name = tbuild.name or f"Teambuild {index + 1}"
@@ -712,7 +748,7 @@ def _draw_teambuild_editor(tbuild: TeamHeroBuild, index: int) -> None:
             tbuild.name = name_input
             builds_changed = True
         io = PyImGui.get_io()
-        item_spacing = ImGui.get_style().ItemInnerSpacing.x
+        item_spacing = _style_component(ImGui.get_style(), "ItemInnerSpacing")
         button_width = 55.0 * _font_scale(io)
         icon_width = button_width / 1.75
         label_width = (PyImGui.get_content_region_avail()[0] - (button_width * 2) - icon_width * 3 - item_spacing * 5) / 3
@@ -801,7 +837,11 @@ def _draw_teambuild_editor(tbuild: TeamHeroBuild, index: int) -> None:
         if new_mode != tbuild.mode:
             tbuild.mode = new_mode
             builds_changed = True
-        PyImGui.same_line(PyImGui.get_window_content_region_max()[0] - PyImGui.get_style().WindowPadding.x - 40)
+        PyImGui.same_line(
+            PyImGui.get_window_content_region_max()[0]
+            - _style_component(PyImGui.get_style(), "WindowPadding")
+            - 40
+        )
         if PyImGui.button("Close", (PyImGui.get_content_region_avail()[0], 0)):
             tbuild.edit_open = False
         PyImGui.show_tooltip("Close this window")
