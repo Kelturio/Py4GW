@@ -7,7 +7,28 @@ import json
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+
+def _resolve_root() -> Path:
+    """Determine the project root even when ``__file__`` is unavailable."""
+
+    if "__file__" in globals() and __file__:
+        resolved = Path(__file__).resolve()
+        if len(resolved.parents) >= 2:
+            return resolved.parents[1]
+
+    argv0 = sys.argv[0] if sys.argv else None
+    if argv0:
+        try:
+            resolved = Path(argv0).resolve()
+            if len(resolved.parents) >= 2:
+                return resolved.parents[1]
+        except (FileNotFoundError, RuntimeError):
+            pass
+
+    return Path.cwd()
+
+
+ROOT = _resolve_root()
 
 
 def load_module(name: str, relative_path: str):
