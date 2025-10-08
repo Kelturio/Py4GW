@@ -873,7 +873,7 @@ def _draw_teambuild_editor(tbuild: TeamHeroBuild, index: int) -> None:
             builds_changed = True
         close_button_x = (
             PyImGui.get_window_content_region_max()[0]
-            - _style_component(PyImGui.get_style(), "WindowPadding")
+            - _style_component(ImGui.get_style(), "WindowPadding")
             - 40
         )
         PyImGui.same_line(close_button_x, 0.0)
