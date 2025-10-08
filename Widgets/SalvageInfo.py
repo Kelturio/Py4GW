@@ -29,6 +29,16 @@ _CONFIG_PATH = os.path.join(_SCRIPT_DIR, "Config", "SalvageInfo.ini")
 os.makedirs(os.path.dirname(_CONFIG_PATH), exist_ok=True)
 _CONFIG = IniHandler(_CONFIG_PATH)
 
+if os.name == "nt":
+    try:
+        _KERNEL32 = ctypes.windll.kernel32
+        _KERNEL32.IsBadReadPtr.argtypes = [ctypes.c_void_p, ctypes.c_size_t]
+        _KERNEL32.IsBadReadPtr.restype = ctypes.c_bool
+    except Exception:
+        _KERNEL32 = None
+else:
+    _KERNEL32 = None
+
 SHOW_COMMON = _CONFIG.read_bool(CONFIG_SECTION, "show_common", True)
 SHOW_RARE = _CONFIG.read_bool(CONFIG_SECTION, "show_rare", True)
 SHOW_NICHOLAS = _CONFIG.read_bool(CONFIG_SECTION, "show_nicholas", True)
@@ -169,6 +179,17 @@ _current_display: Optional[DisplayInfo] = None
 _last_hovered_item: int = 0
 
 
+def _can_read_memory(address: int, size: int) -> bool:
+    if address <= 0 or size <= 0:
+        return False
+    if _KERNEL32 is not None:
+        try:
+            return not _KERNEL32.IsBadReadPtr(ctypes.c_void_p(address), ctypes.c_size_t(size))
+        except Exception:
+            return False
+    return True
+
+
 def _format_material_entry(slot: MaterialSlot, amount: int) -> str:
     name = MATERIAL_NAMES.get(slot, slot.name.replace("_", " ").title())
     if not SHOW_AMOUNTS or amount <= 1:
@@ -184,7 +205,13 @@ def _read_salvage_materials(item_id: int) -> Optional[SalvageData]:
     if not formula_ptr:
         return None
     try:
-        formula = ctypes.cast(ctypes.c_void_p(int(formula_ptr)), ctypes.POINTER(_ItemFormula)).contents
+        formula_address = int(formula_ptr)
+    except Exception:
+        return None
+    if not _can_read_memory(formula_address, ctypes.sizeof(_ItemFormula)):
+        return None
+    try:
+        formula = ctypes.cast(ctypes.c_void_p(formula_address), ctypes.POINTER(_ItemFormula)).contents
     except Exception:
         return None
     count = max(0, min(int(formula.material_cost_count), 8))
@@ -193,13 +220,25 @@ def _read_salvage_materials(item_id: int) -> Optional[SalvageData]:
     buffer_ptr = formula.material_cost_buffer
     if not buffer_ptr:
         return SalvageData([], [])
+    try:
+        buffer_address = ctypes.cast(buffer_ptr, ctypes.c_void_p).value or 0
+    except Exception:
+        return SalvageData([], [])
+    total_size = ctypes.sizeof(_MaterialCost) * count
+    if not _can_read_memory(buffer_address, total_size):
+        return SalvageData([], [])
+    try:
+        raw_buffer = ctypes.string_at(buffer_address, total_size)
+        material_array = (_MaterialCost * count).from_buffer_copy(raw_buffer)
+    except Exception:
+        return SalvageData([], [])
     common: list[str] = []
     rare: list[str] = []
     for index in range(count):
         try:
-            cost = buffer_ptr[index]
+            cost = material_array[index]
         except Exception:
-            break
+            continue
         try:
             slot = MaterialSlot(cost.material)
         except ValueError:
