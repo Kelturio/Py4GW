@@ -12,7 +12,7 @@ from Py4GWCoreLib import Item
 from Py4GWCoreLib import Inventory
 from Py4GWCoreLib import PyImGui
 
-from Widgets.widget_manager.main import get_widget_handler
+from Py4GW_widget_manager import WidgetHandler
 from Widgets import Calendar
 
 __widget__ = {
@@ -24,6 +24,7 @@ __widget__ = {
 }
 
 CONFIG_SECTION = "SalvageInfo"
+_WIDGET_NAME = "SalvageInfo"
 _SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 _CONFIG_PATH = os.path.join(_SCRIPT_DIR, "Config", "SalvageInfo.ini")
 os.makedirs(os.path.dirname(_CONFIG_PATH), exist_ok=True)
@@ -340,8 +341,8 @@ def _draw_tooltip(info: DisplayInfo) -> None:
 
 
 def configure() -> None:
-    handler = get_widget_handler()
-    widget_info = handler.widgets.get("SalvageInfo") if handler else None
+    handler = WidgetHandler()
+    widget_info = handler.get_widget_info(_WIDGET_NAME) if handler else None
     if not widget_info or not widget_info.get("configuring"):
         return
     if PyImGui.begin("Salvage Info Settings", PyImGui.WindowFlags.AlwaysAutoResize):
@@ -364,7 +365,7 @@ def configure() -> None:
             _CONFIG.write_key(CONFIG_SECTION, "show_nicholas", SHOW_NICHOLAS)
         PyImGui.separator()
         if PyImGui.button("Close"):
-            handler.set_widget_configuring("SalvageInfo", False)
+            handler.set_widget_configuring(_WIDGET_NAME, False)
     PyImGui.end()
 
 
