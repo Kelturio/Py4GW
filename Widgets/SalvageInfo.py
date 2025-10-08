@@ -371,7 +371,8 @@ def _draw_tooltip(info: DisplayInfo) -> None:
         | PyImGui.WindowFlags.NoSavedSettings
         | PyImGui.WindowFlags.AlwaysAutoResize
         | PyImGui.WindowFlags.NoMove
-        | PyImGui.WindowFlags.NoInputs
+        | PyImGui.WindowFlags.NoMouseInputs
+        | PyImGui.WindowFlags.NoNavInputs
     )
     if PyImGui.begin("Salvage Info##Tooltip", flags):
         for line in info.lines:
