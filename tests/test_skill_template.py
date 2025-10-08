@@ -131,9 +131,7 @@ def test_round_trip_with_custom_template():
     assert decoded_attributes == expected_attributes
 
 
-def main() -> None:
-    """Self-check entry point for the in-game loader."""
-
+def _run_self_checks() -> None:
     print("Running skill template self-checks...")
     failures: list[str] = []
 
@@ -153,6 +151,19 @@ def main() -> None:
         raise SystemExit(1)
 
     print("All skill template self-checks passed.")
+
+
+_RUN_STATE = {"has_run": False}
+
+
+def main() -> None:
+    """Self-check entry point for the in-game loader."""
+
+    if _RUN_STATE["has_run"]:
+        return
+
+    _RUN_STATE["has_run"] = True
+    _run_self_checks()
 
 
 if __name__ == "__main__":

@@ -1,9 +1,10 @@
-"""Round-trip Guild Wars skill template demonstration script.
+"""Interactive Guild Wars skill template demonstration with PyImGui controls.
 
-This script shows how to decode, inspect, and re-encode Guild Wars skill
-templates using the pure Python encoder/decoder.  It also demonstrates how to
-query the currently equipped player skillbar via ``GLOBAL_CACHE`` and output a
-build code for it so it can be shared or logged.
+This example mirrors the GWToolbox/GWCA skill template encoding and decoding
+logic while exposing a PyImGui-driven interface for inspecting templates in
+real time. Actions are throttled so they only run when triggered via the GUI,
+preventing the script from spamming the Py4GW console when ``main`` is called
+repeatedly by the in-game loader.
 """
 
 from __future__ import annotations
@@ -12,16 +13,9 @@ import importlib.util
 import json
 import sys
 import time
+from collections import deque
 from pathlib import Path
-from typing import Any, Callable, List
-
-try:  # Optional GUI support for in-game visibility of the summary output.
-    import tkinter as tk
-    from tkinter import scrolledtext
-except Exception:  # pragma: no cover - GUI is best-effort only.
-    tk = None  # type: ignore[assignment]
-    scrolledtext = None  # type: ignore[assignment]
-
+from typing import Any, Callable, Deque, Dict, List
 
 TEMPLATE_CODE = "OAhjQkGZIP3hhWVV4JNncDzxJ"
 TEMPLATE_SKILL_NAMES = [
@@ -94,15 +88,16 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 try:  # Importing Py4GWCoreLib initialises GLOBAL_CACHE for in-game execution.
-    from Py4GWCoreLib import GLOBAL_CACHE  # type: ignore
+    from Py4GWCoreLib import GLOBAL_CACHE, PyImGui  # type: ignore
 except Exception:  # pragma: no cover - only triggered in non-game contexts.
     GLOBAL_CACHE = None  # type: ignore
+    PyImGui = None  # type: ignore
 
 
 def _load_skill_data() -> dict[int, dict[str, Any]]:
     with (ROOT / "Py4GWCoreLib" / "skill_descriptions.json").open(encoding="utf-8") as handle:
         raw: dict[str, dict[str, Any]] = json.load(handle)
-    return {int(skill_id): entry for skill_id, entry in raw.items()}
+    return {int(skill_id): entry for skill_id, entry in raw.items() if "name" in entry}
 
 
 def _lookup_skill_ids(names: list[str], lookup: dict[int, dict[str, Any]]) -> list[int]:
@@ -147,7 +142,7 @@ def _describe_template(
     log(f"Round-trip encoding produces: {round_trip}")
 
 
-def _rebuild_template(skill_lookup: dict[int, dict[str, Any]], log: Callable[[str], None]) -> None:
+def _build_sample_template(skill_lookup: dict[int, dict[str, Any]], log: Callable[[str], None]) -> str:
     skills = _lookup_skill_ids(TEMPLATE_SKILL_NAMES, skill_lookup)
     template = skill_template.make_skill_template(
         primary=gamedata.Profession.Necromancer,
@@ -161,101 +156,271 @@ def _rebuild_template(skill_lookup: dict[int, dict[str, Any]], log: Callable[[st
     )
     code = skill_template.encode_skill_template(template)
     log(f"Rebuilt template from structured data: {code}")
+    _describe_template(code, skill_lookup, log, heading="Sample build details")
+    return code
 
 
-def _encode_player_skillbar(
-    skill_lookup: dict[int, dict[str, Any]], log: Callable[[str], None]
-) -> None:
-    if GLOBAL_CACHE is None:
-        log(
-            "GLOBAL_CACHE is unavailable; unable to encode player skillbar outside the game environment."
-        )
-        return
+class _ActionThrottle:
+    def __init__(self, interval: float) -> None:
+        self.interval = interval
+        self._last: Dict[str, float] = {}
 
-    try:
-        GLOBAL_CACHE.SkillBar._update_cache()
-    except AttributeError:
-        pass
-
-    try:
-        player_code = GLOBAL_CACHE.SkillBar.EncodeSkillTemplate()
-    except Exception as exc:
-        log(f"Failed to encode player skillbar: {exc}")
-    else:
-        log(f"Current player's skill template: {player_code}")
-        log("")
-        _describe_template(
-            player_code,
-            skill_lookup,
-            log,
-            heading="Player skill template details",
-        )
+    def allow(self, key: str) -> bool:
+        now = time.time()
+        last = self._last.get(key, 0.0)
+        if now - last >= self.interval:
+            self._last[key] = now
+            return True
+        return False
 
 
-def _show_summary_window(lines: List[str]) -> None:
-    if not lines or tk is None or scrolledtext is None:
-        return
+class SkillTemplateUIState:
+    """Encapsulates the PyImGui-driven UI and throttled actions."""
 
-    try:
-        window = tk.Tk()
-    except Exception:  # pragma: no cover - GUI is best-effort only.
-        return
+    MAX_LOG_LINES = 200
+    DEFAULT_FRAME_INTERVAL = 0.25
+    DEFAULT_ACTION_THROTTLE = 1.0
 
-    window.title("Skill Template Round-Trip Summary")
-    window.resizable(width=True, height=True)
+    def __init__(self) -> None:
+        self.skill_lookup = _load_skill_data()
+        self.template_code = TEMPLATE_CODE
+        self.log_lines: Deque[str] = deque(maxlen=self.MAX_LOG_LINES)
+        self.frame_interval = self.DEFAULT_FRAME_INTERVAL
+        self.action_throttle = self.DEFAULT_ACTION_THROTTLE
+        self._throttler = _ActionThrottle(self.action_throttle)
+        self._last_render = 0.0
+        self._cli_ran = False
 
-    text_widget = scrolledtext.ScrolledText(window, wrap=tk.WORD, width=80, height=30)
-    text_widget.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
-    text_widget.insert("1.0", "\n".join(lines))
-    text_widget.configure(state=tk.DISABLED)
+    # ------------------------------------------------------------------
+    # Logging helpers
+    # ------------------------------------------------------------------
+    def log(self, message: str = "") -> None:
+        formatted = f"[SkillTemplate] {message}" if message else ""
+        if formatted:
+            print(formatted)
+            self.log_lines.append(formatted)
+        else:
+            print("")
+            self.log_lines.append("")
 
-    close_button = tk.Button(window, text="Close", command=window.destroy)
-    close_button.pack(pady=(0, 10))
+    # ------------------------------------------------------------------
+    # Action helpers
+    # ------------------------------------------------------------------
+    def _with_throttle(self, key: str, action: Callable[[], None]) -> None:
+        self._throttler.interval = self.action_throttle
+        if not self._throttler.allow(key):
+            return
+        try:
+            action()
+        except Exception as exc:  # pragma: no cover - defensive logging for in-game runtime.
+            self.log(f"Action '{key}' failed: {exc}")
 
-    try:
-        window.after(100, window.lift)
-    except Exception:
-        pass
+    def _describe_code(self, code: str, *, heading: str) -> None:
+        if not code:
+            self.log("No template code provided.")
+            return
+        self.log(f"Describing template: {code}")
+        _describe_template(code, self.skill_lookup, self.log, heading=heading)
 
-    window.mainloop()
+    def decode_input(self) -> None:
+        self._describe_code(self.template_code.strip(), heading="Input template details")
+
+    def describe_sample(self) -> None:
+        self._describe_code(TEMPLATE_CODE, heading="Sample template details")
+
+    def rebuild_sample(self) -> None:
+        self.log("Rebuilding sample template from structured data...")
+        _build_sample_template(self.skill_lookup, self.log)
+
+    def encode_player_skillbar(self) -> None:
+        if GLOBAL_CACHE is None:
+            self.log(
+                "GLOBAL_CACHE is unavailable; unable to encode player skillbar outside the game environment."
+            )
+            return
+
+        try:
+            GLOBAL_CACHE.SkillBar._update_cache()
+        except AttributeError:
+            pass
+
+        try:
+            player_code = GLOBAL_CACHE.SkillBar.EncodeSkillTemplate()
+        except Exception as exc:
+            self.log(f"Failed to encode player skillbar: {exc}")
+            return
+
+        self.log(f"Current player's skill template: {player_code}")
+        self._describe_code(player_code, heading="Player skill template details")
+
+    def dump_hero_templates(self) -> None:
+        if GLOBAL_CACHE is None:
+            self.log("GLOBAL_CACHE is unavailable; unable to inspect hero skillbars.")
+            return
+
+        try:
+            GLOBAL_CACHE.Party._update_cache()
+        except AttributeError:
+            pass
+        try:
+            GLOBAL_CACHE.SkillBar._update_cache()
+        except AttributeError:
+            pass
+
+        heroes = GLOBAL_CACHE.Party.GetHeroes()
+        if not heroes:
+            self.log("No heroes currently in the party.")
+            return
+
+        for index, hero in enumerate(heroes, start=1):
+            try:
+                hero_name = hero.hero_id.GetName()
+            except Exception:
+                hero_name = f"Hero #{index}"
+
+            skillbar = GLOBAL_CACHE.SkillBar.GetHeroSkillbar(index) or []
+            skill_ids: List[int] = []
+            for skill in skillbar:
+                skill_id = 0
+                skill_obj = getattr(skill, "id", None)
+                try:
+                    if hasattr(skill_obj, "id"):
+                        skill_id = int(getattr(skill_obj, "id"))
+                    elif isinstance(skill_obj, int):
+                        skill_id = int(skill_obj)
+                    elif hasattr(skill, "skill_id"):
+                        skill_id = int(getattr(skill, "skill_id"))
+                except Exception:
+                    skill_id = 0
+                if skill_id:
+                    skill_ids.append(skill_id)
+
+            try:
+                attributes = GLOBAL_CACHE.Agent.GetAttributes(hero.agent_id)
+            except Exception:
+                attributes = []
+            if attributes is None:
+                attributes = []
+
+            try:
+                hero_code = GLOBAL_CACHE.SkillBar.EncodeSkillTemplate(
+                    primary=hero.primary,
+                    secondary=hero.secondary,
+                    skills=skill_ids,
+                    attributes=attributes,
+                )
+            except Exception as exc:
+                self.log(f"Failed to encode hero '{hero_name}': {exc}")
+                continue
+
+            profession_label = "Unknown professions"
+            if hasattr(hero, "primary") and hasattr(hero, "secondary"):
+                try:
+                    primary_name = gamedata.Profession(hero.primary).name
+                except Exception:
+                    primary_name = str(getattr(hero, "primary", "?"))
+                try:
+                    secondary_name = gamedata.Profession(hero.secondary).name
+                except Exception:
+                    secondary_name = str(getattr(hero, "secondary", "?"))
+                profession_label = f"{primary_name}/{secondary_name}"
+
+            self.log(f"Hero {index} {hero_name} ({profession_label}): {hero_code}")
+            self._describe_code(
+                hero_code,
+                heading=f"Hero {index} {hero_name} template details",
+            )
+
+    # ------------------------------------------------------------------
+    # Rendering helpers
+    # ------------------------------------------------------------------
+    def render_gui(self) -> None:
+        if PyImGui is None:
+            return
+
+        now = time.time()
+        if now - self._last_render < self.frame_interval:
+            return
+        self._last_render = now
+
+        try:
+            PyImGui.set_next_window_size(540, 480)
+        except Exception:
+            pass
+
+        if not PyImGui.begin("Skill Template Tools", PyImGui.WindowFlags.AlwaysAutoResize):
+            PyImGui.end()
+            return
+
+        PyImGui.text("Template input")
+        self.template_code = PyImGui.input_text("Template Code", self.template_code)
+
+        if PyImGui.button("Decode Input"):
+            self._with_throttle("decode_input", self.decode_input)
+
+        PyImGui.same_line(0, -1)
+        if PyImGui.button("Describe Sample"):
+            self._with_throttle("describe_sample", self.describe_sample)
+
+        if PyImGui.button("Rebuild Sample"):
+            self._with_throttle("rebuild_sample", self.rebuild_sample)
+
+        PyImGui.separator()
+        PyImGui.text("Live data")
+
+        if PyImGui.button("Encode Player Skillbar"):
+            self._with_throttle("player", self.encode_player_skillbar)
+
+        PyImGui.same_line(0, -1)
+        if PyImGui.button("Dump Hero Templates"):
+            self._with_throttle("heroes", self.dump_hero_templates)
+
+        PyImGui.separator()
+        self.action_throttle = PyImGui.slider_float("Action throttle (s)", self.action_throttle, 0.2, 5.0)
+        self.frame_interval = PyImGui.slider_float("GUI refresh (s)", self.frame_interval, 0.05, 1.0)
+        self.action_throttle = max(0.05, float(self.action_throttle))
+        self.frame_interval = max(0.05, float(self.frame_interval))
+
+        PyImGui.separator()
+        PyImGui.text("Log output")
+        if PyImGui.begin_child(
+            "SkillTemplateLog",
+            (0.0, 260.0),
+            True,
+            int(PyImGui.WindowFlags.HorizontalScrollbar),
+        ):
+            for line in list(self.log_lines):
+                if line:
+                    PyImGui.text_wrapped(line)
+                else:
+                    PyImGui.text("")
+            PyImGui.end_child()
+
+        PyImGui.end()
+
+    # ------------------------------------------------------------------
+    # CLI fallback
+    # ------------------------------------------------------------------
+    def run_cli_once(self) -> None:
+        if self._cli_ran:
+            return
+        self._cli_ran = True
+        self.log("PyImGui unavailable; running console-only summary once.")
+        self.describe_sample()
+        self.rebuild_sample()
 
 
-_RUN_STATE: dict[str, Any] = {"has_run": False, "last_run": 0.0}
+_STATE = SkillTemplateUIState()
 
 
 def main() -> None:
-    now = time.time()
-    if _RUN_STATE["has_run"]:
-        # Avoid rerunning continuously when the loader repeatedly invokes ``main``.
+    if PyImGui is None:
+        _STATE.run_cli_once()
         return
 
-    _RUN_STATE["has_run"] = True
-    _RUN_STATE["last_run"] = now
-
-    lines: List[str] = []
-
-    def log(message: str = "") -> None:
-        print(message)
-        lines.append(message)
-
-    banner = "Guild Wars Skill Template Round-Trip"
-    log("=" * len(banner))
-    log(banner)
-    log("=" * len(banner))
-    log("")
-
-    skill_lookup = _load_skill_data()
-
-    log(f"Using template code: {TEMPLATE_CODE}")
-    log("")
-    _describe_template(TEMPLATE_CODE, skill_lookup, log)
-    log("")
-    _rebuild_template(skill_lookup, log)
-    log("")
-    _encode_player_skillbar(skill_lookup, log)
-
-    _show_summary_window(lines)
+    _STATE.render_gui()
 
 
 if __name__ == "__main__":
     main()
+
