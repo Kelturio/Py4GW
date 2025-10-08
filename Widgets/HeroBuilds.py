@@ -683,14 +683,14 @@ def _draw_main_window() -> bool:
             display_name = tbuild.name or f"Teambuild {index + 1}"
             available_width = PyImGui.get_content_region_avail()[0]
             main_button_width = max(0.0, available_width - button_width - item_spacing)
-            if PyImGui.button(display_name, (main_button_width, 0)):
+            if PyImGui.button(display_name, main_button_width):
                 if one_teambuild_at_a_time and not tbuild.edit_open:
                     for other in teambuilds:
                         other.edit_open = False
                 tbuild.edit_open = not tbuild.edit_open
             PyImGui.same_line(0, item_spacing)
             action_label = "Send" if io.key_ctrl else "Load"
-            if PyImGui.button(action_label, (button_width, 0)):
+            if PyImGui.button(action_label, button_width):
                 if io.key_ctrl:
                     _send_teambuild(tbuild)
                 else:
@@ -701,13 +701,15 @@ def _draw_main_window() -> bool:
             PyImGui.show_tooltip(tooltip)
             PyImGui.pop_id()
         PyImGui.separator()
-        if PyImGui.button("Add Teambuild", (PyImGui.get_content_region_avail()[0], 0)):
+        if PyImGui.button("Add Teambuild", PyImGui.get_content_region_avail()[0]):
             new_tb = TeamHeroBuild()
             new_tb.edit_open = True
             teambuilds.append(new_tb)
             builds_changed = True
         PyImGui.begin_disabled(True)
-        if PyImGui.button("Add Teambuild from Current", (PyImGui.get_content_region_avail()[0], 0)):
+        if PyImGui.button(
+            "Add Teambuild from Current", PyImGui.get_content_region_avail()[0]
+        ):
             pass
         PyImGui.end_disabled()
         PyImGui.show_tooltip("Not available in Py4GW: template encoding APIs are not yet exposed.")
@@ -719,7 +721,7 @@ def _draw_main_window() -> bool:
             selected_teambuild_for_copy = PyImGui.combo("##teambuild_select", selected_teambuild_for_copy, options)
             PyImGui.pop_item_width()
             PyImGui.same_line(0, item_spacing)
-            if PyImGui.button("Copy", (60.0, 0)):
+            if PyImGui.button("Copy", 60.0):
                 clone = _copy_teambuild(teambuilds[selected_teambuild_for_copy])
                 teambuilds.append(clone)
                 builds_changed = True
@@ -788,13 +790,13 @@ def _draw_teambuild_editor(tbuild: TeamHeroBuild, index: int) -> None:
                 PyImGui.pop_item_width()
                 PyImGui.same_line(0, item_spacing)
                 icon = IconsFontAwesome5.ICON_EYE if build.show_panel else IconsFontAwesome5.ICON_EYE_SLASH
-                if PyImGui.button(icon, (icon_width, 0)):
+                if PyImGui.button(icon, icon_width):
                     build.show_panel = not build.show_panel
                     builds_changed = True
                 PyImGui.show_tooltip("Hero panel visibility toggle (not yet supported).")
                 PyImGui.same_line(0, item_spacing)
                 behaviour_icon = HERO_BEHAVIOR_ICONS.get(build.behavior, IconsFontAwesome5.ICON_SHIELD_ALT)
-                if PyImGui.button(behaviour_icon, (icon_width, 0)):
+                if PyImGui.button(behaviour_icon, icon_width):
                     build.behavior = (build.behavior + 1) % 3
                     builds_changed = True
                 PyImGui.show_tooltip(HERO_BEHAVIOR_TOOLTIPS.get(build.behavior, "Hero behaviour"))
@@ -803,7 +805,7 @@ def _draw_teambuild_editor(tbuild: TeamHeroBuild, index: int) -> None:
                 PyImGui.text_disabled("Player")
                 PyImGui.same_line(0, item_spacing + icon_width * 2 + item_spacing * 2)
             action_label = "Send" if io.key_ctrl else "View"
-            if PyImGui.button(action_label, (button_width, 0)):
+            if PyImGui.button(action_label, button_width):
                 if io.key_ctrl:
                     _send_single_build(tbuild, slot)
                 else:
@@ -811,7 +813,7 @@ def _draw_teambuild_editor(tbuild: TeamHeroBuild, index: int) -> None:
             tooltip = "Click to send to team chat" if io.key_ctrl else "Click to view build locally"
             PyImGui.show_tooltip(tooltip)
             PyImGui.same_line(0, item_spacing)
-            if PyImGui.button("Load", (button_width, 0)):
+            if PyImGui.button("Load", button_width):
                 _load_single_build(tbuild, slot)
             PyImGui.show_tooltip("Load build onto {}".format("player" if slot == 0 else "hero"))
             PyImGui.pop_id()
@@ -842,18 +844,18 @@ def _draw_teambuild_editor(tbuild: TeamHeroBuild, index: int) -> None:
             - _style_component(PyImGui.get_style(), "WindowPadding")
             - 40
         )
-        if PyImGui.button("Close", (PyImGui.get_content_region_avail()[0], 0)):
+        if PyImGui.button("Close", PyImGui.get_content_region_avail()[0]):
             tbuild.edit_open = False
         PyImGui.show_tooltip("Close this window")
         if PyImGui.begin_popup_modal("Delete Teambuild?", True, PyImGui.WindowFlags.AlwaysAutoResize):
             PyImGui.text("Are you sure? This operation cannot be undone.\n")
-            if PyImGui.button("OK", (120, 0)):
+            if PyImGui.button("OK", 120):
                 del teambuilds[index]
                 builds_changed = True
                 tbuild.edit_open = False
                 PyImGui.close_current_popup()
             PyImGui.same_line(0, item_spacing)
-            if PyImGui.button("Cancel", (120, 0)):
+            if PyImGui.button("Cancel", 120):
                 PyImGui.close_current_popup()
             PyImGui.end_popup_modal()
     finally:
