@@ -11,8 +11,16 @@ from __future__ import annotations
 import importlib.util
 import json
 import sys
+import time
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable, List
+
+try:  # Optional GUI support for in-game visibility of the summary output.
+    import tkinter as tk
+    from tkinter import scrolledtext
+except Exception:  # pragma: no cover - GUI is best-effort only.
+    tk = None  # type: ignore[assignment]
+    scrolledtext = None  # type: ignore[assignment]
 
 
 TEMPLATE_CODE = "OAhjQkGZIP3hhWVV4JNncDzxJ"
@@ -108,32 +116,42 @@ def _lookup_skill_ids(names: list[str], lookup: dict[int, dict[str, Any]]) -> li
     return ids
 
 
-def _describe_template(code: str, skill_lookup: dict[int, dict[str, Any]]) -> None:
+def _describe_template(
+    code: str,
+    skill_lookup: dict[int, dict[str, Any]],
+    log: Callable[[str], None],
+    *,
+    heading: str = "Decoded template",
+) -> None:
     template = skill_template.decode_skill_template(code)
 
-    print("Decoded template:")
-    print(f"  Primary profession: {gamedata.Profession(template.primary).name}")
-    print(f"  Secondary profession: {gamedata.Profession(template.secondary).name}")
+    log(heading)
+    log("-" * len(heading))
+    log(f"Primary profession : {gamedata.Profession(template.primary).name}")
+    log(f"Secondary profession: {gamedata.Profession(template.secondary).name}")
 
-    print("  Skills:")
+    log("Skills")
+    log("------")
     for index, skill_id in enumerate(template.skills, start=1):
         skill_name = skill_lookup.get(skill_id, {}).get("name", f"ID {skill_id}")
-        print(f"    {index}: {skill_name}")
+        log(f"{index:>2}. {skill_name}")
 
-    print("  Attributes:")
+    log("Attributes")
+    log("----------")
     for attribute in template.attributes:
         attr_enum = gamedata.Attribute(attribute.attribute)
-        print(f"    {attr_enum.name}: {attribute.points}")
+        log(f"{attr_enum.name}: {attribute.points}")
 
     round_trip = skill_template.encode_skill_template(template)
-    print("\nRound-trip encoding produces:", round_trip)
+    log("")
+    log(f"Round-trip encoding produces: {round_trip}")
 
 
-def _rebuild_template(skill_lookup: dict[int, dict[str, Any]]) -> None:
+def _rebuild_template(skill_lookup: dict[int, dict[str, Any]], log: Callable[[str], None]) -> None:
     skills = _lookup_skill_ids(TEMPLATE_SKILL_NAMES, skill_lookup)
     template = skill_template.make_skill_template(
-        primary=gamedata.Profession.Ritualist,
-        secondary=gamedata.Profession.Necromancer,
+        primary=gamedata.Profession.Necromancer,
+        secondary=gamedata.Profession.Ritualist,
         skills=skills,
         attributes=[
             (gamedata.Attribute.RestorationMagic, 12),
@@ -142,12 +160,16 @@ def _rebuild_template(skill_lookup: dict[int, dict[str, Any]]) -> None:
         ],
     )
     code = skill_template.encode_skill_template(template)
-    print("Rebuilt template from structured data:", code)
+    log(f"Rebuilt template from structured data: {code}")
 
 
-def _encode_player_skillbar() -> None:
+def _encode_player_skillbar(
+    skill_lookup: dict[int, dict[str, Any]], log: Callable[[str], None]
+) -> None:
     if GLOBAL_CACHE is None:
-        print("GLOBAL_CACHE is unavailable; unable to encode player skillbar outside the game environment.")
+        log(
+            "GLOBAL_CACHE is unavailable; unable to encode player skillbar outside the game environment."
+        )
         return
 
     try:
@@ -158,18 +180,81 @@ def _encode_player_skillbar() -> None:
     try:
         player_code = GLOBAL_CACHE.SkillBar.EncodeSkillTemplate()
     except Exception as exc:
-        print(f"Failed to encode player skillbar: {exc}")
+        log(f"Failed to encode player skillbar: {exc}")
     else:
-        print("Current player's skill template:", player_code)
+        log(f"Current player's skill template: {player_code}")
+        log("")
+        _describe_template(
+            player_code,
+            skill_lookup,
+            log,
+            heading="Player skill template details",
+        )
+
+
+def _show_summary_window(lines: List[str]) -> None:
+    if not lines or tk is None or scrolledtext is None:
+        return
+
+    try:
+        window = tk.Tk()
+    except Exception:  # pragma: no cover - GUI is best-effort only.
+        return
+
+    window.title("Skill Template Round-Trip Summary")
+    window.resizable(width=True, height=True)
+
+    text_widget = scrolledtext.ScrolledText(window, wrap=tk.WORD, width=80, height=30)
+    text_widget.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+    text_widget.insert("1.0", "\n".join(lines))
+    text_widget.configure(state=tk.DISABLED)
+
+    close_button = tk.Button(window, text="Close", command=window.destroy)
+    close_button.pack(pady=(0, 10))
+
+    try:
+        window.after(100, window.lift)
+    except Exception:
+        pass
+
+    window.mainloop()
+
+
+_RUN_STATE: dict[str, Any] = {"has_run": False, "last_run": 0.0}
 
 
 def main() -> None:
+    now = time.time()
+    if _RUN_STATE["has_run"]:
+        # Avoid rerunning continuously when the loader repeatedly invokes ``main``.
+        return
+
+    _RUN_STATE["has_run"] = True
+    _RUN_STATE["last_run"] = now
+
+    lines: List[str] = []
+
+    def log(message: str = "") -> None:
+        print(message)
+        lines.append(message)
+
+    banner = "Guild Wars Skill Template Round-Trip"
+    log("=" * len(banner))
+    log(banner)
+    log("=" * len(banner))
+    log("")
+
     skill_lookup = _load_skill_data()
 
-    print("Using template code:", TEMPLATE_CODE)
-    _describe_template(TEMPLATE_CODE, skill_lookup)
-    _rebuild_template(skill_lookup)
-    _encode_player_skillbar()
+    log(f"Using template code: {TEMPLATE_CODE}")
+    log("")
+    _describe_template(TEMPLATE_CODE, skill_lookup, log)
+    log("")
+    _rebuild_template(skill_lookup, log)
+    log("")
+    _encode_player_skillbar(skill_lookup, log)
+
+    _show_summary_window(lines)
 
 
 if __name__ == "__main__":

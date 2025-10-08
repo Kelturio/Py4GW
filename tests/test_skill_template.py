@@ -129,3 +129,31 @@ def test_round_trip_with_custom_template():
         gamedata.Attribute.Marksmanship: 3,
     }
     assert decoded_attributes == expected_attributes
+
+
+def main() -> None:
+    """Self-check entry point for the in-game loader."""
+
+    print("Running skill template self-checks...")
+    failures: list[str] = []
+
+    for test in (
+        test_decode_known_build_matches_expected_data,
+        test_round_trip_with_custom_template,
+    ):
+        try:
+            test()
+        except AssertionError as exc:
+            failures.append(f"{test.__name__} failed: {exc}")
+        except Exception as exc:  # pragma: no cover - unexpected runtime issue.
+            failures.append(f"{test.__name__} raised unexpected error: {exc}")
+
+    if failures:
+        print("\n".join(failures))
+        raise SystemExit(1)
+
+    print("All skill template self-checks passed.")
+
+
+if __name__ == "__main__":
+    main()
