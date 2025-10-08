@@ -93,6 +93,12 @@ kicking_heroes = False
 _next_team_ui_id = 0
 
 
+def _font_scale(io: PyImGui.ImGuiIO) -> float:
+    """Return the global font scale with a safe fallback."""
+
+    return getattr(io, "FontGlobalScale", getattr(io, "font_global_scale", 1.0))
+
+
 def _generate_ui_id() -> int:
     global _next_team_ui_id
     _next_team_ui_id += 1
@@ -634,7 +640,7 @@ def _draw_main_window() -> bool:
         if not window_open:
             return False
         io = PyImGui.get_io()
-        button_width = 60.0 * io.font_global_scale
+        button_width = 60.0 * _font_scale(io)
         item_spacing = ImGui.get_style().ItemInnerSpacing.x
         for index, tbuild in enumerate(teambuilds):
             PyImGui.push_id(str(tbuild.ui_id))
@@ -707,7 +713,7 @@ def _draw_teambuild_editor(tbuild: TeamHeroBuild, index: int) -> None:
             builds_changed = True
         io = PyImGui.get_io()
         item_spacing = ImGui.get_style().ItemInnerSpacing.x
-        button_width = 55.0 * io.font_global_scale
+        button_width = 55.0 * _font_scale(io)
         icon_width = button_width / 1.75
         label_width = (PyImGui.get_content_region_avail()[0] - (button_width * 2) - icon_width * 3 - item_spacing * 5) / 3
         PyImGui.set_cursor_pos_x(button_width)
