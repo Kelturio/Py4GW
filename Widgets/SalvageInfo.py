@@ -4,12 +4,14 @@ import ctypes
 import os
 from datetime import date, datetime, time, timedelta
 from enum import IntEnum
-from typing import List, Optional
+from typing import List, Optional, Set, Tuple
 
 from Py4GWCoreLib import IniHandler
 from Py4GWCoreLib import Item
 from Py4GWCoreLib import Inventory
 from Py4GWCoreLib import PyImGui
+from Py4GWCoreLib import Py4GW
+from Py4GWCoreLib import ConsoleLog
 from Py4GWCoreLib.GWCA import load_gwca_function
 
 from Py4GW_widget_manager import WidgetHandler
@@ -44,11 +46,14 @@ SHOW_COMMON = _CONFIG.read_bool(CONFIG_SECTION, "show_common", True)
 SHOW_RARE = _CONFIG.read_bool(CONFIG_SECTION, "show_rare", True)
 SHOW_NICHOLAS = _CONFIG.read_bool(CONFIG_SECTION, "show_nicholas", True)
 SHOW_AMOUNTS = _CONFIG.read_bool(CONFIG_SECTION, "show_amounts", True)
+USE_GWCA_FALLBACK = _CONFIG.read_bool(CONFIG_SECTION, "use_gwca_fallback", True)
 
 _TOOLTIP_OFFSET_X = 18
 _TOOLTIP_OFFSET_Y = 16
 
 _BASE_NICHOLAS_CYCLE_LENGTH = len(Calendar.NICHOLAS_CYCLE)
+
+_LOG_MODULE = "SalvageInfo"
 
 try:
     _GWCA_GET_ITEM_FORMULA = load_gwca_function(
@@ -187,6 +192,7 @@ class DisplayInfo:
 _salvage_cache: dict[int, SalvageData] = {}
 _current_display: Optional[DisplayInfo] = None
 _last_hovered_item: int = 0
+_logged_events: Set[Tuple[int, str]] = set()
 
 
 def _can_read_memory(address: int, size: int) -> bool:
@@ -198,6 +204,20 @@ def _can_read_memory(address: int, size: int) -> bool:
         except Exception:
             return False
     return True
+
+
+def _log_event(item_id: int, event: str, message: str, level: Optional[Py4GW.Console.MessageType] = None) -> None:
+    if item_id <= 0:
+        return
+    key = (item_id, event)
+    if key in _logged_events:
+        return
+    _logged_events.add(key)
+    try:
+        message_type = level or Py4GW.Console.MessageType.Debug
+        ConsoleLog(_LOG_MODULE, message, message_type)
+    except Exception:
+        pass
 
 
 def _format_material_entry(slot: MaterialSlot, amount: int) -> str:
@@ -257,30 +277,61 @@ def _read_salvage_materials(item_id: int) -> Optional[SalvageData]:
 def _resolve_item_formula_address(item_id: int) -> int:
     try:
         formula_ptr = Item.Customization.GetItemFormula(item_id)
-    except Exception:
+    except Exception as error:
+        _log_event(item_id, "customization_exception", f"GetItemFormula raised {error!r}")
         formula_ptr = None
     formula_address = 0
     if formula_ptr:
         try:
             formula_address = int(formula_ptr)
-        except Exception:
+        except Exception as error:
+            _log_event(item_id, "customization_cast_failed", f"Failed to cast formula pointer for item {item_id}: {error!r}")
             formula_address = 0
+    else:
+        _log_event(item_id, "customization_null", f"GetItemFormula returned NULL for item {item_id}")
     if formula_address and _can_read_memory(formula_address, ctypes.sizeof(_ItemFormula)):
         return formula_address
-    fallback_address = _resolve_formula_via_gwca(item_id)
-    if fallback_address and _can_read_memory(fallback_address, ctypes.sizeof(_ItemFormula)):
-        return fallback_address
+    if formula_address:
+        _log_event(
+            item_id,
+            "customization_unreadable",
+            f"Formula pointer 0x{formula_address:X} for item {item_id} is unreadable",
+        )
+    if USE_GWCA_FALLBACK:
+        fallback_address = _resolve_formula_via_gwca(item_id)
+        if fallback_address:
+            if _can_read_memory(fallback_address, ctypes.sizeof(_ItemFormula)):
+                _log_event(
+                    item_id,
+                    "gwca_fallback",
+                    f"Resolved item {item_id} formula via GWCA fallback at 0x{fallback_address:X}",
+                )
+                return fallback_address
+            _log_event(
+                item_id,
+                "gwca_unreadable",
+                f"GWCA fallback returned unreadable pointer 0x{fallback_address:X} for item {item_id}",
+            )
+    else:
+        _log_event(
+            item_id,
+            "fallback_disabled",
+            "GWCA fallback disabled; salvage data may be unavailable for this item.",
+            Py4GW.Console.MessageType.Info,
+        )
     return 0
 
 
 def _resolve_formula_via_gwca(item_id: int) -> int:
     if _GWCA_GET_ITEM_FORMULA is None:
+        _log_event(item_id, "gwca_missing_export", "GWCA GetItemFormula export unavailable")
         return 0
     try:
         item = Item.item_instance(item_id)
     except Exception:
         item = None
     if not item:
+        _log_event(item_id, "gwca_no_item", f"GWCA item instance unavailable for item {item_id}")
         return 0
     try:
         item.GetContext()
@@ -291,6 +342,7 @@ def _resolve_formula_via_gwca(item_id: int) -> int:
     except Exception:
         formula_id = 0
     if not formula_id:
+        _log_event(item_id, "gwca_no_formula_id", f"GWCA item instance has no formula id for item {item_id}")
         return 0
     temp_item = ctypes.create_string_buffer(0x54)
     try:
@@ -301,12 +353,15 @@ def _resolve_formula_via_gwca(item_id: int) -> int:
     try:
         result = _GWCA_GET_ITEM_FORMULA(temp_ptr)
     except Exception:
+        _log_event(item_id, "gwca_call_failed", f"GWCA GetItemFormula call raised for item {item_id}")
         return 0
     if not result:
+        _log_event(item_id, "gwca_returned_null", f"GWCA GetItemFormula returned NULL for item {item_id}")
         return 0
     try:
         return int(result)
     except Exception:
+        _log_event(item_id, "gwca_result_cast_failed", f"Failed to cast GWCA formula pointer for item {item_id}")
         return 0
 
 
@@ -448,7 +503,7 @@ def configure() -> None:
     if not widget_info or not widget_info.get("configuring"):
         return
     if PyImGui.begin("Salvage Info Settings", PyImGui.WindowFlags.AlwaysAutoResize):
-        global SHOW_COMMON, SHOW_RARE, SHOW_NICHOLAS, SHOW_AMOUNTS
+        global SHOW_COMMON, SHOW_RARE, SHOW_NICHOLAS, SHOW_AMOUNTS, USE_GWCA_FALLBACK
         new_common = PyImGui.checkbox("Show common materials", SHOW_COMMON)
         if new_common != SHOW_COMMON:
             SHOW_COMMON = new_common
@@ -465,6 +520,10 @@ def configure() -> None:
         if new_nicholas != SHOW_NICHOLAS:
             SHOW_NICHOLAS = new_nicholas
             _CONFIG.write_key(CONFIG_SECTION, "show_nicholas", SHOW_NICHOLAS)
+        new_fallback = PyImGui.checkbox("Use GWCA fallback for salvage formulas", USE_GWCA_FALLBACK)
+        if new_fallback != USE_GWCA_FALLBACK:
+            USE_GWCA_FALLBACK = new_fallback
+            _CONFIG.write_key(CONFIG_SECTION, "use_gwca_fallback", USE_GWCA_FALLBACK)
         PyImGui.separator()
         if PyImGui.button("Close"):
             handler.set_widget_configuring(_WIDGET_NAME, False)
