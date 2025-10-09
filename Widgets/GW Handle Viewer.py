@@ -146,6 +146,12 @@ STATUS_SUCCESS = 0
 HandleInfo = Tuple[str, str, str]
 
 
+def _ntstatus_code(status: int) -> int:
+    """Return the unsigned 32-bit representation of an NTSTATUS value."""
+
+    return status & 0xFFFFFFFF
+
+
 class _ElapsedTimer:
     """Utility timer based on ``time.monotonic``."""
 
@@ -284,14 +290,15 @@ def _query_system_handles(windows_api: _WindowsApis) -> List[_SYSTEM_HANDLE_TABL
             ctypes.byref(return_length),
         )
 
-        if status in (STATUS_INFO_LENGTH_MISMATCH, STATUS_BUFFER_TOO_SMALL):
-            size = max(size * 2, int(return_length.value) or size * 2)
-            continue
-
         if status == STATUS_SUCCESS:
             break
 
-        status_code = status & 0xFFFFFFFF
+        status_code = _ntstatus_code(status)
+
+        if status_code in (STATUS_INFO_LENGTH_MISMATCH, STATUS_BUFFER_TOO_SMALL):
+            size = max(size * 2, int(return_length.value) or size * 2)
+            continue
+
         raise OSError(status_code, f"NtQuerySystemInformation failed: 0x{status_code:08X}")
 
     buffer_address = ctypes.addressof(buffer)
@@ -324,19 +331,30 @@ def _query_object_string(handle: wintypes.HANDLE, info_class: int) -> Optional[s
             ctypes.byref(length),
         )
 
-        if status in (STATUS_INFO_LENGTH_MISMATCH, STATUS_BUFFER_OVERFLOW, STATUS_BUFFER_TOO_SMALL):
+        if status == STATUS_SUCCESS:
+            break
+
+        status_code = _ntstatus_code(status)
+
+        if status_code in (
+            STATUS_INFO_LENGTH_MISMATCH,
+            STATUS_BUFFER_OVERFLOW,
+            STATUS_BUFFER_TOO_SMALL,
+        ):
             size = max(size * 2, int(length.value) or size * 2)
             continue
 
         if status < 0:
             return None
 
-        base_address = ctypes.addressof(buffer)
-        unicode_string = ctypes.cast(base_address, ctypes.POINTER(_UNICODE_STRING)).contents
-        if unicode_string.Length == 0 or not unicode_string.Buffer:
-            return ""
-        string_length = unicode_string.Length // ctypes.sizeof(wintypes.WCHAR)
-        return ctypes.wstring_at(unicode_string.Buffer, string_length)
+        raise OSError(status_code, f"NtQueryObject failed: 0x{status_code:08X}")
+
+    base_address = ctypes.addressof(buffer)
+    unicode_string = ctypes.cast(base_address, ctypes.POINTER(_UNICODE_STRING)).contents
+    if unicode_string.Length == 0 or not unicode_string.Buffer:
+        return ""
+    string_length = unicode_string.Length // ctypes.sizeof(wintypes.WCHAR)
+    return ctypes.wstring_at(unicode_string.Buffer, string_length)
 
 
 def configure() -> None:
