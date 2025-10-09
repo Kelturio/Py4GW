@@ -302,8 +302,10 @@ def _query_system_handles(windows_api: _WindowsApis) -> List[_SYSTEM_HANDLE_TABL
         raise OSError(status_code, f"NtQuerySystemInformation failed: 0x{status_code:08X}")
 
     buffer_address = ctypes.addressof(buffer)
-    handle_count = ctypes.cast(buffer_address, ctypes.POINTER(ctypes.c_ulonglong)).contents.value
-    offset = ctypes.sizeof(ctypes.c_ulonglong) * 2
+    pointer_type = ctypes.c_size_t
+    pointer_size = ctypes.sizeof(pointer_type)
+    handle_count = ctypes.cast(buffer_address, ctypes.POINTER(pointer_type)).contents.value
+    offset = pointer_size * 2
     entry_size = ctypes.sizeof(_SYSTEM_HANDLE_TABLE_ENTRY_INFO_EX)
 
     entries: List[_SYSTEM_HANDLE_TABLE_ENTRY_INFO_EX] = []
