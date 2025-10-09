@@ -178,17 +178,14 @@ class SkillTemplateUIState:
     """Encapsulates the PyImGui-driven UI and throttled actions."""
 
     MAX_LOG_LINES = 200
-    DEFAULT_FRAME_INTERVAL = 0.25
     DEFAULT_ACTION_THROTTLE = 1.0
 
     def __init__(self) -> None:
         self.skill_lookup = _load_skill_data()
         self.template_code = TEMPLATE_CODE
         self.log_lines: Deque[str] = deque(maxlen=self.MAX_LOG_LINES)
-        self.frame_interval = self.DEFAULT_FRAME_INTERVAL
         self.action_throttle = self.DEFAULT_ACTION_THROTTLE
         self._throttler = _ActionThrottle(self.action_throttle)
-        self._last_render = 0.0
         self._cli_ran = False
 
     # ------------------------------------------------------------------
@@ -338,11 +335,6 @@ class SkillTemplateUIState:
         if PyImGui is None:
             return
 
-        now = time.time()
-        if now - self._last_render < self.frame_interval:
-            return
-        self._last_render = now
-
         try:
             PyImGui.set_next_window_size(540, 480)
         except Exception:
@@ -377,9 +369,7 @@ class SkillTemplateUIState:
 
         PyImGui.separator()
         self.action_throttle = PyImGui.slider_float("Action throttle (s)", self.action_throttle, 0.2, 5.0)
-        self.frame_interval = PyImGui.slider_float("GUI refresh (s)", self.frame_interval, 0.05, 1.0)
         self.action_throttle = max(0.05, float(self.action_throttle))
-        self.frame_interval = max(0.05, float(self.frame_interval))
 
         PyImGui.separator()
         PyImGui.text("Log output")
