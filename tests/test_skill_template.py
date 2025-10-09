@@ -131,6 +131,33 @@ def test_round_trip_with_custom_template():
     assert decoded_attributes == expected_attributes
 
 
+def test_make_skill_template_handles_profession_like_objects():
+    class DummyProfession:
+        def __init__(self, value: int) -> None:
+            self._value = value
+
+        def ToInt(self) -> int:
+            return self._value
+
+    template = make_skill_template(
+        primary=DummyProfession(int(gamedata.Profession.Necromancer)),
+        secondary=DummyProfession(int(gamedata.Profession.Ritualist)),
+        skills=[0] * 8,
+    )
+
+    assert template.primary == gamedata.Profession.Necromancer
+    assert template.secondary == gamedata.Profession.Ritualist
+
+    none_template = make_skill_template(
+        primary="None",
+        secondary=None,
+        skills=[0] * 8,
+    )
+
+    assert none_template.primary == gamedata.Profession._None
+    assert none_template.secondary == gamedata.Profession._None
+
+
 def _run_self_checks() -> None:
     print("Running skill template self-checks...")
     failures: list[str] = []

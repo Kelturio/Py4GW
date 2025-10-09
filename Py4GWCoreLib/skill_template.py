@@ -29,6 +29,48 @@ _ATTRIBUTE_MAX = 16
 _ATTRIBUTE_NONE_ID = 45  # Mirrors GW::Constants::Attribute::None
 
 
+def _normalise_profession(profession: object) -> int:
+    """Best-effort conversion of ``profession`` into an integer id."""
+
+    if profession is None:
+        return 0
+
+    if isinstance(profession, int):
+        return profession
+
+    # ``PyAgent.Profession`` instances expose ``ToInt``/``Get`` helpers.
+    for accessor_name in ("ToInt", "Get"):
+        accessor = getattr(profession, accessor_name, None)
+        if callable(accessor):
+            try:
+                value = accessor()
+            except Exception:  # pragma: no cover - defensive conversion.
+                continue
+            try:
+                return int(value)
+            except Exception:  # pragma: no cover - defensive conversion.
+                continue
+
+    for attribute_name in ("value", "profession", "id"):
+        value = getattr(profession, attribute_name, None)
+        if isinstance(value, int):
+            return value
+
+    if isinstance(profession, str):
+        lowered = profession.strip().lower()
+        if not lowered or lowered in {"none", "_none"}:
+            return 0
+        try:
+            return int(profession)
+        except ValueError:
+            return 0
+
+    try:
+        return int(profession)
+    except Exception:  # pragma: no cover - defensive conversion.
+        return 0
+
+
 @dataclass(frozen=True)
 class SkillAttribute:
     """Attribute investment used within a skill template."""
@@ -129,8 +171,8 @@ def make_skill_template(
     """
 
     return SkillTemplate(
-        primary=int(primary),
-        secondary=int(secondary),
+        primary=_normalise_profession(primary),
+        secondary=_normalise_profession(secondary),
         skills=_normalise_skills(skills),
         attributes=_normalise_attributes(attributes),
     )

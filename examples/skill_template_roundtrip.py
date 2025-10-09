@@ -94,6 +94,59 @@ except Exception:  # pragma: no cover - only triggered in non-game contexts.
     PyImGui = None  # type: ignore
 
 
+def _resolve_profession_id(profession: Any) -> int:
+    """Convert assorted profession objects into an integer identifier."""
+
+    normaliser = getattr(skill_template, "_normalise_profession", None)
+    if callable(normaliser):
+        return normaliser(profession)
+
+    if profession is None:
+        return 0
+
+    if isinstance(profession, int):
+        return profession
+
+    for accessor_name in ("ToInt", "Get"):
+        accessor = getattr(profession, accessor_name, None)
+        if callable(accessor):
+            try:
+                value = accessor()
+            except Exception:
+                continue
+            try:
+                return int(value)
+            except Exception:
+                continue
+
+    for attribute_name in ("value", "profession", "id"):
+        value = getattr(profession, attribute_name, None)
+        if isinstance(value, int):
+            return value
+
+    if isinstance(profession, str):
+        lowered = profession.strip().lower()
+        if not lowered or lowered in {"none", "_none"}:
+            return 0
+        try:
+            return int(profession)
+        except ValueError:
+            return 0
+
+    try:
+        return int(profession)
+    except Exception:
+        return 0
+
+
+def _profession_name(profession: Any) -> str:
+    identifier = _resolve_profession_id(profession)
+    try:
+        return gamedata.Profession(identifier).name
+    except Exception:
+        return str(profession)
+
+
 def _load_skill_data() -> dict[int, dict[str, Any]]:
     with (ROOT / "Py4GWCoreLib" / "skill_descriptions.json").open(encoding="utf-8") as handle:
         raw: dict[str, dict[str, Any]] = json.load(handle)
@@ -301,8 +354,8 @@ class SkillTemplateUIState:
 
             try:
                 hero_code = GLOBAL_CACHE.SkillBar.EncodeSkillTemplate(
-                    primary=hero.primary,
-                    secondary=hero.secondary,
+                    primary=_resolve_profession_id(getattr(hero, "primary", None)),
+                    secondary=_resolve_profession_id(getattr(hero, "secondary", None)),
                     skills=skill_ids,
                     attributes=attributes,
                 )
@@ -312,14 +365,8 @@ class SkillTemplateUIState:
 
             profession_label = "Unknown professions"
             if hasattr(hero, "primary") and hasattr(hero, "secondary"):
-                try:
-                    primary_name = gamedata.Profession(hero.primary).name
-                except Exception:
-                    primary_name = str(getattr(hero, "primary", "?"))
-                try:
-                    secondary_name = gamedata.Profession(hero.secondary).name
-                except Exception:
-                    secondary_name = str(getattr(hero, "secondary", "?"))
+                primary_name = _profession_name(getattr(hero, "primary", None))
+                secondary_name = _profession_name(getattr(hero, "secondary", None))
                 profession_label = f"{primary_name}/{secondary_name}"
 
             self.log(f"Hero {index} {hero_name} ({profession_label}): {hero_code}")
