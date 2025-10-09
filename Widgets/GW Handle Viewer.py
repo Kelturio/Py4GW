@@ -14,13 +14,13 @@ from __future__ import annotations
 
 import ctypes
 import os
+import time
 import traceback
 from ctypes import wintypes
 from typing import Iterable, List, Optional, Tuple
 
 import Py4GW  # type: ignore
 from Py4GWCoreLib import PyImGui, Routines  # type: ignore
-from Py4GWCoreLib.Timer import Timer  # type: ignore
 
 
 MODULE_NAME = "GW Handle Viewer"
@@ -146,17 +146,29 @@ STATUS_SUCCESS = 0
 HandleInfo = Tuple[str, str, str]
 
 
+class _ElapsedTimer:
+    """Utility timer based on ``time.monotonic``."""
+
+    def __init__(self) -> None:
+        self.reset()
+
+    def reset(self) -> None:
+        self._start = time.monotonic()
+
+    def has_elapsed(self, milliseconds: int) -> bool:
+        return (time.monotonic() - self._start) * 1000 >= milliseconds
+
+
 class _HandleCache:
     """Caches the handle list and refreshes it on demand."""
 
     def __init__(self) -> None:
-        self.timer = Timer()
-        self.timer.Start()
+        self.timer = _ElapsedTimer()
         self.handles: List[HandleInfo] = []
         self.error: Optional[str] = None
 
     def maybe_refresh(self) -> None:
-        if not self.handles or self.timer.HasElapsed(_REFRESH_INTERVAL_MS):
+        if not self.handles or self.timer.has_elapsed(_REFRESH_INTERVAL_MS):
             try:
                 self.handles = list(_enumerate_gw_handles())
                 self.error = None
@@ -169,7 +181,7 @@ class _HandleCache:
                     Py4GW.Console.MessageType.Error,
                 )
             finally:
-                self.timer.Reset()
+                self.timer.reset()
 
 
 _HANDLE_CACHE = _HandleCache()
