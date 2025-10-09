@@ -10,6 +10,7 @@ from Py4GWCoreLib import IniHandler
 from Py4GWCoreLib import Item
 from Py4GWCoreLib import Inventory
 from Py4GWCoreLib import PyImGui
+from Py4GWCoreLib.GWCA import load_gwca_function
 
 from Py4GW_widget_manager import WidgetHandler
 from Widgets import Calendar
@@ -48,6 +49,15 @@ _TOOLTIP_OFFSET_X = 18
 _TOOLTIP_OFFSET_Y = 16
 
 _BASE_NICHOLAS_CYCLE_LENGTH = len(Calendar.NICHOLAS_CYCLE)
+
+try:
+    _GWCA_GET_ITEM_FORMULA = load_gwca_function(
+        "?GetItemFormula@Items@GW@@YAPEBUItemFormula@12@PEBUItem@12@@Z",
+        restype=ctypes.c_void_p,
+        argtypes=[ctypes.c_void_p],
+    )
+except Exception:
+    _GWCA_GET_ITEM_FORMULA = None
 
 
 class MaterialSlot(IntEnum):
@@ -198,15 +208,8 @@ def _format_material_entry(slot: MaterialSlot, amount: int) -> str:
 
 
 def _read_salvage_materials(item_id: int) -> Optional[SalvageData]:
-    try:
-        formula_ptr = Item.Customization.GetItemFormula(item_id)
-    except Exception:
-        return None
-    if not formula_ptr:
-        return None
-    try:
-        formula_address = int(formula_ptr)
-    except Exception:
+    formula_address = _resolve_item_formula_address(item_id)
+    if not formula_address:
         return None
     if not _can_read_memory(formula_address, ctypes.sizeof(_ItemFormula)):
         return None
@@ -249,6 +252,62 @@ def _read_salvage_materials(item_id: int) -> Optional[SalvageData]:
         else:
             rare.append(entry)
     return SalvageData(common, rare)
+
+
+def _resolve_item_formula_address(item_id: int) -> int:
+    try:
+        formula_ptr = Item.Customization.GetItemFormula(item_id)
+    except Exception:
+        formula_ptr = None
+    formula_address = 0
+    if formula_ptr:
+        try:
+            formula_address = int(formula_ptr)
+        except Exception:
+            formula_address = 0
+    if formula_address and _can_read_memory(formula_address, ctypes.sizeof(_ItemFormula)):
+        return formula_address
+    fallback_address = _resolve_formula_via_gwca(item_id)
+    if fallback_address and _can_read_memory(fallback_address, ctypes.sizeof(_ItemFormula)):
+        return fallback_address
+    return 0
+
+
+def _resolve_formula_via_gwca(item_id: int) -> int:
+    if _GWCA_GET_ITEM_FORMULA is None:
+        return 0
+    try:
+        item = Item.item_instance(item_id)
+    except Exception:
+        item = None
+    if not item:
+        return 0
+    try:
+        item.GetContext()
+    except Exception:
+        pass
+    try:
+        formula_id = int(getattr(item, "item_formula", 0)) & 0xFFFF
+    except Exception:
+        formula_id = 0
+    if not formula_id:
+        return 0
+    temp_item = ctypes.create_string_buffer(0x54)
+    try:
+        ctypes.c_uint16.from_buffer(temp_item, 0x48).value = formula_id
+    except Exception:
+        return 0
+    temp_ptr = ctypes.c_void_p(ctypes.addressof(temp_item))
+    try:
+        result = _GWCA_GET_ITEM_FORMULA(temp_ptr)
+    except Exception:
+        return 0
+    if not result:
+        return 0
+    try:
+        return int(result)
+    except Exception:
+        return 0
 
 
 def _get_salvage_data(model_id: int, item_id: int) -> Optional[SalvageData]:
