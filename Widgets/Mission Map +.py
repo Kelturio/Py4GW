@@ -15,7 +15,7 @@ from Py4GWCoreLib import Rarity
 from Py4GWCoreLib import Routines
 from Py4GWCoreLib import Map
 
-from typing import Union
+from typing import Union, Optional
 import math
 
 #region CONSTANTS
@@ -711,6 +711,19 @@ class MissionMap:
         self.default_marker = GLOBAL_CONFIGS.get("Default")
         self.chest_marker = GLOBAL_CONFIGS.get("Chest")
         self.merchant_marker = GLOBAL_CONFIGS.get("Merchant")
+
+        self.enable_persistent_enemies = False
+        self.persistent_enemy_markers: dict[int, dict] = {}
+        self.selected_persistent_marker_id: Optional[int] = None
+        self.selected_persistent_marker_name: str = ""
+        self.selected_persistent_marker_tooltip_pos: tuple[float, float] = (0.0, 0.0)
+
+        base_enemy_color = self.enemy_marker.Color.copy()
+        ghost_target = Color(0, 0, 0, base_enemy_color.get_a())
+        ghost_color = base_enemy_color.shift(ghost_target, 0.65)
+        ghost_color.set_a(int(base_enemy_color.get_a() * 0.35))
+        self.persistent_enemy_ghost_reference = ghost_target
+        self.persistent_enemy_ghost_color = ghost_color
                    
 
     def update(self):  
@@ -772,6 +785,9 @@ class MissionMap:
 
         LEFT = 0
         if PyImGui.is_mouse_clicked(LEFT) and not io.want_capture_mouse:
+            selected_marker_id = None
+            selected_marker_name = ""
+            tooltip_pos = (mx + 12.0, my + 12.0)
             if self.left <= mx <= self.right and self.top <= my <= self.bottom:
                 gx, gy = RawScreenToRawGamePos(
                     mx, my,
@@ -782,6 +798,46 @@ class MissionMap:
                     self.mission_map_screen_center_x, self.mission_map_screen_center_y
                 )
                 self.last_click_x, self.last_click_y = gx, gy
+
+                if self.enable_persistent_enemies and self.persistent_enemy_markers:
+                    click_pos = (mx, my)
+                    closest_distance = float("inf")
+                    click_threshold = max(8.0, self.enemy_marker.size * 1.5)
+                    for agent_id, record in self.persistent_enemy_markers.items():
+                        if record is None or record.get("world") is None:
+                            continue
+                        if record.get("in_range", True):
+                            continue
+
+                        wx, wy = record["world"]
+                        screen_x, screen_y = RawGamePosToScreen(
+                            wx, wy,
+                            self.zoom, self.mega_zoom,
+                            self.left_bound, self.top_bound, self.boundaries,
+                            self.pan_offset_x, self.pan_offset_y, self.scale_x, self.scale_y,
+                            self.mission_map_screen_center_x, self.mission_map_screen_center_y
+                        )
+                        distance = Utils.Distance(click_pos, (screen_x, screen_y))
+                        if distance <= click_threshold and distance < closest_distance:
+                            closest_distance = distance
+                            selected_marker_id = agent_id
+                            selected_marker_name = record.get("name") or GLOBAL_CACHE.Agent.GetName(agent_id)
+                            tooltip_pos = (mx + 12.0, my + 12.0)
+
+            if selected_marker_id is not None:
+                self.selected_persistent_marker_id = selected_marker_id
+                self.selected_persistent_marker_name = selected_marker_name
+                self.selected_persistent_marker_tooltip_pos = tooltip_pos
+            else:
+                self.selected_persistent_marker_id = None
+                self.selected_persistent_marker_name = ""
+
+        if self.enable_persistent_enemies and self.selected_persistent_marker_id is not None:
+            self.selected_persistent_marker_tooltip_pos = (mx + 12.0, my + 12.0)
+        elif not self.enable_persistent_enemies:
+            self.persistent_enemy_markers.clear()
+            self.selected_persistent_marker_id = None
+            self.selected_persistent_marker_name = ""
         # aC  ---
 
         self.renderer.world_space.set_world_space(True)
@@ -864,6 +920,7 @@ def DrawFrame():
     enemy_array = mission_map.raw_agent_array_handler.get_enemy_array() if mission_map.raw_agent_array_handler is not None else []
     ally_array = mission_map.raw_agent_array_handler.get_ally_array() if mission_map.raw_agent_array_handler is not None else []
     npc_minipet_array = mission_map.raw_agent_array_handler.get_npc_minipet_array() if mission_map.raw_agent_array_handler is not None else []
+    seen_enemy_ids: set[int] = set()
     for agent in neutral_array:
         x,y = _get_agent_xy(agent)
         if agent.is_living and agent.living_agent.is_alive:
@@ -909,6 +966,7 @@ def DrawFrame():
     for agent in enemy_array:
         x,y = _get_agent_xy(agent)
         if agent.is_living and agent.living_agent.is_alive:
+            seen_enemy_ids.add(agent.id)
             rotation_angle = agent.rotation_angle
             if not agent.living_agent.is_spawned:
                 if agent.living_agent.player_number in PET_MODEL_IDS:
@@ -937,11 +995,26 @@ def DrawFrame():
                     Overlay().DrawPoly      (x, y, radius=spirit_area-2, color=shifted_color.to_color(),numsegments=32,thickness=1.0)
                     Overlay().DrawPolyFilled(x, y, radius=spirit_area, color=shifted_color.to_color(),numsegments=32)
                     
+            if mission_map.enable_persistent_enemies:
+                base_color = marker.Color.copy()
+                ghost_color = base_color.shift(mission_map.persistent_enemy_ghost_reference, 0.65)
+                ghost_color.set_a(int(base_color.get_a() * 0.35))
+                mission_map.persistent_enemy_markers[agent.id] = {
+                    "world": (agent.x, agent.y),
+                    "color": base_color,
+                    "ghost_color": ghost_color,
+                    "name": GLOBAL_CACHE.Agent.GetName(agent.id),
+                    "in_range": True,
+                    "size": marker.size,
+                    "rotation": rotation_angle,
+                }
+                if mission_map.selected_persistent_marker_id == agent.id:
+                    mission_map.selected_persistent_marker_name = mission_map.persistent_enemy_markers[agent.id]["name"]
             alternate_color, size = _get_alternate_color(agent.id)
             Marker(marker.Marker, marker.Color, alternate_color, x, y, marker.size + size, offset_angle=rotation_angle).draw()
-        
-      
-    player_agent = None  
+
+
+    player_agent = None
     for agent in ally_array:
         if player_agent is None:
             if agent.id == mission_map.player_agent_id:
@@ -1019,13 +1092,96 @@ def DrawFrame():
             
             alternate_color, size = _get_alternate_color(agent.id)
             Marker(marker.Marker, marker.Color, alternate_color, x, y, marker.size + size, offset_angle=rotation_angle).draw()
-        
-    Overlay().EndDraw()  
-               
+
+    if mission_map.enable_persistent_enemies:
+        player_pos = (mission_map.player_x, mission_map.player_y)
+        for agent_id in list(mission_map.persistent_enemy_markers.keys()):
+            if agent_id in seen_enemy_ids:
+                continue
+
+            record = mission_map.persistent_enemy_markers.get(agent_id)
+            if record is None:
+                continue
+
+            if GLOBAL_CACHE.Agent.IsDead(agent_id):
+                if mission_map.selected_persistent_marker_id == agent_id:
+                    mission_map.selected_persistent_marker_id = None
+                    mission_map.selected_persistent_marker_name = ""
+                del mission_map.persistent_enemy_markers[agent_id]
+                continue
+
+            world_pos = record.get("world")
+            if world_pos is None:
+                record["in_range"] = True
+                continue
+
+            record["in_range"] = False
+            if Utils.Distance(player_pos, world_pos) <= Range.Compass.value:
+                record["in_range"] = True
+
+        for agent_id, record in mission_map.persistent_enemy_markers.items():
+            if record.get("in_range", True):
+                continue
+
+            world_pos = record.get("world")
+            if world_pos is None:
+                continue
+
+            screen_x, screen_y = RawGamePosToScreen(
+                world_pos[0], world_pos[1],
+                mission_map.zoom, mission_map.mega_zoom,
+                mission_map.left_bound, mission_map.top_bound, mission_map.boundaries,
+                mission_map.pan_offset_x, mission_map.pan_offset_y, mission_map.scale_x, mission_map.scale_y,
+                mission_map.mission_map_screen_center_x, mission_map.mission_map_screen_center_y
+            )
+
+            ghost_color = record.get("ghost_color", mission_map.persistent_enemy_ghost_color)
+            size = record.get("size", mission_map.enemy_marker.size)
+            rotation = record.get("rotation", 0.0)
+
+            Marker(
+                mission_map.enemy_marker.Marker,
+                ghost_color,
+                mission_map.enemy_marker.AlternateColor,
+                screen_x,
+                screen_y,
+                size,
+                offset_angle=rotation,
+            ).draw()
+
+        if mission_map.selected_persistent_marker_id is not None:
+            selected_record = mission_map.persistent_enemy_markers.get(mission_map.selected_persistent_marker_id)
+            if selected_record is None or selected_record.get("in_range", True):
+                mission_map.selected_persistent_marker_id = None
+                mission_map.selected_persistent_marker_name = ""
+            else:
+                name = selected_record.get("name") or mission_map.selected_persistent_marker_name or GLOBAL_CACHE.Agent.GetName(mission_map.selected_persistent_marker_id)
+                mission_map.selected_persistent_marker_name = name
+                PyImGui.set_next_window_pos(*mission_map.selected_persistent_marker_tooltip_pos)
+                PyImGui.set_next_window_bg_alpha(0.85)
+                flags = (
+                    PyImGui.WindowFlags.NoDecoration |
+                    PyImGui.WindowFlags.AlwaysAutoResize |
+                    PyImGui.WindowFlags.NoFocusOnAppearing |
+                    PyImGui.WindowFlags.NoMove |
+                    PyImGui.WindowFlags.NoInputs
+                )
+                if PyImGui.begin(f"##enemy_persistent_tooltip", flags):
+                    PyImGui.text(f"Enemy ID: {mission_map.selected_persistent_marker_id}")
+                    PyImGui.text(name)
+                PyImGui.end()
+
+    Overlay().EndDraw()
+
 def configure():
     global mission_map
     if PyImGui.begin("Mission Map Config"):
-        pass
+        enabled = mission_map.enable_persistent_enemies
+        mission_map.enable_persistent_enemies = PyImGui.checkbox("Persistent enemy markers", enabled)
+        if not mission_map.enable_persistent_enemies:
+            mission_map.persistent_enemy_markers.clear()
+            mission_map.selected_persistent_marker_id = None
+            mission_map.selected_persistent_marker_name = ""
     PyImGui.end()
 
 def main():  
