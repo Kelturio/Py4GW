@@ -17,6 +17,7 @@ from Py4GWCoreLib import Map
 
 from typing import Union
 import math
+import time
 
 #region CONSTANTS
 MODULE_NAME = "Mission Map"
@@ -711,16 +712,58 @@ class MissionMap:
         self.default_marker = GLOBAL_CONFIGS.get("Default")
         self.chest_marker = GLOBAL_CONFIGS.get("Chest")
         self.merchant_marker = GLOBAL_CONFIGS.get("Merchant")
-                   
 
-    def update(self):  
+        self.enable_enemy_tracking = False
+        self.tracked_enemy_positions: dict[int, dict[str, tuple[float, float]]] = {}
+        self.tracked_enemy_click_radius = 18.0
+        self.tracked_marker_tooltip_duration = 3.0
+        self.tracked_marker_click_info: dict[str, object] | None = None
+        self.last_map_timer_start = self.Map_load_timer.start_time
+
+    def _clear_tracked_enemies(self):
+        self.tracked_enemy_positions.clear()
+        self.tracked_marker_click_info = None
+
+    def _remove_tracked_enemy(self, agent_id: int):
+        if agent_id in self.tracked_enemy_positions:
+            del self.tracked_enemy_positions[agent_id]
+        if (self.tracked_marker_click_info is not None and
+                self.tracked_marker_click_info.get("agent_id") == agent_id):
+            self.tracked_marker_click_info = None
+
+    def render_tracked_marker_tooltip(self):
+        if self.tracked_marker_click_info is None:
+            return
+
+        if time.perf_counter() > self.tracked_marker_click_info.get("expire", 0.0):
+            self.tracked_marker_click_info = None
+            return
+
+        pos_x, pos_y = self.tracked_marker_click_info.get("position", (0.0, 0.0))
+        text = self.tracked_marker_click_info.get("text", "")
+
+        PyImGui.set_next_window_pos(pos_x, pos_y, PyImGui.ImGuiCond.Always)
+        if PyImGui.begin_tooltip():
+            PyImGui.text(text)
+            PyImGui.end_tooltip()
+
+
+    def update(self):
         if self.raw_agent_array_handler is None:
-            self.raw_agent_array_handler = RawAgentArray() 
+            self.raw_agent_array_handler = RawAgentArray()
         self.raw_agent_array_handler.update()
         self.agent_array = self.raw_agent_array_handler.get_array()
+
+        if self.last_map_timer_start != self.Map_load_timer.start_time:
+            self.last_map_timer_start = self.Map_load_timer.start_time
+            self._clear_tracked_enemies()
+
+        if not self.enable_enemy_tracking and self.tracked_enemy_positions:
+            self._clear_tracked_enemies()
+
         if not self.throttle_timer.IsExpired():
             return
-        self.throttle_timer.Reset()    
+        self.throttle_timer.Reset()
         self.mission_map_instance.GetContext()
         if not self.geometry:
             self.boundaries = Map.map_instance().map_boundaries
@@ -782,11 +825,43 @@ class MissionMap:
                     self.mission_map_screen_center_x, self.mission_map_screen_center_y
                 )
                 self.last_click_x, self.last_click_y = gx, gy
+
+                if self.enable_enemy_tracking and self.tracked_enemy_positions:
+                    for agent_id, data in self.tracked_enemy_positions.items():
+                        world_pos = data.get("world_pos")
+                        if world_pos is None:
+                            continue
+                        screen_pos = RawGamePosToScreen(
+                            world_pos[0],
+                            world_pos[1],
+                            self.zoom,
+                            self.mega_zoom,
+                            self.left_bound,
+                            self.top_bound,
+                            self.boundaries,
+                            self.pan_offset_x,
+                            self.pan_offset_y,
+                            self.scale_x,
+                            self.scale_y,
+                            self.mission_map_screen_center_x,
+                            self.mission_map_screen_center_y,
+                        )
+                        distance = Utils.Distance((mx, my), screen_pos)
+                        if distance <= self.tracked_enemy_click_radius:
+                            agent_name = GLOBAL_CACHE.Agent.GetName(agent_id)
+                            display_name = agent_name if agent_name else "Unknown"
+                            self.tracked_marker_click_info = {
+                                "agent_id": agent_id,
+                                "text": f"{agent_id} - {display_name}",
+                                "position": (mx, my),
+                                "expire": time.perf_counter() + self.tracked_marker_tooltip_duration,
+                            }
+                            break
         # aC  ---
 
         self.renderer.world_space.set_world_space(True)
         self.mega_zoom_renderer.world_space.set_world_space(True)
-        
+
         self.renderer.mask.set_rectangle_mask_bounds(self.left, self.top, self.width, self.height)
         self.mega_zoom_renderer.mask.set_rectangle_mask_bounds(self.left, self.top, self.width, self.height)
         
@@ -906,6 +981,9 @@ def DrawFrame():
             alternate_color, size = _get_alternate_color(agent.id)
             Marker(marker.Marker, marker.Color, alternate_color, x, y, marker.size + size, offset_angle=rotation_angle).draw()
         
+    tracking_enabled = mission_map.enable_enemy_tracking
+    player_position = (mission_map.player_x, mission_map.player_y)
+
     for agent in enemy_array:
         x,y = _get_agent_xy(agent)
         if agent.is_living and agent.living_agent.is_alive:
@@ -936,9 +1014,20 @@ def DrawFrame():
                 
                     Overlay().DrawPoly      (x, y, radius=spirit_area-2, color=shifted_color.to_color(),numsegments=32,thickness=1.0)
                     Overlay().DrawPolyFilled(x, y, radius=spirit_area, color=shifted_color.to_color(),numsegments=32)
-                    
+
             alternate_color, size = _get_alternate_color(agent.id)
             Marker(marker.Marker, marker.Color, alternate_color, x, y, marker.size + size, offset_angle=rotation_angle).draw()
+
+            if tracking_enabled:
+                distance_to_player = Utils.Distance((agent.x, agent.y), player_position)
+                if distance_to_player > Range.Compass.value:
+                    mission_map.tracked_enemy_positions[agent.id] = {
+                        "world_pos": (agent.x, agent.y),
+                    }
+                else:
+                    mission_map._remove_tracked_enemy(agent.id)
+        elif tracking_enabled:
+            mission_map._remove_tracked_enemy(agent.id)
         
       
     player_agent = None  
@@ -1020,12 +1109,46 @@ def DrawFrame():
             alternate_color, size = _get_alternate_color(agent.id)
             Marker(marker.Marker, marker.Color, alternate_color, x, y, marker.size + size, offset_angle=rotation_angle).draw()
         
-    Overlay().EndDraw()  
-               
+    if tracking_enabled and mission_map.tracked_enemy_positions:
+        tracked_color = mission_map.enemy_marker.Color.shift(mission_map.target_accent_color, 0.5)
+        for data in mission_map.tracked_enemy_positions.values():
+            world_pos = data.get("world_pos")
+            if world_pos is None:
+                continue
+            screen_pos = RawGamePosToScreen(
+                world_pos[0],
+                world_pos[1],
+                mission_map.zoom,
+                mission_map.mega_zoom,
+                mission_map.left_bound,
+                mission_map.top_bound,
+                mission_map.boundaries,
+                mission_map.pan_offset_x,
+                mission_map.pan_offset_y,
+                mission_map.scale_x,
+                mission_map.scale_y,
+                mission_map.mission_map_screen_center_x,
+                mission_map.mission_map_screen_center_y,
+            )
+            Marker(
+                mission_map.enemy_marker.Marker,
+                tracked_color,
+                mission_map.target_accent_color,
+                screen_pos[0],
+                screen_pos[1],
+                mission_map.enemy_marker.size + 2.0,
+            ).draw()
+
+    Overlay().EndDraw()
+
 def configure():
     global mission_map
     if PyImGui.begin("Mission Map Config"):
-        pass
+        mission_map.enable_enemy_tracking = PyImGui.checkbox(
+            "Track off-screen enemies",
+            mission_map.enable_enemy_tracking,
+        )
+        ImGui.show_tooltip("Store and render enemy markers when they leave compass range.")
     PyImGui.end()
 
 def main():  
@@ -1057,8 +1180,10 @@ def main():
             if mission_map.zoom >= 3.5:
                     mission_map.mega_zoom = FloatingSlider("Mega Zoom", mission_map.mega_zoom, mission_map.left, mission_map.bottom-27, 0.0, 15.0, Color(255, 255, 255, 255))
             else:
-                mission_map.mega_zoom = 0.0 
-    
+                mission_map.mega_zoom = 0.0
+
+            mission_map.render_tracked_marker_tooltip()
+
     except Exception as e:
         print(f"Error in main: {e}")
 
