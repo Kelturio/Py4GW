@@ -1,10 +1,16 @@
 import PySkillbar
 from Py4GWCoreLib.Py4GWcorelib import ActionQueueManager
+from Py4GWCoreLib.skill_template import SkillAttribute
+from Py4GWCoreLib.skill_template import SkillTemplate
+from Py4GWCoreLib.skill_template import encode_skill_template
+from Py4GWCoreLib.skill_template import make_skill_template
 
 class SkillbarCache:
-    def __init__(self, action_queue_manager):
-        self._skillbar_instance = PySkillbar.Skillbar()
+    def __init__(self, action_queue_manager, agent_cache, player_cache, skillbar_instance=None):
+        self._skillbar_instance = skillbar_instance or PySkillbar.Skillbar()
         self._action_queue_manager:ActionQueueManager = action_queue_manager
+        self._agent_cache = agent_cache
+        self._player_cache = player_cache
         
     def _update_cache(self):
         self._skillbar_instance.GetContext()
@@ -24,8 +30,50 @@ class SkillbarCache:
             skill_id = self.GetSkillIDBySlot(slot)
             if skill_id != 0:
                 skill_ids.append(skill_id)
-                
+
         return skill_ids
+
+    def GetSkillTemplate(self, *, primary=None, secondary=None, attributes=None, skills=None) -> SkillTemplate:
+        agent_id = self._player_cache.GetAgentID()
+
+        if skills is None:
+            skills = [self._skillbar_instance.GetSkill(slot).id.id for slot in range(1, 9)]
+
+        if primary is None or secondary is None:
+            primary_id, secondary_id = self._agent_cache.GetProfessionIDs(agent_id)
+            if primary is None:
+                primary = primary_id
+            if secondary is None:
+                secondary = secondary_id
+
+        if attributes is None:
+            attributes = self._agent_cache.GetAttributes(agent_id)
+
+        normalised_attributes: list[SkillAttribute] = []
+        for attribute in attributes:
+            if isinstance(attribute, SkillAttribute):
+                normalised_attributes.append(attribute)
+                continue
+
+            attr_id = getattr(attribute, "attribute", None)
+            points = getattr(attribute, "points", None)
+            if attr_id is None or points is None:
+                attr_id = getattr(attribute, "attribute_id", None)
+                points = getattr(attribute, "level", None)
+            if attr_id is None or points is None:
+                continue
+            normalised_attributes.append(SkillAttribute(int(attr_id), int(points)))
+
+        return make_skill_template(
+            primary=primary,
+            secondary=secondary,
+            skills=skills,
+            attributes=normalised_attributes,
+        )
+
+    def EncodeSkillTemplate(self, **kwargs) -> str:
+        template = self.GetSkillTemplate(**kwargs)
+        return encode_skill_template(template)
     
     def GetHeroSkillbar(self, hero_index):
         hero_skillbar = self._skillbar_instance.GetHeroSkillbar(hero_index)
