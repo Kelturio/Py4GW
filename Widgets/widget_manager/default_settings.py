@@ -173,6 +173,13 @@ global_widget_defaults = {
         "icon": "ICON_MAP",
         "quickdock": "True",
     },
+    "SalvageInfo": {
+        "enabled": "True",
+        "category": "Gameplay",
+        "subcategory": "Overlays",
+        "icon": "ICON_INFO_CIRCLE",
+        "quickdock": "False",
+    },
     "PCons": {
         "enabled": "False",
         "category": "Gameplay",
