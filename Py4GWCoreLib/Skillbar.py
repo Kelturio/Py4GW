@@ -2,6 +2,64 @@ import PySkillbar
 
 class SkillBar:
     @staticmethod
+    def EncodeSkillTemplate(
+        skill_ids=None,
+        attributes=None,
+        primary=None,
+        secondary=None,
+        hero_index=None,
+    ):
+        """Encode the current (or provided) skillbar into a template string.
+
+        Args:
+            skill_ids: Optional iterable of up to eight skill ids.  When not
+                provided the function will attempt to read the ids from the
+                live client via :mod:`GLOBAL_CACHE`.
+            attributes: Optional collection describing attribute investment.
+                Entries can either be :class:`AttributeEntry` objects,
+                ``(attribute_id, points)`` tuples, or PyAgent attribute
+                structures.
+            primary: Optional primary profession id.  When omitted the value is
+                resolved from the active agent.
+            secondary: Optional secondary profession id.  When omitted the
+                value is resolved from the active agent.
+            hero_index: Optional hero index (1-based) whose skillbar should be
+                encoded.  When omitted the player skillbar is used.
+        """
+
+        from Py4GWCoreLib.SkillTemplate import SkillTemplate, encode_skill_template
+
+        if skill_ids is not None and primary is not None and secondary is not None:
+            template = SkillTemplate(
+                primary=primary,
+                secondary=secondary,
+                attributes=list(attributes or []),
+                skills=list(skill_ids),
+            )
+            return encode_skill_template(template)
+
+        try:  # Lazy import to avoid circular dependency at module import time.
+            from Py4GWCoreLib import GLOBAL_CACHE
+        except ImportError as exc:  # pragma: no cover - defensive path
+            raise RuntimeError("GLOBAL_CACHE is not available") from exc
+
+        return GLOBAL_CACHE.SkillBar.EncodeSkillTemplate(
+            hero_index=hero_index,
+            primary=primary,
+            secondary=secondary,
+            attributes=attributes,
+            skill_ids=skill_ids,
+        )
+
+    @staticmethod
+    def DecodeSkillTemplate(build_code):
+        """Decode a template string into a :class:`SkillTemplate` instance."""
+
+        from Py4GWCoreLib.SkillTemplate import decode_skill_template
+
+        return decode_skill_template(build_code)
+
+    @staticmethod
     def LoadSkillTemplate(skill_template):
         """
         Purpose: Load a skill template by name.

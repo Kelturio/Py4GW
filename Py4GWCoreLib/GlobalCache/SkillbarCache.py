@@ -1,4 +1,5 @@
 import PySkillbar
+from typing import Optional
 from Py4GWCoreLib.Py4GWcorelib import ActionQueueManager
 
 class SkillbarCache:
@@ -17,15 +18,81 @@ class SkillbarCache:
         
     def GetSkillIDBySlot(self, slot):
         return self._skillbar_instance.GetSkill(slot).id.id
-    
+
     def GetSkillbar(self):
         skill_ids = []
         for slot in range(1, 9):  # Loop through skill slots 1 to 8
             skill_id = self.GetSkillIDBySlot(slot)
             if skill_id != 0:
                 skill_ids.append(skill_id)
-                
+
         return skill_ids
+
+    def EncodeSkillTemplate(
+        self,
+        hero_index: Optional[int] = None,
+        primary: Optional[int] = None,
+        secondary: Optional[int] = None,
+        attributes=None,
+        skill_ids=None,
+    ) -> str:
+        """Encode the specified skillbar into a Guild Wars build string."""
+
+        from Py4GWCoreLib.SkillTemplate import SkillTemplate, encode_skill_template
+
+        try:
+            from Py4GWCoreLib import GLOBAL_CACHE as global_cache
+        except ImportError:  # pragma: no cover - defensive path
+            global_cache = None
+
+        resolved_skills = list(skill_ids) if skill_ids is not None else None
+        agent_id = None
+
+        if hero_index and hero_index > 0:
+            hero_skills = self._skillbar_instance.GetHeroSkillbar(hero_index) or []
+            if resolved_skills is None:
+                resolved_skills = [skill.id.id for skill in hero_skills]
+            if global_cache is not None:
+                agent_id = global_cache.Party.Heroes.GetHeroAgentIDByPartyPosition(hero_index)
+                if not agent_id and hero_index > 0:
+                    agent_id = global_cache.Party.Heroes.GetHeroAgentIDByPartyPosition(hero_index - 1)
+        else:
+            if resolved_skills is None:
+                resolved_skills = [
+                    self._skillbar_instance.GetSkill(slot).id.id
+                    for slot in range(1, 9)
+                ]
+            if global_cache is not None:
+                agent_id = global_cache.Player.GetAgentID()
+
+        resolved_attributes = list(attributes) if attributes is not None else None
+        resolved_primary = primary
+        resolved_secondary = secondary
+
+        if global_cache is not None and agent_id:
+            if resolved_primary is None or resolved_secondary is None:
+                prof1, prof2 = global_cache.Agent.GetProfessionIDs(agent_id)
+                if resolved_primary is None:
+                    resolved_primary = prof1
+                if resolved_secondary is None:
+                    resolved_secondary = prof2
+            if resolved_attributes is None:
+                resolved_attributes = list(global_cache.Agent.GetAttributes(agent_id) or [])
+
+        if resolved_skills is None:
+            raise RuntimeError("Unable to resolve skill ids for template encoding")
+        if resolved_primary is None or resolved_secondary is None:
+            raise RuntimeError("Primary and secondary professions are required to encode a template")
+        if resolved_attributes is None:
+            resolved_attributes = []
+
+        template = SkillTemplate(
+            primary=resolved_primary,
+            secondary=resolved_secondary,
+            attributes=resolved_attributes,
+            skills=resolved_skills,
+        )
+        return encode_skill_template(template)
     
     def GetHeroSkillbar(self, hero_index):
         hero_skillbar = self._skillbar_instance.GetHeroSkillbar(hero_index)
