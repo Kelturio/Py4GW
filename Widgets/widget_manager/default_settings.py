@@ -54,6 +54,13 @@ global_widget_defaults = {
         "icon": "ICON_PEOPLE_CARRY",
         "quickdock": "True",
     },
+    "Hero Builds": {
+        "enabled": "True",
+        "category": "Gameplay",
+        "subcategory": "Utilities",
+        "icon": "ICON_USERS",
+        "quickdock": "True",
+    },
     "Pet Helper": {
         "enabled": "True",
         "category": "Bots",
